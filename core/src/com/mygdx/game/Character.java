@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Character implements ApplicationListener {
 
 	SpriteBatch batch;
 	Texture texture;
 	Sprite sprite;
+	float movementSpeed;
 	
 	public Character() {
 		create();
@@ -24,6 +24,7 @@ public class Character implements ApplicationListener {
 		batch = new SpriteBatch();
 		texture = new Texture(Gdx.files.internal("IceCharacter.png"));
 		sprite = new Sprite(texture);
+		movementSpeed = 2;
 	}
 
 	@Override
@@ -33,7 +34,6 @@ public class Character implements ApplicationListener {
 
 	@Override
 	public void render() {
-		 ScreenUtils.clear(0.57f, 0.77f, 0.85f, 1);
 		 if(Gdx.input.isKeyPressed(Input.Keys.A)) {
 			 moveLeft();
 		 }
@@ -48,6 +48,10 @@ public class Character implements ApplicationListener {
 		 
 		 if(Gdx.input.isKeyPressed(Input.Keys.S)) {
 			 moveDown();
+		 }
+		 
+		 if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			 
 		 }
 		 
 		 batch.begin();
@@ -76,19 +80,19 @@ public class Character implements ApplicationListener {
 	}
 	
 	public void moveLeft() {
-		sprite.translateX(-2f);
+		sprite.translateX(-movementSpeed);
 	}
 	
 	public void moveRight() {
-		sprite.translateX(2f);
+		sprite.translateX(movementSpeed);
 	}
 	
 	public void moveUp() {
-		sprite.translateY(2f);
+		sprite.translateY(movementSpeed);
 	}
 
 	public void moveDown() {
-		sprite.translateY(-2f);
+		sprite.translateY(-movementSpeed);
 	}
 	
 	public void setProjection(Matrix4 projection) {
