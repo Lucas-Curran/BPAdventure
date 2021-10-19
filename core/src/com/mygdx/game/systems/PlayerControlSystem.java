@@ -16,18 +16,12 @@ public class PlayerControlSystem extends IteratingSystem {
 	ComponentMapper<PlayerComponent> pm;
 	ComponentMapper<B2dBodyComponent> bodm;
 	ComponentMapper<StateComponent> sm;
-	boolean left, right, up, down;
 	
 	public PlayerControlSystem() {
 		super(Family.all(PlayerComponent.class).get());
 		pm = ComponentMapper.getFor(PlayerComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 		sm = ComponentMapper.getFor(StateComponent.class);
-		
-		left = Gdx.input.isKeyPressed(Input.Keys.A);
-		right = Gdx.input.isKeyPressed(Input.Keys.D);
-		up = Gdx.input.isKeyPressed(Input.Keys.W);
-		down = Gdx.input.isKeyPressed(Input.Keys.S);
 	}
 	
 	@Override
@@ -48,22 +42,23 @@ public class PlayerControlSystem extends IteratingSystem {
 			}
 		}
 		
-		if(left){
-			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -5f, 0.2f),b2body.body.getLinearVelocity().y);
+		if(Gdx.input.isKeyPressed(Input.Keys.A)){
+			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -30f, 0.2f),b2body.body.getLinearVelocity().y);
 		}
-		if(right){
-			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 5f, 0.2f),b2body.body.getLinearVelocity().y);
+		if(Gdx.input.isKeyPressed(Input.Keys.D)){
+			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 30f, 0.2f),b2body.body.getLinearVelocity().y);
 		}
 		
-		if(!left && !right){
+		if(!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)){
 			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
 		}
 		
-		if(up && 
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && 
 				(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
-			//b2body.body.applyForceToCenter(0, 3000,true);
-			b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
+			System.out.println("Jump");
+			b2body.body.applyForceToCenter(0, 3000,true);
+			b2body.body.applyLinearImpulse(0f, 20000f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
 			state.set(StateComponent.STATE_JUMPING);
-		}
+		}  
 	}
 }
