@@ -41,8 +41,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		debugRenderer = new Box2DDebugRenderer();
 		bodyFactory = BodyFactory.getInstance(world);
 		
-		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
 		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
+		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
 		
 		batch = new SpriteBatch();
 		
@@ -98,6 +98,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		fix.friction = 1f;
 		fix.shape = groundShape;
 		fix.density = 1f;
+		
 		
 		groundShape.setAsBox(10f, 1f);
 		groundBody.createFixture(fix);

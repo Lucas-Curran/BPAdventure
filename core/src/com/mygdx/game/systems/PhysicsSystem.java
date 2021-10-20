@@ -36,7 +36,7 @@ public class PhysicsSystem extends IteratingSystem {
         float frameTime = Math.min(deltaTime, 0.25f);
         accumulator += frameTime;
         if(accumulator >= MAX_STEP_TIME) {
-            world.step(MAX_STEP_TIME, 60, 60);
+            world.step(MAX_STEP_TIME, 10, 10);
             accumulator -= MAX_STEP_TIME;
  
             //Entity Queue

@@ -40,30 +40,30 @@ public class BodyFactory {
 		case STEEL:
 			fixtureDef.density = 1f;
 			fixtureDef.friction = 0.0f;
-			fixtureDef.restitution = 0.1f;
+			fixtureDef.restitution = 0.0f;
 			break;
 		case WOOD:
 			fixtureDef.density = 0.5f;
 			fixtureDef.friction = 0.0f;
-			fixtureDef.restitution = 0.3f;
+			fixtureDef.restitution = 0.0f;
 			break;
 		case RUBBER:
 			fixtureDef.density = 1f;
 			fixtureDef.friction = 0f;
-			fixtureDef.restitution = 1f;
+			fixtureDef.restitution = 0f;
 			break;
 		case STONE:
 			fixtureDef.density = 1f;
 			fixtureDef.friction = 0.0f;
-			fixtureDef.restitution = 0.01f;
+			fixtureDef.restitution = 0.00f;
 		case OTHER:
 			fixtureDef.density = 0f;
 			fixtureDef.friction = 0.0f;
-			fixtureDef.restitution = -0.1f;
+			fixtureDef.restitution = 0.0f;
 		default:
 			fixtureDef.density = 7f;
-			fixtureDef.friction = 0.5f;
-			fixtureDef.restitution = 0.3f;
+			fixtureDef.friction = 0.0f;
+			fixtureDef.restitution = 0.0f;
 		}
 		return fixtureDef;
 	}
@@ -75,6 +75,8 @@ public class BodyFactory {
 		boxBodyDef.position.x = posx;
 		boxBodyDef.position.y = posy;
 		boxBodyDef.fixedRotation = fixedRotation;
+		//boxBodyDef.angularDamping = 2.2f;
+		//boxBodyDef.linearDamping = 2.2f;
 
 		//create the body to attach said definition
 		Body boxBody = world.createBody(boxBodyDef);
