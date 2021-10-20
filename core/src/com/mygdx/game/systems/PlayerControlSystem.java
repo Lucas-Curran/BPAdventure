@@ -31,8 +31,9 @@ public class PlayerControlSystem extends IteratingSystem {
 		
 		float horizontalVel = 3.5f;
 		
+		System.out.println(b2body.body.getLinearVelocity().y);
 		
-		if(b2body.body.getLinearVelocity().y > 0){
+		if(b2body.body.getLinearVelocity().y > 0 || b2body.body.getLinearVelocity().y < 0 ) {
 			state.set(StateComponent.STATE_FALLING);
 		}
 		

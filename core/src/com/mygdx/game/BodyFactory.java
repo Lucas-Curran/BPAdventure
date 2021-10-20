@@ -62,7 +62,7 @@ public class BodyFactory {
 			fixtureDef.restitution = 0.0f;
 		default:
 			fixtureDef.density = 7f;
-			fixtureDef.friction = 0.0f;
+			fixtureDef.friction = 0.5f;
 			fixtureDef.restitution = 0.0f;
 		}
 		return fixtureDef;
