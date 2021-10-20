@@ -39,12 +39,12 @@ public class BodyFactory {
 		switch(material){
 		case STEEL:
 			fixtureDef.density = 1f;
-			fixtureDef.friction = 0.3f;
+			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.1f;
 			break;
 		case WOOD:
 			fixtureDef.density = 0.5f;
-			fixtureDef.friction = 0.7f;
+			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.3f;
 			break;
 		case RUBBER:
@@ -54,7 +54,7 @@ public class BodyFactory {
 			break;
 		case STONE:
 			fixtureDef.density = 1f;
-			fixtureDef.friction = 0.9f;
+			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.01f;
 		case OTHER:
 			fixtureDef.density = 0f;

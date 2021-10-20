@@ -70,7 +70,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		cam.getCamera().position.set(new Vector3(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0));
 		cam.getCamera().update();
 		
-		engine.update(1/30f);
+		engine.update(1/20f);
 		
 	}
 	
