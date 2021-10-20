@@ -29,6 +29,9 @@ public class PlayerControlSystem extends IteratingSystem {
 		B2dBodyComponent b2body = bodm.get(entity);
 		StateComponent state = sm.get(entity);
 		
+		float horizontalVel = 3.5f;
+		
+		
 		if(b2body.body.getLinearVelocity().y > 0){
 			state.set(StateComponent.STATE_FALLING);
 		}
@@ -43,10 +46,10 @@ public class PlayerControlSystem extends IteratingSystem {
 		}
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.A)){
-			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -30f, 0.2f),b2body.body.getLinearVelocity().y);
+			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.D)){
-			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 30f, 0.2f),b2body.body.getLinearVelocity().y);
+			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 		}
 		
 		if(!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)){
@@ -56,8 +59,8 @@ public class PlayerControlSystem extends IteratingSystem {
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && 
 				(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
 			System.out.println("Jump");
-			b2body.body.applyForceToCenter(0, 3000,true);
-			b2body.body.applyLinearImpulse(0f, 20000f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
+			b2body.body.applyForceToCenter(0, 30f,true);
+			b2body.body.applyLinearImpulse(0f, 50f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
 			state.set(StateComponent.STATE_JUMPING);
 		}  
 	}

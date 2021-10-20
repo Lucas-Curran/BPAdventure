@@ -18,7 +18,7 @@ public class Camera implements ApplicationListener {
 	@Override
 	public void create() {
 		cam = new OrthographicCamera();
-		viewport = new ExtendViewport(170, 170, cam);
+		viewport = new ExtendViewport(10, 10, cam);
 	}
 
 	@Override

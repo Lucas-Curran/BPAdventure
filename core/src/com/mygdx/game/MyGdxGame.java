@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -30,17 +31,18 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	RenderingSystem renderingSystem;
 	PooledEngine engine;
+	B2dBodyComponent b2dbody;
 	
 	@Override
 	public void create () {
 		cam = new Camera();
-		world = new World(new Vector2(0, -50f), true);
+		world = new World(new Vector2(0, -10f), true);
 		//world.setContactListener(new B2dContactListener());
 		debugRenderer = new Box2DDebugRenderer();
 		bodyFactory = BodyFactory.getInstance(world);
 		
-		bodyFactory.makeCirclePolyBody(90, 100, 100, BodyFactory.RUBBER, BodyType.DynamicBody, false);
-		bodyFactory.makeBoxPolyBody(110, 100, 50, 50, BodyFactory.STEEL, BodyType.DynamicBody, false);
+		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
+		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
 		
 		batch = new SpriteBatch();
 		
@@ -64,8 +66,11 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 		//bodyFactory.makeCirclePolyBody(10, 10, 2, BodyFactory.RUBBER, BodyType.DynamicBody, false);
+
+		cam.getCamera().position.set(new Vector3(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0));
+		cam.getCamera().update();
 		
-		engine.update(1/60f);
+		engine.update(1/30f);
 		
 	}
 	
@@ -83,19 +88,25 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		BodyDef groundBodyDef = new BodyDef();	
 		groundBodyDef.type = BodyDef.BodyType.StaticBody;
-		groundBodyDef.position.set(new Vector2(170f, 0.0f));
+		groundBodyDef.position.set(new Vector2(10f, 0.0f));
 		
 		Body groundBody = world.createBody(groundBodyDef);
 		
 		PolygonShape groundShape = new PolygonShape();
-		groundShape.setAsBox(180f, 2f);
-		groundBody.createFixture(groundShape, 0f);
+		FixtureDef fix = new FixtureDef();
+		fix.restitution = 0f;
+		fix.friction = 1f;
+		fix.shape = groundShape;
+		fix.density = 1f;
+		
+		groundShape.setAsBox(10f, 1f);
+		groundBody.createFixture(fix);
 		groundShape.dispose();
 		
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = engine.createEntity();
-		B2dBodyComponent b2dbody = engine.createComponent(B2dBodyComponent.class);
+		b2dbody = engine.createComponent(B2dBodyComponent.class);
 		TransformComponent position = engine.createComponent(TransformComponent.class);
 		TextureComponent texture = engine.createComponent(TextureComponent.class);
 		PlayerComponent player = engine.createComponent(PlayerComponent.class);
@@ -104,14 +115,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		StateComponent stateCom = engine.createComponent(StateComponent.class);
 
 		// create the data for the components and add them to the components
-		b2dbody.body = bodyFactory.makeCirclePolyBody(10,10,10, BodyFactory.OTHER, BodyType.DynamicBody,true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(3,3,1, BodyFactory.OTHER, BodyType.DynamicBody,true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(10,10,0);
 		//texture.region = atlas.findRegion("player");
 		type.type = TypeComponent.PLAYER;
 		stateCom.set(StateComponent.STATE_NORMAL);
 		b2dbody.body.setUserData(entity);
-
+		
 		// add the components to the entity
 		entity.add(b2dbody);
 		entity.add(position);
