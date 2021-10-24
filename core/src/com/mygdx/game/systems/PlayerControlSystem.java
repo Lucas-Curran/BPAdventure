@@ -30,9 +30,7 @@ public class PlayerControlSystem extends IteratingSystem {
 		StateComponent state = sm.get(entity);
 		
 		float horizontalVel = 3.5f;
-		
-		System.out.println(b2body.body.getLinearVelocity().y);
-		
+			
 		if(b2body.body.getLinearVelocity().y > 0 || b2body.body.getLinearVelocity().y < 0 ) {
 			state.set(StateComponent.STATE_FALLING);
 		}

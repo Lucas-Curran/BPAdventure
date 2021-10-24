@@ -40,7 +40,7 @@ static final float PPM = 32.0f;
 		
 		textureM = ComponentMapper.getFor(TextureComponent.class);
 		transformM = ComponentMapper.getFor(TransformComponent.class);
-		
+
 		renderQueue = new Array<Entity>();
 		this.batch = batch;
 		
@@ -69,6 +69,7 @@ static final float PPM = 32.0f;
 		super.update(deltaTime);
 		
 		renderQueue.sort(comparator);
+		cam.getCamera().setToOrtho(true);
 		cam.getCamera().update();
 		batch.setProjectionMatrix(cam.getCombined());
 		batch.enableBlending();
@@ -79,6 +80,7 @@ static final float PPM = 32.0f;
 			TransformComponent t = transformM.get(entity);
 			
 			if (tex.region == null || t.isHidden) {
+				System.out.println("Null texture");
 				continue;
 			}
 			
@@ -87,15 +89,13 @@ static final float PPM = 32.0f;
  
             float originX = width/2f;
             float originY = height/2f;
- 
+
             batch.draw(tex.region,
                     t.position.x - originX, t.position.y - originY,
                     originX, originY,
                     width, height,
                     PixelsToMeters(t.scale.x), PixelsToMeters(t.scale.y),
                     t.rotation);
-			
-			
 		}
 		
 		batch.end();

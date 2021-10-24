@@ -2,14 +2,16 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Camera implements ApplicationListener {
 	
 	OrthographicCamera cam;
-	ExtendViewport viewport;
+	Viewport viewport;
 
 	public Camera() {
 		create();
@@ -17,8 +19,11 @@ public class Camera implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		cam = new OrthographicCamera();
-		viewport = new ExtendViewport(10, 10, cam);
+		if (cam == null) {
+			cam = new OrthographicCamera(Gdx.graphics.getWidth() / 25, Gdx.graphics.getHeight() / 25);
+			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
+			viewport = new FillViewport(cam.viewportWidth, cam.viewportHeight, cam);
+		}
 	}
 
 	@Override
@@ -46,7 +51,7 @@ public class Camera implements ApplicationListener {
 
 	@Override
 	public void dispose() {
-		
+	
 	}
 	
 	public OrthographicCamera getCamera() {
