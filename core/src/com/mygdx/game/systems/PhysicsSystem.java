@@ -44,8 +44,8 @@ public class PhysicsSystem extends IteratingSystem {
                 TransformComponent tfm = tm.get(entity);
                 B2dBodyComponent bodyComp = bm.get(entity);
                 Vector2 position = bodyComp.body.getPosition();
-                tfm.position.x = position.x;
-                tfm.position.y = position.y;
+                //tfm.position.x = position.x;
+                //tfm.position.y = position.y;
                 tfm.rotation = bodyComp.body.getAngle() * MathUtils.radiansToDegrees;
             }
         }

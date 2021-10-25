@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -12,6 +13,11 @@ public class Camera implements ApplicationListener {
 	
 	OrthographicCamera cam;
 	Viewport viewport;
+	
+	static final float PPM = 32.0f;
+	
+	static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth()/PPM;
+	static final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight()/PPM;
 
 	public Camera() {
 		create();
@@ -20,9 +26,10 @@ public class Camera implements ApplicationListener {
 	@Override
 	public void create() {
 		if (cam == null) {
-			cam = new OrthographicCamera(Gdx.graphics.getWidth() / 25, Gdx.graphics.getHeight() / 25);
+			cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
-			viewport = new FillViewport(cam.viewportWidth, cam.viewportHeight, cam);
+			viewport = new ExtendViewport(cam.viewportWidth, cam.viewportHeight, cam);
+			cam.position.set(FRUSTUM_WIDTH / 2f, FRUSTUM_HEIGHT / 2f, 0);
 		}
 	}
 

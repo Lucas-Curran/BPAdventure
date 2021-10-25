@@ -16,7 +16,7 @@ import com.mygdx.game.components.TransformComponent;
 
 public class RenderingSystem extends SortedIteratingSystem {
 	
-static final float PPM = 32.0f;
+	static final float PPM = 32.0f;
 	
 	static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth()/PPM;
 	static final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight()/PPM;
@@ -45,8 +45,6 @@ static final float PPM = 32.0f;
 		this.batch = batch;
 		
 		cam = new Camera();
-		cam.getCamera().position.set(FRUSTUM_WIDTH / 2f, FRUSTUM_HEIGHT / 2f, 0);
-		
 	}
 	
 	public static Vector2 getScreenSizeInMeters() {
@@ -69,7 +67,6 @@ static final float PPM = 32.0f;
 		super.update(deltaTime);
 		
 		renderQueue.sort(comparator);
-		cam.getCamera().setToOrtho(true);
 		cam.getCamera().update();
 		batch.setProjectionMatrix(cam.getCombined());
 		batch.enableBlending();
@@ -79,6 +76,7 @@ static final float PPM = 32.0f;
 			TextureComponent tex = textureM.get(entity);
 			TransformComponent t = transformM.get(entity);
 			
+			
 			if (tex.region == null || t.isHidden) {
 				System.out.println("Null texture");
 				continue;
@@ -86,10 +84,12 @@ static final float PPM = 32.0f;
 			
 			float width = tex.region.getRegionWidth();
             float height = tex.region.getRegionHeight();
- 
-            float originX = width/2f;
-            float originY = height/2f;
+            
+            float originX = width/2;
+            float originY = height/2;
 
+            System.out.println(getScreenSizeInMeters());
+            
             batch.draw(tex.region,
                     t.position.x - originX, t.position.y - originY,
                     originX, originY,

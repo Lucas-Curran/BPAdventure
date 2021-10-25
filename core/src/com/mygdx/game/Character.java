@@ -45,7 +45,6 @@ public class Character implements ApplicationListener {
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 		gameWorld.getInstance().setContactListener(new B2dContactListener());
 		
-		
 		batch = new SpriteBatch();
 		
 		renderingSystem = new RenderingSystem(batch);
@@ -74,9 +73,9 @@ public class Character implements ApplicationListener {
 
 	@Override
 	public void render() {
-		pooledEngine.update(1/20f);
-		cam.getCamera().position.lerp(new Vector3(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0), 0.05f);
+		cam.getCamera().position.set(new Vector3(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0));
 		cam.getCamera().update();
+		pooledEngine.update(1/20f);
 	}
 
 	@Override
@@ -129,9 +128,9 @@ public class Character implements ApplicationListener {
 		StateComponent stateCom = pooledEngine.createComponent(StateComponent.class);
 
 		// create the data for the components and add them to the components
-		b2dbody.body = bodyFactory.makeCirclePolyBody(3,3, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(3, 3, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
-		position.position.set(3, 3, 0);
+		position.position.set(cam.getCamera().position.x, cam.getCamera().position.y, 0);
 		texture.region = tex;
 		System.out.println(texture.region);
 		type.type = TypeComponent.PLAYER;
