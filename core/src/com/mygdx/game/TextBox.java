@@ -30,7 +30,7 @@ public class TextBox  {
 		this.font = font;
 		stage = new Stage();
 		table = new Table();
-		label = new Label("One day you die the end.", new Label.LabelStyle(font, Color.WHITE));
+		label = new Label("If ur reading this, you stupid", new Label.LabelStyle(font, Color.WHITE));
 		group = new Group();
 		tex = new Texture(Gdx.files.internal("textbox2.png"));
 		img = new Image(tex);

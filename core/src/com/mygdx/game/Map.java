@@ -23,7 +23,7 @@ public class Map implements Screen {
 	
 	public Map(final MyGdxGame game) {
 		this.game = game;
-		font = new BitmapFont(Gdx.files.internal("*.fnt"));
+		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		textBox = new TextBox(font);
 	}
 	
