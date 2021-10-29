@@ -26,7 +26,7 @@ public class Map implements Screen {
 	public void show() {
 		stage = new Stage();
 		table = new Table();
-		font = new BitmapFont(Gdx.files.internal("opensans-regular.ttf"));
+		font = new BitmapFont(Gdx.files.internal("*.fnt"));
 		label = new Label("IM WRITING THIS", new LabelStyle(font, Color.WHITE));
 	}
 
