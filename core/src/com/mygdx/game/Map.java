@@ -20,11 +20,13 @@ public class Map implements Screen {
 	TextBox textBox;
 	Game game;
 	BitmapFont font;
+	Stage stage;
 	
 	public Map(final MyGdxGame game) {
 		this.game = game;
+		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
-		textBox = new TextBox(font);
+		textBox = new TextBox(font, stage);
 	}
 	
 	@Override
@@ -34,7 +36,8 @@ public class Map implements Screen {
 
 	@Override
 	public void render(float delta) {
-		textBox.createTextBox(delta, "Hello");
+		textBox.createTextBox(delta, "Bunch of cool filler text, man "
+				+ "isn't this just absolutely wonderful filler text. God it's so hot.", Color.WHITE);
 	}
 
 	@Override
@@ -62,7 +65,7 @@ public class Map implements Screen {
 
 	@Override
 	public void dispose() {
-				
+		textBox.dispose();
 	}
 	
 }

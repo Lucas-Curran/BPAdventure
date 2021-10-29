@@ -13,9 +13,7 @@ public class MyGdxGame extends Game {
 
 	Camera cam;
 	Character character;
-	TextBox text;
 	BitmapFont font;
-	Skin skin;
 	Map map;
 	
 	@Override
@@ -23,8 +21,6 @@ public class MyGdxGame extends Game {
 		cam = new Camera();
 		character = new Character();
 		font = new BitmapFont();
-		text = new TextBox(font);
-		skin = new Skin();
 		this.setScreen(new Map(this));
 	}
 
@@ -39,7 +35,6 @@ public class MyGdxGame extends Game {
 	public void dispose() {
 		cam.dispose();
 		character.dispose();
-		text.dispose();
 	}
 	
 	@Override
