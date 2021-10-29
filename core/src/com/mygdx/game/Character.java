@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,6 +30,7 @@ public class Character implements ApplicationListener {
 	SpriteBatch batch;
 	Camera cam;
 	TextureAtlas textureAtlas;
+
 	
 	public Character() {
 		create();
@@ -148,11 +150,15 @@ public class Character implements ApplicationListener {
 
 		// add the entity to the engine	
 		pooledEngine.addEntity(entity);
-
+		
 	}
 	
-	public void setProjection(Matrix4 projection) {
-		
+	public float getPositionX() {
+		return b2dbody.body.getPosition().x;
+	}
+	
+	public float getPositionY() {
+		return b2dbody.body.getPosition().y;
 	}
 	
 }
