@@ -88,8 +88,6 @@ public class RenderingSystem extends SortedIteratingSystem {
             float originX = width/2;
             float originY = height/2;
 
-            System.out.println(getScreenSizeInMeters());
-            
             batch.draw(tex.region,
                     t.position.x - originX, t.position.y - originY,
                     originX, originY,

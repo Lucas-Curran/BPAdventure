@@ -1,12 +1,16 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,31 +18,44 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class TextBox  {
 	
-	private BitmapFont font;
-	private SpriteBatch batch;
-	private FreeTypeFontGenerator generator;
-	private FreeTypeFontParameter parameter;
+	private Stage stage;
+	private Table table;
 	private Label label;
+	private Group group;
+	private Image img;
+	private Texture tex;
+	private BitmapFont font;
 	
 	public TextBox(BitmapFont font) {
 		this.font = font;
-		batch = new SpriteBatch();
-		generator = new FreeTypeFontGenerator(Gdx.files.internal("opensans-regular.ttf"));
-		parameter = new FreeTypeFontParameter();
+		stage = new Stage();
+		table = new Table();
+		label = new Label("One day you die the end.", new Label.LabelStyle(font, Color.WHITE));
+		group = new Group();
+		tex = new Texture(Gdx.files.internal("textbox2.png"));
+		img = new Image(tex);
 	}
 	
-	public void createTextBox(String text, LabelStyle labelStyle, float x, float y) {
-//		parameter.size = 20;
-//		font = generator.generateFont(parameter);
-//		batch.begin();
-//		font.draw(batch, text, x, y);
-//		batch.end();
-		label = new Label(text, labelStyle);
-		label.setFontScale(.2f);	
+	public void createTextBox(Float delta, String text) {
+		stage.addActor(table);
+		
+		group.addActor(img);
+		group.addActor(label);
+		
+		table.setPosition(0, 0);
+		table.add(group).bottom().expandX().padBottom(20).padLeft(35);
+
+		label.setPosition(img.getX() + 30, img.getY() + img.getHeight() / 3.4f);
+		img.setPosition(0, 0);
+		
+		img.setScaleY(.5f);
+		
+		stage.act(delta);
+		stage.draw();
 	}
 	
 	public void dispose() {
-		generator.dispose();
+		
 	}
 	
 }

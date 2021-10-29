@@ -4,49 +4,42 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class Map implements Screen {
 
-	private Stage stage;
-	private Table table;
-	private Label label;
-	private BitmapFont font;
-	private Game game;
+	TextBox textBox;
+	Game game;
+	BitmapFont font;
 	
 	public Map(final MyGdxGame game) {
 		this.game = game;
+		font = new BitmapFont(Gdx.files.internal("*.fnt"));
+		textBox = new TextBox(font);
 	}
 	
 	@Override
 	public void show() {
-		stage = new Stage();
-		table = new Table();
-		font = new BitmapFont(Gdx.files.internal("*.fnt"));
-		label = new Label("IM WRITING THIS", new LabelStyle(font, Color.WHITE));
+		
 	}
 
 	@Override
 	public void render(float delta) {
-		
-		table.top();
-		table.setFillParent(true);
-		table.add(label).center();
-		
-		stage.addActor(table);
-		
-		stage.act(delta);
-		stage.draw();
+		textBox.createTextBox(delta, "Hello");
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+		//stage.setViewport(new ExtendViewport(width, height));
 	}
 
 	@Override
@@ -69,7 +62,7 @@ public class Map implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();		
+				
 	}
 	
 }

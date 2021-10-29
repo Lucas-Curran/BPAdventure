@@ -134,7 +134,6 @@ public class Character implements ApplicationListener {
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(cam.getCamera().position.x, cam.getCamera().position.y, 0);
 		texture.region = tex;
-		System.out.println(texture.region);
 		type.type = TypeComponent.PLAYER;
 		stateCom.set(StateComponent.STATE_NORMAL);
 		b2dbody.body.setUserData(entity);

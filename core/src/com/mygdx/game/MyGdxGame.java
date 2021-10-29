@@ -16,6 +16,7 @@ public class MyGdxGame extends Game {
 	TextBox text;
 	BitmapFont font;
 	Skin skin;
+	Map map;
 	
 	@Override
 	public void create() {
@@ -31,6 +32,7 @@ public class MyGdxGame extends Game {
 	public void render() {
 		ScreenUtils.clear(0, 0, 0, 1);
 		character.render();
+		super.render();
 	}
 	
 	@Override
