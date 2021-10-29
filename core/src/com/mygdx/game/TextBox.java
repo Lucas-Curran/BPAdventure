@@ -2,9 +2,12 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Gdx2DPixmap;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -18,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
-public class TextBox  {
+public class TextBox {
 	
 	private Stage stage;
 	private Table table;
@@ -32,7 +35,7 @@ public class TextBox  {
 	private float ctimePerCharacter;
 	private float widthOffset;
 	private float heightOffset;
-	
+	private boolean writing;
 	
 	public TextBox(BitmapFont font, Stage stage) {
 		this.font = font;
@@ -46,17 +49,26 @@ public class TextBox  {
 		numChars = 0;
 		ctimePerCharacter = 0f;
 		
-		widthOffset = 50;
-		heightOffset = 50;
+		widthOffset = 60;
+		heightOffset = 15;
 		
 		label = new Label("", new Label.LabelStyle(font, null));
 		label.setWrap(true);
 		label.setWidth(img.getWidth() - widthOffset);
 		label.setAlignment(Align.topLeft);
 		label.setScaleX(.1f);
+		
+		writing = false;
 	}
 	
 	public void createTextBox(float delta, String text, Color color) {
+		
+		if (text.length() > numChars) {
+			writing = true;
+		} else {
+			writing = false;
+			// TODO: Add arrow animation/exit option
+		}
 		
 		if (numChars < text.length()) {
 			ctimePerCharacter += delta;
@@ -83,7 +95,7 @@ public class TextBox  {
 		table.setPosition(0, 0);
 		table.add(group).bottom().expandX().padBottom(20).padLeft(35);
 
-		label.setPosition(img.getX() + 30, img.getY() + img.getHeight() - 15);
+		label.setPosition(img.getX() + widthOffset / 2, img.getY() + img.getHeight() - heightOffset);
 		img.setPosition(0, 0);
 
 		stage.act(delta);
@@ -93,6 +105,14 @@ public class TextBox  {
 	public void dispose() {
 		stage.dispose();
 		tex.dispose();
+	}
+	
+	public boolean isWriting() {
+		return writing;
+	}
+	
+	public void setWritingSpeed(float timePerCharacter) {
+		this.timePerCharacter = timePerCharacter;
 	}
 	
 }

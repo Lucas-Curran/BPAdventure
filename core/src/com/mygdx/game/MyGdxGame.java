@@ -12,29 +12,22 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MyGdxGame extends Game {
 
 	Camera cam;
-	Character character;
-	BitmapFont font;
-	Map map;
 	
 	@Override
 	public void create() {
 		cam = new Camera();
-		character = new Character();
-		font = new BitmapFont();
 		this.setScreen(new Map(this));
 	}
 
 	@Override
 	public void render() {
 		ScreenUtils.clear(0, 0, 0, 1);
-		character.render();
 		super.render();
 	}
 	
 	@Override
 	public void dispose() {
 		cam.dispose();
-		character.dispose();
 	}
 	
 	@Override
