@@ -16,7 +16,7 @@ public class MyGdxGame extends Game {
 	@Override
 	public void create() {
 		cam = new Camera();
-		this.setScreen(new Map(this));
+		this.setScreen(Map.getInstance());
 	}
 
 	@Override

@@ -21,15 +21,14 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 public class Map implements Screen, InputProcessor {
 
 	private TextBox textBox;
-	private Game game;
+	private static Game game;
 	private BitmapFont font;
 	private Stage stage;
 	private InputMultiplexer inputMultiplexer;
 	private Character character;
+	private static Map instance;
 	
-	
-	public Map(final MyGdxGame game) {
-		this.game = game;
+	private Map() {
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		textBox = new TextBox(font, stage);
@@ -37,6 +36,14 @@ public class Map implements Screen, InputProcessor {
 		inputMultiplexer.addProcessor(this);
 		character = new Character();
 		Gdx.input.setInputProcessor(inputMultiplexer);
+	}
+	
+	static {
+		instance = new Map();
+	}
+	
+	public static Map getInstance() {
+		return instance;
 	}
 	
 	@Override
@@ -47,8 +54,8 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		character.render();
-		textBox.createTextBox(delta, "Bunch of cool filler text, man "
-				+ "isn't this just absolutely wonderful filler text. God it's so hot.", Color.WHITE);
+		textBox.createTextBox(delta, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+				+ "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", Color.WHITE);
 	}
 
 	@Override
@@ -59,7 +66,6 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -95,6 +101,10 @@ public class Map implements Screen, InputProcessor {
 	public boolean keyUp(int keycode) {
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
 			textBox.setWritingSpeed(0.08f);
+		}
+		
+		if (Input.Keys.R == keycode && !textBox.isWriting()) {
+			textBox.hideTextBow();
 		}
 		return false;
 	}
@@ -133,6 +143,10 @@ public class Map implements Screen, InputProcessor {
 	public boolean scrolled(float amountX, float amountY) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public TextBox getTextBox() {
+		return textBox;
 	}
 	
 }
