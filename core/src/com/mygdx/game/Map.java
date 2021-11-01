@@ -31,7 +31,7 @@ public class Map implements Screen, InputProcessor {
 	private Map() {
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
-		textBox = new TextBox(font, stage);
+		textBox = new TextBox(font, stage, "", Color.WHITE);
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(this);
 		character = new Character();
@@ -48,14 +48,13 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
-		
+		textBox.setText("you are big gay");
 	}
 
 	@Override
 	public void render(float delta) {
-		character.render();
-		textBox.createTextBox(delta, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
-				+ "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", Color.WHITE);
+		character.render();		
+		textBox.renderTextBox(delta);
 	}
 
 	@Override
@@ -101,10 +100,17 @@ public class Map implements Screen, InputProcessor {
 	public boolean keyUp(int keycode) {
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
 			textBox.setWritingSpeed(0.08f);
-		}
+			return false;
+		} 
 		
 		if (Input.Keys.R == keycode && !textBox.isWriting()) {
 			textBox.hideTextBow();
+		}
+		
+		if (Input.Keys.T == keycode && !textBox.isWriting() && !textBox.isVisible()) {
+			textBox.setColor(Color.FOREST);
+			textBox.setText("To my knowledge, Delta time is the time gap between "
+					+ "the previous and current frame.");
 		}
 		return false;
 	}

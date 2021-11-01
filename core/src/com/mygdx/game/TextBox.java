@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -47,10 +48,16 @@ public class TextBox {
 	private float elapsedTime;
 	private SpriteBatch batch;
 	private Animation<TextureRegion> anim;
+	private String text;
+	private String originalText;
+	private Color color;
 	
-	public TextBox(BitmapFont font, Stage stage) {
+	public TextBox(BitmapFont font, Stage stage, String text, Color color) {
 		this.font = font;
 		this.stage = stage;
+		this.text = text;
+		this.color = color;
+		
 		table = new Table();
 		group = new Group();
 		tex = new Texture(Gdx.files.internal("textbox2.png"));
@@ -74,29 +81,6 @@ public class TextBox {
 		anim = new Animation<TextureRegion>(.25f, Utilities.spriteSheetToFrames(textAni, 10, 1));
 		
 		writing = false;
-	}
-	
-	public void createTextBox(float delta, String text, Color color) {
-		if (text.length() > numChars) {
-			writing = true;
-		} else {
-			writing = false;
-		}
-		
-		if (numChars < text.length()) {
-			ctimePerCharacter += delta;
-			if (ctimePerCharacter >= timePerCharacter) {
-				ctimePerCharacter = 0;
-				numChars++;
-			}
-		}
-		
-		
-		text = text.substring(0, numChars);
-		
-		label.setColor(color);
-		label.setText(text);
-		
 		
 		stage.addActor(table);
 		
@@ -106,22 +90,40 @@ public class TextBox {
 		group.setScale(.5f);
 		
 		table.setPosition(0, 0);
-		table.add(group).bottom().expandX().padBottom(20).padLeft(35);
+		table.add(group).bottom().padBottom(20).padLeft(35);
 
 		label.setPosition(img.getX() + widthOffset / 2, img.getY() + img.getHeight() - heightOffset);
 		img.setPosition(0, 0);
+	}
+	
+	public void renderTextBox(float delta) {
+		
+		text = originalText.substring(0, numChars);
+		label.setColor(color);
+		label.setText(text);
+		
+		if (originalText.length() == numChars) {
+			writing = false;
+		}
+		
+		if (originalText.length() > numChars) {
+			writing = true;
+			ctimePerCharacter += delta;
+			if (ctimePerCharacter >= timePerCharacter) {
+				ctimePerCharacter = 0;
+				numChars++;
+			}
+		} 
 		
 		stage.act(delta);
 		stage.draw();
 		
 		if (!writing && table.isVisible()) {
 			elapsedTime += Gdx.graphics.getDeltaTime();
-			// TODO: Add arrow animation/exit option
 			batch.begin();
 			batch.draw(anim.getKeyFrame(elapsedTime, true), img.getX(Align.center) - 30, label.getHeight() + 8);
 			batch.end(); 
-		}
-		
+		}	
 	}
 	
 	public void dispose() {
@@ -142,8 +144,24 @@ public class TextBox {
 		table.setVisible(false);  
 	}
 	
+	public void showTextBox() {
+		table.setVisible(true);
+	}
+	
 	public boolean isVisible() {
 		return table.isVisible();
+	}
+	
+	public void setText(String text) {
+		numChars = 0;
+		this.text = text;
+		originalText = text;
+		timePerCharacter = 0.08f;
+		table.setVisible(true);
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 }
