@@ -61,7 +61,7 @@ public class Character implements ApplicationListener {
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
 		
-		room.makeSquareRoom(9, -10, 20, 5);
+		room.makeSquareRoom(9, 5, 5, 1);
 		
 		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
