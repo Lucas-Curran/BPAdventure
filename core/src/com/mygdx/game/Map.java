@@ -86,6 +86,7 @@ public class Map implements Screen, InputProcessor {
 		stage.dispose();
 		font.dispose();
 		game.dispose();
+		
 	}
 
 	@Override
@@ -100,7 +101,7 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
-			textBox.setWritingSpeed(0.08f);
+			textBox.setWritingSpeed(0.045f);
 			return true;
 		} 
 		
@@ -113,7 +114,12 @@ public class Map implements Screen, InputProcessor {
 				}
 			} else {
 				textBox.setColor(Color.FOREST);
-				textBox.setText(new String[]{"This", "Is", "A", "Big", "Ole", "Waste", "Of", "Time", "."});
+				textBox.setText(new String[]{
+						"This is the first sentence", 
+						"This is the second sentence", 
+						"This is the third sentence", 
+						"This is the fourth sentence", 
+						"This is the fifth sentence"});
 			}
 			return true;
 		}

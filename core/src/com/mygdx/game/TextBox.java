@@ -63,7 +63,7 @@ public class TextBox {
 		tex = new Texture(Gdx.files.internal("textbox2.png"));
 		img = new Image(tex);
 		
-		timePerCharacter = 0.08f;
+		timePerCharacter = 0.045f;
 		numChars = 0;
 		ctimePerCharacter = 0f;
 		
@@ -162,7 +162,7 @@ public class TextBox {
 		textSequence = 0;
 		this.text = text;
 		originalText = text;
-		timePerCharacter = 0.08f;
+		timePerCharacter = 0.045f;
 		table.setVisible(true);
 	}
 	
@@ -181,7 +181,7 @@ public class TextBox {
 	public void setTextSequence(int textSequence) {
 		numChars = 0;
 		this.textSequence = textSequence;
-		timePerCharacter = 0.08f;
+		timePerCharacter = 0.045f;
 	}
 	
 }
