@@ -48,14 +48,14 @@ public class TextBox {
 	private float elapsedTime;
 	private SpriteBatch batch;
 	private Animation<TextureRegion> anim;
-	private String text;
-	private String originalText;
+	private String[] text;
+	private String[] originalText;
 	private Color color;
+	private int textSequence;
 	
-	public TextBox(BitmapFont font, Stage stage, String text, Color color) {
+	public TextBox(BitmapFont font, Stage stage, Color color) {
 		this.font = font;
 		this.stage = stage;
-		this.text = text;
 		this.color = color;
 		
 		table = new Table();
@@ -94,36 +94,41 @@ public class TextBox {
 
 		label.setPosition(img.getX() + widthOffset / 2, img.getY() + img.getHeight() - heightOffset);
 		img.setPosition(0, 0);
+		
+		textSequence = 0;
+		
+		table.setVisible(false);
 	}
 	
 	public void renderTextBox(float delta) {
-		
-		text = originalText.substring(0, numChars);
-		label.setColor(color);
-		label.setText(text);
-		
-		if (originalText.length() == numChars) {
-			writing = false;
-		}
-		
-		if (originalText.length() > numChars) {
-			writing = true;
-			ctimePerCharacter += delta;
-			if (ctimePerCharacter >= timePerCharacter) {
-				ctimePerCharacter = 0;
-				numChars++;
+		if (isVisible()) {
+			String stringText = originalText[textSequence].substring(0, numChars);
+			label.setColor(color);
+			label.setText(stringText);
+
+			if (originalText[textSequence].length() == numChars) {
+				writing = false;
 			}
-		} 
-		
-		stage.act(delta);
-		stage.draw();
-		
-		if (!writing && table.isVisible()) {
-			elapsedTime += Gdx.graphics.getDeltaTime();
-			batch.begin();
-			batch.draw(anim.getKeyFrame(elapsedTime, true), img.getX(Align.center) - 30, label.getHeight() + 8);
-			batch.end(); 
-		}	
+
+			if (originalText[textSequence].length() > numChars) {
+				writing = true;
+				ctimePerCharacter += delta;
+				if (ctimePerCharacter >= timePerCharacter) {
+					ctimePerCharacter = 0;
+					numChars++;
+				}
+			} 
+
+			stage.act(delta);
+			stage.draw();
+
+			if (!writing) {
+				elapsedTime += Gdx.graphics.getDeltaTime();
+				batch.begin();
+				batch.draw(anim.getKeyFrame(elapsedTime, true), img.getX(Align.center) - 30, label.getHeight() + 8);
+				batch.end(); 
+			}
+		}
 	}
 	
 	public void dispose() {
@@ -152,16 +157,31 @@ public class TextBox {
 		return table.isVisible();
 	}
 	
-	public void setText(String text) {
+	public void setText(String[] text) {
 		numChars = 0;
+		textSequence = 0;
 		this.text = text;
 		originalText = text;
 		timePerCharacter = 0.08f;
 		table.setVisible(true);
 	}
+	
+	public String[] getText() {
+		return text;
+	}
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public int getTextSequence() {
+		return textSequence;
+	}
+	
+	public void setTextSequence(int textSequence) {
+		numChars = 0;
+		this.textSequence = textSequence;
+		timePerCharacter = 0.08f;
 	}
 	
 }

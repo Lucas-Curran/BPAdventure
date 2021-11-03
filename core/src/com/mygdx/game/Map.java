@@ -31,7 +31,7 @@ public class Map implements Screen, InputProcessor {
 	private Map() {
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
-		textBox = new TextBox(font, stage, "", Color.WHITE);
+		textBox = new TextBox(font, stage, Color.WHITE);
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(this);
 		character = new Character();
@@ -48,7 +48,7 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
-		textBox.setText("you are big gay");
+		
 	}
 
 	@Override
@@ -92,6 +92,7 @@ public class Map implements Screen, InputProcessor {
 	public boolean keyDown(int keycode) {
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
 			textBox.setWritingSpeed(0.01f);
+			return true;
 		}
 		return false;
 	}
@@ -100,18 +101,23 @@ public class Map implements Screen, InputProcessor {
 	public boolean keyUp(int keycode) {
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
 			textBox.setWritingSpeed(0.08f);
-			return false;
+			return true;
 		} 
 		
 		if (Input.Keys.R == keycode && !textBox.isWriting()) {
-			textBox.hideTextBow();
+			if (textBox.isVisible()) {
+				if (textBox.getText().length-1 != textBox.getTextSequence()) {
+					textBox.setTextSequence(textBox.getTextSequence()+1);
+				} else {
+					textBox.hideTextBow();
+				}
+			} else {
+				textBox.setColor(Color.FOREST);
+				textBox.setText(new String[]{"This", "Is", "A", "Big", "Ole", "Waste", "Of", "Time", "."});
+			}
+			return true;
 		}
 		
-		if (Input.Keys.T == keycode && !textBox.isWriting() && !textBox.isVisible()) {
-			textBox.setColor(Color.FOREST);
-			textBox.setText("To my knowledge, Delta time is the time gap between "
-					+ "the previous and current frame.");
-		}
 		return false;
 	}
 
