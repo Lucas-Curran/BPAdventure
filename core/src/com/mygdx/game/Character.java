@@ -30,7 +30,7 @@ public class Character implements ApplicationListener {
 	SpriteBatch batch;
 	Camera cam;
 	TextureAtlas textureAtlas;
-
+	Room room;
 	
 	public Character() {
 		create();
@@ -43,6 +43,7 @@ public class Character implements ApplicationListener {
 		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
 		pooledEngine = engine.getInstance();
 		cam = new Camera();
+		room = new Room();
 		textureAtlas = new TextureAtlas("atlasAdv.txt");
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 		gameWorld.getInstance().setContactListener(new B2dContactListener());
@@ -59,6 +60,8 @@ public class Character implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
+		
+		room.makeSquareRoom(9, -10, 20, 5);
 		
 		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
