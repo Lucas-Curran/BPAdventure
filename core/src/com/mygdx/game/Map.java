@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.my.gdx.game.levels.LevelOne;
 
 public class Map implements Screen, InputProcessor {
 
@@ -27,6 +28,7 @@ public class Map implements Screen, InputProcessor {
 	private InputMultiplexer inputMultiplexer;
 	private Character character;
 	private static Map instance;
+	private LevelOne levelOne;
 	
 	private Map() {
 		stage = new Stage();
@@ -36,6 +38,7 @@ public class Map implements Screen, InputProcessor {
 		inputMultiplexer.addProcessor(this);
 		character = new Character();
 		Gdx.input.setInputProcessor(inputMultiplexer);
+		levelOne = new LevelOne();
 	}
 	
 	static {
@@ -53,6 +56,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
+		levelOne.render();
 		character.render();		
 		textBox.renderTextBox(delta);
 	}

@@ -30,7 +30,6 @@ public class Character implements ApplicationListener {
 	SpriteBatch batch;
 	Camera cam;
 	TextureAtlas textureAtlas;
-	Room room;
 	
 	public Character() {
 		create();
@@ -43,7 +42,6 @@ public class Character implements ApplicationListener {
 		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
 		pooledEngine = engine.getInstance();
 		cam = new Camera();
-		room = new Room();
 		textureAtlas = new TextureAtlas("atlasAdv.txt");
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 		gameWorld.getInstance().setContactListener(new B2dContactListener());
@@ -60,11 +58,6 @@ public class Character implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
-		
-		room.makeSquareRoom(15, 0, 20, 1);
-		
-		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
-		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
 		
 		createPlayer();
 		
@@ -133,7 +126,7 @@ public class Character implements ApplicationListener {
 		StateComponent stateCom = pooledEngine.createComponent(StateComponent.class);
 
 		// create the data for the components and add them to the components
-		b2dbody.body = bodyFactory.makeCirclePolyBody(3, 3, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(10, 6, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(cam.getCamera().position.x, cam.getCamera().position.y, 0);
 		texture.region = tex;
