@@ -95,25 +95,6 @@ public class Character implements ApplicationListener {
 	}
 	
 	private void createPlayer(){
-
-		BodyDef groundBodyDef = new BodyDef();	
-		groundBodyDef.type = BodyDef.BodyType.StaticBody;
-		groundBodyDef.position.set(new Vector2(10f, 0.0f));
-		
-		Body groundBody = gameWorld.getInstance().createBody(groundBodyDef);
-		
-		PolygonShape groundShape = new PolygonShape();
-		FixtureDef fix = new FixtureDef();
-		fix.restitution = 0f;
-		fix.friction = 1f;
-		fix.shape = groundShape;
-		fix.density = 1f;
-		
-		
-		groundShape.setAsBox(10f, 1f);
-		groundBody.createFixture(fix);
-		groundShape.dispose();
-		
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();

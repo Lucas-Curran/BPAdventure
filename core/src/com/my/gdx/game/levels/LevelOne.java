@@ -10,7 +10,10 @@ public class LevelOne extends LevelManager implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		
+		super.createLevel();
+
+		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
+		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
 	}
 
 	@Override
@@ -21,7 +24,7 @@ public class LevelOne extends LevelManager implements ApplicationListener {
 
 	@Override
 	public void render() {
-		super.createLevelOne();
+		
 	}
 
 	@Override
@@ -38,7 +41,6 @@ public class LevelOne extends LevelManager implements ApplicationListener {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		
 	}
 	

@@ -15,13 +15,8 @@ public class LevelManager {
 		roomFactory = new RoomFactory();
 	}
 	
-	public void createLevelOne() {
-		roomFactory.makeSquareRoom(15, 0, 200, 2);
-		
-		roomFactory.makeRectangleRoom(30, 5, 1, 30, 4);
-		
-		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
-		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
+	public void createLevel() {
+		roomFactory.makeRectangleRoom(15, 10, 1, 100, 10);
 	}
 	
 }

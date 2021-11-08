@@ -51,12 +51,11 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
-		
+		levelOne.create();
 	}
 
 	@Override
 	public void render(float delta) {
-		levelOne.render();
 		character.render();		
 		textBox.renderTextBox(delta);
 	}
@@ -90,6 +89,7 @@ public class Map implements Screen, InputProcessor {
 		stage.dispose();
 		font.dispose();
 		game.dispose();
+		levelOne.dispose();
 		
 	}
 
