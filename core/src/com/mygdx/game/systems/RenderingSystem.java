@@ -89,7 +89,7 @@ public class RenderingSystem extends SortedIteratingSystem {
             float originY = height/2;
 
             batch.draw(tex.region,
-                    t.position.x - originX, t.position.y - originY,
+                    t.position.x - originX + PixelsToMeters(Gdx.graphics.getWidth() / 2), t.position.y - originY + PixelsToMeters(Gdx.graphics.getHeight() / 2),
                     originX, originY,
                     width, height,
                     PixelsToMeters(t.scale.x), PixelsToMeters(t.scale.y),

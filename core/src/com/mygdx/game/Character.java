@@ -71,11 +71,23 @@ public class Character implements ApplicationListener {
 
 	@Override
 	public void render() {
+
 		cam.getCamera().position.set(new Vector3(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0));
 		cam.getCamera().update();
 		pooledEngine.update(1/20f);
-	}
 
+		pooledEngine.update(1/20f);
+
+		cam.getCamera().position.set(new Vector3(getPositionX(), getPositionY(), 0));
+		cam.getCamera().update();
+		for (Entity entity : pooledEngine.getEntities()) {
+			entity.getComponent(TransformComponent.class).position.set(
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y, 
+					0);
+		}
+	}
+	
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
