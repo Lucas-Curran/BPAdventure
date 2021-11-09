@@ -9,6 +9,7 @@ import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Camera;
 import com.mygdx.game.components.TextureComponent;
@@ -43,6 +44,8 @@ public class RenderingSystem extends SortedIteratingSystem {
 
 		renderQueue = new Array<Entity>();
 		this.batch = batch;
+		
+		comparator = new ZComparator();
 		
 		cam = new Camera();
 	}
@@ -87,13 +90,16 @@ public class RenderingSystem extends SortedIteratingSystem {
             
             float originX = width/2;
             float originY = height/2;
-
+            
             batch.draw(tex.region,
                     t.position.x - originX, t.position.y - originY,
                     originX, originY,
                     width, height,
                     PixelsToMeters(t.scale.x), PixelsToMeters(t.scale.y),
                     t.rotation);
+            
+            
+            
 		}
 		
 		batch.end();
