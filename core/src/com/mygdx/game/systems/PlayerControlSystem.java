@@ -1,6 +1,7 @@
 package com.mygdx.game.systems;
 
 
+import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.TextBox;
 import com.mygdx.game.components.*;
@@ -14,25 +15,30 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 
 public class PlayerControlSystem extends IteratingSystem {
 
 	ComponentMapper<PlayerComponent> pm;
 	ComponentMapper<B2dBodyComponent> bodm;
 	ComponentMapper<StateComponent> sm;
+	Camera cam;
 
 	public PlayerControlSystem() {
 		super(Family.all(PlayerComponent.class).get());
 		pm = ComponentMapper.getFor(PlayerComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 		sm = ComponentMapper.getFor(StateComponent.class);
+		cam = new Camera();
 	}
 	
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
 		B2dBodyComponent b2body = bodm.get(entity);
 		StateComponent state = sm.get(entity);
+		PlayerComponent player = pm.get(entity);
 
+	if (entity.getComponent(PlayerComponent.class).player == true) {
 		float horizontalVel = 3.5f;
 
 		if(b2body.body.getLinearVelocity().y > 0 || b2body.body.getLinearVelocity().y < 0 ) {
@@ -68,5 +74,7 @@ public class PlayerControlSystem extends IteratingSystem {
 				state.set(StateComponent.STATE_JUMPING);
 			}
 		}
+		entity.getComponent(TransformComponent.class).position.set(new Vector3(cam.getCamera().position.x, cam.getCamera().position.y, 0));
 	} 
+	}
 }
