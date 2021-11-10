@@ -77,7 +77,7 @@ public class Character implements ApplicationListener {
 		for (Entity entity : pooledEngine.getEntities()) {
 			entity.getComponent(TransformComponent.class).position.set(
 					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
-					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y, 
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
 					0);
 		}
 	}

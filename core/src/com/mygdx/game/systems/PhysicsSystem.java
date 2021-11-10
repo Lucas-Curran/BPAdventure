@@ -47,7 +47,6 @@ public class PhysicsSystem extends IteratingSystem {
                 Vector2 position = bodyComp.body.getPosition();
                 tfm.position.x = position.x;
                 tfm.position.y = position.y;
-                System.out.println("TFM X: " + tfm.position.x);
                 tfm.rotation = bodyComp.body.getAngle() * MathUtils.radiansToDegrees;
             }
         }
