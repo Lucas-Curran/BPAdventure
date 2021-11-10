@@ -31,7 +31,7 @@ public class Camera implements ApplicationListener {
 		if (cam == null) {						
 			cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
-			viewport = new ExtendViewport(cam.viewportWidth, cam.viewportHeight, cam);		
+			viewport = new FillViewport(cam.viewportWidth, cam.viewportHeight, cam);		
 		}
 	}
 
