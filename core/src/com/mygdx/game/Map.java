@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.my.gdx.game.entities.EntityHandler;
 import com.my.gdx.game.entities.Player;
 import com.my.gdx.game.levels.LevelOne;
+import com.my.gdx.game.levels.Levels;
 
 public class Map implements Screen, InputProcessor {
 
@@ -30,7 +31,7 @@ public class Map implements Screen, InputProcessor {
 	private InputMultiplexer inputMultiplexer;
 	private EntityHandler entityHandler;
 	private static Map instance;
-	private LevelOne levelOne;
+	private Levels levels;
 	
 	private Map() {
 		stage = new Stage();
@@ -40,7 +41,7 @@ public class Map implements Screen, InputProcessor {
 		inputMultiplexer.addProcessor(this);
 		entityHandler = new EntityHandler();
 		Gdx.input.setInputProcessor(inputMultiplexer);
-		levelOne = new LevelOne();
+		levels = new Levels();
 	}
 	
 	static {
@@ -53,9 +54,8 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
-		levelOne.create();
 		entityHandler.create();
-		entityHandler.spawnLevelOne();
+		levels.getLevelOne().create();
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class Map implements Screen, InputProcessor {
 		stage.dispose();
 		font.dispose();
 		game.dispose();
-		levelOne.dispose();
+		levels.dispose();
 		
 	}
 
@@ -173,6 +173,10 @@ public class Map implements Screen, InputProcessor {
 	
 	public TextBox getTextBox() {
 		return textBox;
+	}
+	
+	public EntityHandler getEntityHandler() {
+		return entityHandler;
 	}
 	
 }

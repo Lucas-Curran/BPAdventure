@@ -1,16 +1,18 @@
 package com.my.gdx.game.levels;
 
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.my.gdx.game.entities.EntityHandler;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.RoomFactory;
 
-public class LevelManager {
+public class LevelFactory {
 	
 	BodyFactory bodyFactory;
 	RoomFactory roomFactory;
+	EntityHandler entityHandler;
 	
-	public LevelManager() {
+	public LevelFactory() {
+		entityHandler = new EntityHandler();
 		bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
 		roomFactory = new RoomFactory();
 	}

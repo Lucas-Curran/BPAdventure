@@ -4,9 +4,10 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.GameWorld;
+import com.mygdx.game.Map;
 import com.mygdx.game.RoomFactory;
 
-public class LevelOne extends LevelManager implements ApplicationListener {
+public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	@Override
 	public void create() {
@@ -14,6 +15,7 @@ public class LevelOne extends LevelManager implements ApplicationListener {
 
 		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
+		Map.getInstance().getEntityHandler().spawnLevelTwo();
 	}
 
 	@Override
