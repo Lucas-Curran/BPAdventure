@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.my.gdx.game.entities.EntityHandler;
+import com.my.gdx.game.entities.Player;
 import com.my.gdx.game.levels.LevelOne;
 
 public class Map implements Screen, InputProcessor {
@@ -26,7 +28,7 @@ public class Map implements Screen, InputProcessor {
 	private BitmapFont font;
 	private Stage stage;
 	private InputMultiplexer inputMultiplexer;
-	private Character character;
+	private EntityHandler entityHandler;
 	private static Map instance;
 	private LevelOne levelOne;
 	
@@ -36,7 +38,7 @@ public class Map implements Screen, InputProcessor {
 		textBox = new TextBox(font, stage, Color.WHITE);
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(this);
-		character = new Character();
+		entityHandler = new EntityHandler();
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		levelOne = new LevelOne();
 	}
@@ -52,12 +54,14 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void show() {
 		levelOne.create();
+		entityHandler.create();
+		entityHandler.spawnLevelOne();
 	}
 
 	@Override
 	public void render(float delta) {
-		character.render();		
-		textBox.renderTextBox(delta);
+		entityHandler.render();
+		textBox.renderTextBox(delta);	
 	}
 
 	@Override
@@ -85,7 +89,7 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void dispose() {
 		textBox.dispose();
-		character.dispose();
+		entityHandler.dispose();
 		stage.dispose();
 		font.dispose();
 		game.dispose();
