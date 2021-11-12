@@ -1,6 +1,7 @@
 package com.my.gdx.game.entities;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
@@ -15,8 +16,8 @@ import com.mygdx.game.components.TypeComponent;
 public class Player extends EntityHandler {
 	
 	private Entity entity;
-	
-	public Entity createPlayer() {
+
+	public Entity createPlayer(float x, float y) {
 		
 		// Create the Entity and all the components that will go in the entity
 		entity = pooledEngine.createEntity();
@@ -29,14 +30,14 @@ public class Player extends EntityHandler {
 		StateComponent stateCom = pooledEngine.createComponent(StateComponent.class);
 
 		// create the data for the components and add them to the components
-		b2dbody.body = bodyFactory.makeCirclePolyBody(cam.getCamera().position.x, cam.getCamera().position.y, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(x, y, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().x, 0);
 		texture.region = tex;
 		player.player = true;
 		type.type = TypeComponent.PLAYER;
 		stateCom.set(StateComponent.STATE_NORMAL);
-		b2dbody.body.setUserData(entity);
+		b2dbody.body.setUserData("Player");
 		
 		// add the components to the entity
 		entity.add(b2dbody);
@@ -56,6 +57,11 @@ public class Player extends EntityHandler {
 	
 	public float getY() {
 		return entity.getComponent(B2dBodyComponent.class).body.getPosition().y;
+	}
+	
+	public void setPosition(float x, float y) {
+		entity.getComponent(B2dBodyComponent.class).body.setTransform(new Vector2(x, y), 0);
+		entity.getComponent(B2dBodyComponent.class).body.setLinearVelocity(new Vector2(0, 0));
 	}
 	
 }

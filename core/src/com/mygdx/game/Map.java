@@ -66,7 +66,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-		//stage.setViewport(new ExtendViewport(width, height));
+	
 	}
 
 	@Override

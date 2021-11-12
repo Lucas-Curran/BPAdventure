@@ -1,6 +1,7 @@
 package com.my.gdx.game.levels;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.GameWorld;
@@ -13,9 +14,10 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	public void create() {
 		super.createLevel();
 
-		bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false);
+		Body door = bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+		door.setUserData("Door");
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
-		Map.getInstance().getEntityHandler().spawnLevelTwo();
+		//Map.getInstance().getEntityHandler().spawnLevelOne();
 	}
 
 	@Override

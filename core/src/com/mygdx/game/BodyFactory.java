@@ -32,8 +32,9 @@ public class BodyFactory {
 		return thisInstance;
 	}
 	
-	static public FixtureDef makeFixture(int material, Shape shape) {
+	static public FixtureDef makeFixture(int material, Shape shape, boolean isSensor) {
 		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.isSensor = isSensor;
 		fixtureDef.shape = shape;
 
 		switch(material){
@@ -82,12 +83,12 @@ public class BodyFactory {
 		Body boxBody = world.createBody(boxBodyDef);
 		CircleShape circleShape = new CircleShape();
 		circleShape.setRadius(radius /2);
-		boxBody.createFixture(makeFixture(material,circleShape));
+		boxBody.createFixture(makeFixture(material,circleShape, false));
 		circleShape.dispose();
 		return boxBody;
 	}
 	
-	public Body makeBoxPolyBody(float posx, float posy, float width, float height,int material, BodyType bodyType, boolean fixedRotation){
+	public Body makeBoxPolyBody(float posx, float posy, float width, float height,int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
@@ -99,7 +100,7 @@ public class BodyFactory {
 		Body boxBody = world.createBody(boxBodyDef);
 		PolygonShape poly = new PolygonShape();
 		poly.setAsBox(width/2, height/2);
-		boxBody.createFixture(makeFixture(material,poly));
+		boxBody.createFixture(makeFixture(material,poly,isSensor));
 		poly.dispose();
 	 
 		return boxBody;

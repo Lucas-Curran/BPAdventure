@@ -6,12 +6,16 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.my.gdx.game.entities.EntityHandler;
+import com.my.gdx.game.entities.Player;
 import com.mygdx.game.components.CollisionComponent;
  
 public class B2dContactListener implements ContactListener {
 	
-	public B2dContactListener(){ 
-		
+	private EntityHandler parent;
+	
+	public B2dContactListener(EntityHandler parent){ 
+		this.parent = parent;
 	}
 	
 	@Override
@@ -30,6 +34,17 @@ public class B2dContactListener implements ContactListener {
 			entityCollision(ent,fa);
 			return;
 		}
+		
+		if (fa.getBody().getUserData() == "Door") {
+			System.out.println("Hit door");
+			parent.loadingZone = true;
+			
+		} else if (fb.getBody().getUserData() == "Door") {
+			System.out.println("Hit door");
+			parent.loadingZone = true;
+
+		}
+		
 	}
  
 	private void entityCollision(Entity ent, Fixture fb) {
@@ -49,7 +64,15 @@ public class B2dContactListener implements ContactListener {
  
 	@Override
 	public void endContact(Contact contact) {
-		System.out.println("Contact end");
+		Fixture fa = contact.getFixtureA();
+		Fixture fb = contact.getFixtureB();
+		if(fa.getBody().getUserData() == "Door"){
+			parent.loadingZone = false;
+			return;
+		} else if(fb.getBody().getUserData() == "Door"){
+			parent.loadingZone = false;
+			return;
+		}
 	}
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {		

@@ -40,6 +40,8 @@ public class EntityHandler implements ApplicationListener {
 	private Player player;
 	private Enemy enemies;
 	
+	public boolean loadingZone;
+	
 	
 	public EntityHandler() {
 		engine = new Engine();
@@ -49,7 +51,7 @@ public class EntityHandler implements ApplicationListener {
 		cam = new Camera();
 		textureAtlas = new TextureAtlas("atlasAdv.txt");
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
-		gameWorld.getInstance().setContactListener(new B2dContactListener());
+		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		
 		batch = new SpriteBatch();
 		
@@ -63,13 +65,16 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
+		
+		loadingZone = false;
+		
 	}
 	
 	@Override
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
-		pooledEngine.addEntity(player.createPlayer());
+		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 	}
 
 	@Override
@@ -82,6 +87,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.update(1/20f);
 		updateCamera();
 		updateEntities();
+		checkLoadingZone();
 	}
 	
 	@Override
@@ -125,6 +131,12 @@ public class EntityHandler implements ApplicationListener {
 	public void spawnLevelTwo() {
 		for (Entity enemy : enemies.getLevelTwo()) {
 			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void checkLoadingZone() {
+		if (loadingZone) {
+			player.setPosition(20, 5);
 		}
 	}
 	
