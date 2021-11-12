@@ -1,6 +1,9 @@
 package com.my.gdx.game.entities;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -16,7 +19,17 @@ import com.mygdx.game.components.TypeComponent;
 public class Player extends EntityHandler {
 	
 	private Entity entity;
-
+	
+	//true if fade in, false if fade out
+	private boolean fadeDirection = true;
+	
+	private float alpha = 0;
+	private boolean reset = false;
+	boolean fading = false;
+	
+	
+	private ShapeRenderer shapeRenderer;
+	
 	public Entity createPlayer(float x, float y) {
 		
 		// Create the Entity and all the components that will go in the entity
@@ -62,6 +75,36 @@ public class Player extends EntityHandler {
 	public void setPosition(float x, float y) {
 		entity.getComponent(B2dBodyComponent.class).body.setTransform(new Vector2(x, y), 0);
 		entity.getComponent(B2dBodyComponent.class).body.setLinearVelocity(new Vector2(0, 0));
+	}
+	
+	public void fadePlayer(float x, float y) {
+	
+	System.out.println(alpha);
+		
+	if (alpha >= 0 && fading) {	
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		shapeRenderer = new ShapeRenderer();
+		shapeRenderer.setColor(0, 0, 0, alpha);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		shapeRenderer.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+		
+		if (alpha >= 1) {
+			fadeDirection = false;
+			setPosition(x, y);
+		} else if (alpha < 0 && fadeDirection == false) {
+			loadingZone = false;
+		}
+		
+		//speed of fade
+		alpha += fadeDirection == true ? 0.02 : -0.02;
+		} else {
+			fadeDirection = true;
+			fading = false;
+			alpha = 0;
+		}
 	}
 	
 }

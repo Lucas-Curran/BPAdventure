@@ -136,7 +136,7 @@ public class EntityHandler implements ApplicationListener {
 	
 	public void checkLoadingZone() {
 		if (loadingZone) {
-			player.setPosition(20, 5);
+			player.fadePlayer(20f, 2.7f);
 		}
 	}
 	

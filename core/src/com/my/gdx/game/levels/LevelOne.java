@@ -14,10 +14,10 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	public void create() {
 		super.createLevel();
 
-		Body door = bodyFactory.makeBoxPolyBody(4, 4, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+		Body door = bodyFactory.makeBoxPolyBody(4, 2.7f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
 		door.setUserData("Door");
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
-		//Map.getInstance().getEntityHandler().spawnLevelOne();
+		Map.getInstance().getEntityHandler().spawnLevelOne();
 	}
 
 	@Override
