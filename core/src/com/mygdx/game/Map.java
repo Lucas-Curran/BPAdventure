@@ -32,6 +32,8 @@ public class Map implements Screen, InputProcessor {
 	private EntityHandler entityHandler;
 	private static Map instance;
 	private Levels levels;
+
+	public boolean teleporting;
 	
 	private Map() {
 		stage = new Stage();
@@ -108,6 +110,12 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		
+		if (Input.Keys.R == keycode && entityHandler.loadingZone == true) {
+			teleporting = true;
+			return true;
+		}
+		
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
 			textBox.setWritingSpeed(0.045f);
 			return true;
@@ -169,6 +177,20 @@ public class Map implements Screen, InputProcessor {
 	public boolean scrolled(float amountX, float amountY) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public boolean inAction() {
+		
+		if (teleporting) {
+			return true;
+		} 
+		
+		if (textBox.isVisible()) {
+			return true;
+		}
+		
+		return false;
+		
 	}
 	
 	public TextBox getTextBox() {
