@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
+import com.mygdx.game.Map;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
@@ -24,9 +25,6 @@ public class Player extends EntityHandler {
 	private boolean fadeDirection = true;
 	
 	private float alpha = 0;
-	private boolean reset = false;
-	boolean fading = false;
-	
 	
 	private ShapeRenderer shapeRenderer;
 	
@@ -78,10 +76,8 @@ public class Player extends EntityHandler {
 	}
 	
 	public void fadePlayer(float x, float y) {
-	
-	System.out.println(alpha);
-		
-	if (alpha >= 0 && fading) {	
+
+	if (alpha >= 0) {	
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		shapeRenderer = new ShapeRenderer();
@@ -91,20 +87,20 @@ public class Player extends EntityHandler {
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
-		if (alpha >= 1) {
-			fadeDirection = false;
-			setPosition(x, y);
-		} else if (alpha < 0 && fadeDirection == false) {
-			loadingZone = false;
-		}
+		System.out.println(alpha);
 		
+		if (alpha >= 1) {
+			setPosition(x, y);
+			fadeDirection =! fadeDirection;
+		} 		
 		//speed of fade
-		alpha += fadeDirection == true ? 0.02 : -0.02;
+		alpha += fadeDirection == true ? 0.015 : -0.015;
+		
 		} else {
-			fadeDirection = true;
-			fading = false;
+			fadeDirection =! fadeDirection;
 			alpha = 0;
+			entity.getComponent(B2dBodyComponent.class).body.setAwake(true);
+			Map.getInstance().teleporting = false;
 		}
 	}
-	
 }
