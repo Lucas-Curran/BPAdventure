@@ -111,7 +111,7 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		
-		if (Input.Keys.R == keycode && entityHandler.loadingZone == true) {
+		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
 			return true;
 		}
@@ -121,7 +121,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		} 
 		
-		if (Input.Keys.R == keycode && !textBox.isWriting()) {
+		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting) {
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
