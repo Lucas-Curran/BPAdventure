@@ -31,13 +31,13 @@ public class Camera implements ApplicationListener {
 		if (cam == null) {						
 			cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
-			viewport = new FillViewport(cam.viewportWidth, cam.viewportHeight, cam);		
+			viewport = new FitViewport(cam.viewportWidth, cam.viewportHeight, cam);		
 		}
 	}
 
 	@Override
 	public void resize(int width, int height) {    
-		viewport.update(width, height, true);	
+		viewport.update(width, height, false);	
 	}
 
 	@Override
@@ -69,6 +69,10 @@ public class Camera implements ApplicationListener {
 	
 	public Matrix4 getCombined() {
 		return cam.combined;
+	}
+	
+	public Viewport getViewport() {
+		return viewport;
 	}
 	
 	

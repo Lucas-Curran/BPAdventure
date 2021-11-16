@@ -9,6 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.my.gdx.game.entities.EntityHandler;
 import com.my.gdx.game.entities.Player;
+import com.my.gdx.game.inventory.Inventory;
+import com.my.gdx.game.inventory.Item;
 import com.my.gdx.game.levels.LevelOne;
 import com.my.gdx.game.levels.Levels;
 
@@ -32,16 +35,48 @@ public class Map implements Screen, InputProcessor {
 	private EntityHandler entityHandler;
 	private static Map instance;
 	private Levels levels;
+
+	private Camera cam;
+	private Inventory inventory;
+	
+	private Item apple;
+	private Item banana;
+
+	public boolean teleporting;
+	
+	private TextureAtlas textureAtlas;
 	
 	private Map() {
+		cam = new Camera();
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		textBox = new TextBox(font, stage, Color.WHITE);
 		inputMultiplexer = new InputMultiplexer();
+		
+		inventory = new Inventory();
+		
 		inputMultiplexer.addProcessor(this);
+		inputMultiplexer.addProcessor(inventory.getStage());
+		
 		entityHandler = new EntityHandler();
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		levels = new Levels();
+	
+		textureAtlas = new TextureAtlas("adventureatlas.txt");
+		
+		Skin skin = new Skin(textureAtlas);
+			
+		banana = new Item("banana", skin.getRegion("arrowAni"));
+		apple = new Item("apple", skin.getRegion("IceCharacter"));
+		
+		inventory.addItem(apple);
+		inventory.addItem(apple);
+		inventory.addItem(apple);
+		inventory.addItem(apple);
+		inventory.addItem(apple);
+		inventory.addItem(apple);
+		inventory.addItem(apple);
+		inventory.addItem(apple);
 	}
 	
 	static {
@@ -56,12 +91,17 @@ public class Map implements Screen, InputProcessor {
 	public void show() {
 		entityHandler.create();
 		levels.getLevelOne().create();
+		inventory.arrangeInventory();
 	}
 
 	@Override
 	public void render(float delta) {
 		entityHandler.render();
-		textBox.renderTextBox(delta);	
+		textBox.renderTextBox(delta);
+		
+	    if (inventory.isVisible()) {
+	    	inventory.render();
+	    }
 	}
 
 	@Override
@@ -93,8 +133,7 @@ public class Map implements Screen, InputProcessor {
 		stage.dispose();
 		font.dispose();
 		game.dispose();
-		levels.dispose();
-		
+		levels.dispose();		
 	}
 
 	@Override
@@ -108,6 +147,21 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		
+		if (Input.Keys.ESCAPE == keycode) {
+			if (inventory.isVisible()) {
+				inventory.closeInventory();
+			} else {
+				inventory.showInventory();
+			}
+		}
+		
+		
+		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
+			teleporting = true;
+			return true;
+		}
+
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
 			textBox.setWritingSpeed(0.045f);
 			return true;
@@ -177,6 +231,10 @@ public class Map implements Screen, InputProcessor {
 	
 	public EntityHandler getEntityHandler() {
 		return entityHandler;
+	}
+	
+	public InputMultiplexer getInputMultiplexer() {
+		return inputMultiplexer;
 	}
 	
 }
