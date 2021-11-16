@@ -54,7 +54,7 @@ public class PlayerControlSystem extends IteratingSystem {
 			}
 		}
 
-		if (!Map.getInstance().getTextBox().isVisible()) {
+		if (!Map.getInstance().inAction()) {
 			if(Gdx.input.isKeyPressed(Input.Keys.A)){
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 			}

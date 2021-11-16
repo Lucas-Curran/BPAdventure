@@ -35,7 +35,7 @@ public class Map implements Screen, InputProcessor {
 	private EntityHandler entityHandler;
 	private static Map instance;
 	private Levels levels;
-
+D
 	private Camera cam;
 	private Inventory inventory;
 	
@@ -45,6 +45,9 @@ public class Map implements Screen, InputProcessor {
 	public boolean teleporting;
 	
 	private TextureAtlas textureAtlas;
+
+	public boolean teleporting;
+
 	
 	private Map() {
 		cam = new Camera();
@@ -147,7 +150,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
-		
+
 		if (Input.Keys.ESCAPE == keycode) {
 			if (inventory.isVisible()) {
 				inventory.closeInventory();
@@ -156,7 +159,7 @@ public class Map implements Screen, InputProcessor {
 			}
 		}
 		
-		
+
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
 			return true;
@@ -167,7 +170,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		} 
 		
-		if (Input.Keys.R == keycode && !textBox.isWriting()) {
+		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting) {
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -223,6 +226,20 @@ public class Map implements Screen, InputProcessor {
 	public boolean scrolled(float amountX, float amountY) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public boolean inAction() {
+		
+		if (teleporting) {
+			return true;
+		} 
+		
+		if (textBox.isVisible()) {
+			return true;
+		}
+		
+		return false;
+		
 	}
 	
 	public TextBox getTextBox() {

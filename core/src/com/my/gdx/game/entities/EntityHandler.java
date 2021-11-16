@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -22,6 +23,7 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Engine;
 import com.mygdx.game.GameWorld;
+import com.mygdx.game.Map;
 import com.mygdx.game.components.*;
 import com.mygdx.game.systems.*;
 
@@ -41,6 +43,8 @@ public class EntityHandler implements ApplicationListener {
 	private Enemy enemies;
 	
 	public boolean loadingZone;
+	
+	
 	
 	
 	public EntityHandler() {
@@ -87,7 +91,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.update(1/20f);
 		updateCamera();
 		updateEntities();
-		checkLoadingZone();
+		teleportPlayer(20f, 2.7f);
 	}
 	
 	@Override
@@ -134,10 +138,14 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
-	public void checkLoadingZone() {
-		if (loadingZone) {
-			player.setPosition(20, 5);
+	public void teleportPlayer(float x, float y) {
+		if (Map.getInstance().teleporting == true) {
+			player.fadePlayer(x, y);
 		}
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 	
 }
