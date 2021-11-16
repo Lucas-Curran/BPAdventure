@@ -1,4 +1,4 @@
-package com.my.gdx.game.levels;
+package com.mygdx.game.levels;
 
 public class Levels {
 

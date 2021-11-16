@@ -1,4 +1,4 @@
-package com.my.gdx.game.entities;
+package com.mygdx.game.entities;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;

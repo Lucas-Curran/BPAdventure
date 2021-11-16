@@ -1,4 +1,4 @@
-package com.my.gdx.game.inventory;
+package com.mygdx.game.inventory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

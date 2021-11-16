@@ -1,4 +1,4 @@
-package com.my.gdx.game.entities;
+package com.mygdx.game.entities;
 
 import java.util.ArrayList;
 

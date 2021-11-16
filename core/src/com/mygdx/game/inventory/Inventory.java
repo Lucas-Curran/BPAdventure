@@ -1,4 +1,4 @@
-package com.my.gdx.game.inventory;
+package com.mygdx.game.inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

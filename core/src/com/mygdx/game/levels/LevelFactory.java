@@ -1,9 +1,9 @@
-package com.my.gdx.game.levels;
+package com.mygdx.game.levels;
 
-import com.my.gdx.game.entities.EntityHandler;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.RoomFactory;
+import com.mygdx.game.entities.EntityHandler;
 
 public class LevelFactory {
 	

@@ -1,4 +1,4 @@
-package com.my.gdx.game.levels;
+package com.mygdx.game.levels;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.physics.box2d.Body;
