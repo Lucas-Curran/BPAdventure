@@ -35,7 +35,7 @@ public class Map implements Screen, InputProcessor {
 	private EntityHandler entityHandler;
 	private static Map instance;
 	private Levels levels;
-D
+
 	private Camera cam;
 	private Inventory inventory;
 	
@@ -46,7 +46,6 @@ D
 	
 	private TextureAtlas textureAtlas;
 
-	public boolean teleporting;
 
 	
 	private Map() {
