@@ -83,14 +83,7 @@ public class Inventory extends Stage {
 
 	}
 	
-	public void render() {
-		if (table.getCells().get(1).getActor() != null) {
-			System.out.println("0 Right: " + table.getCells().get(0).getActor().getRight());
-			System.out.println("0 Top: " + table.getCells().get(0).getActor().getTop());
-			System.out.println("1 Right: " + table.getCells().get(1).getActor().getRight());
-			System.out.println("1 Top: " + table.getCells().get(1).getActor().getTop());
-		}
-		
+	public void render() {	
 		stage.act();
 		stage.draw();
 	}
@@ -128,23 +121,10 @@ public class Inventory extends Stage {
 	public void addItem(Item item) {
 		if (items.size() != INVENTORY_SPACE) {
 			items.put(items.size(), item);
-			image = new Image(item.texture);
-			
-			cells.get(slotsFull).setActor(image);
-			cells.get(slotsFull).getActor().setUserObject(image);
-			
+			image = new Image(item.texture);			
+			cells.get(slotsFull).setActor(image);	
 			slotsFull++;
-	
-			if (cells.get(1).hasActor() && cells.get(2).hasActor()) {
-				Actor cell0 = cells.get(0).getActor();
-				Actor cell1 = cells.get(1).getActor();
-				cells.get(0).clearActor();
-				cells.get(1).clearActor();
-				cells.get(0).setActor(cell1);
-				cells.get(1).setActor(cell0);
-			}
-			
-			utilities.addToDragAndDrop(dragAndDrop, image);
+			utilities.addToDragAndDrop(dragAndDrop, image, table);
 		}
 	}
 }
