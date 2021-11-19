@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
@@ -20,6 +21,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
+import com.mygdx.game.item.Item;
 
 public class Inventory extends Stage {
 	
@@ -39,8 +42,12 @@ public class Inventory extends Stage {
 	
 	private final float NUM_ROWS = 4;
 	private final float NUM_COLUMNS = 5;
+	private final float INVENTORY_SPACE = NUM_ROWS * NUM_COLUMNS;
 	
 	private Array<Cell> cells;
+	
+	private int slotsFull;
+	private Utilities utilities;
 
 	public Inventory() {
 		cam = new Camera();
@@ -69,11 +76,20 @@ public class Inventory extends Stage {
 		createGrid();
 		
 		cells = table.getCells();
+		
+		slotsFull = 0;
+		
+		utilities = new Utilities();
 
 	}
 	
 	public void render() {
-		dragAndDrop.setDragActorPosition(image.getWidth()/2 - (Gdx.graphics.getWidth() - 640)/2, -(image.getHeight()/2));
+		if (table.getCells().get(1).getActor() != null) {
+			System.out.println("0 Right: " + table.getCells().get(0).getActor().getRight());
+			System.out.println("0 Top: " + table.getCells().get(0).getActor().getTop());
+			System.out.println("1 Right: " + table.getCells().get(1).getActor().getRight());
+			System.out.println("1 Top: " + table.getCells().get(1).getActor().getTop());
+		}
 		
 		stage.act();
 		stage.draw();
@@ -85,71 +101,6 @@ public class Inventory extends Stage {
 				table.add().size(32);
 			}
 			table.row();
-		}
-	}
-	
-	public void arrangeInventory() {
-		for (int position : items.keySet()) {
-			System.out.println("Key: " + position + " Value: " + items.get(position).name);
-			tex = items.get(position).texture;
-			image = new Image(tex);
-			
-			for (Cell<?> cell : cells) {
-				if (!cell.hasActor()) {
-					cell.setActor(image);
-					break;
-				}
-			}
-			
-			dragAndDrop.addSource(new Source(image) {
-	
-				float payloadX;
-				float payloadY;
-				
-				@Override
-				public Payload dragStart(InputEvent event, float x, float y, int pointer) {				
-					Payload payload = new Payload();
-					payload.setObject(image);
-					payload.setDragActor(getActor());
-					payloadX = payload.getDragActor().getX(Align.bottomLeft);
-					payloadY = payload.getDragActor().getY(Align.bottomLeft);
-					return payload;
-				}
-
-				@Override
-				public void dragStop(InputEvent event, float x, float y, int pointer, Payload payload, Target target) {
-					if (target != null) {
-						payload.getDragActor().setPosition(target.getActor().getX(Align.bottomLeft), target.getActor().getY(Align.bottomLeft));
-						target.getActor().setPosition(payloadX, payloadY);
-					} else {
-						payload.getDragActor().setPosition(payloadX, payloadY);
-					}
-					super.dragStop(event, x, y, pointer, payload, target);
-				}
-			});
-			
-			dragAndDrop.addTarget(new Target(image) {
-				
-				@Override
-				public boolean drag(Source source, Payload payload, float x, float y, int pointer) {
-					getActor().setColor(Color.GREEN);
-					return true;
-				}
-
-				@Override
-				public void drop(Source source, Payload payload, float x, float y, int pointer) {
-					System.out.println("On target");
-	
-				}
-
-				@Override
-				public void reset(Source source, Payload payload) {
-					getActor().setColor(Color.WHITE);
-					super.reset(source, payload);
-				}
-				
-			});
-			
 		}
 	}
 	
@@ -175,7 +126,25 @@ public class Inventory extends Stage {
 	}
 	
 	public void addItem(Item item) {
-		items.put(items.size(), item);
-	}
+		if (items.size() != INVENTORY_SPACE) {
+			items.put(items.size(), item);
+			image = new Image(item.texture);
+			
+			cells.get(slotsFull).setActor(image);
+			cells.get(slotsFull).getActor().setUserObject(image);
+			
+			slotsFull++;
 	
+			if (cells.get(1).hasActor() && cells.get(2).hasActor()) {
+				Actor cell0 = cells.get(0).getActor();
+				Actor cell1 = cells.get(1).getActor();
+				cells.get(0).clearActor();
+				cells.get(1).clearActor();
+				cells.get(0).setActor(cell1);
+				cells.get(1).setActor(cell0);
+			}
+			
+			utilities.addToDragAndDrop(dragAndDrop, image);
+		}
+	}
 }

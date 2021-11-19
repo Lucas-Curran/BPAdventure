@@ -21,7 +21,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.inventory.Inventory;
-import com.mygdx.game.inventory.Item;
+import com.mygdx.game.item.Item;
+import com.mygdx.game.item.Weapon;
 import com.mygdx.game.levels.LevelOne;
 import com.mygdx.game.levels.Levels;
 
@@ -40,7 +41,7 @@ public class Map implements Screen, InputProcessor {
 	private Inventory inventory;
 	
 	private Item apple;
-	private Item banana;
+	private Weapon banana;
 
 	public boolean teleporting;
 	
@@ -67,18 +68,10 @@ public class Map implements Screen, InputProcessor {
 		textureAtlas = new TextureAtlas("adventureatlas.txt");
 		
 		Skin skin = new Skin(textureAtlas);
-			
-		banana = new Item("banana", skin.getRegion("arrowAni"));
-		apple = new Item("apple", skin.getRegion("IceCharacter"));
 		
-		inventory.addItem(apple);
-		inventory.addItem(apple);
-		inventory.addItem(apple);
-		inventory.addItem(apple);
-		inventory.addItem(apple);
-		inventory.addItem(apple);
-		inventory.addItem(apple);
-		inventory.addItem(apple);
+		apple = new Item("Apple", skin.getRegion("IceCharacter"));
+		banana = new Weapon("Banana", skin.getRegion("arrowAni"));
+		
 	}
 	
 	static {
@@ -93,7 +86,6 @@ public class Map implements Screen, InputProcessor {
 	public void show() {
 		entityHandler.create();
 		levels.getLevelOne().create();
-		inventory.arrangeInventory();
 	}
 
 	@Override
@@ -150,6 +142,15 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 
+		if (Input.Keys.Y == keycode) {
+			inventory.addItem(apple);
+			return true;
+		}
+		
+		if (Input.Keys.U == keycode) {
+			inventory.addItem(banana);
+			return true;
+		}
 		if (Input.Keys.ESCAPE == keycode) {
 			if (inventory.isVisible()) {
 				inventory.closeInventory();
