@@ -35,7 +35,7 @@ public class TextBox {
 	private Label label;
 	private Group group;
 	private Image img;
-	private Texture tex;
+	private TextureRegion tex;
 	private BitmapFont font;
 	private int numChars;
 	private float timePerCharacter;
@@ -60,8 +60,6 @@ public class TextBox {
 		
 		table = new Table();
 		group = new Group();
-		tex = new Texture(Gdx.files.internal("textbox2.png"));
-		img = new Image(tex);
 		
 		timePerCharacter = 0.045f;
 		numChars = 0;
@@ -70,7 +68,9 @@ public class TextBox {
 		widthOffset = 60;
 		heightOffset = 15;
 		
-		textureAtlas = new TextureAtlas("atlasAdv.txt");
+		textureAtlas = new TextureAtlas("textures.txt");
+		tex = new TextureRegion(textureAtlas.findRegion("textbox2"));
+		img = new Image(tex);
 		textAni = new TextureRegion(textureAtlas.findRegion("arrowAni"));
 		label = new Label("", new Label.LabelStyle(font, null));
 		label.setWrap(true);
@@ -133,7 +133,6 @@ public class TextBox {
 	
 	public void dispose() {
 		stage.dispose();
-		tex.dispose();
 		batch.dispose();
 	}
 	

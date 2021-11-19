@@ -61,10 +61,10 @@ public class Utilities {
 					Actor targetActor = target.getActor();
 					Actor payloadActor = payload.getDragActor();
 		
-					float payloadCell = ((table.getCell(targetActor).getActor().getRight() - 240) / 32 - 1) 
+					float payloadCell = ((table.getCell(targetActor).getActor().getRight()) / 32 - 1) 
 										- ((((table.getCell(targetActor).getActor()).getTop() - 98) / 32 - 1) * 5);
 					
-					float targetCell = ((table.getCell(payloadActor).getActor().getRight() - 240) / 32 - 1)
+					float targetCell = ((table.getCell(payloadActor).getActor().getRight()) / 32 - 1)
 									    - ((((table.getCell(payloadActor).getActor()).getTop() - 98) / 32 - 1) * 5);
 
 					table.getCells().get((int) targetCell).clearActor();

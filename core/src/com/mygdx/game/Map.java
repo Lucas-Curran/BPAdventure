@@ -65,7 +65,7 @@ public class Map implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		levels = new Levels();
 	
-		textureAtlas = new TextureAtlas("adventureatlas.txt");
+		textureAtlas = new TextureAtlas("textures.txt");
 		
 		Skin skin = new Skin(textureAtlas);
 		

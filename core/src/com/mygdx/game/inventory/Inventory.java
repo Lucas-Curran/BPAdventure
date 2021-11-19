@@ -34,6 +34,8 @@ public class Inventory extends Stage {
 	private Image backgroundImage;
 	private Image image;
 	
+	private Table itemsTable;
+	
 	private Camera cam;
 	
 	private HashMap<Integer, Item> items;
@@ -55,27 +57,33 @@ public class Inventory extends Stage {
 		stage = new Stage();
 		table = new Table();
 		
-		table.setFillParent(true);
-		table.setDebug(true);
-		table.pad(2);
 		table.bottom();
+		table.setFillParent(true);
 		
-		atlas = new TextureAtlas(Gdx.files.internal("adventureatlas.txt"));
+		atlas = new TextureAtlas(Gdx.files.internal("textures.txt"));
 		background = atlas.findRegion("inventory");
 		backgroundImage = new Image(background);
 		
 		table.setBackground(backgroundImage.getDrawable());
 		table.setVisible(false);
 		
+		TextureRegion itemsBackground = atlas.findRegion("itemsBackground");
+		Image itemsImage = new Image(itemsBackground);
+		
+		itemsTable = new Table();
+		itemsTable.setBackground(itemsImage.getDrawable());
+		itemsTable.setBounds(0, 0, NUM_COLUMNS * 32, NUM_ROWS * 32);
+		
 		items = new HashMap<Integer, Item>();
 
 		dragAndDrop = new DragAndDrop();
 		
-		stage.addActor(table);	
+		stage.addActor(table);
+		stage.addActor(itemsTable);
 		
 		createGrid();
 		
-		cells = table.getCells();
+		cells = itemsTable.getCells();
 		
 		slotsFull = 0;
 		
@@ -84,6 +92,7 @@ public class Inventory extends Stage {
 	}
 	
 	public void render() {	
+		
 		stage.act();
 		stage.draw();
 	}
@@ -91,9 +100,10 @@ public class Inventory extends Stage {
 	public void createGrid() {
 		for (int i = 0; i < NUM_ROWS; i++) {
 			for (int j = 0; j < NUM_COLUMNS; j++) {
-				table.add().size(32);
+				itemsTable.add().size(32);
 			}
-			table.row();
+			
+			itemsTable.row();
 		}
 	}
 	
@@ -124,7 +134,7 @@ public class Inventory extends Stage {
 			image = new Image(item.texture);			
 			cells.get(slotsFull).setActor(image);	
 			slotsFull++;
-			utilities.addToDragAndDrop(dragAndDrop, image, table);
+			utilities.addToDragAndDrop(dragAndDrop, image, itemsTable);
 		}
 	}
 }

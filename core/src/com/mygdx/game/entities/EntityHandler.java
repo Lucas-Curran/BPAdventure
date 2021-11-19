@@ -53,7 +53,7 @@ public class EntityHandler implements ApplicationListener {
 		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
 		pooledEngine = engine.getInstance();
 		cam = new Camera();
-		textureAtlas = new TextureAtlas("atlasAdv.txt");
+		textureAtlas = new TextureAtlas("textures.txt");
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		
