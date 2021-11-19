@@ -2,8 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
@@ -33,7 +35,7 @@ public class Utilities {
 		return frames;
 	}
 	
-	public void addToDragAndDrop(final DragAndDrop dragAndDrop, final Image image) {
+	public void addToDragAndDrop(final DragAndDrop dragAndDrop, final Image image, final Table table) {
 		
 		dragAndDrop.addSource(new Source(image) {
 
@@ -55,6 +57,22 @@ public class Utilities {
 				if (target != null) {
 					payload.getDragActor().setPosition(target.getActor().getX(Align.bottomLeft), target.getActor().getY(Align.bottomLeft));
 					target.getActor().setPosition(payloadX, payloadY);
+					
+					Actor targetActor = target.getActor();
+					Actor payloadActor = payload.getDragActor();
+		
+					float payloadCell = ((table.getCell(targetActor).getActor().getRight() - 240) / 32 - 1) 
+										- ((((table.getCell(targetActor).getActor()).getTop() - 98) / 32 - 1) * 5);
+					
+					float targetCell = ((table.getCell(payloadActor).getActor().getRight() - 240) / 32 - 1)
+									    - ((((table.getCell(payloadActor).getActor()).getTop() - 98) / 32 - 1) * 5);
+
+					table.getCells().get((int) targetCell).clearActor();
+					table.getCells().get((int) payloadCell).clearActor();
+					
+					table.getCells().get((int) payloadCell).setActor(targetActor);
+					table.getCells().get((int) targetCell).setActor(payloadActor);
+					
 				} else {
 					payload.getDragActor().setPosition(payloadX, payloadY);
 				}
