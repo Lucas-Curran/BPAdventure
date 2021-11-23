@@ -14,14 +14,19 @@ public class SqliteManager {
 	//Inventory (seperate database)
 	
 	public static void main(String[] args) {
-		connect();
+		connect("Player");
+		connect("Inventory");
 		createTable();
 	}
 	
-	public static Connection connect() {
+	public static Connection connect(String db) {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection(url);
+			if (db.equals("Player")) {
+				conn = DriverManager.getConnection(playerURL);
+			} else if (db.equals("Inventory")) {
+				conn = DriverManager.getConnection(inventoryURL);
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());		
 		} catch (Exception ex) {
@@ -47,9 +52,10 @@ public class SqliteManager {
 					+ ");";
 			
 			System.out.println("Conection to SQLite has been established.");
-			Statement statement = connect().createStatement();
-			statement.execute(playerSQL);
-			statement.execute(inventorySQL);
+			Statement playerStatement = connect("Player").createStatement();
+			Statement inventoryStatement = connect("Inventory").createStatement();
+			playerStatement.execute(playerSQL);
+			inventoryStatement.execute(inventorySQL);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
