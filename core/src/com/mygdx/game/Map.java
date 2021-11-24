@@ -23,6 +23,7 @@ import com.mygdx.game.entities.Player;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.Weapon;
+import com.mygdx.game.levels.LevelFactory;
 import com.mygdx.game.levels.LevelOne;
 import com.mygdx.game.levels.Levels;
 
@@ -46,8 +47,6 @@ public class Map implements Screen, InputProcessor {
 	public boolean teleporting;
 	
 	private TextureAtlas textureAtlas;
-
-
 	
 	private Map() {
 		cam = new Camera();
@@ -100,7 +99,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-	
+		cam.resize(width, height);
 	}
 
 	@Override
@@ -127,7 +126,8 @@ public class Map implements Screen, InputProcessor {
 		stage.dispose();
 		font.dispose();
 		game.dispose();
-		levels.dispose();		
+		levels.dispose();
+		inventory.dispose();
 	}
 
 	@Override
@@ -154,9 +154,11 @@ public class Map implements Screen, InputProcessor {
 		if (Input.Keys.ESCAPE == keycode) {
 			if (inventory.isVisible()) {
 				inventory.closeInventory();
-			} else {
+				cam.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			} else if (!inAction()) {
 				inventory.showInventory();
 			}
+			return true;
 		}
 		
 
@@ -170,7 +172,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		} 
 		
-		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting) {
+		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting && !inventory.isVisible()) {
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -235,6 +237,10 @@ public class Map implements Screen, InputProcessor {
 		} 
 		
 		if (textBox.isVisible()) {
+			return true;
+		}
+		
+		if (inventory.isVisible()) {
 			return true;
 		}
 		

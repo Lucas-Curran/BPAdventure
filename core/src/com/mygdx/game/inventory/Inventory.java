@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -19,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
@@ -50,11 +53,13 @@ public class Inventory extends Stage {
 	
 	private int slotsFull;
 	private Utilities utilities;
+	
+	private ScreenViewport stageViewport;
 
 	public Inventory() {
-		cam = new Camera();
+		stageViewport = new ScreenViewport();
 		
-		stage = new Stage();
+		stage = new Stage(stageViewport);
 		table = new Table();
 		
 		table.bottom();
@@ -91,8 +96,9 @@ public class Inventory extends Stage {
 
 	}
 	
-	public void render() {	
-		
+	public void render() {
+		stageViewport.apply();
+		stageViewport.setScreenBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage.act();
 		stage.draw();
 	}
@@ -100,7 +106,7 @@ public class Inventory extends Stage {
 	public void createGrid() {
 		for (int i = 0; i < NUM_ROWS; i++) {
 			for (int j = 0; j < NUM_COLUMNS; j++) {
-				itemsTable.add().size(32);
+				itemsTable.add().width(32).height(32);
 			}
 			
 			itemsTable.row();
@@ -109,6 +115,12 @@ public class Inventory extends Stage {
 	
 	public Stage getStage() {
 		return stage;
+	}
+	
+	public void dispose() {
+		stage.dispose();
+		atlas.dispose();
+		cam.dispose();
 	}
 	
 	public void showInventory() {
@@ -132,9 +144,14 @@ public class Inventory extends Stage {
 		if (items.size() != INVENTORY_SPACE) {
 			items.put(items.size(), item);
 			image = new Image(item.texture);			
-			cells.get(slotsFull).setActor(image);	
+			cells.get(slotsFull).setActor(image);
+			cells.get(slotsFull).getActor().setDebug(true);
 			slotsFull++;
 			utilities.addToDragAndDrop(dragAndDrop, image, itemsTable);
 		}
+	}
+	
+	public void removeItem(Item item) {
+		
 	}
 }

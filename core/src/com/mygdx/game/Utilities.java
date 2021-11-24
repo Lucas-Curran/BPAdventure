@@ -1,9 +1,11 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -46,9 +48,12 @@ public class Utilities {
 			public Payload dragStart(InputEvent event, float x, float y, int pointer) {				
 				Payload payload = new Payload();
 				payload.setDragActor(getActor());
-				dragAndDrop.setDragActorPosition(image.getWidth()/2, -(image.getHeight()/2));
+				dragAndDrop.setDragActorPosition(image.getWidth()/2, -image.getHeight()/2);
 				payloadX = payload.getDragActor().getX(Align.bottomLeft);
 				payloadY = payload.getDragActor().getY(Align.bottomLeft);
+				System.out.println(payloadX);
+				System.out.println(payloadY);
+				System.out.println(Gdx.input.getX());
 				return payload;
 			}
 
@@ -59,19 +64,15 @@ public class Utilities {
 					target.getActor().setPosition(payloadX, payloadY);
 					
 					Actor targetActor = target.getActor();
-					Actor payloadActor = payload.getDragActor();
-		
-					float payloadCell = ((table.getCell(targetActor).getActor().getRight()) / 32 - 1) 
-										- ((((table.getCell(targetActor).getActor()).getTop() - 98) / 32 - 1) * 5);
-					
-					float targetCell = ((table.getCell(payloadActor).getActor().getRight()) / 32 - 1)
-									    - ((((table.getCell(payloadActor).getActor()).getTop() - 98) / 32 - 1) * 5);
+					Actor payloadActor = payload.getDragActor();		
+					Cell<Actor> payloadCell = table.getCell(payloadActor);
+					Cell<Actor> targetCell = table.getCell(targetActor);
 
-					table.getCells().get((int) targetCell).clearActor();
-					table.getCells().get((int) payloadCell).clearActor();
+					payloadCell.clearActor();
+					targetCell.clearActor();
 					
-					table.getCells().get((int) payloadCell).setActor(targetActor);
-					table.getCells().get((int) targetCell).setActor(payloadActor);
+					payloadCell.setActor(targetActor);
+					targetCell.setActor(payloadActor);
 					
 				} else {
 					payload.getDragActor().setPosition(payloadX, payloadY);
