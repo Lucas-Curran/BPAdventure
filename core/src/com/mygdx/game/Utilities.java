@@ -37,10 +37,9 @@ public class Utilities {
 		return frames;
 	}
 	
-	public void addToDragAndDrop(final DragAndDrop dragAndDrop, final Image image, final Table table, final boolean isSource, final boolean isTarget) {
+	public void addToDragAndDrop(final DragAndDrop dragAndDrop, final Image image, final Table table) {
 		
-		if (isSource) {
-			dragAndDrop.addSource(new Source(image) {
+		dragAndDrop.addSource(new Source(image) {
 
 			float payloadX;
 			float payloadY;
@@ -80,31 +79,29 @@ public class Utilities {
 				}
 				super.dragStop(event, x, y, pointer, payload, target);
 			}
-			});
-		}
+		});
 
-		if (isTarget) {
-			dragAndDrop.addTarget(new Target(image) {
-				
-				@Override
-				public boolean drag(Source source, Payload payload, float x, float y, int pointer) {
-					getActor().setColor(Color.GREEN);
-					return true;
-				}
+		dragAndDrop.addTarget(new Target(image) {
 
-				@Override
-				public void drop(Source source, Payload payload, float x, float y, int pointer) {
-					System.out.println("On target");
-				}
+			@Override
+			public boolean drag(Source source, Payload payload, float x, float y, int pointer) {
+				getActor().setColor(Color.GREEN);
+				return true;
+			}
 
-				@Override
-				public void reset(Source source, Payload payload) {
-					getActor().setColor(Color.WHITE);
-					super.reset(source, payload);
-				}
+			@Override
+			public void drop(Source source, Payload payload, float x, float y, int pointer) {
+				System.out.println("On target");
 
-			});
-		}
+			}
+
+			@Override
+			public void reset(Source source, Payload payload) {
+				getActor().setColor(Color.WHITE);
+				super.reset(source, payload);
+			}
+
+		});
 	}
-}
 	
+}
