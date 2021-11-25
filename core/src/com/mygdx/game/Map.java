@@ -68,8 +68,10 @@ public class Map implements Screen, InputProcessor {
 		
 		Skin skin = new Skin(textureAtlas);
 		
-		apple = new Item("Apple", skin.getRegion("IceCharacter"));
-		banana = new Weapon("Banana", skin.getRegion("arrowAni"));
+		apple = new Item("IceCharacter", skin.getRegion("IceCharacter"));
+		banana = new Weapon("arrowAni", skin.getRegion("arrowAni"));
+		
+		inventory = new Inventory();
 	}
 	
 	static {
@@ -82,7 +84,6 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
-		inventory = new Inventory();
 		hotbar = new Hotbar();
 		inputMultiplexer.addProcessor(inventory.getStage());
 		entityHandler.create();
@@ -92,9 +93,9 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		entityHandler.render();
-		textBox.renderTextBox(delta);
 		hotbar.render();
-		
+		textBox.renderTextBox(delta);
+
 	    if (inventory.isVisible()) {
 	    	inventory.render();
 	    }
@@ -149,16 +150,19 @@ public class Map implements Screen, InputProcessor {
 
 		if (Input.Keys.Y == keycode) {
 			inventory.addItem(apple);
+			hotbar.setItems();
 			return true;
 		}
 		
 		if (Input.Keys.U == keycode) {
 			inventory.addItem(banana);
+			hotbar.setItems();
 			return true;
 		}
 		if (Input.Keys.ESCAPE == keycode) {
 			if (inventory.isVisible()) {
 				inventory.closeInventory();
+				hotbar.setItems();
 				cam.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			} else if (!inAction()) {
 				inventory.showInventory();
@@ -251,6 +255,10 @@ public class Map implements Screen, InputProcessor {
 		
 		return false;
 		
+	}
+	
+	public Stage getStage() {
+		return stage;
 	}
 	
 	public TextBox getTextBox() {

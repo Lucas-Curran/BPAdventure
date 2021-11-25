@@ -52,9 +52,6 @@ public class Utilities {
 				dragAndDrop.setDragActorPosition(image.getWidth()/2, -image.getHeight()/2);
 				payloadX = payload.getDragActor().getX(Align.bottomLeft);
 				payloadY = payload.getDragActor().getY(Align.bottomLeft);
-				System.out.println(payloadX);
-				System.out.println(payloadY);
-				System.out.println(Gdx.input.getX());
 				return payload;
 			}
 
@@ -65,7 +62,8 @@ public class Utilities {
 					target.getActor().setPosition(payloadX, payloadY);
 					
 					Actor targetActor = target.getActor();
-					Actor payloadActor = payload.getDragActor();		
+					Actor payloadActor = payload.getDragActor();	
+					
 					Cell<Actor> payloadCell = table.getCell(payloadActor);
 					Cell<Actor> targetCell = table.getCell(targetActor);
 
