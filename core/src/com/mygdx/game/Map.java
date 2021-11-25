@@ -47,6 +47,9 @@ public class Map implements Screen, InputProcessor {
 	public boolean teleporting;
 	
 	private TextureAtlas textureAtlas;
+
+	private Hotbar hotbar;
+
 	
 	private Map() {
 		cam = new Camera();
@@ -55,10 +58,7 @@ public class Map implements Screen, InputProcessor {
 		textBox = new TextBox(font, stage, Color.WHITE);
 		inputMultiplexer = new InputMultiplexer();
 		
-		inventory = new Inventory();
-		
 		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(inventory.getStage());
 		
 		entityHandler = new EntityHandler();
 		Gdx.input.setInputProcessor(inputMultiplexer);
@@ -70,7 +70,6 @@ public class Map implements Screen, InputProcessor {
 		
 		apple = new Item("Apple", skin.getRegion("IceCharacter"));
 		banana = new Weapon("Banana", skin.getRegion("arrowAni"));
-		
 	}
 	
 	static {
@@ -83,6 +82,9 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
+		inventory = new Inventory();
+		hotbar = new Hotbar();
+		inputMultiplexer.addProcessor(inventory.getStage());
 		entityHandler.create();
 		levels.getLevelOne().create();
 	}
@@ -91,6 +93,7 @@ public class Map implements Screen, InputProcessor {
 	public void render(float delta) {
 		entityHandler.render();
 		textBox.renderTextBox(delta);
+		hotbar.render();
 		
 	    if (inventory.isVisible()) {
 	    	inventory.render();
@@ -125,9 +128,11 @@ public class Map implements Screen, InputProcessor {
 		entityHandler.dispose();
 		stage.dispose();
 		font.dispose();
-		game.dispose();
+		game.dispose();	
 		levels.dispose();
 		inventory.dispose();
+		hotbar.dispose();
+
 	}
 
 	@Override
@@ -258,6 +263,14 @@ public class Map implements Screen, InputProcessor {
 	
 	public InputMultiplexer getInputMultiplexer() {
 		return inputMultiplexer;
+	}
+	
+	public Hotbar getHotbar() {
+		return hotbar;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 }
