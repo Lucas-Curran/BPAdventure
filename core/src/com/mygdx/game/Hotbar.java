@@ -26,7 +26,6 @@ public class Hotbar {
 	
 	public Hotbar() {
 		
-		inventory = Map.getInstance().getInventory();
 		stage = Map.getInstance().getStage();
 		
 		table = new Table();
@@ -54,7 +53,7 @@ public class Hotbar {
 	}
 	
 	public void createBar() {
-		for (int i = 0; i < inventory.HOTBAR_LENGTH; i++) {
+		for (int i = 0; i < HOTBAR_LENGTH; i++) {
 			table.add().width(32).height(32);
 			Image cellImage = inventory.getHotbarImages().get(i);
 			String cellActorName = inventory.getHotbarItems().get(i).getActor().getName();
@@ -66,7 +65,6 @@ public class Hotbar {
 	public void setItems() {
 		for (int i = 0; i < HOTBAR_LENGTH; i++) {
 				String cellActorName = inventory.getHotbarItems().get(i).getActor().getName();
-				System.out.println(cellActorName);
 				if (cellActorName != "blank") {
 					Image cellImage = new Image(atlas.findRegion(cellActorName));
 					table.getCells().get(i).setActor(cellImage);

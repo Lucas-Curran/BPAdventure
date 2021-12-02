@@ -6,11 +6,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MyGdxGame extends Game {
 	
 	Camera cam;
+	public static Game game;
+	public Screens screens;
 	
 	@Override
 	public void create() {
 		cam = new Camera();
-		this.setScreen(Map.getInstance());
+		screens = new Screens(this);
+		Screens.toMap(Map.getInstance());
 	}
 
 	@Override

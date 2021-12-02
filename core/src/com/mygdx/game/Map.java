@@ -30,7 +30,7 @@ import com.mygdx.game.levels.Levels;
 public class Map implements Screen, InputProcessor {
 
 	private TextBox textBox;
-	private static Game game;
+
 	private BitmapFont font;
 	private Stage stage;
 	private InputMultiplexer inputMultiplexer;
@@ -39,7 +39,6 @@ public class Map implements Screen, InputProcessor {
 	private Levels levels;
 
 	private Camera cam;
-	private Inventory inventory;
 	
 	private Item apple;
 	private Weapon banana;
@@ -49,7 +48,8 @@ public class Map implements Screen, InputProcessor {
 	private TextureAtlas textureAtlas;
 
 	private Hotbar hotbar;
-
+	
+	private PlayerHUD playerHUD;
 	
 	private Map() {
 		cam = new Camera();
@@ -70,8 +70,6 @@ public class Map implements Screen, InputProcessor {
 		
 		apple = new Item("IceCharacter", skin.getRegion("IceCharacter"));
 		banana = new Weapon("arrowAni", skin.getRegion("arrowAni"));
-		
-		inventory = new Inventory();
 	}
 	
 	static {
@@ -84,8 +82,8 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
-		hotbar = new Hotbar();
-		inputMultiplexer.addProcessor(inventory.getStage());
+		//hotbar = new Hotbar();
+		//inputMultiplexer.addProcessor(inventory.getStage());
 		entityHandler.create();
 		levels.getLevelOne().create();
 	}
@@ -93,12 +91,8 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		entityHandler.render();
-		hotbar.render();
+		//hotbar.render();
 		textBox.renderTextBox(delta);
-
-	    if (inventory.isVisible()) {
-	    	inventory.render();
-	    }
 	}
 
 	@Override
@@ -129,11 +123,7 @@ public class Map implements Screen, InputProcessor {
 		entityHandler.dispose();
 		stage.dispose();
 		font.dispose();
-		game.dispose();	
 		levels.dispose();
-		inventory.dispose();
-		hotbar.dispose();
-
 	}
 
 	@Override
@@ -148,29 +138,10 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 
-		if (Input.Keys.Y == keycode) {
-			inventory.addItem(apple);
-			hotbar.setItems();
-			return true;
-		}
-		
-		if (Input.Keys.U == keycode) {
-			inventory.addItem(banana);
-			hotbar.setItems();
-			return true;
-		}
 		if (Input.Keys.ESCAPE == keycode) {
-			if (inventory.isVisible()) {
-				inventory.closeInventory();
-				hotbar.setItems();
-				cam.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			} else if (!inAction()) {
-				inventory.showInventory();
-			}
-			return true;
+			Screens.toHUD(playerHUD);
 		}
 		
-
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
 			return true;
@@ -181,7 +152,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		} 
 		
-		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting && !inventory.isVisible()) {
+		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting) {
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -249,10 +220,6 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
-		if (inventory.isVisible()) {
-			return true;
-		}
-		
 		return false;
 		
 	}
@@ -275,10 +242,6 @@ public class Map implements Screen, InputProcessor {
 	
 	public Hotbar getHotbar() {
 		return hotbar;
-	}
-	
-	public Inventory getInventory() {
-		return inventory;
 	}
 	
 }
