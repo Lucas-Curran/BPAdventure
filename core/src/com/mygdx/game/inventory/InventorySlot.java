@@ -85,10 +85,18 @@ public class InventorySlot extends Stack {
 		}
 	}
 	
+	public int getNumItems(){
+        if( hasChildren() ){
+            SnapshotArray<Actor> items = this.getChildren();
+            return items.size - 1;
+        }
+        return 0;
+    }
+	
 	public boolean hasItem() {
 		if (hasChildren()) {
 			SnapshotArray<Actor> items = this.getChildren();
-			if (items.size > 2) {
+			if (items.size > 1) {
 				return true;
 			}
 		}
@@ -107,7 +115,7 @@ public class InventorySlot extends Stack {
 		InventoryItem actor = null;
 		if (hasChildren()) {
 			SnapshotArray<Actor> items = this.getChildren();
-			if (items.size > 2) {
+			if (items.size > 1) {
 				actor = (InventoryItem) items.peek();
 			}
 		}

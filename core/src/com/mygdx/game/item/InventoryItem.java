@@ -67,6 +67,13 @@ public class InventoryItem extends Image {
 		this.itemUseType = itemUseType;
 	}
 	
+	public InventoryItem(InventoryItem inventoryItem){
+        super();
+        this.itemTypeID = inventoryItem.getItemTypeID();
+        this.itemAttributes = inventoryItem.getItemAttributes();
+        this.itemUseType = inventoryItem.getItemUseType();
+    }
+	
 	public InventoryItem() {
 		super();
 	}
@@ -108,6 +115,10 @@ public class InventoryItem extends Image {
 	
 	public ItemTypeID getItemTypeID() {
 		return itemTypeID;
+	}
+	
+	public int getItemAttributes() {
+		return itemAttributes;
 	}
 	
 }

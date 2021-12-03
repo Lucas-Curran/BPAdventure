@@ -21,8 +21,10 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.inventory.Inventory;
-import com.mygdx.game.item.Item;
-import com.mygdx.game.item.Weapon;
+import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.InventoryItem.ItemAttribute;
+import com.mygdx.game.item.InventoryItem.ItemTypeID;
+import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.levels.LevelFactory;
 import com.mygdx.game.levels.LevelOne;
 import com.mygdx.game.levels.Levels;
@@ -39,9 +41,6 @@ public class Map implements Screen, InputProcessor {
 	private Levels levels;
 
 	private Camera cam;
-	
-	private Item apple;
-	private Weapon banana;
 
 	public boolean teleporting;
 	
@@ -64,12 +63,13 @@ public class Map implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		levels = new Levels();
 	
-		textureAtlas = new TextureAtlas("textures.txt");
+		textureAtlas = new TextureAtlas("bpaatlas.txt");
 		
 		Skin skin = new Skin(textureAtlas);
 		
-		apple = new Item("IceCharacter", skin.getRegion("IceCharacter"));
-		banana = new Weapon("arrowAni", skin.getRegion("arrowAni"));
+		System.out.println(textureAtlas.findRegion("IceCharacter"));
+		
+		playerHUD = new PlayerHUD();
 	}
 	
 	static {
@@ -138,8 +138,14 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 
+		if (Input.Keys.T == keycode) {
+			System.out.println("add");
+			playerHUD.getInventory().addItemToInventory(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.POTIONS01), "Apple");
+		}
+		
 		if (Input.Keys.ESCAPE == keycode) {
 			Screens.toHUD(playerHUD);
+			return true;
 		}
 		
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {

@@ -32,7 +32,7 @@ import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
-import com.mygdx.game.item.Item;
+import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
 public class Inventory extends Window {
 
@@ -150,6 +150,25 @@ public class Inventory extends Window {
 		this.pack();
 		
 	}
+	
+	 public void addItemToInventory(InventoryItem item, String itemName){
+	        Array<Cell> sourceCells = slotsTable.getCells(); 
+	            for (int i = 0; i < sourceCells.size; i++) {
+	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+	                if (inventorySlot == null) continue;            
+	                int numItems = inventorySlot.getNumItems();
+	                System.out.print(numItems);
+	                if (numItems == 0) {
+	                	//InventoryItem inventoryItem = InventoryItemFactory.getInstance().getInventoryItem(ItemTypeID.valueOf(entity.getEntityConfig().getItemTypeID()));
+	                    item.setName(itemName);
+	                    inventorySlot.add(item);
+	                    System.out.println(inventorySlot.getTopInventoryItem());
+	                    dragAndDrop.addSource(new InventorySlotSource(inventorySlot, dragAndDrop));
+	                    break;
+	                }
+	            }
+	    }
+
 	
 	public ArrayList<Cell> getHotbarItems() {
 		ArrayList<Cell> hotbarItems = new ArrayList<Cell>();

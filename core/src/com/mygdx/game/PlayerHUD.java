@@ -18,7 +18,7 @@ public class PlayerHUD implements Screen {
 		stage.setDebugAll(true);
 		
 		inventory = new Inventory();
-		inventory.setKeepWithinStage(true);
+		inventory.setKeepWithinStage(false);
 		inventory.setMovable(false);
 		inventory.setVisible(true);
 		
@@ -70,6 +70,10 @@ public class PlayerHUD implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();		
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 }
