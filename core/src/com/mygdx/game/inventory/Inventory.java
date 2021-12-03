@@ -54,13 +54,11 @@ public class Inventory extends Window {
 	private Array<Actor> inventoryActors;
 	
 	private Array<Cell> cells;
-	
-	private ScreenViewport stageViewport;
-	
+
 	private ArrayList<Image> inventoryImages = new ArrayList<Image>();
 
 	public Inventory() {
-		super("Inventory", new WindowStyle(new BitmapFont(), Color.GREEN, new Image(background).getDrawable()));
+		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
 		
 		dragAndDrop = new DragAndDrop();
 		inventoryActors = new Array<Actor>();
@@ -111,7 +109,7 @@ public class Inventory extends Window {
 			dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
 			slotsTable.add(inventorySlot).size(SLOT_WIDTH, SLOT_HEIGHT);
 			inventorySlot.addListener(new ClickListener() {
-
+				
 				@Override
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 					super.touchUp(event, x, y, pointer, button);
@@ -131,7 +129,7 @@ public class Inventory extends Window {
 			if (i % NUM_COLUMNS == 0) {
 				slotsTable.row();
 			}
-		}
+		}	
 		
 		equipmentTable.add();
 		equipmentTable.add(headSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
@@ -144,11 +142,16 @@ public class Inventory extends Window {
 		
 		equipmentTable.add();
 		equipmentTable.right().add(legsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		equipmentTable.row();
+		
+		equipmentTable.add();
+		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		
 		
 		this.add(slotsTable).colspan(2);
+		this.add(equipmentTable);
 		this.row();
 		this.pack();
-		
 	}
 	
 	 public void addItemToInventory(InventoryItem item, String itemName){
@@ -157,13 +160,12 @@ public class Inventory extends Window {
 	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 	                if (inventorySlot == null) continue;            
 	                int numItems = inventorySlot.getNumItems();
-	                System.out.print(numItems);
 	                if (numItems == 0) {
 	                	//InventoryItem inventoryItem = InventoryItemFactory.getInstance().getInventoryItem(ItemTypeID.valueOf(entity.getEntityConfig().getItemTypeID()));
 	                    item.setName(itemName);
 	                    inventorySlot.add(item);
 	                    System.out.println(inventorySlot.getTopInventoryItem());
-	                    dragAndDrop.addSource(new InventorySlotSource(inventorySlot, dragAndDrop));
+	                    dragAndDrop.addSource(new InventorySlotSource(inventorySlot, dragAndDrop));           
 	                    break;
 	                }
 	            }

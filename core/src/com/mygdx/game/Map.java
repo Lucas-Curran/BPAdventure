@@ -55,9 +55,12 @@ public class Map implements Screen, InputProcessor {
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		textBox = new TextBox(font, stage, Color.WHITE);
+		
+		playerHUD = new PlayerHUD();
 		inputMultiplexer = new InputMultiplexer();
 		
 		inputMultiplexer.addProcessor(this);
+		inputMultiplexer.addProcessor(playerHUD.getStage());
 		
 		entityHandler = new EntityHandler();
 		Gdx.input.setInputProcessor(inputMultiplexer);
@@ -68,8 +71,6 @@ public class Map implements Screen, InputProcessor {
 		Skin skin = new Skin(textureAtlas);
 		
 		System.out.println(textureAtlas.findRegion("IceCharacter"));
-		
-		playerHUD = new PlayerHUD();
 	}
 	
 	static {
@@ -140,7 +141,8 @@ public class Map implements Screen, InputProcessor {
 
 		if (Input.Keys.T == keycode) {
 			System.out.println("add");
-			playerHUD.getInventory().addItemToInventory(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.POTIONS01), "Apple");
+			InventoryItem apple = new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.POTIONS01);
+			playerHUD.getInventory().addItemToInventory(apple, "Apple");
 		}
 		
 		if (Input.Keys.ESCAPE == keycode) {
