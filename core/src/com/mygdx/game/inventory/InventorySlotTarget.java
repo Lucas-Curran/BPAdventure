@@ -30,6 +30,13 @@ public class InventorySlotTarget extends Target {
 		}
 		
 		if (!targetSlot.doesAcceptItemUseType(sourceActor.getItemUseType())) {
+			sourceSlot.remove(sourceActor);
+			sourceSlot.add(sourceActor);
+			return;
+		}
+		
+		if (sourceSlot == targetSlot) {
+			sourceSlot.remove(sourceActor);
 			sourceSlot.add(sourceActor);
 			return;
 		}

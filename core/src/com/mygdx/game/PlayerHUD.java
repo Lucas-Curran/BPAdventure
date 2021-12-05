@@ -8,17 +8,23 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.inventory.Inventory;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
-public class PlayerHUD implements Screen, InputProcessor {
+public class PlayerHUD implements Screen {
 	
 	private Stage stage;
 	private Inventory inventory;
-	private Camera cam;
+	private Viewport viewport;
 	
 	public PlayerHUD() {
-		cam = new Camera();
-		stage = new Stage();
+		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
+		stage = new Stage(viewport);
 		stage.setDebugAll(true);
 		
 		inventory = new Inventory();
@@ -27,19 +33,13 @@ public class PlayerHUD implements Screen, InputProcessor {
 		inventory.setVisible(true);
 		
 		stage.addActor(inventory);
-		
-		Array<Actor> actors = inventory.getInventoryActors();
-		
-		for (Actor actor : actors) {
-			stage.addActor(actor);
-		}
+		inventory.validate();
 		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
@@ -50,7 +50,9 @@ public class PlayerHUD implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-		cam.resize(width, height);
+		viewport.apply();
+		viewport.setScreenBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		stage.getViewport().update(width, height, false);
 	}
 
 	@Override
@@ -83,58 +85,9 @@ public class PlayerHUD implements Screen, InputProcessor {
 	public Stage getStage() {
 		return stage;
 	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		
-		if (Input.Keys.ESCAPE == keycode) {
-			Screens.toMap(Map.getInstance());
-			System.out.println("hi");
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(float amountX, float amountY) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public PlayerHUD instance() {
+		return this;
 	}
 	
 }

@@ -39,6 +39,18 @@ public class InventorySlot extends Stack {
 		slotStack.add(slotBackground);
 	}
 	
+	
+	
+	@Override
+    public void add(Actor actor) {
+        super.add(actor);
+
+        if( !actor.equals(slotStack)) {
+            incrementItemCount();
+        }
+    }
+
+	
 	public void add(Array<Actor> array) {
 		for (Actor actor : array) {
 			super.add(actor);
@@ -66,9 +78,12 @@ public class InventorySlot extends Stack {
 		
 		//swap
 		Array<Actor> tempArray = inventorySlotSource.getAllInventoryItems();
+		System.out.println(tempArray);
 		tempArray.add(dragActor);
+		System.out.println(tempArray);
 		inventorySlotSource.add(inventorySlotTarget.getAllInventoryItems());
         inventorySlotTarget.add(tempArray);
+        
 	}
 	
 	public void decrementItemCount() {
@@ -126,7 +141,7 @@ public class InventorySlot extends Stack {
 		Array<Actor> items = new Array<Actor>();
 		if (hasItem()) {
 			SnapshotArray<Actor> arrayChildren = this.getChildren();
-			int numInventoryItems = arrayChildren.size;
+			int numInventoryItems = arrayChildren.size - 1;
 			for (int i = 0; i < numInventoryItems; i++) {
 				decrementItemCount();
 				items.add(arrayChildren.pop());

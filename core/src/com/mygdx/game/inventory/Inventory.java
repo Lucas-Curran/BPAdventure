@@ -40,6 +40,7 @@ public class Inventory extends Window {
 	
 	private Table equipmentTable;
 	private Table slotsTable;
+	private Table playerTable;
 	
 	private DragAndDrop dragAndDrop;
 	
@@ -61,11 +62,14 @@ public class Inventory extends Window {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
 		
 		dragAndDrop = new DragAndDrop();
+		dragAndDrop.setKeepWithinStage(false);
+		
 		inventoryActors = new Array<Actor>();
 		
 		slotsTable = new Table();
 		slotsTable.setName("Slots_Table");
 		
+		playerTable = new Table();
 		equipmentTable = new Table();
 		equipmentTable.setName("Equipment_Table");
 		equipmentTable.defaults().space(10);
@@ -114,6 +118,7 @@ public class Inventory extends Window {
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 					super.touchUp(event, x, y, pointer, button);
 					if (getTapCount() == 2) {
+						setTapCount(0);
 						InventorySlot slot = (InventorySlot) event.getListenerActor();
 						if (slot.hasItem()) {
 							InventoryItem item = slot.getTopInventoryItem();
@@ -131,6 +136,8 @@ public class Inventory extends Window {
 			}
 		}	
 		
+		equipmentTable.padLeft(10);
+		
 		equipmentTable.add();
 		equipmentTable.add(headSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
 		equipmentTable.row();
@@ -147,9 +154,10 @@ public class Inventory extends Window {
 		equipmentTable.add();
 		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
 		
+		playerTable.add(equipmentTable);
 		
-		this.add(slotsTable).colspan(2);
-		this.add(equipmentTable);
+		this.add(slotsTable);
+		this.add(playerTable);
 		this.row();
 		this.pack();
 	}
@@ -164,7 +172,6 @@ public class Inventory extends Window {
 	                	//InventoryItem inventoryItem = InventoryItemFactory.getInstance().getInventoryItem(ItemTypeID.valueOf(entity.getEntityConfig().getItemTypeID()));
 	                    item.setName(itemName);
 	                    inventorySlot.add(item);
-	                    System.out.println(inventorySlot.getTopInventoryItem());
 	                    dragAndDrop.addSource(new InventorySlotSource(inventorySlot, dragAndDrop));           
 	                    break;
 	                }
@@ -186,6 +193,14 @@ public class Inventory extends Window {
 	
 	public Array<Actor> getInventoryActors() {
 		return inventoryActors;
+	}
+
+	public Table getSlotsTable() {
+		return slotsTable;
+	}
+
+	public Table getPlayerTable() {
+		return playerTable;
 	}
 	
 }

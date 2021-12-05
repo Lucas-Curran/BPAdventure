@@ -69,8 +69,6 @@ public class Map implements Screen, InputProcessor {
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
 		
 		Skin skin = new Skin(textureAtlas);
-		
-		System.out.println(textureAtlas.findRegion("IceCharacter"));
 	}
 	
 	static {
@@ -85,20 +83,24 @@ public class Map implements Screen, InputProcessor {
 	public void show() {
 		//hotbar = new Hotbar();
 		//inputMultiplexer.addProcessor(inventory.getStage());
-		entityHandler.create();
-		levels.getLevelOne().create();
+		if (entityHandler.getPlayer() == null) {
+			entityHandler.create();
+		}
+		if (!levels.getLevelOne().isCreated()) {
+			levels.getLevelOne().create();
+		}
 	}
 
 	@Override
 	public void render(float delta) {
 		entityHandler.render();
-		//hotbar.render();
 		textBox.renderTextBox(delta);
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		cam.resize(width, height);
+		playerHUD.resize(width, height);
 	}
 
 	@Override
@@ -141,12 +143,22 @@ public class Map implements Screen, InputProcessor {
 
 		if (Input.Keys.T == keycode) {
 			System.out.println("add");
-			InventoryItem apple = new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.POTIONS01);
+			InventoryItem apple = new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01);
 			playerHUD.getInventory().addItemToInventory(apple, "Apple");
 		}
 		
+		if (Input.Keys.E == keycode) {
+			System.out.println("add");
+			InventoryItem banana = new InventoryItem(textureAtlas.findRegion("arrowAni"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.POTIONS01);
+			playerHUD.getInventory().addItemToInventory(banana, "Banana");
+		}
+		
 		if (Input.Keys.ESCAPE == keycode) {
-			Screens.toHUD(playerHUD);
+			if (Screens.getGame().getScreen() == this) {
+				Screens.toHUD(playerHUD);
+			} else if (Screens.getGame().getScreen() == playerHUD) {
+				Screens.toMap();
+			}
 			return true;
 		}
 		
@@ -250,6 +262,10 @@ public class Map implements Screen, InputProcessor {
 	
 	public Hotbar getHotbar() {
 		return hotbar;
+	}
+	
+	public PlayerHUD getPlayerHUD() {
+		return playerHUD;
 	}
 	
 }
