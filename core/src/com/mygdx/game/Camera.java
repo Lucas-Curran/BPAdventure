@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
@@ -37,7 +38,10 @@ public class Camera implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {    
-	    viewport.update(width, height, false);	
+		viewport.update(width, height, false);
+		if (Screens.getGame().getScreen() == Map.getInstance().getPlayerHUD()) {
+			Map.getInstance().getPlayerHUD().resize(width, height);
+		}
 	}
 
 	@Override
