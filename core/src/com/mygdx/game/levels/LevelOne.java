@@ -10,6 +10,8 @@ import com.mygdx.game.RoomFactory;
 
 public class LevelOne extends LevelFactory implements ApplicationListener {
 	
+	boolean isCreated;
+	
 	@Override
 	public void create() {
 		super.createLevel();
@@ -18,6 +20,8 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		door.setUserData("Door");
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
 		Map.getInstance().getEntityHandler().spawnLevelOne();
+		
+		isCreated = true;
 	}
 
 	@Override
@@ -46,6 +50,10 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	@Override
 	public void dispose() {
 		
+	}
+	
+	public boolean isCreated() {
+		return isCreated;
 	}
 	
 }
