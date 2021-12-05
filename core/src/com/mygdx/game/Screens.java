@@ -11,15 +11,15 @@ public class Screens {
 		Screens.game = game;
 	}
 	
-	public static void toMap(Map map) {
-		game.setScreen(map);
+	public static void toMap() {
+		game.setScreen(Map.getInstance());
 	}
 	
 	public static void toHUD(PlayerHUD playerHUD) {
 		game.setScreen(playerHUD);
 	}
 	
-	public Game getGame() {
+	public static Game getGame() {
 		return game;
 	}
 	

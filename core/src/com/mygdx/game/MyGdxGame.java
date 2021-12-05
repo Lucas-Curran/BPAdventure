@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MyGdxGame extends Game {
 	
-	Camera cam;
+	private Camera cam;
 	public static Game game;
 	public Screens screens;
 	
@@ -13,7 +13,7 @@ public class MyGdxGame extends Game {
 	public void create() {
 		cam = new Camera();
 		screens = new Screens(this);
-		Screens.toMap(Map.getInstance());
+		Screens.toMap();
 	}
 
 	@Override
