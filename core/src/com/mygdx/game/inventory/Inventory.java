@@ -136,6 +136,9 @@ public class Inventory extends Window {
 			}
 		}	
 		
+		playerTable.add(slotsTable);
+		playerTable.add(equipmentTable);
+		
 		equipmentTable.padLeft(10);
 		
 		equipmentTable.add();
@@ -154,22 +157,28 @@ public class Inventory extends Window {
 		equipmentTable.add();
 		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
 		
-		playerTable.add(equipmentTable);
-		
-		this.add(slotsTable);
 		this.add(playerTable);
-		this.row();
 		this.pack();
 	}
 	
 	 public void addItemToInventory(InventoryItem item, String itemName){
 	        Array<Cell> sourceCells = slotsTable.getCells(); 
+	        
+//	        for (int i = 0; i < sourceCells.size; i++) {
+//	        	if (!sourceCells.get(i).hasActor()) {
+//	        		InventorySlot inventorySlot = new InventorySlot();	 
+//	    			sourceCells.get(i).setActor(inventorySlot);	    			
+//	        	}
+//	        }
+	        
 	            for (int i = 0; i < sourceCells.size; i++) {
 	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
-	                if (inventorySlot == null) continue;            
+	                if (inventorySlot == null)  {
+	                	System.out.println("inventory slot null");
+	                	continue;            
+	                }
 	                int numItems = inventorySlot.getNumItems();
 	                if (numItems == 0) {
-	                	//InventoryItem inventoryItem = InventoryItemFactory.getInstance().getInventoryItem(ItemTypeID.valueOf(entity.getEntityConfig().getItemTypeID()));
 	                    item.setName(itemName);
 	                    inventorySlot.add(item);
 	                    dragAndDrop.addSource(new InventorySlotSource(inventorySlot, dragAndDrop));           

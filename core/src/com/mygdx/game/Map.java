@@ -81,8 +81,6 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
-		//hotbar = new Hotbar();
-		//inputMultiplexer.addProcessor(inventory.getStage());
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
 		}
@@ -94,6 +92,7 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		entityHandler.render();
+		levels.getLevelOne().render();
 		textBox.renderTextBox(delta);
 	}
 
@@ -149,7 +148,7 @@ public class Map implements Screen, InputProcessor {
 		
 		if (Input.Keys.E == keycode) {
 			System.out.println("add");
-			InventoryItem banana = new InventoryItem(textureAtlas.findRegion("arrowAni"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.POTIONS01);
+			InventoryItem banana = new InventoryItem(textureAtlas.findRegion("arrowAni"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS01);
 			playerHUD.getInventory().addItemToInventory(banana, "Banana");
 		}
 		

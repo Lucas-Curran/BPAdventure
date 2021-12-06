@@ -1,9 +1,22 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -13,6 +26,7 @@ public class BodyFactory {
 	
 	private World world;
 	private static BodyFactory thisInstance;
+	private ArrayList<Body> boxBodies;
 	
 	public static final int STEEL = 0;
 	public static final int WOOD = 1;
@@ -21,7 +35,9 @@ public class BodyFactory {
 	public static final int OTHER = 4;
 	
 	private BodyFactory(World world){
+		boxBodies = new ArrayList<>();
 		this.world = world;
+		
 	}
 	
 
@@ -76,8 +92,6 @@ public class BodyFactory {
 		boxBodyDef.position.x = posx;
 		boxBodyDef.position.y = posy;
 		boxBodyDef.fixedRotation = fixedRotation;
-		//boxBodyDef.angularDamping = 2.2f;
-		//boxBodyDef.linearDamping = 2.2f;
 
 		//create the body to attach said definition
 		Body boxBody = world.createBody(boxBodyDef);
@@ -88,7 +102,7 @@ public class BodyFactory {
 		return boxBody;
 	}
 	
-	public Body makeBoxPolyBody(float posx, float posy, float width, float height,int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, Texture texture, BodyType bodyType, boolean fixedRotation, boolean isSensor){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
@@ -100,10 +114,16 @@ public class BodyFactory {
 		Body boxBody = world.createBody(boxBodyDef);
 		PolygonShape poly = new PolygonShape();
 		poly.setAsBox(width/2, height/2);
-		boxBody.createFixture(makeFixture(material,poly,isSensor));
+		Fixture fixture = boxBody.createFixture(makeFixture(material,poly,isSensor));
 		poly.dispose();
-	 
+		
+		boxBodies.add(boxBody);
+		
 		return boxBody;
+	}
+	
+	public ArrayList<Body> getBoxBodies() {
+		return boxBodies;
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.mygdx.game.inventory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
@@ -13,6 +14,7 @@ public class InventorySlotSource extends Source {
 
 	private DragAndDrop dragAndDrop;
 	private InventorySlot sourceSlot;
+	private Group parent;
 	
 	public InventorySlotSource(InventorySlot sourceSlot, DragAndDrop dragAndDrop) {
 		super(sourceSlot.getTopInventoryItem());
@@ -34,13 +36,15 @@ public class InventorySlotSource extends Source {
 			return null;
 		} else {
 			sourceSlot = source;
+			parent = sourceSlot.getParent();
 		}
 		
 		sourceSlot.decrementItemCount();
 		
+		//parent.removeActor(sourceSlot);
 		
 		payload.setDragActor(getActor());
-		dragAndDrop.setDragActorPosition(getActor().getWidth()/2 - event.getStageX() + 21, -getActor().getHeight()/2 - event.getStageY() + 14);
+		dragAndDrop.setDragActorPosition(getActor().getWidth()/2, -getActor().getHeight()/2);
 		
 		return payload;
 	}
@@ -48,11 +52,15 @@ public class InventorySlotSource extends Source {
 	@Override
 	public void dragStop(InputEvent event, float x, float y, int pointer, Payload payload, Target target) {
 		super.dragStop(event, x, y, pointer, payload, target);
+		//if (!sourceSlot.hasParent()) {
+		//	parent.addActor(sourceSlot);
+		//}
 		if (target == null) {
-			System.out.println("null target");
 			sourceSlot.remove(payload.getDragActor());
 			sourceSlot.add(payload.getDragActor());
-		}
+		} //else {
+			//sourceSlot.remove(payload.getDragActor());
+		//}
 	}
 
 	@Override

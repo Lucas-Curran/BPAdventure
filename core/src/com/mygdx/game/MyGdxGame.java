@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MyGdxGame extends Game {
 	
 	private Camera cam;
-	public static Game game;
 	public Screens screens;
 	
 	@Override

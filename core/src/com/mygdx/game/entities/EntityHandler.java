@@ -88,6 +88,7 @@ public class EntityHandler implements ApplicationListener {
 
 	@Override
 	public void render() {
+		
 		pooledEngine.update(1/20f);
 		updateCamera();
 		updateEntities();
