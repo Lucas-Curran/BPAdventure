@@ -81,7 +81,7 @@ public class InventorySlot extends Stack {
 		tempArray.add(dragActor);
 		inventorySlotSource.add(inventorySlotTarget.getAllInventoryItems());
         inventorySlotTarget.add(tempArray);
-        
+
 	}
 	
 	public void decrementItemCount() {

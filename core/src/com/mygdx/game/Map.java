@@ -141,13 +141,11 @@ public class Map implements Screen, InputProcessor {
 	public boolean keyUp(int keycode) {
 
 		if (Input.Keys.T == keycode) {
-			System.out.println("add");
 			InventoryItem apple = new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01);
 			playerHUD.getInventory().addItemToInventory(apple, "Apple");
 		}
 		
 		if (Input.Keys.E == keycode) {
-			System.out.println("add");
 			InventoryItem banana = new InventoryItem(textureAtlas.findRegion("arrowAni"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS01);
 			playerHUD.getInventory().addItemToInventory(banana, "Banana");
 		}

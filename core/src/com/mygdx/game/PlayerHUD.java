@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.ui.StatusUI;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
@@ -19,6 +20,7 @@ public class PlayerHUD implements Screen {
 	
 	private Stage stage;
 	private Inventory inventory;
+	private StatusUI statusUI;
 	private Viewport viewport;
 	
 	public PlayerHUD() {
@@ -32,7 +34,13 @@ public class PlayerHUD implements Screen {
 		inventory.setMovable(false);
 		inventory.setVisible(true);
 		
+		statusUI = new StatusUI();
+		statusUI.setMovable(false);
+
 		stage.addActor(inventory);
+		stage.addActor(statusUI);
+		
+		statusUI.validate();
 		inventory.validate();
 		
 	}

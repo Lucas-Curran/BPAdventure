@@ -40,7 +40,6 @@ public class Inventory extends Window {
 	
 	private Table equipmentTable;
 	private Table slotsTable;
-	private Table playerTable;
 	
 	private DragAndDrop dragAndDrop;
 	
@@ -57,6 +56,8 @@ public class Inventory extends Window {
 	private Array<Cell> cells;
 
 	private ArrayList<Image> inventoryImages = new ArrayList<Image>();
+	
+	private Array<Cell> sourceCells;
 
 	public Inventory() {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
@@ -68,8 +69,7 @@ public class Inventory extends Window {
 		
 		slotsTable = new Table();
 		slotsTable.setName("Slots_Table");
-		
-		playerTable = new Table();
+
 		equipmentTable = new Table();
 		equipmentTable.setName("Equipment_Table");
 		equipmentTable.defaults().space(10);
@@ -135,10 +135,7 @@ public class Inventory extends Window {
 				slotsTable.row();
 			}
 		}	
-		
-		playerTable.add(slotsTable);
-		playerTable.add(equipmentTable);
-		
+
 		equipmentTable.padLeft(10);
 		
 		equipmentTable.add();
@@ -156,25 +153,28 @@ public class Inventory extends Window {
 		
 		equipmentTable.add();
 		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-		
-		this.add(playerTable);
+	
+		//this.setLayoutEnabled(false);
+		this.add(equipmentTable);
+		this.add(slotsTable);
 		this.pack();
+		
+		sourceCells = slotsTable.getCells(); 
 	}
 	
 	 public void addItemToInventory(InventoryItem item, String itemName){
-	        Array<Cell> sourceCells = slotsTable.getCells(); 
 	        
-//	        for (int i = 0; i < sourceCells.size; i++) {
-//	        	if (!sourceCells.get(i).hasActor()) {
-//	        		InventorySlot inventorySlot = new InventorySlot();	 
-//	    			sourceCells.get(i).setActor(inventorySlot);	    			
-//	        	}
-//	        }
+	        	for (int i = 0; i < INVENTORY_SPACE; i++) {
+	        		if (!sourceCells.get(i).hasActor()) {
+	        		InventorySlot inventorySlot = new InventorySlot();	 
+	    				sourceCells.get(i).setActor(inventorySlot);
+	    				dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
+	        		}
+	        	}
 	        
 	            for (int i = 0; i < sourceCells.size; i++) {
 	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 	                if (inventorySlot == null)  {
-	                	System.out.println("inventory slot null");
 	                	continue;            
 	                }
 	                int numItems = inventorySlot.getNumItems();
@@ -206,10 +206,6 @@ public class Inventory extends Window {
 
 	public Table getSlotsTable() {
 		return slotsTable;
-	}
-
-	public Table getPlayerTable() {
-		return playerTable;
 	}
 	
 }

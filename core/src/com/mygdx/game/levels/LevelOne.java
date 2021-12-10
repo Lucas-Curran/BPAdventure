@@ -77,21 +77,19 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void render() {
+		camera.getCamera().update();
+		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
+		polygonSpriteBatch.enableBlending();
+		polygonSpriteBatch.begin();
 		for (int i = 0; i < polySprites.size(); i++) {
-			camera.getCamera().update();
-			polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
-			polygonSpriteBatch.enableBlending();
-			polygonSpriteBatch.begin();
-			System.out.println(polySprites.get(i).getVertices()[0]);
 			polySprites.get(i).draw(polygonSpriteBatch);
-			polygonSpriteBatch.end();
 		}
+		polygonSpriteBatch.end();
 	}
 
 	@Override
@@ -113,6 +111,10 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	public boolean isCreated() {
 		return isCreated;
+	}
+	
+	public PolygonSpriteBatch getPolygonSpriteBatch() {
+		return polygonSpriteBatch;
 	}
 	
 }

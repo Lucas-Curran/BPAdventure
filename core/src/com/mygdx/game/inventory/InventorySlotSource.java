@@ -14,7 +14,6 @@ public class InventorySlotSource extends Source {
 
 	private DragAndDrop dragAndDrop;
 	private InventorySlot sourceSlot;
-	private Group parent;
 	
 	public InventorySlotSource(InventorySlot sourceSlot, DragAndDrop dragAndDrop) {
 		super(sourceSlot.getTopInventoryItem());
@@ -36,15 +35,12 @@ public class InventorySlotSource extends Source {
 			return null;
 		} else {
 			sourceSlot = source;
-			parent = sourceSlot.getParent();
-		}
+		};
 		
 		sourceSlot.decrementItemCount();
-		
-		//parent.removeActor(sourceSlot);
-		
+
 		payload.setDragActor(getActor());
-		dragAndDrop.setDragActorPosition(getActor().getWidth()/2, -getActor().getHeight()/2);
+		dragAndDrop.setDragActorPosition(getActor().getWidth()/2 - event.getStageX(), -getActor().getHeight()/2 - event.getStageY());
 		
 		return payload;
 	}
@@ -52,15 +48,10 @@ public class InventorySlotSource extends Source {
 	@Override
 	public void dragStop(InputEvent event, float x, float y, int pointer, Payload payload, Target target) {
 		super.dragStop(event, x, y, pointer, payload, target);
-		//if (!sourceSlot.hasParent()) {
-		//	parent.addActor(sourceSlot);
-		//}
 		if (target == null) {
-			sourceSlot.remove(payload.getDragActor());
-			sourceSlot.add(payload.getDragActor());
-		} //else {
-			//sourceSlot.remove(payload.getDragActor());
-		//}
+			sourceSlot.remove(getActor());
+			sourceSlot.add(getActor());
+		} 
 	}
 
 	@Override
