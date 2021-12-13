@@ -30,7 +30,7 @@ import com.mygdx.game.systems.*;
 public class EntityHandler implements ApplicationListener {
 
 	Engine engine;
-	PooledEngine pooledEngine;
+	protected PooledEngine pooledEngine;
 	TextureRegion tex;
 	BodyFactory bodyFactory;
 	GameWorld gameWorld;
@@ -87,8 +87,7 @@ public class EntityHandler implements ApplicationListener {
 	}
 
 	@Override
-	public void render() {
-		
+	public void render() {	
 		pooledEngine.update(1/20f);
 		updateCamera();
 		updateEntities();
@@ -114,7 +113,15 @@ public class EntityHandler implements ApplicationListener {
 	}
 	
 	private void updateCamera() {
-		cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
+		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
+		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
+		float minCameraY = cam.getCamera().viewportHeight / 2;
+		float maxCameraY = cam.getViewport().getWorldHeight() - minCameraY;
+		
+		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
+				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
+		
+		//cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
 		cam.getCamera().update();
 	}
 	

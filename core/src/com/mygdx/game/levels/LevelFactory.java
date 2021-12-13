@@ -5,14 +5,13 @@ import com.mygdx.game.GameWorld;
 import com.mygdx.game.RoomFactory;
 import com.mygdx.game.entities.EntityHandler;
 
-public class LevelFactory {
+public class LevelFactory extends EntityHandler {
 	
 	BodyFactory bodyFactory;
 	RoomFactory roomFactory;
 	EntityHandler entityHandler;
 	
 	public LevelFactory() {
-		entityHandler = new EntityHandler();
 		bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
 		roomFactory = new RoomFactory();
 	}

@@ -2,6 +2,7 @@ package com.mygdx.game.levels;
 
 import java.util.ArrayList;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,6 +24,10 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
 import com.mygdx.game.RoomFactory;
+import com.mygdx.game.components.B2dBodyComponent;
+import com.mygdx.game.components.TextureComponent;
+import com.mygdx.game.components.TransformComponent;
+import com.mygdx.game.components.TypeComponent;
 
 public class LevelOne extends LevelFactory implements ApplicationListener {
 	
@@ -34,6 +39,8 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	@Override
 	public void create() {
 		super.createLevel();
+		camera = new Camera();
+		
 		Texture doorTex = new Texture(Gdx.files.internal("redTextBox.png"));
 		Body door = bodyFactory.makeBoxPolyBody(4, 2.7f, 2, 2, BodyFactory.STEEL, doorTex, BodyType.StaticBody, false, true);
 		door.setUserData("Door");
@@ -41,13 +48,22 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		Map.getInstance().getEntityHandler().spawnLevelOne();
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		polySprites = new ArrayList<>();
-		camera = new Camera();
 		
 		isCreated = true;
 		
 		for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {
-			Body boxBody = bodyFactory.getBoxBodies().get(i);
-			Fixture fixture = boxBody.getFixtureList().get(0);
+			
+			Entity entity = pooledEngine.createEntity();
+			B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
+			TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
+			TextureComponent textureComp = pooledEngine.createComponent(TextureComponent.class);
+			TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
+			
+			type.type = TypeComponent.SCENERY;
+			
+			b2dbody.body = bodyFactory.getBoxBodies().get(i);
+			position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
+			Fixture fixture = b2dbody.body.getFixtureList().get(0);
 			Vector2 mTmp = new Vector2();
 			PolygonShape shape = (PolygonShape) fixture.getShape();
 			//Texture texture = new TextureAtlas("bpaatlas.txt").findRegion("holderBoots").getTexture();
@@ -57,21 +73,26 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 			float[] vertices = new float[vertexCount * 2];
 			for (int k = 0; k < vertexCount; k++) {
 				shape.getVertex(k, mTmp);
-				mTmp.rotateDeg(boxBody.getAngle()*MathUtils.radiansToDegrees);
-				mTmp.add(boxBody.getPosition());
-				vertices[k*2] = mTmp.x;
-				vertices[k*2+1] = mTmp.y;
+				mTmp.rotateDeg(b2dbody.body.getAngle()*MathUtils.radiansToDegrees);
+				mTmp.add(b2dbody.body.getPosition());
+				vertices[k*2] = mTmp.x / 20;
+				vertices[k*2+1] = mTmp.y / 15;
 			}
 			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
 			texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			TextureRegion textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
-			textureRegion.flip(false, true);
+			textureComp.region = textureRegion;
 			PolygonRegion polyRegion = new PolygonRegion(textureRegion, vertices, triangles);
+			
+			entity.add(b2dbody);
+			entity.add(position);
+			entity.add(textureComp);
+			entity.add(type);
+			
+			pooledEngine.addEntity(entity);
+			
 			polySprites.add(new PolygonSprite(polyRegion));
 		}
-		
-		
-		
 	}
 	
 
@@ -82,14 +103,19 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 
 	@Override
 	public void render() {
-		camera.getCamera().update();
-		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
-		polygonSpriteBatch.enableBlending();
-		polygonSpriteBatch.begin();
-		for (int i = 0; i < polySprites.size(); i++) {
-			polySprites.get(i).draw(polygonSpriteBatch);
+//		camera.getCamera().update();
+//		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
+//		polygonSpriteBatch.begin();
+//		for (int i = 0; i < polySprites.size(); i++) {
+//			polySprites.get(i).draw(polygonSpriteBatch);
+//		}
+//		polygonSpriteBatch.end();
+		for (Entity entity : pooledEngine.getEntities()) {
+			entity.getComponent(TransformComponent.class).position.set(
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - camera.getCamera().position.x, 
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - camera.getCamera().position.y,
+					0);
 		}
-		polygonSpriteBatch.end();
 	}
 
 	@Override

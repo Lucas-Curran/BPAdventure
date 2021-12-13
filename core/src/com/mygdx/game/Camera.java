@@ -46,8 +46,7 @@ public class Camera implements ApplicationListener {
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
