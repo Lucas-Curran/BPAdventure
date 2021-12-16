@@ -44,9 +44,6 @@ public class EntityHandler implements ApplicationListener {
 	
 	public boolean loadingZone;
 	
-	
-	
-	
 	public EntityHandler() {
 		engine = new Engine();
 		gameWorld = new GameWorld();

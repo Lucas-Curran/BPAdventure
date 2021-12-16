@@ -1,5 +1,9 @@
 package com.mygdx.game.levels;
 
+/**
+ * Holds the references to levels
+ * 
+ */
 public class Levels {
 
 	private LevelOne levelOne;

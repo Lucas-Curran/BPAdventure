@@ -17,7 +17,7 @@ public class B2dContactListener implements ContactListener {
 	public B2dContactListener(EntityHandler parent){ 
 		this.parent = parent;
 	}
-	
+
 	@Override
 	public void beginContact(Contact contact) {
 		System.out.println("Contact");
@@ -47,6 +47,11 @@ public class B2dContactListener implements ContactListener {
 		
 	}
  
+	/**
+	 * Detects whether an ashley entity has collided with a box2d fixture
+	 * @param ent - entity
+	 * @param fb - fixture body
+	 */
 	private void entityCollision(Entity ent, Fixture fb) {
 		if(fb.getBody().getUserData() instanceof Entity){
 			Entity colEnt = (Entity) fb.getBody().getUserData();
