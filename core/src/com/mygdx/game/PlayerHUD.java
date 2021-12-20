@@ -7,6 +7,10 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -14,16 +18,22 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.ui.StatusUI;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class PlayerHUD implements Screen {
+public class PlayerHUD extends Window {
 	
 	private Stage stage;
 	private Inventory inventory;
 	private StatusUI statusUI;
 	private Viewport viewport;
 	
+	private static TextureRegion background = new TextureRegion(Utilities.UISKIN.getAtlas().findRegion("invBackground"));
+	
 	public PlayerHUD() {
+		super("HUD", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		stage = new Stage(viewport);
@@ -32,58 +42,50 @@ public class PlayerHUD implements Screen {
 		inventory = new Inventory();
 		inventory.setKeepWithinStage(false);
 		inventory.setMovable(false);
-		inventory.setVisible(true);
-		
+		inventory.setVisible(false);
+		inventory.setWidth(400);
+		inventory.setHeight(400);
+
 		statusUI = new StatusUI();
 		statusUI.setMovable(false);
 
-		stage.addActor(inventory);
 		stage.addActor(statusUI);
+		stage.addActor(inventory);
 		
 		statusUI.validate();
-		inventory.validate();
+		inventory.validate();	
 		
 	}
-
-	@Override
-	public void show() {
 	
-	}
-
-	@Override
 	public void render(float delta) {
 		stage.act(delta);
 		stage.draw();	
 	}
 
-	@Override
+	
 	public void resize(int width, int height) {
-		viewport.apply();
-		viewport.setScreenBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage.getViewport().update(width, height, false);
 	}
 
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void dispose() {
 		stage.dispose();		
+	}
+	
+	public void showHUD() {
+		this.setVisible(true);
+	}
+	
+	
+	public boolean isShowing() {
+		return this.isVisible();
+	}
+	
+	public void popUpInventory() {
+		if (inventory.isVisible()) {
+			inventory.setVisible(false);
+		} else {
+			inventory.setVisible(true);
+		}
 	}
 	
 	public Inventory getInventory() {

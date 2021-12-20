@@ -15,10 +15,10 @@ public class Screens {
 		game.setScreen(Map.getInstance());
 	}
 	
-	public static void toHUD(PlayerHUD playerHUD) {
-		game.setScreen(playerHUD);
-	}
-	
+//	public static void toHUD(PlayerHUD playerHUD) {
+//		game.setScreen(playerHUD);
+//	}
+//	
 	public static Game getGame() {
 		return game;
 	}

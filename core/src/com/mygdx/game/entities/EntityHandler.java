@@ -156,4 +156,9 @@ public class EntityHandler implements ApplicationListener {
 		return player;
 	}
 	
+	public void replaceRenderingSystem() {
+		pooledEngine.removeSystem(renderingSystem);
+		pooledEngine.addSystem(new RenderingSystem(batch));
+	}
+	
 }

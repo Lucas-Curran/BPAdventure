@@ -18,20 +18,19 @@ public class StatusUI extends Window {
 	private float hpVal = 1;
 	
 	public StatusUI() {
-		super("StatusUI", new WindowStyle(new BitmapFont(), Color.RED, null));
+		super("Status", new WindowStyle(new BitmapFont(), Color.RED, null));
 		Texture hpTex = new Texture(Gdx.files.internal("hpBar.png"));
-		hpBar = new Image(hpTex);
+		HealthBar hpBar = new HealthBar();
 		
-		this.add(hpBar).top().left().padLeft(10).padTop(10);
+		this.setFillParent(true);
+		this.padTop(20);
+		this.add(hpBar).padLeft(20);
+		this.top().left();
 		this.pack();
 	}
 	
 	public void setHP(float hpVal) {
 		this.hpVal = hpVal;
-	}
-	
-	public float getHP() {
-		return hpVal * 100;
 	}
 	
 	public void calculateBar() {

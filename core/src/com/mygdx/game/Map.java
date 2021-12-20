@@ -86,6 +86,7 @@ public class Map implements Screen, InputProcessor {
 		}
 		if (!levels.getLevelOne().isCreated()) {
 			levels.getLevelOne().create();
+			//entityHandler.replaceRenderingSystem();
 		}
 	}
 
@@ -94,6 +95,9 @@ public class Map implements Screen, InputProcessor {
 		entityHandler.render();
 		levels.getLevelOne().render();
 		textBox.renderTextBox(delta);
+		if (playerHUD.isShowing()) {
+			playerHUD.render(delta);
+		}
 	}
 
 	@Override
@@ -151,11 +155,13 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (Input.Keys.ESCAPE == keycode) {
-			if (Screens.getGame().getScreen() == this) {
-				Screens.toHUD(playerHUD);
-			} else if (Screens.getGame().getScreen() == playerHUD) {
-				Screens.toMap();
-			}
+//			if (Screens.getGame().getScreen() == this) {
+//				//Screens.toHUD(playerHUD);
+//				
+//			} else if (Screens.getGame().getScreen() == playerHUD) {
+//				Screens.toMap();
+//			}
+			playerHUD.popUpInventory();
 			return true;
 		}
 		
@@ -234,6 +240,10 @@ public class Map implements Screen, InputProcessor {
 		} 
 		
 		if (textBox.isVisible()) {
+			return true;
+		}
+		
+		if (playerHUD.getInventory().isVisible()) {
 			return true;
 		}
 		

@@ -39,9 +39,7 @@ public class Camera implements ApplicationListener {
 	@Override
 	public void resize(int width, int height) {    
 		viewport.update(width, height, false);
-		if (Screens.getGame().getScreen() == Map.getInstance().getPlayerHUD()) {
-			Map.getInstance().getPlayerHUD().resize(width, height);
-		}
+		Map.getInstance().getPlayerHUD().resize(width, height);
 	}
 
 	@Override

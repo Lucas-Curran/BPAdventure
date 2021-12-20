@@ -60,7 +60,7 @@ public class Inventory extends Window {
 	private Array<Cell> sourceCells;
 
 	public Inventory() {
-		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
+		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
 		
 		dragAndDrop = new DragAndDrop();
 		dragAndDrop.setKeepWithinStage(false);
@@ -155,8 +155,10 @@ public class Inventory extends Window {
 		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
 	
 		//this.setLayoutEnabled(false);
+		this.setFillParent(true);
 		this.add(equipmentTable);
 		this.add(slotsTable);
+		this.getTitleTable().padBottom(15);
 		this.pack();
 		
 		sourceCells = slotsTable.getCells(); 
