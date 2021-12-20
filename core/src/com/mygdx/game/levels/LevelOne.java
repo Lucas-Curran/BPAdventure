@@ -42,7 +42,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		camera = new Camera();
 		
 		Texture doorTex = new Texture(Gdx.files.internal("redTextBox.png"));
-		Body door = bodyFactory.makeBoxPolyBody(4, 2.7f, 2, 2, BodyFactory.STEEL, doorTex, BodyType.StaticBody, false, true);
+		Body door = bodyFactory.makeBoxPolyBody(4, 2.7f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
 		door.setUserData("Door");
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
 		Map.getInstance().getEntityHandler().spawnLevelOne();
@@ -75,8 +75,8 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 				shape.getVertex(k, mTmp);
 				mTmp.rotateDeg(b2dbody.body.getAngle()*MathUtils.radiansToDegrees);
 				mTmp.add(b2dbody.body.getPosition());
-				vertices[k*2] = mTmp.x / 20;
-				vertices[k*2+1] = mTmp.y / 15;
+				vertices[k*2] = mTmp.x;
+				vertices[k*2+1] = mTmp.y;
 			}
 			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
 			texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -103,6 +103,14 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 
 	@Override
 	public void render() {
+		
+		for (Entity entity : pooledEngine.getEntities()) {
+			entity.getComponent(TransformComponent.class).position.set(
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - camera.getCamera().position.x, 
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - camera.getCamera().position.y,
+					0);
+		}
+		
 //		camera.getCamera().update();
 //		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
 //		polygonSpriteBatch.begin();
@@ -110,12 +118,6 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 //			polySprites.get(i).draw(polygonSpriteBatch);
 //		}
 //		polygonSpriteBatch.end();
-		for (Entity entity : pooledEngine.getEntities()) {
-			entity.getComponent(TransformComponent.class).position.set(
-					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - camera.getCamera().position.x, 
-					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - camera.getCamera().position.y,
-					0);
-		}
 	}
 
 	@Override

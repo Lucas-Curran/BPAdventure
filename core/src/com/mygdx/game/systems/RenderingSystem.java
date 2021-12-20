@@ -7,11 +7,13 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Camera;
+import com.mygdx.game.Engine;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 
@@ -28,13 +30,16 @@ public class RenderingSystem extends SortedIteratingSystem {
 	private static Vector2 pixelDimensions = new Vector2();
 	
 	private SpriteBatch batch;
+	private PolygonSpriteBatch polyBatch;
     private Array<Entity> renderQueue;
     private Comparator<Entity> comparator; 
     private Camera cam;
     
     private ComponentMapper<TextureComponent> textureM;
     private ComponentMapper<TransformComponent> transformM;
-	
+
+    
+    
 	public RenderingSystem(SpriteBatch batch) {
 		
 		super(Family.all(TransformComponent.class, TextureComponent.class).get(), new ZComparator());
@@ -48,6 +53,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 		comparator = new ZComparator();
 		
 		cam = new Camera();
+		polyBatch = new PolygonSpriteBatch();
 	}
 	
 	public static Vector2 getScreenSizeInMeters() {
@@ -71,15 +77,14 @@ public class RenderingSystem extends SortedIteratingSystem {
 		
 		renderQueue.sort(comparator);
 		cam.getCamera().update();
-		batch.setProjectionMatrix(cam.getCombined());
-		batch.enableBlending();
-		batch.begin();
+		polyBatch.setProjectionMatrix(cam.getCombined());
+		polyBatch.enableBlending();
+		polyBatch.begin();
 		
 		for (Entity entity : renderQueue) {
 			TextureComponent tex = textureM.get(entity);
 			TransformComponent t = transformM.get(entity);
-			
-			
+	
 			if (tex.region == null || t.isHidden) {
 				System.out.println("Null texture");
 				continue;
@@ -91,7 +96,7 @@ public class RenderingSystem extends SortedIteratingSystem {
             float originX = width/2;
             float originY = height/2;
  
-            batch.draw(tex.region,
+            polyBatch.draw(tex.region,
                     t.position.x - originX + cam.getCamera().viewportWidth / 2,
                     t.position.y - originY + cam.getCamera().viewportHeight / 2,
                     originX, originY,
@@ -101,7 +106,7 @@ public class RenderingSystem extends SortedIteratingSystem {
             
 		}
 		
-		batch.end();
+		polyBatch.end();
 		renderQueue.clear();
 		
 	}

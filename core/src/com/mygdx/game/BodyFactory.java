@@ -22,6 +22,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
+/**
+ * Used for generating box2d bodies with varied fixtures and shapes
+ *
+ */
 public class BodyFactory {
 	
 	private World world;
@@ -41,6 +45,11 @@ public class BodyFactory {
 	}
 	
 
+	/**
+	 * Gets the instance of the body factory
+	 * @param world - the world wanting to use the bodies
+	 * @return - the instance
+	 */
 	public static BodyFactory getInstance(World world) {
 		if(thisInstance == null){
 			thisInstance = new BodyFactory(world);
@@ -48,6 +57,13 @@ public class BodyFactory {
 		return thisInstance;
 	}
 	
+	/**
+	 * Makes the fixtures for box2d bodies with given properties
+	 * @param material - constant for deciding density, friction, and restitution
+	 * @param shape - shape of body
+	 * @param isSensor - is the body a sensor
+	 * @return fixtureDef 
+	 */
 	static public FixtureDef makeFixture(int material, Shape shape, boolean isSensor) {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = isSensor;
@@ -85,6 +101,16 @@ public class BodyFactory {
 		return fixtureDef;
 	}
 
+	/**
+	 * Creates a circle box2d body
+	 * @param posx - x coordinate of body
+	 * @param posy - y coordinate of body
+	 * @param radius - radius of body
+	 * @param material - material used for body
+	 * @param bodyType - box2d body type
+	 * @param fixedRotation - rotation
+	 * @return body
+	 */
 	public Body makeCirclePolyBody(float posx, float posy, float radius, int material, BodyType bodyType, boolean fixedRotation){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
@@ -102,7 +128,20 @@ public class BodyFactory {
 		return boxBody;
 	}
 	
-	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, Texture texture, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+	/**
+	 * Creates a box box2d body
+	 * @param posx - x coordinate of body
+	 * @param posy - y coordinate of body
+	 * @param width - width
+	 * @param height - height
+	 * @param material - material used for body
+	 * @param texture - 
+	 * @param bodyType
+	 * @param fixedRotation
+	 * @param isSensor
+	 * @return
+	 */
+	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
