@@ -153,7 +153,7 @@ public class Inventory extends Window {
 		
 		equipmentTable.add();
 		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-	
+		
 		//this.setLayoutEnabled(false);
 		this.setFillParent(true);
 		this.add(equipmentTable);
@@ -165,16 +165,7 @@ public class Inventory extends Window {
 	}
 	
 	 public void addItemToInventory(InventoryItem item, String itemName){
-	        
-	        	for (int i = 0; i < INVENTORY_SPACE; i++) {
-	        		if (!sourceCells.get(i).hasActor()) {
-	        		InventorySlot inventorySlot = new InventorySlot();	 
-	    				sourceCells.get(i).setActor(inventorySlot);
-	    				dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
-	        		}
-	        	}
-	        
-	            for (int i = 0; i < sourceCells.size; i++) {
+            for (int i = 0; i < sourceCells.size; i++) {
 	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 	                if (inventorySlot == null)  {
 	                	continue;            

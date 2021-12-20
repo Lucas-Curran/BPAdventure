@@ -40,8 +40,13 @@ public class InventorySlotSource extends Source {
 		sourceSlot.decrementItemCount();
 
 		payload.setDragActor(getActor());
-		dragAndDrop.setDragActorPosition(getActor().getWidth()/2 - event.getStageX(), -getActor().getHeight()/2 - event.getStageY());
-		
+		dragAndDrop.setDragActorPosition(getActor().getWidth()/2 
+				- getActor().getParent().getParent().getX() - 
+				getActor().getParent().getX(), 
+				-getActor().getHeight()/2 - 
+				getActor().getParent().getParent().getY() - 
+				getActor().getParent().getY());
+		payload.getDragActor().getParent().getParent().toFront();
 		return payload;
 	}
 	
