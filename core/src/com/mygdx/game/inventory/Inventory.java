@@ -158,7 +158,7 @@ public class Inventory extends Window {
 		this.setFillParent(true);
 		this.add(equipmentTable);
 		this.add(slotsTable);
-		this.getTitleTable().padBottom(15);
+		this.getTitleTable().padTop(300).padLeft(178);
 		this.pack();
 		
 		sourceCells = slotsTable.getCells(); 
