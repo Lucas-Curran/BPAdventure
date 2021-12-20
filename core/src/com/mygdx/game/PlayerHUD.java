@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
@@ -43,8 +44,6 @@ public class PlayerHUD extends Window {
 		inventory.setKeepWithinStage(false);
 		inventory.setMovable(false);
 		inventory.setVisible(false);
-		inventory.setWidth(400);
-		inventory.setHeight(400);
 
 		statusUI = new StatusUI();
 		statusUI.setMovable(false);
@@ -58,6 +57,7 @@ public class PlayerHUD extends Window {
 	}
 	
 	public void render(float delta) {
+		
 		stage.act(delta);
 		stage.draw();	
 	}
@@ -84,6 +84,7 @@ public class PlayerHUD extends Window {
 		if (inventory.isVisible()) {
 			inventory.setVisible(false);
 		} else {
+			inventory.toFront();
 			inventory.setVisible(true);
 		}
 	}

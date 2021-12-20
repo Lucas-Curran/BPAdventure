@@ -19,7 +19,6 @@ public class StatusUI extends Window {
 	
 	public StatusUI() {
 		super("Status", new WindowStyle(new BitmapFont(), Color.RED, null));
-		Texture hpTex = new Texture(Gdx.files.internal("hpBar.png"));
 		HealthBar hpBar = new HealthBar();
 		
 		this.setFillParent(true);
