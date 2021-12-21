@@ -154,7 +154,6 @@ public class Inventory extends Window {
 		equipmentTable.add();
 		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
 		
-		//this.setLayoutEnabled(false);
 		this.setFillParent(true);
 		this.add(equipmentTable);
 		this.add(slotsTable);

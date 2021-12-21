@@ -38,7 +38,7 @@ public class PlayerHUD extends Window {
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		stage = new Stage(viewport);
-		stage.setDebugAll(true);
+		//stage.setDebugAll(true);
 		
 		inventory = new Inventory();
 		inventory.setKeepWithinStage(false);

@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Camera implements ApplicationListener {
 	
+	OrthographicCamera staticCam;
 	OrthographicCamera cam;
 	Viewport viewport;
 	
@@ -31,7 +32,9 @@ public class Camera implements ApplicationListener {
 	public void create() {
 		if (cam == null) {						
 			cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+			staticCam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
+			staticCam.setToOrtho(false, staticCam.viewportWidth,  staticCam.viewportHeight);
 			viewport = new FitViewport(cam.viewportWidth, cam.viewportHeight, cam);		
 		}
 	}
@@ -64,6 +67,10 @@ public class Camera implements ApplicationListener {
 	
 	}
 	
+	public OrthographicCamera getStaticCamera() {
+		return staticCam;
+	}
+	
 	public OrthographicCamera getCamera() {
 		return cam;
 	}
@@ -74,6 +81,10 @@ public class Camera implements ApplicationListener {
 	
 	public Viewport getViewport() {
 		return viewport;
+	}
+	
+	public float getX() {
+		return cam.position.x;
 	}
 	
 	

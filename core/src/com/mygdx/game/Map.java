@@ -86,13 +86,13 @@ public class Map implements Screen, InputProcessor {
 		}
 		if (!levels.getLevelOne().isCreated()) {
 			levels.getLevelOne().create();
-			//entityHandler.replaceRenderingSystem();
 		}
 	}
 
 	@Override
 	public void render(float delta) {
 		entityHandler.render();
+		levels.getLevelOne().setCameraX(entityHandler.getCameraX());
 		levels.getLevelOne().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
@@ -154,13 +154,7 @@ public class Map implements Screen, InputProcessor {
 			playerHUD.getInventory().addItemToInventory(banana, "Banana");
 		}
 		
-		if (Input.Keys.ESCAPE == keycode) {
-//			if (Screens.getGame().getScreen() == this) {
-//				//Screens.toHUD(playerHUD);
-//				
-//			} else if (Screens.getGame().getScreen() == playerHUD) {
-//				Screens.toMap();
-//			}
+		if (Input.Keys.ESCAPE == keycode && (!inAction() || playerHUD.getInventory().isVisible())) {
 			playerHUD.popUpInventory();
 			return true;
 		}
@@ -175,7 +169,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		} 
 		
-		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting) {
+		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);

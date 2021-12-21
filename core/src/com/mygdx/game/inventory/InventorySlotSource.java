@@ -46,7 +46,9 @@ public class InventorySlotSource extends Source {
 				-getActor().getHeight()/2 - 
 				getActor().getParent().getParent().getY() - 
 				getActor().getParent().getY());
+		
 		payload.getDragActor().getParent().getParent().toFront();
+		
 		return payload;
 	}
 	

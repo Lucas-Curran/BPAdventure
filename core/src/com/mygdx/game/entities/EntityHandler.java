@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -43,6 +44,8 @@ public class EntityHandler implements ApplicationListener {
 	private Enemy enemies;
 	
 	public boolean loadingZone;
+	
+	private ArrayList<PolygonSprite> polySprites;
 	
 	public EntityHandler() {
 		engine = new Engine();
@@ -117,8 +120,6 @@ public class EntityHandler implements ApplicationListener {
 		
 		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
 				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
-		
-		//cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
 		cam.getCamera().update();
 	}
 	
@@ -153,9 +154,12 @@ public class EntityHandler implements ApplicationListener {
 		return player;
 	}
 	
-	public void replaceRenderingSystem() {
-		pooledEngine.removeSystem(renderingSystem);
-		pooledEngine.addSystem(new RenderingSystem(batch));
+	public void setPolySprites(ArrayList<PolygonSprite> polySprites) {
+		this.polySprites = polySprites;
+	}
+	
+	public float getCameraX() {
+		return cam.getCamera().position.x;
 	}
 	
 }
