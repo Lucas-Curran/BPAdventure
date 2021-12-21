@@ -92,7 +92,7 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		entityHandler.render();
-		levels.getLevelOne().setCameraX(entityHandler.getCameraX());
+		levels.getLevelOne().setCameraPosition(entityHandler.getCameraPosition());
 		levels.getLevelOne().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {

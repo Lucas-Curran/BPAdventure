@@ -157,7 +157,8 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		return vertices;
 	}
 	
-	public void setCameraX(float x) {
-		camera.getCamera().position.x = x;
+	public void setCameraPosition(Vector3 position) {
+		camera.getCamera().position.set(position);
 	}
+	
 }

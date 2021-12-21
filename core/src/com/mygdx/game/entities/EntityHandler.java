@@ -158,8 +158,8 @@ public class EntityHandler implements ApplicationListener {
 		this.polySprites = polySprites;
 	}
 	
-	public float getCameraX() {
-		return cam.getCamera().position.x;
+	public Vector3 getCameraPosition() {
+		return cam.getCamera().position;
 	}
 	
 }
