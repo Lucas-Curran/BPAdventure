@@ -66,6 +66,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
+		pooledEngine.addSystem(new EnemySystem());
 		
 		loadingZone = false;
 		
