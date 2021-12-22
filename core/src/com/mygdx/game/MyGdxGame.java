@@ -12,7 +12,7 @@ public class MyGdxGame extends Game {
 	public void create() {
 		cam = new Camera();
 		screens = new Screens(this);
-		Screens.toMap();
+		Screens.toMenu(new MainMenu());
 	}
 
 	@Override

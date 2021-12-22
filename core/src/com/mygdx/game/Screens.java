@@ -11,6 +11,10 @@ public class Screens {
 		Screens.game = game;
 	}
 	
+	public static void toMenu(MainMenu menu) {
+		game.setScreen(menu);
+	}
+	
 	public static void toMap() {
 		game.setScreen(Map.getInstance());
 	}

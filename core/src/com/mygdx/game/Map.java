@@ -51,7 +51,6 @@ public class Map implements Screen, InputProcessor {
 	private Hotbar hotbar;
 	
 	private Texture mapBackground;
-	private Sprite mapSprite;
 	
 	private PlayerHUD playerHUD;
 	
@@ -62,20 +61,14 @@ public class Map implements Screen, InputProcessor {
 		textBox = new TextBox(font, stage, Color.WHITE);
 		
 		playerHUD = new PlayerHUD();
-		inputMultiplexer = new InputMultiplexer();
-		
-		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(playerHUD.getStage());
 		
 		entityHandler = new EntityHandler();
-		Gdx.input.setInputProcessor(inputMultiplexer);
 		levels = new Levels();
 	
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
 		
 		Skin skin = new Skin(textureAtlas);
 		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
-		mapSprite = new Sprite(mapBackground);
 	}
 	
 	static {
@@ -88,6 +81,12 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
+		
+		inputMultiplexer = new InputMultiplexer();	
+		inputMultiplexer.addProcessor(this);
+		inputMultiplexer.addProcessor(playerHUD.getStage());
+		Gdx.input.setInputProcessor(inputMultiplexer);
+		
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
 		}
