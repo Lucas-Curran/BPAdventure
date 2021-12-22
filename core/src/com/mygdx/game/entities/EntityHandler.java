@@ -150,6 +150,10 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}

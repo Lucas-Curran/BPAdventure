@@ -9,7 +9,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -48,6 +50,9 @@ public class Map implements Screen, InputProcessor {
 
 	private Hotbar hotbar;
 	
+	private Texture mapBackground;
+	private Sprite mapSprite;
+	
 	private PlayerHUD playerHUD;
 	
 	private Map() {
@@ -69,6 +74,8 @@ public class Map implements Screen, InputProcessor {
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
 		
 		Skin skin = new Skin(textureAtlas);
+		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
+		mapSprite = new Sprite(mapBackground);
 	}
 	
 	static {
@@ -91,6 +98,12 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
+		
+		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
+		entityHandler.getBatch().begin();
+		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
+		entityHandler.getBatch().end();
+		
 		entityHandler.render();
 		levels.getLevelOne().setCameraPosition(entityHandler.getCameraPosition());
 		levels.getLevelOne().render();

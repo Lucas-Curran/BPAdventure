@@ -17,7 +17,7 @@ public class LevelFactory extends EntityHandler {
 	}
 	
 	public void createLevel() {
-		roomFactory.makeRectangleRoom(15, 10, 1, 100, 10);
+		roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
 	}
 	
 }
