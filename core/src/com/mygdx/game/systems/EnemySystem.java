@@ -35,14 +35,14 @@ public class EnemySystem extends IteratingSystem {
 		//Choose movement type based on ai type specified
 		switch (enemyType.enemyAI) {
 			case 0: 
-				enemyOne();
+				aiOne();
 				break;
 			case 1:
-				enemyTwo();
+				aiTwo();
 				break;
 			
 			default:
-				enemyOne();
+				aiOne();
 				break;
 		}
 		
@@ -51,7 +51,7 @@ public class EnemySystem extends IteratingSystem {
 	/**
 	 * Normal repeated back and forth enemy movement
 	 */
-	private void enemyOne() {
+	private void aiOne() {
 		float distFromOrigin = Math.abs(enemyCom.xPostCenter - bodyCom.body.getPosition().x);
 		
 		
@@ -77,7 +77,7 @@ public class EnemySystem extends IteratingSystem {
 	/**
 	 * 
 	 */
-	private void enemyTwo() {
+	private void aiTwo() {
 		float distFromOriginX = Math.abs(enemyCom.xPostCenter - bodyCom.body.getPosition().x);
 		float distFromOriginY = Math.abs(enemyCom.yPostCenter - bodyCom.body.getPosition().y);
 		
@@ -92,6 +92,10 @@ public class EnemySystem extends IteratingSystem {
 		
 		bodyCom.body.setTransform(bodyCom.body.getPosition().x + speedX, bodyCom.body.getPosition().y + speedY, bodyCom.body.getAngle());
 
+	}
+	
+	private void aiThree() {
+		
 	}
 	
 	
