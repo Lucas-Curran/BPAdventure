@@ -6,7 +6,10 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
+import com.mygdx.game.components.TransformComponent;
+import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
  
@@ -20,10 +23,18 @@ public class B2dContactListener implements ContactListener {
 
 	@Override
 	public void beginContact(Contact contact) {
-		System.out.println("Contact");
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
-		System.out.println(fa.getBody().getType()+" has hit "+ fb.getBody().getType());
+
+		if (fa.getBody().getUserData() == "Door") {
+			System.out.println("Hit door");
+			parent.loadingZone = true;
+			
+		} else if (fb.getBody().getUserData() == "Door") {
+			System.out.println("Hit door");
+			parent.loadingZone = true;
+
+		}
 		
 		if(fa.getBody().getUserData() instanceof Entity){
 			Entity ent = (Entity) fa.getBody().getUserData();
@@ -35,20 +46,10 @@ public class B2dContactListener implements ContactListener {
 			return;
 		}
 		
-		if (fa.getBody().getUserData() == "Door") {
-			System.out.println("Hit door");
-			parent.loadingZone = true;
-			
-		} else if (fb.getBody().getUserData() == "Door") {
-			System.out.println("Hit door");
-			parent.loadingZone = true;
-
-		}
-		
 	}
  
 	/**
-	 * Detects whether an ashley entity has collided with a box2d fixture
+	 * Detects whether an entity has collided with a box2d fixture
 	 * @param ent - entity
 	 * @param fb - fixture body
 	 */
@@ -61,8 +62,18 @@ public class B2dContactListener implements ContactListener {
 			
 			if(col != null){
 				col.collisionEntity = colEnt;
+				if (colEnt.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+					parent.npcX = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().x;
+					parent.npcY = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().y;
+					parent.talkingZone = true;
+				}
 			}else if(colb != null){
 				colb.collisionEntity = ent;
+				if (ent.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+					parent.npcX = ent.getComponent(B2dBodyComponent.class).body.getPosition().x;
+					parent.npcY = ent.getComponent(B2dBodyComponent.class).body.getPosition().y;
+					parent.talkingZone = true;
+				}
 			}
 		}
 	}
@@ -71,13 +82,9 @@ public class B2dContactListener implements ContactListener {
 	public void endContact(Contact contact) {
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
-		if(fa.getBody().getUserData() == "Door"){
-			parent.loadingZone = false;
-			return;
-		} else if(fb.getBody().getUserData() == "Door"){
-			parent.loadingZone = false;
-			return;
-		}
+		parent.loadingZone = false;
+		parent.talkingZone = false;
+		
 	}
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {		

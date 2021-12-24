@@ -175,13 +175,8 @@ public class Map implements Screen, InputProcessor {
 			teleporting = true;
 			return true;
 		}
-
-		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
-			textBox.setWritingSpeed(0.045f);
-			return true;
-		} 
 		
-		if (Input.Keys.R == keycode && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
+		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -199,6 +194,11 @@ public class Map implements Screen, InputProcessor {
 			}
 			return true;
 		}
+
+		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
+			textBox.setWritingSpeed(0.045f);
+			return true;
+		} 
 		
 		return false;
 	}

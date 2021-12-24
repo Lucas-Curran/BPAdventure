@@ -55,12 +55,13 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		super.createLevel();
 		camera = new Camera();
 		
-		door = bodyFactory.makeBoxPolyBody(4, 2.7f, 2, 2, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
+		door = bodyFactory.makeBoxPolyBody(4, 2.0f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
 		door.setUserData("Door");
 		
-		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
+		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
 		
 		Map.getInstance().getEntityHandler().spawnLevelOne();
+		Map.getInstance().getEntityHandler().spawnShopNPC();
 		
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		

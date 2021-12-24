@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.components.B2dBodyComponent;
+import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
@@ -27,14 +28,13 @@ public class Enemy extends EntityHandler {
 		TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
 		TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
 		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
-		PlayerComponent player = pooledEngine.createComponent(PlayerComponent.class);
+		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
 
 		// create the data for the components and add them to the components
-		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, BodyType.KinematicBody,true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, BodyType.KinematicBody,true, false);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
 		texture.region = tex;
-		player.player = false;
 		type.type = TypeComponent.ENEMY;
 		b2dbody.body.setUserData(entity);
 		
@@ -42,8 +42,8 @@ public class Enemy extends EntityHandler {
 		entity.add(b2dbody);
 		entity.add(position);
 		entity.add(type);
-		entity.add(player);
 		entity.add(texture);
+		entity.add(colComp);
 
 		enemies.add(entity);
 	}

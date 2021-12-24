@@ -7,6 +7,8 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -42,8 +44,14 @@ public class EntityHandler implements ApplicationListener {
 	
 	private Player player;
 	private Enemy enemies;
+	private NPC npc;
 	
 	public boolean loadingZone;
+	public boolean talkingZone;
+	public float npcX;
+	public float npcY;
+	
+	private Texture talkTexture;
 	
 	private ArrayList<PolygonSprite> polySprites;
 	
@@ -70,7 +78,11 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
 		
+//		Pixmap rescaleTex = new Pixmap(Gdx.files.internal("thinkBubble.png"));
+//		Pixmap scaled = new Pixmap(3)
+		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		loadingZone = false;
+		talkingZone = false;
 		
 	}
 	
@@ -78,6 +90,7 @@ public class EntityHandler implements ApplicationListener {
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
+		npc = new NPC();
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 	}
 
@@ -91,6 +104,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.update(1/20f);
 		updateCamera();
 		updateEntities();
+		renderSpeechBubble();
 		teleportPlayer(20f, 2.7f);
 	}
 	
@@ -132,6 +146,10 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}		
 	
+	public void spawnShopNPC() {
+		pooledEngine.addEntity(npc.spawnNPC(10, 1));
+	}
+	
 	public void spawnLevelOne() {
 		for (Entity enemy : enemies.getLevelOne()) {
 			pooledEngine.addEntity(enemy);
@@ -147,6 +165,15 @@ public class EntityHandler implements ApplicationListener {
 	public void teleportPlayer(float x, float y) {
 		if (Map.getInstance().teleporting == true) {
 			player.fadePlayer(x, y);
+		}
+	}
+	
+	public void renderSpeechBubble() {
+		if (talkingZone) {
+			batch.setProjectionMatrix(cam.getCombined());
+			batch.begin();
+			batch.draw(talkTexture, npcX, npcY, 1f, 1f);
+			batch.end();
 		}
 	}
 	
