@@ -55,7 +55,6 @@ public class EnemySystem extends IteratingSystem {
 				bossOne();
 				break;
 			default:
-				aiOne();
 				break;
 		}
 		

@@ -8,9 +8,11 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.EnemyComponent;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
+import com.mygdx.game.systems.SteeringPresets;
 
 public class Enemy extends EntityHandler {
 	
@@ -30,10 +32,11 @@ public class Enemy extends EntityHandler {
 		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
 		PlayerComponent player = pooledEngine.createComponent(PlayerComponent.class);
 		EnemyComponent enemy = pooledEngine.createComponent(EnemyComponent.class);
+		SteeringComponent steering = pooledEngine.createComponent(SteeringComponent.class);
 
 		// create the data for the components and add them to the components
 		BodyType bodyType = enemyType <= 3 ? BodyType.KinematicBody : BodyType.DynamicBody;
-		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, bodyType,true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, bodyType, false);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
 		texture.region = tex;
@@ -44,23 +47,33 @@ public class Enemy extends EntityHandler {
 		enemy.yPostCenter = b2dbody.body.getPosition().y;
 		enemy.range = range;
 		
+		b2dbody.body.setGravityScale(0f);
+		b2dbody.body.setLinearDamping(0.3f);
+		b2dbody.body.setUserData(entity);
+		//Set steering behavior
+		steering.body = b2dbody.body;
+		steering.steeringBehavior = SteeringPresets.getWander(steering);
+		steering.currentMode = SteeringComponent.SteeringState.WANDER;
+		
 		// add the components to the entity
 		entity.add(b2dbody);
 		entity.add(position);
 		entity.add(type);
 		entity.add(player);
 		entity.add(texture);
-		entity.add(enemy);
+//		entity.add(enemy);
+		entity.add(steering);
 
 		enemies.add(entity);
 	}
 	
 	public ArrayList<Entity> getLevelOne() {
 		enemies.clear();
-		createEnemy(5, 5, 1, 1);
-		createEnemy(-10, 5, 3, 1);
-		createEnemy(20, 5, 2, 1);
-		createEnemy(8, 3, 4, 2);
+//		createEnemy(5, 5, 1, 1);
+//		createEnemy(-10, 5, 3, 1);
+//		createEnemy(20, 5, 2, 1);
+//		createEnemy(8, 3, 4, 2);
+		createEnemy(10, 3, -1, 0);
 		return enemies;
 	}
 	
