@@ -8,6 +8,7 @@ public class EnemyComponent implements Component {
 	public float xPostCenter = -1;
 	public float yPostCenter = -1;
 	public boolean isGoingLeft = false;
+	public boolean isGoingUp = false;
 	public boolean isFalling = false;
 	public int range = 2;
 }

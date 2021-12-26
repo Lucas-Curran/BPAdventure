@@ -32,7 +32,8 @@ public class Enemy extends EntityHandler {
 		EnemyComponent enemy = pooledEngine.createComponent(EnemyComponent.class);
 
 		// create the data for the components and add them to the components
-		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
+		BodyType bodyType = enemyType <= 3 ? BodyType.KinematicBody : BodyType.DynamicBody;
+		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, bodyType,true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
 		texture.region = tex;
@@ -56,8 +57,10 @@ public class Enemy extends EntityHandler {
 	
 	public ArrayList<Entity> getLevelOne() {
 		enemies.clear();
-		createEnemy(5, 5, 0, 1);
-		createEnemy(10, 3, 0, 2);
+		createEnemy(5, 5, 1, 1);
+		createEnemy(-10, 5, 3, 1);
+		createEnemy(20, 5, 2, 1);
+		createEnemy(8, 3, 4, 2);
 		return enemies;
 	}
 	

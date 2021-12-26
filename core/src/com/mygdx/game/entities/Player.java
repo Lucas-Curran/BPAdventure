@@ -41,7 +41,7 @@ public class Player extends EntityHandler {
 		StateComponent stateCom = pooledEngine.createComponent(StateComponent.class);
 
 		// create the data for the components and add them to the components
-		b2dbody.body = bodyFactory.makeCirclePolyBody(x, y, 1, BodyFactory.OTHER, BodyType.DynamicBody,true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(x, y, 1, BodyFactory.WOOD, BodyType.DynamicBody,true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().x, 0);
 		texture.region = tex;

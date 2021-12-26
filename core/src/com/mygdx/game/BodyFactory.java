@@ -90,7 +90,7 @@ public class BodyFactory {
 			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.00f;
 		case OTHER:
-			fixtureDef.density = 0f;
+			fixtureDef.density = 9999999990f;
 			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.0f;
 		default:

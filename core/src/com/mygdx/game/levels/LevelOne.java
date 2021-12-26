@@ -42,10 +42,10 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		camera = new Camera();
 		
 		Texture doorTex = new Texture(Gdx.files.internal("redTextBox.png"));
-		Body door = bodyFactory.makeBoxPolyBody(5, 3f, 2, 3, BodyFactory.WOOD, BodyType.StaticBody, false, false);
+		Body door = bodyFactory.makeBoxPolyBody(5, 3f, 2, 3, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 		door.setUserData("Door");
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false);
-		bodyFactory.makeBoxPolyBody(10, 2, 5, 1, BodyFactory.WOOD, BodyType.StaticBody, true, false);
+		bodyFactory.makeBoxPolyBody(10, 2, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, true, false);
 		Map.getInstance().getEntityHandler().spawnLevelOne();
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		polySprites = new ArrayList<>();
