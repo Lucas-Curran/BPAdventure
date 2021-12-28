@@ -38,7 +38,6 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	boolean isCreated;
 	private PolygonSpriteBatch polygonSpriteBatch;
-	private ArrayList<PolygonSprite> polySprites;
 	private Camera camera;
 	
 	private ArrayList<short[]> triangles;
@@ -69,8 +68,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getMoney());
 		
 		polygonSpriteBatch = new PolygonSpriteBatch();
-		
-		polySprites = new ArrayList<>();
+
 		triangles = new ArrayList<>();
 		bodies = new ArrayList<>();
 		polygonShapes = new ArrayList<>();
@@ -95,8 +93,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 			bodies.add(body);
 			polygonShapes.add(shape);
 			this.triangles.add(triangles);
-	
-			//polySprites.add(newSprite);
+
 		}
 	}
 	
@@ -140,10 +137,6 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	public boolean isCreated() {
 		return isCreated;
-	}
-	
-	public ArrayList<PolygonSprite> getPolySprites() {
-		return polySprites;
 	}
 	
 	public PolygonSpriteBatch getPolygonSpriteBatch() {

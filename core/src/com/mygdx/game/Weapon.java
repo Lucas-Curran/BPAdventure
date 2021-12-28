@@ -24,7 +24,7 @@ public class Weapon {
 	}
 	
 	public void createSword(float x, float y) {
-		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1f, BodyFactory.STEEL, BodyType.DynamicBody, false, true);
+		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1.3f, BodyFactory.STEEL, BodyType.DynamicBody, false, true);
 	}
 	
 	public void positionSword(float x, float y, int direction) {
@@ -38,14 +38,15 @@ public class Weapon {
 	}
 	
 	public void swingSword() {	
+		System.out.println(sword.getAngularVelocity());
 		if (direction == LEFT) {
 			if (startSwing) {
-				sword.applyAngularImpulse(0.1f, true);	
-				if (sword.getAngularVelocity() >= 48.9) {
+				sword.applyAngularImpulse(0.4f, true);	
+				if (sword.getAngularVelocity() >= 47) {
 					startSwing =! startSwing;
 				}
 			} else if (!startSwing) {
-				sword.applyAngularImpulse(-0.1f, true);
+				sword.applyAngularImpulse(-0.4f, true);
 				if (sword.getAngularVelocity() < 0) {
 					sword.setAngularVelocity(0);
 					swingFinished = true;	
@@ -54,12 +55,12 @@ public class Weapon {
 			}
 		} else {
 			if (startSwing) {
-				sword.applyAngularImpulse(-0.1f, true);	
-				if (sword.getAngularVelocity() <= -48.9) {
+				sword.applyAngularImpulse(-0.4f, true);	
+				if (sword.getAngularVelocity() <= -47) {
 					startSwing =! startSwing;
 				}
 			} else if (!startSwing) {
-				sword.applyAngularImpulse(0.1f, true);
+				sword.applyAngularImpulse(0.4f, true);
 				if (sword.getAngularVelocity() > 0) {
 					sword.setAngularVelocity(0);
 					swingFinished = true;	
