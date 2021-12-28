@@ -56,9 +56,11 @@ public class PlayerControlSystem extends IteratingSystem {
 
 		if (!Map.getInstance().inAction()) {
 			if(Gdx.input.isKeyPressed(Input.Keys.A)){
+				player.direction = player.LEFT;
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.D)){
+				player.direction = player.RIGHT;
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 			}
 
