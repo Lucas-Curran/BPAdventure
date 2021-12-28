@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.ui.Money;
 import com.mygdx.game.ui.StatusUI;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -33,11 +34,10 @@ public class PlayerHUD extends Window {
 	
 	private static TextureRegion background = new TextureRegion(Utilities.UISKIN.getAtlas().findRegion("invBackground"));
 	
-	public PlayerHUD() {
+	public PlayerHUD(Money money) {
 		super("HUD", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
-		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
-		stage = new Stage(viewport);
+
+		stage = new Stage();
 		//stage.setDebugAll(true);
 		
 		inventory = new Inventory();
@@ -45,19 +45,19 @@ public class PlayerHUD extends Window {
 		inventory.setMovable(false);
 		inventory.setVisible(false);
 
-		statusUI = new StatusUI();
+		statusUI = new StatusUI(money);
 		statusUI.setMovable(false);
+		statusUI.setKeepWithinStage(false);
 
 		stage.addActor(statusUI);
 		stage.addActor(inventory);
 		
 		statusUI.validate();
 		inventory.validate();	
-		
+
 	}
 	
 	public void render(float delta) {
-		
 		stage.act(delta);
 		stage.draw();	
 	}
