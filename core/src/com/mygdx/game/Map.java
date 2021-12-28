@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -17,9 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.inventory.Inventory;
@@ -30,6 +35,8 @@ import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.levels.LevelFactory;
 import com.mygdx.game.levels.LevelOne;
 import com.mygdx.game.levels.Levels;
+import com.mygdx.game.ui.Money;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Map implements Screen, InputProcessor {
 
@@ -53,22 +60,30 @@ public class Map implements Screen, InputProcessor {
 	private Texture mapBackground;
 	
 	private PlayerHUD playerHUD;
+	private Money money;
 	
+	private AudioManager am;
+	private Weapon weapon;
+	private boolean swing;
+
 	private Map() {
 		cam = new Camera();
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		textBox = new TextBox(font, stage, Color.WHITE);
-		
-		playerHUD = new PlayerHUD();
+		money = new Money();
+		playerHUD = new PlayerHUD(money);
 		
 		entityHandler = new EntityHandler();
 		levels = new Levels();
+		
+		am = new AudioManager();
 	
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
-		
-		Skin skin = new Skin(textureAtlas);
+
 		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
+		weapon = new Weapon();
+		swing = false;
 	}
 	
 	static {
@@ -85,10 +100,14 @@ public class Map implements Screen, InputProcessor {
 		inputMultiplexer = new InputMultiplexer();	
 		inputMultiplexer.addProcessor(this);
 		inputMultiplexer.addProcessor(playerHUD.getStage());
+		inputMultiplexer.addProcessor(textBox.getInstance());
+		inputMultiplexer.addProcessor(textBox.getStage());
+		
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
+			weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
 		}
 		if (!levels.getLevelOne().isCreated()) {
 			levels.getLevelOne().create();
@@ -98,12 +117,24 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		
+		am.playCave();
+		
 		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
 		entityHandler.getBatch().begin();
 		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		entityHandler.getBatch().end();
 		
 		entityHandler.render();
+		weapon.positionSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY(), entityHandler.getPlayer().getDirection());
+		
+		if (swing) {
+			weapon.swingSword();
+			if (weapon.isSwingFinished()) {
+				swing = false;
+				weapon.setSwingFinished(false);
+			}
+		}
+		
 		levels.getLevelOne().setCameraPosition(entityHandler.getCameraPosition());
 		levels.getLevelOne().render();
 		textBox.renderTextBox(delta);
@@ -177,6 +208,7 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
+			textBox.setOptions(true, "Shop", "Close");
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -211,7 +243,10 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		if (button == Input.Buttons.LEFT) {
+			swing = true;
+			return true;
+		}
 		return false;
 	}
 
@@ -257,6 +292,10 @@ public class Map implements Screen, InputProcessor {
 		
 	}
 	
+	public Money getMoney() {
+		return money;
+	}
+	
 	public Stage getStage() {
 		return stage;
 	}
@@ -279,6 +318,10 @@ public class Map implements Screen, InputProcessor {
 	
 	public PlayerHUD getPlayerHUD() {
 		return playerHUD;
+	}
+	
+	public Levels getLevels() {
+		return levels;
 	}
 	
 }
