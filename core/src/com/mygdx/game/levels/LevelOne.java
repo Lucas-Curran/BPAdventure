@@ -32,6 +32,7 @@ import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
+import com.mygdx.game.ui.ShopWindow;
 
 public class LevelOne extends LevelFactory implements ApplicationListener {
 	
@@ -50,6 +51,8 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	Body door;
 	
+	private ShopWindow shopWindow;
+	
 	@Override
 	public void create() {
 		super.createLevel();
@@ -62,6 +65,8 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		
 		Map.getInstance().getEntityHandler().spawnLevelOne();
 		Map.getInstance().getEntityHandler().spawnShopNPC();
+		
+		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getMoney());
 		
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		
@@ -98,7 +103,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		
+		shopWindow.resize(width, height);
 	}
 
 	@Override
@@ -113,8 +118,9 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 			newSprite.draw(polygonSpriteBatch);
 		}
 		polygonSpriteBatch.end();
+		shopWindow.render(Gdx.graphics.getDeltaTime());
 	}
-
+	
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
@@ -156,6 +162,10 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 			vertices[k*2+1] = mTmp.y;
 		}
 		return vertices;
+	}
+	
+	public ShopWindow getShopWindow() {
+		return shopWindow;
 	}
 	
 	public void setCameraPosition(Vector3 position) {
