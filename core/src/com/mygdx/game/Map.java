@@ -243,7 +243,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (button == Input.Buttons.LEFT) {
+		if (button == Input.Buttons.LEFT && !inAction()) {
 			swing = true;
 			return true;
 		}
