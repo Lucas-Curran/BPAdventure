@@ -6,12 +6,14 @@ public class Screens {
 	
 	private static Game game;
 	private static Screens instance;
+	private static MainMenu mMenu;
 	
 	public Screens(Game game) {
 		Screens.game = game;
 	}
 	
 	public static void toMenu(MainMenu menu) {
+		mMenu = menu;
 		game.setScreen(menu);
 	}
 	
@@ -25,6 +27,10 @@ public class Screens {
 //	
 	public static Game getGame() {
 		return game;
+	}
+	
+	public static MainMenu getMenu() {
+		return mMenu;
 	}
 	
 }
