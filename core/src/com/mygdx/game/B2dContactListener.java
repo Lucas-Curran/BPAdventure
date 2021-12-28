@@ -29,18 +29,16 @@ public class B2dContactListener implements ContactListener {
 		if (fa.getBody().getUserData() == "Door") {
 			System.out.println("Hit door");
 			parent.loadingZone = true;
-			
 		} else if (fb.getBody().getUserData() == "Door") {
 			System.out.println("Hit door");
 			parent.loadingZone = true;
-
 		}
 		
-		if(fa.getBody().getUserData() instanceof Entity){
+		if (fa.getBody().getUserData() instanceof Entity){
 			Entity ent = (Entity) fa.getBody().getUserData();
 			entityCollision(ent,fb);
 			return;
-		}else if(fb.getBody().getUserData() instanceof Entity){
+		} else if(fb.getBody().getUserData() instanceof Entity){
 			Entity ent = (Entity) fb.getBody().getUserData();
 			entityCollision(ent,fa);
 			return;

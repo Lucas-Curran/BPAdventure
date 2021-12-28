@@ -177,6 +177,10 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
+	public NPC getNPC() {
+		return npc;
+	}
+	
 	public SpriteBatch getBatch() {
 		return batch;
 	}
