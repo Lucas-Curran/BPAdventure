@@ -30,7 +30,13 @@ public class BodyFactory {
 	
 	private World world;
 	private static BodyFactory thisInstance;
-	private ArrayList<Body> boxBodies;
+	
+	private ArrayList<Body> levelOneBodies;
+	private ArrayList<Body> levelTwoBodies;
+	private ArrayList<Body> levelThreeBodies;
+	private ArrayList<Body> levelFourBodies;
+	
+	private ArrayList<Object[]> bodies;
 	
 	public static final int STEEL = 0;
 	public static final int WOOD = 1;
@@ -38,8 +44,21 @@ public class BodyFactory {
 	public static final int STONE = 3;
 	public static final int OTHER = 4;
 	
+	public enum Level {
+		LEVELONE,
+		LEVELTWO,
+		LEVELTHREE,
+		LEVELFOUR
+	}
+	
 	private BodyFactory(World world){
-		boxBodies = new ArrayList<>();
+		
+		levelOneBodies = new ArrayList<>();
+		levelTwoBodies = new ArrayList<>();
+		levelThreeBodies = new ArrayList<>();
+		levelFourBodies = new ArrayList<>();
+		bodies = new ArrayList<>();
+		
 		this.world = world;
 		
 	}
@@ -141,7 +160,7 @@ public class BodyFactory {
 	 * @param isSensor
 	 * @return
 	 */
-	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, Level level, boolean fixedRotation, boolean isSensor, Texture texture){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
@@ -155,14 +174,44 @@ public class BodyFactory {
 		poly.setAsBox(width/2, height/2);
 		boxBody.createFixture(makeFixture(material,poly,isSensor));
 		poly.dispose();
+
+		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
 		
-		boxBodies.add(boxBody);
+		if (level == null) {
+			return boxBody;
+		}
+		
+		if (level == Level.LEVELONE) {
+			levelOneBodies.add(boxBody);
+		} else if (level == Level.LEVELTWO) {
+			levelTwoBodies.add(boxBody);
+		} else if (level == Level.LEVELTHREE) {
+			levelThreeBodies.add(boxBody);
+		} else if (level == Level.LEVELFOUR) {
+			levelFourBodies.add(boxBody);
+		} 
 		
 		return boxBody;
 	}
 	
-	public ArrayList<Body> getBoxBodies() {
-		return boxBodies;
+	public ArrayList<Object[]> getBodies() {
+		return bodies;
+	}
+	
+	public ArrayList<Body> getLevelOneBodies() {
+		return levelOneBodies;
+	}
+	
+	public ArrayList<Body> getLevelTwoBodies() {
+		return levelTwoBodies;
+	}
+
+	public ArrayList<Body> getLevelThreeBodies() {
+		return levelThreeBodies;
+	}
+	
+	public ArrayList<Body> getLevelFourBodies() {
+		return levelFourBodies;
 	}
 	
 }

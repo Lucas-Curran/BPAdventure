@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.components.PlayerComponent;
@@ -24,7 +26,8 @@ public class Weapon {
 	}
 	
 	public void createSword(float x, float y) {
-		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1.3f, BodyFactory.STEEL, BodyType.DynamicBody, false, true);
+		Texture texture = new Texture(Gdx.files.internal("border.png"));
+		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1.3f, BodyFactory.STEEL, BodyType.DynamicBody, null, false, true, texture);
 	}
 	
 	public void positionSword(float x, float y, int direction) {

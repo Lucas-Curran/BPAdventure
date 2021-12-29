@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +28,7 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.Engine;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.components.*;
 import com.mygdx.game.systems.*;
 
@@ -54,6 +56,7 @@ public class EntityHandler implements ApplicationListener {
 	private Texture talkTexture;
 	
 	private ArrayList<PolygonSprite> polySprites;
+	private PolygonSpriteBatch polygonSpriteBatch;
 	
 	public EntityHandler() {
 		engine = new Engine();
@@ -84,6 +87,8 @@ public class EntityHandler implements ApplicationListener {
 		loadingZone = false;
 		talkingZone = false;
 		
+		polygonSpriteBatch = new PolygonSpriteBatch();
+		
 	}
 	
 	@Override
@@ -105,6 +110,7 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
+		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
 		teleportPlayer(20f, 2.7f);
 	}
 	

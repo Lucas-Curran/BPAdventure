@@ -135,7 +135,7 @@ public class Map implements Screen, InputProcessor {
 			}
 		}
 		
-		levels.getLevelOne().setCameraPosition(entityHandler.getCameraPosition());
+		
 		levels.getLevelOne().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {

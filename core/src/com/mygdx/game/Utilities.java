@@ -1,10 +1,15 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
@@ -79,28 +84,38 @@ public class Utilities {
 		textButtonStyle.pressedOffsetX = 1;
 		textButtonStyle.pressedOffsetY = -1;
 		return textButtonStyle;
+	}	
+	
+	public static Object[] addPolygonTexture(Texture texture, Body body) {
+
+		Fixture fixture = body.getFixtureList().get(0);
+		PolygonShape shape = (PolygonShape) fixture.getShape();
+			
+		float[] vertices = calculateVertices(shape, body);		
+		short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
+		TextureRegion textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
+		
+		Object[] values = new Object[4];
+		
+		values[0] = body;
+		values[1] = shape;
+		values[2] = triangles;
+		values[3] = textureRegion;
+		
+		return values;
 	}
 	
-	public static void renderPolygonTextures(Texture texture) {
-		textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
-		textureRegion.flip(false, true);
-		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
-		
-		for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {	
-			
-			Body body = bodyFactory.getBoxBodies().get(i);
-			Fixture fixture = body.getFixtureList().get(0);
-			PolygonShape shape = (PolygonShape) fixture.getShape();
-			
-			float[] vertices = calculateVertices(shape, body);		
-			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
-			
-			bodies.add(body);
-			polygonShapes.add(shape);
-			this.triangles.add(triangles);
-
+	public static void renderAllTextures(Camera camera, PolygonSpriteBatch polygonSpriteBatch, ArrayList<Object[]> bodies) {
+		camera.getCamera().update();
+		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
+		polygonSpriteBatch.begin();
+		for (int i = 0; i < bodies.size(); i++) {
+			float[] vertices = calculateVertices((PolygonShape) bodies.get(i)[1], (Body) bodies.get(i)[0]);
+			PolygonRegion newRegion = new PolygonRegion((TextureRegion) bodies.get(i)[3], vertices, (short[]) bodies.get(i)[2]);
+			PolygonSprite newSprite = new PolygonSprite(newRegion);
+			newSprite.draw(polygonSpriteBatch);
 		}
+		polygonSpriteBatch.end();
 	}
 	
 	public static float[] calculateVertices(PolygonShape shape, Body body) {
