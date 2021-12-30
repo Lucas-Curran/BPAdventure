@@ -8,6 +8,7 @@ import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.mygdx.game.Utilities;
 
 
 //Credits to Game Development blog
@@ -17,16 +18,16 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 	public Body body;	// stores a reference to our Box2D body
 	
 	// Steering data
-	float maxLinearSpeed = 2f;	// stores the max speed the entity can go
-	float maxLinearAcceleration = 5f;	// stores the max acceleration
-	float maxAngularSpeed =50f;		// the max turning speed
-	float maxAngularAcceleration = 5f;// the max turning acceleration
+	float maxLinearSpeed = 100f;	// stores the max speed the entity can go
+	float maxLinearAcceleration = 100f;	// stores the max acceleration
+	float maxAngularSpeed = 100f;		// the max turning speed
+	float maxAngularAcceleration = 10f;// the max turning acceleration
 	float zeroThreshold = 0.1f;	// how accurate should checks be (0.0000001f will mean the entity must get within 0.0000001f of 
 	// target location. This will cause problems as our entities travel pretty fast and can easily over or undershoot this.)
 	public SteeringBehavior<Vector2> steeringBehavior; // stors the action behaviour
 	private static final SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<Vector2>(new Vector2()); // this is the actual steering vactor for our unit
-	private float boundingRadius = 1f;   // the minimum radius size for a circle required to cover whole object
-	private boolean tagged = true;		// This is a generic flag utilized in a variety of ways. (never used this myself)
+	private float boundingRadius = 0.1f;   // the minimum radius size for a circle required to cover whole object
+	private boolean tagged = false;		// This is a generic flag utilized in a variety of ways. (never used this myself)
 	private boolean independentFacing = false; // defines if the entity can move in a direction other than the way it faces)
 	
 	@Override
@@ -51,7 +52,7 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 	public void update (float delta) {
 		if (steeringBehavior != null) {
 			steeringBehavior.calculateSteering(steeringOutput);
-			applySteering(steeringOutput, delta);
+			applySteering( delta);
 		}
 	}
 	
@@ -59,16 +60,16 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 	 * @param steering the steering vector
 	 * @param deltaTime the delta time
 	 */
-	protected void applySteering (SteeringAcceleration<Vector2> steering, float deltaTime) {
+	protected void applySteering ( float deltaTime) {
 		boolean anyAccelerations = false;
  
 		// Update position and linear velocity.
 		if (!steeringOutput.linear.isZero()) {
 			// this method internally scales the force by deltaTime
-			body.applyForceToCenter(steeringOutput.linear, true);
+			body.applyForceToCenter(steeringOutput.linear.scl(deltaTime), true);
 			anyAccelerations = true;
 		}
- 
+		
 		// Update orientation and angular velocity
 		if (isIndependentFacing()) {
 			if (steeringOutput.angular != 0) {
@@ -119,11 +120,11 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 	}
 	@Override
 	public float vectorToAngle(Vector2 vector) {
-		return 0;
+		return Utilities.vectorToAngle(vector);
 	}
 	@Override
 	public Vector2 angleToVector(Vector2 outVector, float angle) {
-		return null;
+		return Utilities.angleToVector(outVector, angle);
 	}
 	@Override
 	public Location<Vector2> newLocation() {

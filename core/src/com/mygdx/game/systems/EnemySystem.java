@@ -6,17 +6,24 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Map;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.EnemyComponent;
+import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.components.TypeComponent;
+import com.mygdx.game.entities.Player;
 
 public class EnemySystem extends IteratingSystem {
 
 	private ComponentMapper<EnemyComponent> ec;
 	private ComponentMapper<B2dBodyComponent> bodm;
-	private ComponentMapper<TypeComponent> type;
+	private ComponentMapper<SteeringComponent> steering;
+	Entity player;
+	SteeringComponent sCom;
 	EnemyComponent enemyCom;
 	B2dBodyComponent bodyCom;
+	B2dBodyComponent playerCom;
 	
 	Random rNum;
 	
@@ -27,7 +34,7 @@ public class EnemySystem extends IteratingSystem {
 		super(Family.all(EnemyComponent.class).get());
 		ec = ComponentMapper.getFor(EnemyComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
-		type = ComponentMapper.getFor(TypeComponent.class);
+		steering = ComponentMapper.getFor(SteeringComponent.class);
 	}
 	
 	
@@ -35,26 +42,31 @@ public class EnemySystem extends IteratingSystem {
 	protected void processEntity(Entity entity, float deltaTime) {
 		enemyCom = ec.get(entity);
 		bodyCom = bodm.get(entity);
-		TypeComponent enemyType = type.get(entity);
+		sCom = steering.get(entity);
+		EnemyComponent.EnemyState enemyState = enemyCom.enemyMode;
+		player = super.getEngine().getEntities().first();
+		playerCom = bodm.get(player);
+
 		
 		//Choose movement type based on ai type specified
-		switch (enemyType.enemyAI) {
-			case 1: 
+		switch (enemyState) {
+			case PATROL: 
 				aiOne();
 				break;
-			case 2:
+			case BOUNCE:
 				aiTwo();
 				break;
-			case 3:
+			case VERTICAL:
 				aiThree();
 				break;
-			case 4:
+			case JUMP:
 				aiFour();
 				break;
-			case 5:
-				bossOne();
+			case STEERING:
+				steeringTest(entity);
 				break;
 			default:
+				steeringTest(entity);
 				break;
 		}
 		
@@ -196,6 +208,22 @@ public class EnemySystem extends IteratingSystem {
 		}
 		
 		
+	}
+	
+	private void steeringTest(Entity entity) {
+		float distance = playerCom.body.getPosition().dst(bodyCom.body.getPosition());
+		System.out.println(distance);
+		SteeringComponent playerSteering = steering.get(player);
+		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
+			sCom.steeringBehavior = SteeringPresets.getFlee(sCom, playerSteering);
+			sCom.currentMode = SteeringComponent.SteeringState.FLEE;
+		}else if(distance > 2 && distance < 10 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
+			sCom.steeringBehavior = SteeringPresets.getArrive(sCom, playerSteering);
+			sCom.currentMode = SteeringComponent.SteeringState.ARRIVE;
+		}else if(distance > 10 && sCom.currentMode != SteeringComponent.SteeringState.WANDER){
+			sCom.steeringBehavior  = SteeringPresets.getWander(sCom);
+			sCom.currentMode = SteeringComponent.SteeringState.WANDER;
+		}
 	}
 	
 	

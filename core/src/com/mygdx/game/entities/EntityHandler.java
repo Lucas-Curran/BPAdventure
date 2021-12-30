@@ -67,6 +67,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
 		pooledEngine.addSystem(new EnemySystem());
+		pooledEngine.addSystem(new SteeringSystem());
 		
 		loadingZone = false;
 		
@@ -76,6 +77,7 @@ public class EntityHandler implements ApplicationListener {
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
+		
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 	}
 

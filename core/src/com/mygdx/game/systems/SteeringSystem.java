@@ -29,7 +29,7 @@ public class SteeringSystem extends IteratingSystem {
 	protected void processEntity(Entity entity, float deltaTime) {
 		sCom = sc.get(entity);
         sCom.update(deltaTime);
-        System.out.print("bruh");
+
 		
 	}
 
