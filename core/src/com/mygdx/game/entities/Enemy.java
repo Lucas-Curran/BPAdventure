@@ -38,7 +38,7 @@ public class Enemy extends EntityHandler {
 
 		// create the data for the components and add them to the components
 		BodyType bodyType = enemyType.getValue() <= 2 ? BodyType.KinematicBody : BodyType.DynamicBody;
-		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, bodyType, false);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.STONE, bodyType, true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
 		texture.region = tex;
@@ -49,13 +49,18 @@ public class Enemy extends EntityHandler {
 		enemy.range = range;
 		enemy.enemyMode = enemyType;
 		
-		b2dbody.body.setGravityScale(0f);
+		b2dbody.body.setGravityScale(0.8f);
 		b2dbody.body.setLinearDamping(0.3f);
 		b2dbody.body.setUserData(entity);
-		//Set steering behavior
-		steering.body = b2dbody.body;
-		steering.steeringBehavior = SteeringPresets.getWander(steering);
-		steering.currentMode = SteeringComponent.SteeringState.WANDER;
+		if (enemyType == EnemyState.STEERING) {
+			b2dbody.body.setGravityScale(0f);
+			//Set steering behavior
+			steering.body = b2dbody.body;
+			steering.steeringBehavior = SteeringPresets.getWander(steering);
+			steering.currentMode = SteeringComponent.SteeringState.WANDER;
+			entity.add(steering);
+
+		}
 		
 		// add the components to the entity
 		entity.add(b2dbody);
@@ -63,7 +68,6 @@ public class Enemy extends EntityHandler {
 		entity.add(type);
 		entity.add(player);
 		entity.add(texture);
-		entity.add(steering);
 		entity.add(enemy);
 
 		enemies.add(entity);
@@ -71,11 +75,11 @@ public class Enemy extends EntityHandler {
 	
 	public ArrayList<Entity> getLevelOne() {
 		enemies.clear();
-//		createEnemy(5, 5, 1, 1);
-//		createEnemy(-10, 5, 3, 1);
-//		createEnemy(20, 5, 2, 1);
-//		createEnemy(8, 3, 4, 2);
-		createEnemy(20, 4, EnemyState.STEERING, 1);
+		createEnemy(5, 5, EnemyState.PATROL, 1);
+		createEnemy(-10, 5, EnemyState.VERTICAL, 1);
+		createEnemy(20, 5, EnemyState.BOUNCE, 1);
+		createEnemy(8, 3, EnemyState.JUMP, 2);
+		createEnemy(25, 4, EnemyState.STEERING, 0);
 		return enemies;
 	}
 	

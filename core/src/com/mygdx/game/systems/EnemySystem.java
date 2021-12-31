@@ -63,10 +63,10 @@ public class EnemySystem extends IteratingSystem {
 				aiFour();
 				break;
 			case STEERING:
-				steeringTest(entity);
+				aiSteering(entity);
 				break;
 			default:
-				steeringTest(entity);
+				aiOne();
 				break;
 		}
 		
@@ -158,13 +158,10 @@ public class EnemySystem extends IteratingSystem {
 		
 		if (iteration <= enemyCom.range) {
 			bodyCom.body.applyLinearImpulse(10f, 30f, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-			System.out.println(iteration);
 		} else if (iteration <= (enemyCom.range * 2)) {
 			bodyCom.body.applyLinearImpulse(-10f, 30f, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-			System.out.println(iteration);
 		} else {
 			iteration = 0;
-			System.out.print(iteration);
 		}
 		
 		iteration++;
@@ -210,17 +207,17 @@ public class EnemySystem extends IteratingSystem {
 		
 	}
 	
-	private void steeringTest(Entity entity) {
+	private void aiSteering(Entity entity) {
 		float distance = playerCom.body.getPosition().dst(bodyCom.body.getPosition());
 		System.out.println(distance);
 		SteeringComponent playerSteering = steering.get(player);
 		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
 			sCom.steeringBehavior = SteeringPresets.getFlee(sCom, playerSteering);
 			sCom.currentMode = SteeringComponent.SteeringState.FLEE;
-		}else if(distance > 2 && distance < 10 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
+		}else if(distance > 2 && distance < 8 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
 			sCom.steeringBehavior = SteeringPresets.getArrive(sCom, playerSteering);
 			sCom.currentMode = SteeringComponent.SteeringState.ARRIVE;
-		}else if(distance > 10 && sCom.currentMode != SteeringComponent.SteeringState.WANDER){
+		}else if(distance > 8 && sCom.currentMode != SteeringComponent.SteeringState.WANDER){
 			sCom.steeringBehavior  = SteeringPresets.getWander(sCom);
 			sCom.currentMode = SteeringComponent.SteeringState.WANDER;
 		}

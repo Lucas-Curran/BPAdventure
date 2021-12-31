@@ -12,9 +12,9 @@ public class SteeringPresets {
 	public static Wander<Vector2> getWander(SteeringComponent scom){
 		Wander<Vector2> wander = new Wander<Vector2>(scom)
 				.setFaceEnabled(false) // let wander behaviour manage facing
-				.setWanderOffset(2f) // distance away from entity to set target
+				.setWanderOffset(0) // distance away from entity to set target
 				.setWanderOrientation(0f) // the initial orientation
-				.setWanderRadius(0.5f) // size of target 
+				.setWanderRadius(10f) // size of target 
 				.setWanderRate(MathUtils.PI2 * 4); // higher values = more spinning
 		return wander;
 	}
