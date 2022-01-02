@@ -18,7 +18,7 @@ public class BulletSystem extends IteratingSystem{
 	public BulletSystem(){
 		super(Family.all(BulletComponent.class).get());
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
-		
+		bc =  ComponentMapper.getFor(BulletComponent.class);
 	}
 
 	
