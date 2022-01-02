@@ -29,11 +29,11 @@ public class Weapon {
 	public void createSword(float x, float y) {
 		Texture texture = new Texture(Gdx.files.internal("border.png"));
 		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1.3f, BodyFactory.STEEL, BodyType.DynamicBody, null, false, true, texture);
+		sword.setGravityScale(0);
 	}
 	
 	public void positionSword(float x, float y, int direction) {
 		this.direction = direction;
-		sword.setLinearVelocity(0, -10);
 		if (direction == LEFT) {
 			sword.setTransform(x - 0.5f, y + .4f, 0);
 		} else {
@@ -42,7 +42,6 @@ public class Weapon {
 	}
 	
 	public void swingSword() {	
-		System.out.println(sword.getAngularVelocity());
 		if (direction == LEFT) {
 			if (startSwing) {
 				sword.applyAngularImpulse(0.4f, true);	
