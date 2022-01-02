@@ -80,7 +80,6 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
-		pooledEngine.addSystem(new TestSystem());
 
 		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		loadingZone = false;
@@ -94,10 +93,8 @@ public class EntityHandler implements ApplicationListener {
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
-		TestEntity te = new TestEntity();
 		npc = new NPC();
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
-		pooledEngine.addEntity(te.addTest());
 	}
 
 	@Override

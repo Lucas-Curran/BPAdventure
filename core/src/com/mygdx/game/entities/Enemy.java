@@ -8,7 +8,6 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
-import com.mygdx.game.components.TestComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
@@ -30,7 +29,6 @@ public class Enemy extends EntityHandler {
 		TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
 		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
 		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
-		TestComponent test = pooledEngine.createComponent(TestComponent.class);
 		
 		// create the data for the components and add them to the components
 		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, BodyType.KinematicBody,true, false);
@@ -41,7 +39,6 @@ public class Enemy extends EntityHandler {
 		b2dbody.body.setUserData(entity);
 		
 		// add the components to the entity
-		entity.add(test);
 		entity.add(b2dbody);
 		entity.add(position);
 		entity.add(type);
