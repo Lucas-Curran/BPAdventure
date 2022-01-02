@@ -91,7 +91,8 @@ public class EntityHandler implements ApplicationListener {
 		player = new Player();
 		enemies = new Enemy();
 		npc = new NPC();
-		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
+		//pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
+		pooledEngine.addEntity(player.createPlayer(115, 1));
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
-		teleportPlayer(20f, 2.7f);
+		teleportPlayer(20f, 2.7f); //call this
 	}
 	
 	@Override
@@ -134,6 +135,7 @@ public class EntityHandler implements ApplicationListener {
 		
 		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
 				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
+		cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
 		cam.getCamera().update();
 	}
 	

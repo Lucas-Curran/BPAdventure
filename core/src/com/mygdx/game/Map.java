@@ -90,9 +90,10 @@ public class Map implements Screen, InputProcessor {
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
 		}
-		if (!levels.getLevelOne().isCreated()) {
-			levels.getLevelOne().create();
-		}
+//		if (!levels.getLevelOne().isCreated()) {
+//			levels.getLevelOne().create();
+//		}
+		levels.getLevelTwo().create();
 	}
 
 	@Override
@@ -101,11 +102,11 @@ public class Map implements Screen, InputProcessor {
 		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
 		entityHandler.getBatch().begin();
 		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
-		entityHandler.getBatch().end();
+		entityHandler.getBatch().end(); //draws map
 		
 		entityHandler.render();
-		levels.getLevelOne().setCameraPosition(entityHandler.getCameraPosition());
-		levels.getLevelOne().render();
+		//levels.getLevelTwo().setCameraPosition(entityHandler.getCameraPosition());
+		levels.getLevelTwo().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
 			playerHUD.render(delta);

@@ -34,7 +34,7 @@ import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
 
 public class LevelOne extends LevelFactory implements ApplicationListener {
-	
+	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
 	boolean isCreated;
 	private PolygonSpriteBatch polygonSpriteBatch;
 	private ArrayList<PolygonSprite> polySprites;
@@ -52,7 +52,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		super.createLevel();
+		super.createLevel(15, 9, 1, 100, 10);
 		camera = new Camera();
 		
 		door = bodyFactory.makeBoxPolyBody(4, 2.0f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
