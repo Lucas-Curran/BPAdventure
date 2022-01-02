@@ -238,7 +238,7 @@ public class EnemySystem extends IteratingSystem {
 	private void shoot() {
 		Bullet bullet = new Bullet();
 		Vector2 aim = Utilities.aimTo(bodyCom.body.getPosition(), playerCom.body.getPosition());
-		aim.scl(1000);
+		aim.scl(10);
 		System.out.println(aim.x);
 
 		System.out.println(aim.y);
