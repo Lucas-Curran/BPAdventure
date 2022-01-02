@@ -6,13 +6,13 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Map;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
+import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.EnemyComponent;
 import com.mygdx.game.components.SteeringComponent;
-import com.mygdx.game.components.TypeComponent;
-import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.Bullet;
 
 public class EnemySystem extends IteratingSystem {
 
@@ -24,8 +24,9 @@ public class EnemySystem extends IteratingSystem {
 	EnemyComponent enemyCom;
 	B2dBodyComponent bodyCom;
 	B2dBodyComponent playerCom;
+	Bullet bullet;
 	
-	Random rNum;
+	Random rNum = new Random();
 	
 	static float timer = 10f;
     static int iteration = 1;
@@ -46,7 +47,7 @@ public class EnemySystem extends IteratingSystem {
 		EnemyComponent.EnemyState enemyState = enemyCom.enemyMode;
 		player = super.getEngine().getEntities().first();
 		playerCom = bodm.get(player);
-
+		
 		
 		//Choose movement type based on ai type specified
 		switch (enemyState) {
@@ -64,6 +65,9 @@ public class EnemySystem extends IteratingSystem {
 				break;
 			case STEERING:
 				aiSteering(entity);
+				break;
+			case BOSS:
+				boss();
 				break;
 			default:
 				aiOne();
@@ -169,9 +173,28 @@ public class EnemySystem extends IteratingSystem {
 	}
 	
 	/**
-	 * 
+	 * Chase type enemy using steering
+	 * @param entity - Enemy entity
 	 */
-	private void bossOne() {
+	private void aiSteering(Entity entity) {
+		float distance = playerCom.body.getPosition().dst(bodyCom.body.getPosition());
+		SteeringComponent playerSteering = steering.get(player);
+		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
+			sCom.steeringBehavior = SteeringPresets.getFlee(sCom, playerSteering);
+			sCom.currentMode = SteeringComponent.SteeringState.FLEE;
+		} else if(distance > 2 && distance < 8 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
+			sCom.steeringBehavior = SteeringPresets.getArrive(sCom, playerSteering);
+			sCom.currentMode = SteeringComponent.SteeringState.ARRIVE;
+		} else if(distance > 8 && sCom.currentMode != SteeringComponent.SteeringState.WANDER){
+			sCom.steeringBehavior  = SteeringPresets.getWander(sCom);
+			sCom.currentMode = SteeringComponent.SteeringState.WANDER;
+		}
+	}
+	
+	/**
+	 * Boss enemy ai
+	 */
+	private void boss() {
 		if (timer > 0) {
 			timer -= 0.1;
 			return;
@@ -180,25 +203,27 @@ public class EnemySystem extends IteratingSystem {
 		
 		bodyCom.body.applyForceToCenter(0, 0f,true);
 		
-		int move = rNum.nextInt(10);
+		int move = rNum.nextInt(4);
+		System.out.println(move);
 		
 		switch (move) {
 			
-			case 0:
-				//dash
-				
-				break;
-			case 1:
-				
-				break;
-			case 2:
-				
-				break;
-			case 3:
-				
-				break;
+//			case 0:
+//				//dash
+//				bodyCom.body.applyLinearImpulse(-40f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+//				break;
+//			case 1:
+//				//dash
+//				bodyCom.body.applyLinearImpulse(40f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+//				break;
+//			case 2:
+//				bodyCom.body.applyLinearImpulse(0, 40f, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+//				break;
+//			case 3:
+//				shoot();
+//				break;
 			default:
-				
+				shoot();
 				break;
 		
 		
@@ -207,21 +232,23 @@ public class EnemySystem extends IteratingSystem {
 		
 	}
 	
-	private void aiSteering(Entity entity) {
-		float distance = playerCom.body.getPosition().dst(bodyCom.body.getPosition());
-		System.out.println(distance);
-		SteeringComponent playerSteering = steering.get(player);
-		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
-			sCom.steeringBehavior = SteeringPresets.getFlee(sCom, playerSteering);
-			sCom.currentMode = SteeringComponent.SteeringState.FLEE;
-		}else if(distance > 2 && distance < 8 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
-			sCom.steeringBehavior = SteeringPresets.getArrive(sCom, playerSteering);
-			sCom.currentMode = SteeringComponent.SteeringState.ARRIVE;
-		}else if(distance > 8 && sCom.currentMode != SteeringComponent.SteeringState.WANDER){
-			sCom.steeringBehavior  = SteeringPresets.getWander(sCom);
-			sCom.currentMode = SteeringComponent.SteeringState.WANDER;
-		}
+	/**
+	 * 
+	 */
+	private void shoot() {
+		Bullet bullet = new Bullet();
+		Vector2 aim = Utilities.aimTo(bodyCom.body.getPosition(), playerCom.body.getPosition());
+		aim.scl(1000);
+		System.out.println(aim.x);
+
+		System.out.println(aim.y);
+
+		
+		bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y, BulletComponent.Owner.ENEMY);
 	}
+
+	
+	
 	
 	
 	

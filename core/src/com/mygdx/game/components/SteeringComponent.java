@@ -24,7 +24,7 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 	float maxAngularAcceleration = 10f;// the max turning acceleration
 	float zeroThreshold = 0.1f;	// how accurate should checks be (0.0000001f will mean the entity must get within 0.0000001f of 
 	// target location. This will cause problems as our entities travel pretty fast and can easily over or undershoot this.)
-	public SteeringBehavior<Vector2> steeringBehavior; // stors the action behaviour
+	public SteeringBehavior<Vector2> steeringBehavior; // stores the action behavior
 	private static final SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<Vector2>(new Vector2()); // this is the actual steering vactor for our unit
 	private float boundingRadius = 0.1f;   // the minimum radius size for a circle required to cover whole object
 	private boolean tagged = false;		// This is a generic flag utilized in a variety of ways. (never used this myself)

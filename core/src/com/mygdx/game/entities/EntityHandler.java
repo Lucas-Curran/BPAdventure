@@ -25,13 +25,14 @@ import com.mygdx.game.Engine;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
 import com.mygdx.game.components.*;
+import com.mygdx.game.components.BulletComponent.Owner;
 import com.mygdx.game.systems.*;
 
 public class EntityHandler implements ApplicationListener {
 
 	Engine engine;
 	protected PooledEngine pooledEngine;
-	TextureRegion tex;
+	protected TextureRegion tex;
 	BodyFactory bodyFactory;
 	GameWorld gameWorld;
 	RenderingSystem renderingSystem;
@@ -41,6 +42,7 @@ public class EntityHandler implements ApplicationListener {
 	
 	private Player player;
 	private Enemy enemies;
+	private Bullet bullets;
 	
 	public boolean loadingZone;
 	
@@ -68,6 +70,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PlayerControlSystem());
 		pooledEngine.addSystem(new EnemySystem());
 		pooledEngine.addSystem(new SteeringSystem());
+		pooledEngine.addSystem(new BulletSystem());
 		
 		loadingZone = false;
 		
@@ -77,6 +80,7 @@ public class EntityHandler implements ApplicationListener {
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
+		bullets = new Bullet();
 		
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 	}
@@ -143,6 +147,12 @@ public class EntityHandler implements ApplicationListener {
 	public void spawnLevelTwo() {
 		for (Entity enemy : enemies.getLevelTwo()) {
 			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void spawnBullets() {
+		for (Entity bullet : bullets.getBullets()) {
+			pooledEngine.addEntity(bullet);
 		}
 	}
 	

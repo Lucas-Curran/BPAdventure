@@ -1,5 +1,6 @@
 package com.mygdx.game.systems;
 
+import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TypeComponent;
@@ -12,6 +13,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 public class CollisionSystem  extends IteratingSystem {
 	 ComponentMapper<CollisionComponent> cm;
 	 ComponentMapper<PlayerComponent> pm;
+	 ComponentMapper<BulletComponent> bc;
  
 	public CollisionSystem() {
 		// only need to worry about player collisions
@@ -19,6 +21,7 @@ public class CollisionSystem  extends IteratingSystem {
 		
 		 cm = ComponentMapper.getFor(CollisionComponent.class);
 		 pm = ComponentMapper.getFor(PlayerComponent.class);
+		 bc = ComponentMapper.getFor(BulletComponent.class);
 	}
  
 	@Override
@@ -38,6 +41,10 @@ public class CollisionSystem  extends IteratingSystem {
 				case TypeComponent.SCENERY:
 					//do player hit scenery thing
 					System.out.println("player hit scenery");
+					break;
+				case TypeComponent.BULLET:
+					//do player hit bullet thing
+					System.out.println("Player was shot by a bullet");
 					break;
 				case TypeComponent.OTHER:
 					//do player hit other thing

@@ -6,6 +6,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.components.B2dBodyComponent;
+import com.mygdx.game.components.BulletComponent;
+import com.mygdx.game.components.BulletComponent.Owner;
+import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.EnemyComponent;
 import com.mygdx.game.components.EnemyComponent.EnemyState;
 import com.mygdx.game.components.PlayerComponent;
@@ -35,6 +38,7 @@ public class Enemy extends EntityHandler {
 		PlayerComponent player = pooledEngine.createComponent(PlayerComponent.class);
 		EnemyComponent enemy = pooledEngine.createComponent(EnemyComponent.class);
 		SteeringComponent steering = pooledEngine.createComponent(SteeringComponent.class);
+		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
 
 		// create the data for the components and add them to the components
 		BodyType bodyType = enemyType.getValue() <= 2 ? BodyType.KinematicBody : BodyType.DynamicBody;
@@ -69,17 +73,19 @@ public class Enemy extends EntityHandler {
 		entity.add(player);
 		entity.add(texture);
 		entity.add(enemy);
+		entity.add(colComp);
 
 		enemies.add(entity);
 	}
 	
 	public ArrayList<Entity> getLevelOne() {
 		enemies.clear();
-		createEnemy(5, 5, EnemyState.PATROL, 1);
-		createEnemy(-10, 5, EnemyState.VERTICAL, 1);
-		createEnemy(20, 5, EnemyState.BOUNCE, 1);
-		createEnemy(8, 3, EnemyState.JUMP, 2);
-		createEnemy(25, 4, EnemyState.STEERING, 0);
+//		createEnemy(5, 5, EnemyState.PATROL, 1);
+//		createEnemy(-10, 5, EnemyState.VERTICAL, 1);
+//		createEnemy(20, 5, EnemyState.BOUNCE, 1);
+//		createEnemy(8, 3, EnemyState.JUMP, 2);
+//		createEnemy(25, 4, EnemyState.STEERING, 0);
+		createEnemy (30, 4, EnemyState.BOSS, 0);
 		return enemies;
 	}
 	

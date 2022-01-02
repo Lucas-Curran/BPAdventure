@@ -16,7 +16,8 @@ public class EnemyComponent implements Component {
 		BOUNCE		(1),
 		VERTICAL	(2),
 		JUMP		(3),
-		STEERING	(4);	
+		STEERING	(4),
+		BOSS		(5);
 
 		private final int value;
 		
