@@ -11,17 +11,32 @@ public class Money extends Actor {
 	int money;
 	private Texture moneyTex;
 	private BitmapFont bitmapFont;
+	private float x, y;
 	
 	public Money() {
 		moneyTex = new Texture(Gdx.files.internal("money.png"));
 		bitmapFont = new BitmapFont();
 		money = 0;
+		x = 225;
+		y = 430;
+	}
+	
+	public Money(Money money) {
+		this.money = money.money;
+		this.moneyTex = money.moneyTex;
+		this.bitmapFont = money.bitmapFont;
 	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(moneyTex, 225, 430, 32, 32);
-		bitmapFont.draw(batch, ": " + money, 260, 450);
+		batch.draw(moneyTex, x, y, 32, 32);
+		bitmapFont.draw(batch, ": " + money, x + 35, y + 20);
+	}
+	
+	@Override 
+	public void setPosition(float x, float y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 	public int getMoney() {

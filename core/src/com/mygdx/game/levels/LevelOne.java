@@ -7,6 +7,7 @@ import javax.swing.Box;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
@@ -39,11 +40,8 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	boolean isCreated;
 	private Camera camera;
-
-	float[] vertices;
-	
-	Body door;
-	
+	float[] vertices;	
+	Body door;	
 	private ShopWindow shopWindow;
 	
 	@Override
@@ -53,7 +51,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		
 		Texture texture = new Texture(Gdx.files.internal("ground.txt"));
 		
-		door = bodyFactory.makeBoxPolyBody(4, 2.0f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, Level.LEVELONE, false, true, texture);
+		door = bodyFactory.makeBoxPolyBody(4, 20, 2, 2, BodyFactory.STEEL, BodyType.DynamicBody, Level.LEVELONE, false, false, texture);
 		door.setUserData("Door");
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
@@ -93,8 +95,11 @@ public class Utilities {
 			
 		float[] vertices = calculateVertices(shape, body);		
 		short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
-		TextureRegion textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
+	
+		texture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 		
+		TextureRegion textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
+
 		Object[] values = new Object[4];
 		
 		values[0] = body;
@@ -114,6 +119,7 @@ public class Utilities {
 			PolygonRegion newRegion = new PolygonRegion((TextureRegion) bodies.get(i)[3], vertices, (short[]) bodies.get(i)[2]);
 			PolygonSprite newSprite = new PolygonSprite(newRegion);
 			newSprite.draw(polygonSpriteBatch);
+			//polygonSpriteBatch.draw(newRegion, 0, 0, 0, 0, 1, 1, 1f, 1f, 0);
 		}
 		polygonSpriteBatch.end();
 	}
@@ -128,7 +134,10 @@ public class Utilities {
 			mTmp.add(body.getPosition());
 			vertices[k*2] = mTmp.x;
 			vertices[k*2+1] = mTmp.y;
-		}
+			//vertices[k*2] = mTmp.x * 32;
+			//vertices[k*2+1] = mTmp.y * 32;
+		}		
+
 		return vertices;
 	}
 	

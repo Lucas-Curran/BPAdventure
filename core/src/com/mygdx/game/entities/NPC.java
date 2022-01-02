@@ -21,6 +21,11 @@ import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
+import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.InventoryItem.ItemAttribute;
+import com.mygdx.game.item.InventoryItem.ItemTypeID;
+import com.mygdx.game.item.InventoryItem.ItemUseType;
+import com.mygdx.game.ui.ShopItem;
 import com.mygdx.game.ui.ShopWindow;
 
 public class NPC extends EntityHandler {
@@ -56,22 +61,22 @@ public class NPC extends EntityHandler {
 				return entity;
 	}
 	
-	public HashMap<Label, Image> getShopWares() {
+	public HashMap<Label, ShopItem> getShopWares() {
 		
-		HashMap<Label, Image> testMap = new HashMap<Label, Image>();
+		HashMap<Label, ShopItem> testMap = new HashMap<Label, ShopItem>();
 		
-		Image tex1 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex2 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex3 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex4 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex5 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex6 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex7 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex8 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex9 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex10 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex11 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
-		Image tex12 = new Image(new Texture(Gdx.files.internal("thinkBubble.png")));
+		ShopItem tex1 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex2 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex3 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex4 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex5 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex6 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex7 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex8 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex9 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex10 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex11 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex12 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
 		
 		
 		Label label1 = new Label("Apple", Utilities.ACTUAL_UI_SKIN);

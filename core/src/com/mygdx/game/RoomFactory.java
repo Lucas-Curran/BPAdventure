@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory.Level;
 
@@ -14,7 +16,7 @@ public class RoomFactory {
 	public RoomFactory() {
 		world = new GameWorld();
 		bodyFactory = BodyFactory.getInstance(world.getInstance());
-		texture = new Texture(Gdx.files.internal("ground.txt"));
+		texture = new Texture(Gdx.files.internal("newGround.png"));
 	}
 	
 	public void makeSquareRoom(float posx, float posy, float width, float height) {

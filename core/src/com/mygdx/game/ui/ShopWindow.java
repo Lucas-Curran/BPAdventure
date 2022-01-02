@@ -38,22 +38,26 @@ public class ShopWindow extends Window {
 	private Table buyTable;
 	private Table sellTable;
 	private Table shopTable;
+	private Table infoTable;
 	private Stage stage;
-	private HashMap<Label, Image> buyList;
-	private HashMap<Label, Image> sellList;
+	private HashMap<Label, ShopItem> buyList;
+	private HashMap<Label, ShopItem> sellList;
 	private Texture borderTexture;
 	private Image borderImage;
 	private static SpriteDrawable windowBg = new SpriteDrawable(new Sprite(createTexture(Gdx.files.internal("menu_bg.png"))));
 	private Table container;
 	private ScrollPane scroll;
 	private final int BORDER_WIDTH = 3;
+	private Money money;
 
 	//TODO: Scrollable table - https://stackoverflow.com/questions/23944088/libgdx-table-in-scrollpane
 	
-	public ShopWindow(HashMap<Label, Image> buyList, HashMap<Label, Image> sellList, Money money) {
+	public ShopWindow(HashMap<Label, ShopItem> buyList, HashMap<Label, ShopItem> sellList, Money money) {
 		super("Shop", new WindowStyle(new BitmapFont(), Color.RED, windowBg));
+		
 		this.buyList = buyList;
 		this.sellList = sellList;
+		this.money = money;
 
 		// sellList = current inventory items
 				
@@ -73,7 +77,7 @@ public class ShopWindow extends Window {
 
 		buyTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
 		
-		for (Map.Entry<Label, Image> set : buyList.entrySet()) {	
+		for (Map.Entry<Label, ShopItem> set : buyList.entrySet()) {	
 			set.getKey().setWrap(true);
 			final Group tempGroup = new Group();
 			
@@ -112,7 +116,7 @@ public class ShopWindow extends Window {
 
 		sellTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
 
-		for (Map.Entry<Label, Image> set : sellList.entrySet()) {
+		for (Map.Entry<Label, ShopItem> set : sellList.entrySet()) {
 			set.getKey().setWrap(true);
 			final Group tempGroup = new Group();
 			
@@ -148,11 +152,19 @@ public class ShopWindow extends Window {
 			});
 			sellTable.row();
 		}
-
+		
+		TextButton confirmButton = new TextButton("Confirm", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		Utilities.buttonSettings(confirmButton);
+		
+		infoTable = new Table();
+		
+		infoTable.add(confirmButton);
+		infoTable.row();
+		
 		shopTable = new Table();
 		shopTable.add(buyTable);
 		shopTable.add(sellTable);
-		shopTable.add(money);
+		shopTable.add(infoTable);
 		shopTable.pad(30);
 		
 		ScrollPaneStyle paneStyle = new ScrollPaneStyle();
@@ -195,6 +207,11 @@ public class ShopWindow extends Window {
 	}
 	
 	public void render(float delta) {
+		if (isShopVisible()) {
+			if (!money.hasParent()) {
+				infoTable.add(money);
+			} 
+		}
 		stage.act(delta);
 		stage.draw();	
 	}

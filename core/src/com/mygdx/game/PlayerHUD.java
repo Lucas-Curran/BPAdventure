@@ -57,7 +57,7 @@ public class PlayerHUD extends Window {
 
 	}
 	
-	public void render(float delta) {
+	public void render(float delta) {		
 		stage.act(delta);
 		stage.draw();	
 	}
@@ -87,6 +87,10 @@ public class PlayerHUD extends Window {
 			inventory.toFront();
 			inventory.setVisible(true);
 		}
+	}
+	
+	public StatusUI getStatusUI() {
+		return statusUI;
 	}
 	
 	public Inventory getInventory() {

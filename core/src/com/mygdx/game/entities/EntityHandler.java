@@ -80,23 +80,24 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
-		
-//		Pixmap rescaleTex = new Pixmap(Gdx.files.internal("thinkBubble.png"));
-//		Pixmap scaled = new Pixmap(3)
+		pooledEngine.addSystem(new TestSystem());
+
 		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		loadingZone = false;
 		talkingZone = false;
-		
+
 		polygonSpriteBatch = new PolygonSpriteBatch();
-		
+		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
 	}
 	
 	@Override
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
+		TestEntity te = new TestEntity();
 		npc = new NPC();
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
+		pooledEngine.addEntity(te.addTest());
 	}
 
 	@Override
@@ -133,22 +134,28 @@ public class EntityHandler implements ApplicationListener {
 	}
 	
 	private void updateCamera() {
-		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
-		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
-		float minCameraY = cam.getCamera().viewportHeight / 2;
-		float maxCameraY = cam.getViewport().getWorldHeight() - minCameraY;
+//		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
+//		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
+//		float minCameraY = cam.getCamera().viewportHeight / 2;
+//		float maxCameraY = cam.getViewport().getWorldHeight() - minCameraY;
+//		
+//		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
+//				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
 		
-		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
-				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
+		cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
+		
 		cam.getCamera().update();
+
 	}
 	
 	private void updateEntities() {
 		for (Entity entity : pooledEngine.getEntities()) {
-			entity.getComponent(TransformComponent.class).position.set(
-					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
-					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
-					0);
+			if (entity.getComponent(TransformComponent.class) != null) {
+				entity.getComponent(TransformComponent.class).position.set(
+						entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
+						entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
+						0);
+			}
 		}
 	}		
 	
@@ -193,10 +200,6 @@ public class EntityHandler implements ApplicationListener {
 	
 	public Player getPlayer() {
 		return player;
-	}
-	
-	public void setPolySprites(ArrayList<PolygonSprite> polySprites) {
-		this.polySprites = polySprites;
 	}
 	
 	public Vector3 getCameraPosition() {

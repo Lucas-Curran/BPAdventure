@@ -61,7 +61,7 @@ public class MainMenu implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		
-		am.playMenu();
+		//am.playMenu();
 		
 		spriteBatch.setProjectionMatrix(cam.getCombined());
 		spriteBatch.begin();

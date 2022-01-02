@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import java.util.HashMap;
 
+import org.xml.sax.helpers.ParserFactory;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -117,8 +120,8 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		
-		am.playCave();
-		
+		//am.playCave();
+				
 		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
 		entityHandler.getBatch().begin();
 		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
@@ -139,6 +142,11 @@ public class Map implements Screen, InputProcessor {
 		levels.getLevelOne().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
+			if (levels.getLevelOne().getShopWindow().isShopVisible()) {
+				if (playerHUD.getStatusUI().getMoney().getParent() == playerHUD.getStatusUI()) {
+					playerHUD.getStatusUI().getMoney().remove();
+				}
+			}
 			playerHUD.render(delta);
 		}
 	}
@@ -285,6 +293,10 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (playerHUD.getInventory().isVisible()) {
+			return true;
+		}
+		
+		if (levels.getLevelOne().getShopWindow().isShopVisible()) {
 			return true;
 		}
 		
