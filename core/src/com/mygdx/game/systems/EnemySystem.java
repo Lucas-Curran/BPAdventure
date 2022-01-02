@@ -242,9 +242,8 @@ public class EnemySystem extends IteratingSystem {
 		System.out.println(aim.x);
 
 		System.out.println(aim.y);
-
 		
-		bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y, BulletComponent.Owner.ENEMY);
+		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y, BulletComponent.Owner.ENEMY));
 	}
 
 	

@@ -22,7 +22,7 @@ public class Bullet extends EntityHandler {
 		bullets = new ArrayList<Entity>();
 	}
 	
-	public void createBullet(float x, float y, float xVel, float yVel, Owner owner) {
+	public Entity createBullet(float x, float y, float xVel, float yVel, Owner owner) {
 		Entity entity = pooledEngine.createEntity();
 		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
 		TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
@@ -50,7 +50,7 @@ public class Bullet extends EntityHandler {
 		entity.add(texture);
 		entity.add(type);	
 		
-		bullets.add(entity);
+		return entity;
 	}
 	
 	public ArrayList<Entity> getBullets() {
