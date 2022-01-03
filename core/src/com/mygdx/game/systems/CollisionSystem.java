@@ -46,9 +46,6 @@ public class CollisionSystem  extends IteratingSystem {
 						break;
 					case TypeComponent.NPC:
 						System.out.println("player hit npc");
-						if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-							System.out.println("talk");
-						}
 						break;
 					case TypeComponent.OTHER:
 						//do player hit other thing

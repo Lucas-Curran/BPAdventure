@@ -53,7 +53,6 @@ public class RenderingSystem extends SortedIteratingSystem {
 		comparator = new ZComparator();
 		
 		cam = new Camera();
-		polyBatch = new PolygonSpriteBatch();
 	}
 	
 	public static Vector2 getScreenSizeInMeters() {
@@ -77,9 +76,9 @@ public class RenderingSystem extends SortedIteratingSystem {
 		
 		renderQueue.sort(comparator);
 		cam.getCamera().update();
-		polyBatch.setProjectionMatrix(cam.getCombined());
-		polyBatch.enableBlending();
-		polyBatch.begin();
+		batch.setProjectionMatrix(cam.getCombined());
+		batch.enableBlending();
+		batch.begin();
 		
 		for (Entity entity : renderQueue) {
 			TextureComponent tex = textureM.get(entity);
@@ -95,8 +94,8 @@ public class RenderingSystem extends SortedIteratingSystem {
             
             float originX = width/2;
             float originY = height/2;
- 
-            polyBatch.draw(tex.region,
+            
+            batch.draw(tex.region,
                     t.position.x - originX + cam.getCamera().viewportWidth / 2,
                     t.position.y - originY + cam.getCamera().viewportHeight / 2,
                     originX, originY,
@@ -106,7 +105,7 @@ public class RenderingSystem extends SortedIteratingSystem {
             
 		}
 		
-		polyBatch.end();
+		batch.end();
 		renderQueue.clear();
 		
 	}

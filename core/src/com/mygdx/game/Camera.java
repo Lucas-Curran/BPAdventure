@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Camera implements ApplicationListener {
 	
-	OrthographicCamera staticCam;
 	OrthographicCamera cam;
 	Viewport viewport;
 	
@@ -23,6 +22,8 @@ public class Camera implements ApplicationListener {
 	
 	static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth()/PPM;
 	static final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight()/PPM;
+	static final float textureWidth = Gdx.graphics.getWidth();
+	static final float textureHeight = Gdx.graphics.getHeight();
 	
 	public Camera() {
 		create();
@@ -32,16 +33,22 @@ public class Camera implements ApplicationListener {
 	public void create() {
 		if (cam == null) {						
 			cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-			staticCam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
-			staticCam.setToOrtho(false, staticCam.viewportWidth,  staticCam.viewportHeight);
-			viewport = new FitViewport(cam.viewportWidth, cam.viewportHeight, cam);		
+			viewport = new FitViewport(cam.viewportWidth, cam.viewportHeight, cam);	
 		}
 	}
 
 	@Override
-	public void resize(int width, int height) {    
-		viewport.update(width, height, false);
+	public void resize(int width, int height) { 
+		viewport.update(width, height, false);	
+		Map.getInstance().getTextBox().resize(width, height);
+		if (Map.getInstance().getLevels().getLevelOne().getShopWindow() != null) {
+			Map.getInstance().getLevels().getLevelOne().resize(width, height);
+		}
+		if (Screens.getGame().getScreen() == Screens.getMenu()) {
+			Screens.getMenu().resize(width, height);
+		}
+		
 		Map.getInstance().getPlayerHUD().resize(width, height);
 	}
 
@@ -65,10 +72,6 @@ public class Camera implements ApplicationListener {
 	@Override
 	public void dispose() {
 	
-	}
-	
-	public OrthographicCamera getStaticCamera() {
-		return staticCam;
 	}
 	
 	public OrthographicCamera getCamera() {

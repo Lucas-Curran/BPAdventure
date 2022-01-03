@@ -29,7 +29,7 @@ public class Enemy extends EntityHandler {
 		TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
 		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
 		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
-
+		
 		// create the data for the components and add them to the components
 		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, BodyType.KinematicBody,true, false);
 		// set object position (x,y,z) z used to define draw order 0 first drawn

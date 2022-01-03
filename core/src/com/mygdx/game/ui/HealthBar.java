@@ -12,7 +12,6 @@ public class HealthBar extends Actor {
 
 	private NinePatchDrawable healthBarBackground;
 	private NinePatchDrawable healthBar;
-	private BpaAssetManager manager;
 	private TextureAtlas skinAtlas;
 	
 	private float hpVal = 1;
