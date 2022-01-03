@@ -54,8 +54,6 @@ public class EntityHandler implements ApplicationListener {
 	public float npcY;
 	
 	private Texture talkTexture;
-	
-	private ArrayList<PolygonSprite> polySprites;
 	private PolygonSpriteBatch polygonSpriteBatch;
 	
 	public EntityHandler() {
@@ -84,9 +82,10 @@ public class EntityHandler implements ApplicationListener {
 		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		loadingZone = false;
 		talkingZone = false;
-
+		
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
+		
 	}
 	
 	@Override
@@ -109,7 +108,7 @@ public class EntityHandler implements ApplicationListener {
 		updateEntities();
 		renderSpeechBubble();
 		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
-		teleportPlayer(20f, 2.7f);
+		teleportPlayer(20f, 2.7f); //call this
 	}
 	
 	@Override
@@ -131,28 +130,23 @@ public class EntityHandler implements ApplicationListener {
 	}
 	
 	private void updateCamera() {
-//		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
-//		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
-//		float minCameraY = cam.getCamera().viewportHeight / 2;
-//		float maxCameraY = cam.getViewport().getWorldHeight() - minCameraY;
-//		
-//		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
-//				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
+		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
+		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
+		float minCameraY = cam.getCamera().viewportHeight / 2;
+		float maxCameraY = cam.getViewport().getWorldHeight() - minCameraY;
 		
+		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
+				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
 		cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
-		
 		cam.getCamera().update();
-
 	}
 	
 	private void updateEntities() {
 		for (Entity entity : pooledEngine.getEntities()) {
-			if (entity.getComponent(TransformComponent.class) != null) {
-				entity.getComponent(TransformComponent.class).position.set(
-						entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
-						entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
-						0);
-			}
+			entity.getComponent(TransformComponent.class).position.set(
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
+					0);
 		}
 	}		
 	
