@@ -203,7 +203,6 @@ public class EnemySystem extends IteratingSystem {
 		bodyCom.body.applyForceToCenter(0, 0f,true);
 		
 		int move = rNum.nextInt(5);
-		System.out.println(move);
 		
 		switch (move) {
 			
