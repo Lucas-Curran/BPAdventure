@@ -205,13 +205,7 @@ public class Map implements Screen, InputProcessor {
 					textBox.hideTextBow();
 				}
 			} else {
-				textBox.setColor(Color.FOREST);
-				textBox.setText(new String[]{
-						"This is the first sentence", 
-						"This is the second sentence", 
-						"This is the third sentence", 
-						"This is the fourth sentence", 
-						"This is the fifth sentence"});
+				textBox.setText(entityHandler.getCurrentNPCText());
 			}
 			return true;
 		}
