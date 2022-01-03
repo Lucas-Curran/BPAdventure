@@ -10,7 +10,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,7 +27,6 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.Engine;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
-import com.mygdx.game.Utilities;
 import com.mygdx.game.components.*;
 import com.mygdx.game.systems.*;
 
@@ -56,9 +54,6 @@ public class EntityHandler implements ApplicationListener {
 	private Texture talkTexture;
 	
 	private ArrayList<PolygonSprite> polySprites;
-	private PolygonSpriteBatch polygonSpriteBatch;
-	
-	private String[] currentNPCText;
 	
 	public EntityHandler() {
 		engine = new Engine();
@@ -82,13 +77,13 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
-
+		
+//		Pixmap rescaleTex = new Pixmap(Gdx.files.internal("thinkBubble.png"));
+//		Pixmap scaled = new Pixmap(3)
 		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		loadingZone = false;
 		talkingZone = false;
-
-		polygonSpriteBatch = new PolygonSpriteBatch();
-		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
+		
 	}
 	
 	@Override
@@ -133,37 +128,28 @@ public class EntityHandler implements ApplicationListener {
 	}
 	
 	private void updateCamera() {
-//		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
-//		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
-//		float minCameraY = cam.getCamera().viewportHeight / 2;
-//		float maxCameraY = cam.getViewport().getWorldHeight() - minCameraY;
-//		
-//		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
-//				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
-		
-		cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
+		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
+		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
+		float minCameraY = cam.getCamera().viewportHeight / 2;
+		float maxCameraY = cam.getViewport().getWorldHeight() - minCameraY;
 		
 		cam.getCamera().position.set(Math.min(maxCameraX, Math.max(player.getX(), minCameraX)),
 				Math.min(maxCameraY, Math.max(player.getY(), minCameraY)), 0);
 		cam.getCamera().position.set(new Vector3(player.getX(), player.getY(), 0));
 		cam.getCamera().update();
-
 	}
 	
 	private void updateEntities() {
 		for (Entity entity : pooledEngine.getEntities()) {
-			if (entity.getComponent(TransformComponent.class) != null) {
-				entity.getComponent(TransformComponent.class).position.set(
-						entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
-						entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
-						0);
-			}
+			entity.getComponent(TransformComponent.class).position.set(
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
+					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
+					0);
 		}
 	}		
 	
 	public void spawnShopNPC() {
-		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Hello, this is my first time being here", "How about you?"}, 10, 1));
-		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Hate this guy next to me..."}, 8, 1));
+		pooledEngine.addEntity(npc.spawnNPC(10, 1));
 	}
 	
 	public void spawnLevelOne() {
@@ -193,10 +179,6 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
-	public NPC getNPC() {
-		return npc;
-	}
-	
 	public SpriteBatch getBatch() {
 		return batch;
 	}
@@ -205,16 +187,12 @@ public class EntityHandler implements ApplicationListener {
 		return player;
 	}
 	
+	public void setPolySprites(ArrayList<PolygonSprite> polySprites) {
+		this.polySprites = polySprites;
+	}
+	
 	public Vector3 getCameraPosition() {
 		return cam.getCamera().position;
-	}
-	
-	public void setCurrentNPCText(String[] currentNPCText) {
-		this.currentNPCText = currentNPCText;
-	}
-	
-	public String[] getCurrentNPCText() {
-		return currentNPCText;
 	}
 	
 }

@@ -63,10 +63,6 @@ public class Player extends EntityHandler {
 		return entity;		
 	}
 	
-	public int getDirection() {
-		return entity.getComponent(PlayerComponent.class).direction;
-	}
-	
 	public float getX() {
 		return entity.getComponent(B2dBodyComponent.class).body.getPosition().x;
 	}

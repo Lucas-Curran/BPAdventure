@@ -1,9 +1,5 @@
 package com.mygdx.game;
 
-import java.util.HashMap;
-
-import org.xml.sax.helpers.ParserFactory;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,18 +12,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.inventory.Inventory;
@@ -38,8 +30,6 @@ import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.levels.LevelFactory;
 import com.mygdx.game.levels.LevelOne;
 import com.mygdx.game.levels.Levels;
-import com.mygdx.game.ui.Money;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Map implements Screen, InputProcessor {
 
@@ -63,30 +53,22 @@ public class Map implements Screen, InputProcessor {
 	private Texture mapBackground;
 	
 	private PlayerHUD playerHUD;
-	private Money money;
 	
-	private AudioManager am;
-	private Weapon weapon;
-	private boolean swing;
-
 	private Map() {
 		cam = new Camera();
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		textBox = new TextBox(font, stage, Color.WHITE);
-		money = new Money();
-		playerHUD = new PlayerHUD(money);
+		
+		playerHUD = new PlayerHUD();
 		
 		entityHandler = new EntityHandler();
 		levels = new Levels();
-		
-		am = new AudioManager();
 	
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
-
+		
+		Skin skin = new Skin(textureAtlas);
 		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
-		weapon = new Weapon();
-		swing = false;
 	}
 	
 	static {
@@ -103,14 +85,10 @@ public class Map implements Screen, InputProcessor {
 		inputMultiplexer = new InputMultiplexer();	
 		inputMultiplexer.addProcessor(this);
 		inputMultiplexer.addProcessor(playerHUD.getStage());
-		inputMultiplexer.addProcessor(textBox.getInstance());
-		inputMultiplexer.addProcessor(textBox.getStage());
-		
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
-			weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
 		}
 //		if (!levels.getLevelOne().isCreated()) {
 //			levels.getLevelOne().create();
@@ -121,8 +99,6 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		
-		//am.playCave();
-				
 		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
 		entityHandler.getBatch().begin();
 		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
@@ -133,11 +109,6 @@ public class Map implements Screen, InputProcessor {
 		levels.getLevelTwo().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
-			if (levels.getLevelOne().getShopWindow().isShopVisible()) {
-				if (playerHUD.getStatusUI().getMoney().getParent() == playerHUD.getStatusUI()) {
-					playerHUD.getStatusUI().getMoney().remove();
-				}
-			}
 			playerHUD.render(delta);
 		}
 	}
@@ -207,7 +178,6 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
-			//textBox.setOptions(true, "Shop", "Close");
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -215,7 +185,13 @@ public class Map implements Screen, InputProcessor {
 					textBox.hideTextBow();
 				}
 			} else {
-				textBox.setText(entityHandler.getCurrentNPCText());
+				textBox.setColor(Color.FOREST);
+				textBox.setText(new String[]{
+						"This is the first sentence", 
+						"This is the second sentence", 
+						"This is the third sentence", 
+						"This is the fourth sentence", 
+						"This is the fifth sentence"});
 			}
 			return true;
 		}
@@ -236,10 +212,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (button == Input.Buttons.LEFT && !inAction()) {
-			swing = true;
-			return true;
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -281,16 +254,8 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
-		if (levels.getLevelOne().getShopWindow().isShopVisible()) {
-			return true;
-		}
-		
 		return false;
 		
-	}
-	
-	public Money getMoney() {
-		return money;
 	}
 	
 	public Stage getStage() {
@@ -315,10 +280,6 @@ public class Map implements Screen, InputProcessor {
 	
 	public PlayerHUD getPlayerHUD() {
 		return playerHUD;
-	}
-	
-	public Levels getLevels() {
-		return levels;
 	}
 	
 }

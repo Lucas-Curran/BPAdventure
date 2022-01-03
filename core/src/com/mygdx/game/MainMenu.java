@@ -29,7 +29,6 @@ public class MainMenu implements Screen, InputProcessor {
 	private TextureAtlas textureAtlas;
 	private BitmapFont font;
 	private InputMultiplexer inputMultiplexer;
-	private AudioManager am;
 	
 	public MainMenu() {
 		menuBackground = new Texture(Gdx.files.internal("menu_bg.png"));
@@ -39,13 +38,12 @@ public class MainMenu implements Screen, InputProcessor {
 		table = new Table();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		
-		startButton = new TextButton("Start", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		Utilities.buttonSettings(startButton);
+		startButton = new TextButton("Start", buttonStyles("MenuRectangle", "MenuRectangle"));
+		buttonSettings(startButton);
 	
 		table.left().padBottom(100);
 		table.add(startButton).width(300).height(100);
 		stage.addActor(table);
-		am = new AudioManager();
 	}
 	
 	@Override
@@ -53,16 +51,14 @@ public class MainMenu implements Screen, InputProcessor {
 		
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(stage);		
+		inputMultiplexer.addProcessor(stage);
 		
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 
 	@Override
 	public void render(float delta) {
-		
-		//am.playMenu();
-		
+			
 		spriteBatch.setProjectionMatrix(cam.getCombined());
 		spriteBatch.begin();
 		spriteBatch.draw(menuBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
@@ -74,7 +70,8 @@ public class MainMenu implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-		stage.getViewport().update(width, height, false);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -99,6 +96,28 @@ public class MainMenu implements Screen, InputProcessor {
 	public void dispose() {
 		stage.dispose();
 		spriteBatch.dispose();	
+	}
+	
+	public TextButton buttonSettings(TextButton button) {
+		button.getLabel().setAlignment(Align.left);
+		button.getLabelCell().padLeft(35);
+		button.getLabel().setFontScale(4,4);
+		return button;
+	}
+	
+	public TextButtonStyle buttonStyles(String upStyle, String overStyle) {
+		font = new BitmapFont();
+		skin = new Skin();
+		textureAtlas = new TextureAtlas("test.txt");
+		skin.addRegions(textureAtlas);
+		textButtonStyle = new TextButtonStyle();
+		textButtonStyle.font = font;
+		textButtonStyle.fontColor = Color.WHITE;
+		textButtonStyle.up = skin.getDrawable(upStyle);
+		textButtonStyle.over = skin.getDrawable(overStyle);
+		textButtonStyle.pressedOffsetX = 1;
+		textButtonStyle.pressedOffsetY = -1;
+		return textButtonStyle;
 	}
 
 	@Override
@@ -127,7 +146,6 @@ public class MainMenu implements Screen, InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (startButton.isPressed()) {
-			 am.stopAll();
 			 Screens.toMap();
 			 return true;
 		 }
