@@ -198,41 +198,29 @@ public class EnemySystem extends IteratingSystem {
 			timer -= 0.1;
 			return;
 		}
-		timer = 10f;
+		timer = 15f;
 		
 		bodyCom.body.applyForceToCenter(0, 0f,true);
 		
-		int move = rNum.nextInt(5);
+		int move = rNum.nextInt(21);
 		
-		switch (move) {
-			
-			case 0:
-				//dash
-				bodyCom.body.applyLinearImpulse(-150f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-				break;
-			case 1:
-				//dash
-				bodyCom.body.applyLinearImpulse(150f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-				break;
-			case 2:
-				//Jump
-				bodyCom.body.applyLinearImpulse(0, 150f, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-				shoot(2f);
-				break;
-			case 3:
-				//Shoots towards player
-				shoot(0);
-				break;
-			case 4:
-				//Spawn a steering type enemy
-				Enemy e = new Enemy();
-				getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
-				break;
-			default:
-				shoot(0);
-				break;
-		
-		
+		if (move < 5) {
+			//Shoot toward player
+			shoot(0);
+		} else if (move < 9) {
+			//dash
+			bodyCom.body.applyLinearImpulse(-150f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+		} else if (move < 13) {
+			//dash
+			bodyCom.body.applyLinearImpulse(150f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+		} else if (move < 17) {
+			//Jump and shoot
+			bodyCom.body.applyLinearImpulse(0, 150f, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+			shoot(2f);
+		} else if (move <= 20) {
+			//Spawn a steering type enemy
+			Enemy e = new Enemy();
+			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
 		}
 		
 		
