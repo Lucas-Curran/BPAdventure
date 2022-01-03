@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
+import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
@@ -16,7 +17,7 @@ import com.mygdx.game.components.TypeComponent;
 
 public class NPC extends EntityHandler {
 	
-	public Entity spawnNPC(int posx, int posy) {
+	public Entity spawnNPC(String[] text, int posx, int posy) {
 		
 				Entity entity = pooledEngine.createEntity();
 				B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
@@ -24,6 +25,7 @@ public class NPC extends EntityHandler {
 				TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
 				CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
 				TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
+				NPCComponent npcComp = pooledEngine.createComponent(NPCComponent.class);
 
 				// create the data for the components and add them to the components
 				b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, BodyType.KinematicBody,true, true);
@@ -31,6 +33,7 @@ public class NPC extends EntityHandler {
 				position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
 				texture.region = tex;
 				type.type = TypeComponent.NPC;
+				npcComp.text = text;
 				b2dbody.body.setUserData(entity);
 				
 				// add the components to the entity

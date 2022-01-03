@@ -54,6 +54,7 @@ public class EntityHandler implements ApplicationListener {
 	private Texture talkTexture;
 	
 	private ArrayList<PolygonSprite> polySprites;
+	private String[] currentNPCText;
 	
 	public EntityHandler() {
 		engine = new Engine();
@@ -107,6 +108,7 @@ public class EntityHandler implements ApplicationListener {
 		updateEntities();
 		renderSpeechBubble();
 		teleportPlayer(20f, 2.7f); //call this
+		System.out.println(player.getX());
 	}
 	
 	@Override
@@ -149,7 +151,7 @@ public class EntityHandler implements ApplicationListener {
 	}		
 	
 	public void spawnShopNPC() {
-		pooledEngine.addEntity(npc.spawnNPC(10, 1));
+		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Been around these parts before? I haven't personally.","Get the hell outta my face"}, 115, 4));
 	}
 	
 	public void spawnLevelOne() {
@@ -193,6 +195,14 @@ public class EntityHandler implements ApplicationListener {
 	
 	public Vector3 getCameraPosition() {
 		return cam.getCamera().position;
+	}
+	
+	public void setCurrentNPCText(String[] currentNPCText) {
+		this.currentNPCText = currentNPCText;
+	}
+	
+	public String[] getCurrentNPCText() {
+		return currentNPCText;
 	}
 	
 }

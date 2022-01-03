@@ -66,6 +66,7 @@ public class B2dContactListener implements ContactListener {
 					parent.npcX = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().x;
 					parent.npcY = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().y;
 					parent.talkingZone = true;
+					
 				}
 			}else if(colb != null){
 				colb.collisionEntity = ent;
