@@ -33,7 +33,7 @@ public class Bullet extends EntityHandler {
 		
 		b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.5f, BodyFactory.OTHER, BodyType.DynamicBody,true);
 		b2dbody.body.setBullet(true); // increase physics computation to limit body traveling through other objects
-//		b2dbody.body.setGravityScale(0);
+		b2dbody.body.setGravityScale(0);
 		bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player
 		position.position.set(x,y,0);
 		texture.region = tex;
@@ -54,9 +54,7 @@ public class Bullet extends EntityHandler {
 	}
 	
 	public ArrayList<Entity> getBullets() {
-		System.out.println("asfuignsa");
 		return bullets;
-		
 	}
 
 }

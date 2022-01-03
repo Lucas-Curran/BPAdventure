@@ -12,14 +12,16 @@ import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.EnemyComponent;
 import com.mygdx.game.components.SteeringComponent;
+import com.mygdx.game.components.EnemyComponent.EnemyState;
 import com.mygdx.game.entities.Bullet;
+import com.mygdx.game.entities.Enemy;
 
 public class EnemySystem extends IteratingSystem {
 
 	private ComponentMapper<EnemyComponent> ec;
 	private ComponentMapper<B2dBodyComponent> bodm;
 	private ComponentMapper<SteeringComponent> steering;
-	Entity player;
+	Entity player, enemy;
 	SteeringComponent sCom;
 	EnemyComponent enemyCom;
 	B2dBodyComponent bodyCom;
@@ -41,6 +43,7 @@ public class EnemySystem extends IteratingSystem {
 	
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
+		enemy = entity;
 		enemyCom = ec.get(entity);
 		bodyCom = bodm.get(entity);
 		sCom = steering.get(entity);
@@ -110,10 +113,6 @@ public class EnemySystem extends IteratingSystem {
 		float distFromOriginX = Math.abs(enemyCom.xPostCenter - bodyCom.body.getPosition().x);
 		float distFromOriginY = Math.abs(enemyCom.yPostCenter - bodyCom.body.getPosition().y);
 		
-//		if (timer > 0) {
-//			timer -= 0.1;
-//			return;
-//		}
 		enemyCom.isGoingLeft = distFromOriginX > enemyCom.range ? !enemyCom.isGoingLeft : enemyCom.isGoingLeft;
 		enemyCom.isFalling = distFromOriginY > 3 ? !enemyCom.isFalling : enemyCom.isFalling;
 		float speedX = enemyCom.isGoingLeft ? -0.05f : 0.05f;
@@ -124,7 +123,7 @@ public class EnemySystem extends IteratingSystem {
 	}
 	
 	/**
-	 * Up/Down Floating type enemy
+	 * Up/Down vertical type enemy
 	 */
 	private void aiThree() {
 		float distFromOrigin = Math.abs(enemyCom.yPostCenter - bodyCom.body.getPosition().y);
@@ -203,27 +202,35 @@ public class EnemySystem extends IteratingSystem {
 		
 		bodyCom.body.applyForceToCenter(0, 0f,true);
 		
-		int move = rNum.nextInt(4);
+		int move = rNum.nextInt(5);
 		System.out.println(move);
 		
 		switch (move) {
 			
-//			case 0:
-//				//dash
-//				bodyCom.body.applyLinearImpulse(-40f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-//				break;
-//			case 1:
-//				//dash
-//				bodyCom.body.applyLinearImpulse(40f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-//				break;
-//			case 2:
-//				bodyCom.body.applyLinearImpulse(0, 40f, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
-//				break;
-//			case 3:
-//				shoot();
-//				break;
+			case 0:
+				//dash
+				bodyCom.body.applyLinearImpulse(-150f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+				break;
+			case 1:
+				//dash
+				bodyCom.body.applyLinearImpulse(150f, 0, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+				break;
+			case 2:
+				//Jump
+				bodyCom.body.applyLinearImpulse(0, 150f, bodyCom.body.getWorldCenter().x,bodyCom.body.getWorldCenter().y, true);
+				shoot(2f);
+				break;
+			case 3:
+				//Shoots towards player
+				shoot(0);
+				break;
+			case 4:
+				//Spawn a steering type enemy
+				Enemy e = new Enemy();
+				getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
+				break;
 			default:
-				shoot();
+				shoot(0);
 				break;
 		
 		
@@ -235,15 +242,12 @@ public class EnemySystem extends IteratingSystem {
 	/**
 	 * 
 	 */
-	private void shoot() {
+	private void shoot(float offset) {
 		Bullet bullet = new Bullet();
 		Vector2 aim = Utilities.aimTo(bodyCom.body.getPosition(), playerCom.body.getPosition());
-		aim.scl(10);
-		System.out.println(aim.x);
-
-		System.out.println(aim.y);
+		aim.scl(5);
 		
-		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y, BulletComponent.Owner.ENEMY));
+		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y + offset, aim.x, aim.y, BulletComponent.Owner.ENEMY));
 	}
 
 	

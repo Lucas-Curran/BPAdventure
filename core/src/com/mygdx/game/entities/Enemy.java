@@ -6,8 +6,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.components.B2dBodyComponent;
-import com.mygdx.game.components.BulletComponent;
-import com.mygdx.game.components.BulletComponent.Owner;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.EnemyComponent;
 import com.mygdx.game.components.EnemyComponent.EnemyState;
@@ -21,13 +19,12 @@ import com.mygdx.game.systems.SteeringPresets;
 public class Enemy extends EntityHandler {
 	
 	private ArrayList<Entity> enemies;
-	private EnemyComponent ec;
 	
 	public Enemy() {
 		enemies = new ArrayList<Entity>();
 	}
 	
-	private void createEnemy(int posx, int posy, EnemyState enemyType, int range) {
+	public Entity createEnemy(int posx, int posy, EnemyState enemyType, int range, float radius) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -42,9 +39,10 @@ public class Enemy extends EntityHandler {
 
 		// create the data for the components and add them to the components
 		BodyType bodyType = enemyType.getValue() <= 2 ? BodyType.KinematicBody : BodyType.DynamicBody;
-		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.STONE, bodyType, true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, radius, BodyFactory.OTHER, bodyType, true);
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
+		position.scale.set(radius, radius);
 		texture.region = tex;
 		player.player = false;
 		b2dbody.body.setUserData(entity);
@@ -76,16 +74,17 @@ public class Enemy extends EntityHandler {
 		entity.add(colComp);
 
 		enemies.add(entity);
+		return entity;
 	}
 	
 	public ArrayList<Entity> getLevelOne() {
 		enemies.clear();
-//		createEnemy(5, 5, EnemyState.PATROL, 1);
-//		createEnemy(-10, 5, EnemyState.VERTICAL, 1);
-//		createEnemy(20, 5, EnemyState.BOUNCE, 1);
-//		createEnemy(8, 3, EnemyState.JUMP, 2);
-//		createEnemy(25, 4, EnemyState.STEERING, 0);
-		createEnemy (30, 4, EnemyState.BOSS, 0);
+		createEnemy(5, 5, EnemyState.PATROL, 1, 1f);
+		createEnemy(-10, 5, EnemyState.VERTICAL, 1, 1f);
+		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f);
+		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
+		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);
+		createEnemy (30, 4, EnemyState.BOSS, 0, 2f);
 		return enemies;
 	}
 	

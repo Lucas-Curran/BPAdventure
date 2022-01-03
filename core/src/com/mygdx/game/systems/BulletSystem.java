@@ -24,26 +24,24 @@ public class BulletSystem extends IteratingSystem{
 	
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
-		System.out.println("Bullet system");
 		//get enemy entity
-		enemy = super.getEngine().getEntities().first();
+		enemy = super.getEngine().getSystem(EnemySystem.class).enemy;
 		//get box 2d body and bullet components
 		B2dBodyComponent b2body = bodm.get(entity);
 		BulletComponent bullet = bc.get(entity);
+		B2dBodyComponent enemyBody = bodm.get(enemy);
 		
 		//get position values
 		float bx = b2body.body.getPosition().x;
 		float by = b2body.body.getPosition().y;
-		float ex = b2body.body.getPosition().x;
-		float ey = b2body.body.getPosition().y;
+		float ex = enemyBody.body.getPosition().x;
+		float ey = enemyBody.body.getPosition().y;
 		
-		if (bx - ex > 20 || by - ey > 20) {
+		if (Math.abs(bx - ex) > 7 || Math.abs(by - ey) > 7) {
+			System.out.println("dead");
 			bullet.isDead = true;
 		}
 		
-		System.out.println(bullet.xVel);
-		System.out.println(bullet.yVel);
-
 		// apply bullet velocity to bullet body
 		b2body.body.setLinearVelocity(bullet.xVel, bullet.yVel);
 		
