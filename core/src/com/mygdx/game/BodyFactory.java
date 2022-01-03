@@ -37,6 +37,7 @@ public class BodyFactory {
 	public static final int RUBBER = 2;
 	public static final int STONE = 3;
 	public static final int OTHER = 4;
+	public static final int ICE = 5;
 	
 	private BodyFactory(World world){
 		boxBodies = new ArrayList<>();
@@ -90,7 +91,11 @@ public class BodyFactory {
 			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.00f;
 		case OTHER:
-			fixtureDef.density = 0f;
+			fixtureDef.density = 1f;
+			fixtureDef.friction = 0.0f;
+			fixtureDef.restitution = 0.0f;
+		case ICE:
+			fixtureDef.density = 1f;
 			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.0f;
 		default:
@@ -160,6 +165,23 @@ public class BodyFactory {
 		
 		return boxBody;
 	}
+	
+	public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+		BodyDef boxBodyDef = new BodyDef();
+		boxBodyDef.type = bodyType;
+		boxBodyDef.position.x = posx;
+		boxBodyDef.position.y = posy;
+		Body boxBody = world.createBody(boxBodyDef);
+			
+		PolygonShape polygon = new PolygonShape();
+		polygon.set(vertices);
+		boxBody.createFixture(makeFixture(material,polygon, false));
+		polygon.dispose();
+			
+		return boxBody;
+	}
+	
+	
 	
 	public ArrayList<Body> getBoxBodies() {
 		return boxBodies;

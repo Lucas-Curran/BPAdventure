@@ -3,6 +3,7 @@ package com.mygdx.game.entities;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -92,16 +93,25 @@ public class Player extends EntityHandler {
 		
 		if (alpha >= 1) {
 			setPosition(x, y);
+			Map.getInstance().mapBackground = new Texture(Gdx.files.internal("fireCave_bg.png"));
 			fadeDirection =! fadeDirection;
 		} 		
 		//speed of fade
 		alpha += fadeDirection == true ? 0.015 : -0.015;
 		
 		} else {
+			
 			fadeDirection =! fadeDirection;
 			alpha = 0;
+			
 			entity.getComponent(B2dBodyComponent.class).body.setAwake(true);
+			
 			Map.getInstance().teleporting = false;
+			
 		}
+	}
+	
+	public void setGravityScale(float scale) {
+		entity.getComponent(B2dBodyComponent.class).body.setGravityScale(scale);
 	}
 }

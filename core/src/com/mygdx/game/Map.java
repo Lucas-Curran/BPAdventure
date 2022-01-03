@@ -30,6 +30,7 @@ import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.levels.LevelFactory;
 import com.mygdx.game.levels.LevelOne;
 import com.mygdx.game.levels.Levels;
+import com.mygdx.game.systems.PlayerControlSystem;
 
 public class Map implements Screen, InputProcessor {
 
@@ -44,13 +45,13 @@ public class Map implements Screen, InputProcessor {
 
 	private Camera cam;
 
-	public boolean teleporting;
+	public boolean teleporting, gravitySwitch;
 	
 	private TextureAtlas textureAtlas;
 
 	private Hotbar hotbar;
 	
-	private Texture mapBackground;
+	public Texture mapBackground;
 	
 	private PlayerHUD playerHUD;
 	
@@ -63,7 +64,7 @@ public class Map implements Screen, InputProcessor {
 		playerHUD = new PlayerHUD();
 		
 		entityHandler = new EntityHandler();
-		levels = new Levels();
+		levels = new Levels(entityHandler.getWorld());
 	
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
 		
@@ -90,10 +91,18 @@ public class Map implements Screen, InputProcessor {
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
 		}
-//		if (!levels.getLevelOne().isCreated()) {
-//			levels.getLevelOne().create();
-//		}
-		levels.getLevelTwo().create();
+		if (!levels.getLevelOne().isCreated()) {
+			levels.getLevelOne().create();
+		}
+		
+		if (!levels.getLevelTwo().isCreated()) {
+			levels.getLevelTwo().create();
+		}
+		
+		if (!levels.getLevelThree().isCreated()) {
+			levels.getLevelThree().create();
+		}
+		
 	}
 
 	@Override
@@ -174,7 +183,18 @@ public class Map implements Screen, InputProcessor {
 		
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
+			
 			return true;
+		}
+		
+		if (entityHandler.gravityZone == true && !inAction()) {
+			entityHandler.getPlayer().setGravityScale(-1);
+			gravitySwitch = true;
+			return true;
+		} else if (entityHandler.gravityZone == false && !inAction()) {
+			entityHandler.getPlayer().setGravityScale(1);
+			gravitySwitch = false;
+			return false;
 		}
 		
 		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {

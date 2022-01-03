@@ -5,13 +5,13 @@ import com.mygdx.game.Map;
 import com.mygdx.game.entities.Player;
 
 public class LevelTwo extends LevelFactory implements ApplicationListener{
-
+	boolean isCreated;
 	
 	@Override
 	public void create() {
 		super.createLevel(100, 9, 1, 100, 10);
 		
-		//super.createLevel(x, y, width, height, npcX);
+		isCreated = true;
 	}
 
 	@Override
@@ -29,6 +29,10 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	@Override
 	public void dispose() {
 	
+	}
+	
+	public boolean isCreated() {
+		return isCreated;
 	}
 
 	

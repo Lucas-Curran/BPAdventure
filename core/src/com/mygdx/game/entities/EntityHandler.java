@@ -20,6 +20,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.B2dContactListener;
 import com.mygdx.game.BodyFactory;
@@ -36,7 +37,7 @@ public class EntityHandler implements ApplicationListener {
 	protected PooledEngine pooledEngine;
 	TextureRegion tex;
 	BodyFactory bodyFactory;
-	GameWorld gameWorld;
+	public GameWorld gameWorld;
 	RenderingSystem renderingSystem;
 	SpriteBatch batch;
 	Camera cam;
@@ -48,11 +49,12 @@ public class EntityHandler implements ApplicationListener {
 	
 	public boolean loadingZone;
 	public boolean talkingZone;
+	public boolean gravityZone;
 	public float npcX;
 	public float npcY;
 	
 	private Texture talkTexture;
-	
+		
 	private ArrayList<PolygonSprite> polySprites;
 	
 	public EntityHandler() {
@@ -83,6 +85,7 @@ public class EntityHandler implements ApplicationListener {
 		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		loadingZone = false;
 		talkingZone = false;
+		gravityZone = false;
 		
 	}
 	
@@ -92,7 +95,7 @@ public class EntityHandler implements ApplicationListener {
 		enemies = new Enemy();
 		npc = new NPC();
 		//pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
-		pooledEngine.addEntity(player.createPlayer(115, 1));
+		pooledEngine.addEntity(player.createPlayer(15, 1));
 	}
 
 	@Override
@@ -106,7 +109,8 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
-		teleportPlayer(20f, 2.7f); //call this
+		teleportPlayer(-35f, 188f);
+		setJumpScale();//call this
 	}
 	
 	@Override
@@ -170,6 +174,14 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
+	public void setJumpScale() {
+		if (Map.getInstance().gravitySwitch == true) {
+			pooledEngine.getSystem(PlayerControlSystem.class).setJumpScale(-40);
+		} else if (Map.getInstance().gravitySwitch == false){
+			pooledEngine.getSystem(PlayerControlSystem.class).setJumpScale(40);
+		}
+	}
+	
 	public void renderSpeechBubble() {
 		if (talkingZone) {
 			batch.setProjectionMatrix(cam.getCombined());
@@ -187,12 +199,18 @@ public class EntityHandler implements ApplicationListener {
 		return player;
 	}
 	
+	
 	public void setPolySprites(ArrayList<PolygonSprite> polySprites) {
 		this.polySprites = polySprites;
 	}
 	
 	public Vector3 getCameraPosition() {
 		return cam.getCamera().position;
+	}
+
+	public World getWorld() {
+		// TODO Auto-generated method stub
+		return gameWorld.getInstance();
 	}
 	
 }

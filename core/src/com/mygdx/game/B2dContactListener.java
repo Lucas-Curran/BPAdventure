@@ -36,6 +36,37 @@ public class B2dContactListener implements ContactListener {
 
 		}
 		
+		if (fa.getBody().getUserData() == "gravityPillar") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = true;
+			
+		} else if (fb.getBody().getUserData() == "gravityPillar") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = true;
+
+		}
+		
+		if (fa.getBody().getUserData() == "gravityPillar2") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = false;
+			
+		} else if (fb.getBody().getUserData() == "gravityPillar2") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = false;
+
+		}
+		
+		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
+			System.out.println("Hit lava");
+			
+			
+		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
+			System.out.println("Hit lava");
+			
+
+		}
+		
+		
 		if(fa.getBody().getUserData() instanceof Entity){
 			Entity ent = (Entity) fa.getBody().getUserData();
 			entityCollision(ent,fb);
