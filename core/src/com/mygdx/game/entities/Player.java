@@ -14,6 +14,7 @@ import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.StateComponent;
+import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
@@ -40,6 +41,7 @@ public class Player extends EntityHandler {
 		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
 		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
 		StateComponent stateCom = pooledEngine.createComponent(StateComponent.class);
+		SteeringComponent steering = pooledEngine.createComponent(SteeringComponent.class);
 
 		// create the data for the components and add them to the components
 		b2dbody.body = bodyFactory.makeCirclePolyBody(x, y, 1, BodyFactory.OTHER, BodyType.DynamicBody, true, false);
@@ -49,8 +51,8 @@ public class Player extends EntityHandler {
 		player.player = true;
 		type.type = TypeComponent.PLAYER;
 		stateCom.set(StateComponent.STATE_NORMAL);
-		
 		b2dbody.body.setUserData(entity);
+		steering.body = b2dbody.body;
 		
 		// add the components to the entity
 		entity.add(b2dbody);
@@ -60,6 +62,7 @@ public class Player extends EntityHandler {
 		entity.add(colComp);
 		entity.add(type);
 		entity.add(stateCom);
+		entity.add(steering);
 
 		return entity;		
 	}
@@ -70,6 +73,10 @@ public class Player extends EntityHandler {
 	
 	public float getY() {
 		return entity.getComponent(B2dBodyComponent.class).body.getPosition().y;
+	}
+	
+	public Entity getEntity() {
+		return entity;
 	}
 	
 	public void setPosition(float x, float y) {
