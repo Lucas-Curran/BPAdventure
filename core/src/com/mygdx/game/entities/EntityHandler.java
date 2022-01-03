@@ -58,6 +58,8 @@ public class EntityHandler implements ApplicationListener {
 	private ArrayList<PolygonSprite> polySprites;
 	private PolygonSpriteBatch polygonSpriteBatch;
 	
+	private String[] currentNPCText;
+	
 	public EntityHandler() {
 		engine = new Engine();
 		gameWorld = new GameWorld();
@@ -157,7 +159,8 @@ public class EntityHandler implements ApplicationListener {
 	}		
 	
 	public void spawnShopNPC() {
-		pooledEngine.addEntity(npc.spawnNPC(10, 1));
+		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Hello, this is my first time being here", "How about you?"}, 10, 1));
+		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Hate this guy next to me..."}, 8, 1));
 	}
 	
 	public void spawnLevelOne() {
@@ -201,6 +204,14 @@ public class EntityHandler implements ApplicationListener {
 	
 	public Vector3 getCameraPosition() {
 		return cam.getCamera().position;
+	}
+	
+	public void setCurrentNPCText(String[] currentNPCText) {
+		this.currentNPCText = currentNPCText;
+	}
+	
+	public String[] getCurrentNPCText() {
+		return currentNPCText;
 	}
 	
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
+import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
@@ -60,10 +61,11 @@ public class B2dContactListener implements ContactListener {
 			
 			if(col != null){
 				col.collisionEntity = colEnt;
-				if (colEnt.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+				if (colEnt.getComponent(TypeComponent.class).type == TypeComponent.NPC) {						
 					parent.npcX = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().x;
 					parent.npcY = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().y;
 					parent.talkingZone = true;
+					parent.setCurrentNPCText(colEnt.getComponent(NPCComponent.class).text);
 				}
 			}else if(colb != null){
 				colb.collisionEntity = ent;
@@ -71,6 +73,7 @@ public class B2dContactListener implements ContactListener {
 					parent.npcX = ent.getComponent(B2dBodyComponent.class).body.getPosition().x;
 					parent.npcY = ent.getComponent(B2dBodyComponent.class).body.getPosition().y;
 					parent.talkingZone = true;
+					parent.setCurrentNPCText(ent.getComponent(NPCComponent.class).text);
 				}
 			}
 		}

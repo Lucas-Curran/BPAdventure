@@ -10,4 +10,5 @@ import com.mygdx.game.ui.ShopItem;
 public class NPCComponent implements Component {
 	public String name = null;
 	public HashMap<Label, ShopItem> wares = null;
+	public String[] text = null;
 }

@@ -130,7 +130,7 @@ public class TextBox implements InputProcessor {
 		textSequence = 0;
 		
 		table.setVisible(false);
-		options = true;
+		//options = true;
 	}
 	
 	public void renderTextBox(float delta) {
