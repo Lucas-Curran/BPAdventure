@@ -30,13 +30,14 @@ import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.*;
+import com.mygdx.game.components.BulletComponent.Owner;
 import com.mygdx.game.systems.*;
 
 public class EntityHandler implements ApplicationListener {
 
 	Engine engine;
 	protected PooledEngine pooledEngine;
-	TextureRegion tex;
+	protected TextureRegion tex;
 	BodyFactory bodyFactory;
 	GameWorld gameWorld;
 	RenderingSystem renderingSystem;
@@ -47,6 +48,7 @@ public class EntityHandler implements ApplicationListener {
 	private Player player;
 	private Enemy enemies;
 	private NPC npc;
+	private Bullet bullets;
 	
 	public boolean loadingZone;
 	public boolean talkingZone;
@@ -80,6 +82,10 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PlayerControlSystem());
 
 		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
+		pooledEngine.addSystem(new EnemySystem());
+		pooledEngine.addSystem(new SteeringSystem());
+		pooledEngine.addSystem(new BulletSystem());
+		
 		loadingZone = false;
 		talkingZone = false;
 		
@@ -93,6 +99,8 @@ public class EntityHandler implements ApplicationListener {
 		player = new Player();
 		enemies = new Enemy();
 		npc = new NPC();
+		bullets = new Bullet();
+		
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 	}
 
@@ -163,6 +171,12 @@ public class EntityHandler implements ApplicationListener {
 	public void spawnLevelTwo() {
 		for (Entity enemy : enemies.getLevelTwo()) {
 			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void spawnBullets() {
+		for (Entity bullet : bullets.getBullets()) {
+			pooledEngine.addEntity(bullet);
 		}
 	}
 	

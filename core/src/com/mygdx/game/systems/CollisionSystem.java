@@ -1,5 +1,6 @@
 package com.mygdx.game.systems;
 
+import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TypeComponent;
@@ -12,16 +13,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class CollisionSystem  extends IteratingSystem {
-
-	ComponentMapper<CollisionComponent> cm;
-	ComponentMapper<PlayerComponent> pm;
-
+	 ComponentMapper<CollisionComponent> cm;
+	 ComponentMapper<PlayerComponent> pm;
+	 ComponentMapper<BulletComponent> bc;
+ 
 	public CollisionSystem() {
 		// only need to worry about player collisions
 		super(Family.all(CollisionComponent.class,PlayerComponent.class).get());
-
-		cm = ComponentMapper.getFor(CollisionComponent.class);
-		pm = ComponentMapper.getFor(PlayerComponent.class);
+		
+		 cm = ComponentMapper.getFor(CollisionComponent.class);
+		 pm = ComponentMapper.getFor(PlayerComponent.class);
+		 bc = ComponentMapper.getFor(BulletComponent.class);
 	}
 
 	@Override
@@ -49,6 +51,10 @@ public class CollisionSystem  extends IteratingSystem {
 						if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
 							System.out.println("talk");
 						}
+						break;
+					case TypeComponent.BULLET:
+						//do player hit bullet thing
+						System.out.println("player hit bullet");
 						break;
 					case TypeComponent.OTHER:
 						//do player hit other thing

@@ -213,5 +213,11 @@ public class BodyFactory {
 	public ArrayList<Body> getLevelFourBodies() {
 		return levelFourBodies;
 	}
+
+	public void makeAllFixturesSensors(Body bod){
+	for(Fixture fix :bod.getFixtureList()){
+		fix.setSensor(true);
+	}
+}
 	
 }
