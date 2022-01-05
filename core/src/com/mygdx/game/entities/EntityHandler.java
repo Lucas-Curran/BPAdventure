@@ -30,6 +30,7 @@ import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
 import com.mygdx.game.components.*;
 import com.mygdx.game.components.BulletComponent.Owner;
+import com.mygdx.game.levels.Levels;
 import com.mygdx.game.systems.*;
 
 public class EntityHandler implements ApplicationListener {
@@ -43,6 +44,8 @@ public class EntityHandler implements ApplicationListener {
 	SpriteBatch batch;
 	Camera cam;
 	TextureAtlas textureAtlas;
+	
+	private Levels levels;
 	
 	private Player player;
 	private Enemy enemies;
@@ -67,7 +70,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine = engine.getInstance();
 		cam = new Camera();
 		textureAtlas = new TextureAtlas("textures.txt");
-		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter")); // sets the character texture
 		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		
 		batch = new SpriteBatch();
@@ -99,9 +102,10 @@ public class EntityHandler implements ApplicationListener {
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
+		//levels = new Levels();
 		npc = new NPC();
 		//pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
-		pooledEngine.addEntity(player.createPlayer(15, 1));
+		pooledEngine.addEntity(player.createPlayer(15, 9));
 		bullets = new Bullet();
 	}
 
@@ -116,7 +120,7 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
-		teleportPlayer(-35f, 188f);
+		teleportPlayer(-35f, 100f);
 		setJumpScale();//call this
 	}
 	
@@ -184,6 +188,7 @@ public class EntityHandler implements ApplicationListener {
 	public void teleportPlayer(float x, float y) {
 		if (Map.getInstance().teleporting == true) {
 			player.fadePlayer(x, y);
+			
 		}
 	}
 	

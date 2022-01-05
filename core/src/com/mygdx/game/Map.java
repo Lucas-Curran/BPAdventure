@@ -29,6 +29,7 @@ import com.mygdx.game.item.InventoryItem.ItemTypeID;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.levels.LevelFactory;
 import com.mygdx.game.levels.LevelOne;
+import com.mygdx.game.levels.LevelTwo;
 import com.mygdx.game.levels.Levels;
 import com.mygdx.game.systems.PlayerControlSystem;
 
@@ -52,6 +53,7 @@ public class Map implements Screen, InputProcessor {
 	private Hotbar hotbar;
 	
 	public Texture mapBackground;
+	private Texture caveBackground;
 	
 	private PlayerHUD playerHUD;
 	
@@ -70,6 +72,7 @@ public class Map implements Screen, InputProcessor {
 		
 		Skin skin = new Skin(textureAtlas);
 		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
+		caveBackground = new Texture(Gdx.files.internal("caveBackground.png"));
 	}
 	
 	static {
@@ -108,11 +111,17 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		
-		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
-		entityHandler.getBatch().begin();
-		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
-		entityHandler.getBatch().end(); //draws map
-		
+		if (levels.getLevelOne().getInLevelOne()) {
+			entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
+			entityHandler.getBatch().begin();
+			entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
+			entityHandler.getBatch().end(); //draws map
+		} else if (levels.getLevelTwo().getInLevelTwo()) {
+			entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
+			entityHandler.getBatch().begin();
+			entityHandler.getBatch().draw(caveBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
+			entityHandler.getBatch().end(); //draws map
+		}
 		entityHandler.render();
 		//levels.getLevelTwo().setCameraPosition(entityHandler.getCameraPosition());
 		levels.getLevelTwo().render();
