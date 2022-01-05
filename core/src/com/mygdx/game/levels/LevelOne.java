@@ -36,6 +36,7 @@ import com.mygdx.game.entities.EntityHandler;
 public class LevelOne extends LevelFactory implements ApplicationListener {
 	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
 	boolean isCreated;
+	static boolean inLevelOne;
 	private PolygonSpriteBatch polygonSpriteBatch;
 	private ArrayList<PolygonSprite> polySprites;
 	private Camera camera;
@@ -46,6 +47,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	private TextureRegion textureRegion;
 	
+	
 	float[] vertices;
 	
 	Body door;
@@ -54,6 +56,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	public void create() {
 		super.createLevel(15, 0, 1, 100, 10);
 		camera = new Camera();
+		inLevelOne = true;
 		
 		door = bodyFactory.makeBoxPolyBody(4, 1.0f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
 		door.setUserData("Door");
@@ -129,6 +132,14 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	@Override
 	public void dispose() {
 		
+	}
+	
+	public boolean getInLevelOne() {
+		return inLevelOne;
+	}
+	
+	public void setInLevelOne(boolean inLevelOne) {
+		this.inLevelOne = inLevelOne;
 	}
 	
 	public boolean isCreated() {

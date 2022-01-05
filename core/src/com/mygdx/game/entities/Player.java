@@ -18,6 +18,7 @@ import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
+import com.mygdx.game.levels.Levels;
 
 public class Player extends EntityHandler {
 	
@@ -28,10 +29,13 @@ public class Player extends EntityHandler {
 	
 	private float alpha = 0;
 	
+	private Levels levels;
+	
 	private ShapeRenderer shapeRenderer;
 	
 	public Entity createPlayer(float x, float y) {
 		
+		levels = new Levels(getWorld());
 		// Create the Entity and all the components that will go in the entity
 		entity = pooledEngine.createEntity();
 		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
@@ -99,6 +103,9 @@ public class Player extends EntityHandler {
 		System.out.println(alpha);
 		
 		if (alpha >= 1) {
+			if (levels.getLevelOne().getInLevelOne()) {
+				levels.getLevelOne().setInLevelOne(false);
+			}
 			setPosition(x, y);
 			Map.getInstance().mapBackground = new Texture(Gdx.files.internal("fireCave_bg.png"));
 			fadeDirection =! fadeDirection;
