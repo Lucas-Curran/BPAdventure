@@ -46,7 +46,7 @@ public class Map implements Screen, InputProcessor {
 
 	private Camera cam;
 
-	public boolean teleporting, gravitySwitch;
+	public boolean teleporting, gravitySwitch, death;
 	
 	private TextureAtlas textureAtlas;
 
@@ -105,6 +105,10 @@ public class Map implements Screen, InputProcessor {
 		if (!levels.getLevelThree().isCreated()) {
 			levels.getLevelThree().create();
 		}
+		
+		if (!levels.getLevelSeven().isCreated()) {
+			levels.getLevelSeven().create();
+		}	
 		
 	}
 
@@ -192,7 +196,11 @@ public class Map implements Screen, InputProcessor {
 		
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
-			
+			return true;
+		}
+		
+		if(entityHandler.killZone == true && !inAction()) {
+			death = true;
 			return true;
 		}
 		
@@ -268,6 +276,10 @@ public class Map implements Screen, InputProcessor {
 		if (teleporting) {
 			return true;
 		} 
+		
+		if (death) {
+			return true;
+		}
 		
 		if (textBox.isVisible()) {
 			return true;
