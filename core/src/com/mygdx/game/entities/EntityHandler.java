@@ -49,7 +49,7 @@ public class EntityHandler implements ApplicationListener {
 	
 	public boolean loadingZone;
 	public boolean talkingZone;
-	public boolean gravityZone;
+	public boolean gravityZone, killZone;
 	public float npcX;
 	public float npcY;
 	
@@ -57,6 +57,25 @@ public class EntityHandler implements ApplicationListener {
 		
 	private ArrayList<PolygonSprite> polySprites;
 	private String[] currentNPCText;
+	
+	public float destinationX = 0;
+	public float destinationY = 0;
+	
+	public float getDestinationX() {
+		return destinationX;
+	}
+
+	public void setDestinationX(float destinationX) {
+		this.destinationX = destinationX;
+	}
+
+	public float getDestinationY() {
+		return destinationY;
+	}
+
+	public void setDestinationY(float destinationY) {
+		this.destinationY = destinationY;
+	}
 	
 	public EntityHandler() {
 		engine = new Engine();
@@ -87,6 +106,7 @@ public class EntityHandler implements ApplicationListener {
 		loadingZone = false;
 		talkingZone = false;
 		gravityZone = false;
+		killZone = false;
 		
 	}
 	
@@ -110,7 +130,8 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
-		teleportPlayer(-35f, 188f);
+		teleportPlayer(getDestinationX(), getDestinationY());
+		killPlayer(6f, 3f);
 		setJumpScale();//call this
 	}
 	
@@ -172,6 +193,12 @@ public class EntityHandler implements ApplicationListener {
 	public void teleportPlayer(float x, float y) {
 		if (Map.getInstance().teleporting == true) {
 			player.fadePlayer(x, y);
+		}
+	}
+	
+	public void killPlayer(float x, float y) {
+		if (Map.getInstance().death == true) {
+			player.fadePlayerToBeginning(x, y);
 		}
 	}
 	

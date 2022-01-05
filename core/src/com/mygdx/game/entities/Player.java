@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -28,6 +29,7 @@ public class Player extends EntityHandler {
 	private float alpha = 0;
 	
 	private ShapeRenderer shapeRenderer;
+	private BitmapFont font;
 	
 	public Entity createPlayer(float x, float y) {
 		
@@ -110,6 +112,46 @@ public class Player extends EntityHandler {
 			
 		}
 	}
+	
+	public void fadePlayerToBeginning(float x, float y) {
+
+		if (alpha >= 0) {	
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			shapeRenderer = new ShapeRenderer();
+			shapeRenderer.setColor(0, 0, 0, alpha);
+			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			shapeRenderer.end();
+			font = new BitmapFont();
+			batch.setProjectionMatrix(cam.getCombined());
+			batch.begin();
+			font.draw(batch, "you died", 50,50);
+			batch.end();
+			Gdx.gl.glDisable(GL20.GL_BLEND);
+			
+			System.out.println(alpha);
+			
+			if (alpha >= 1) {
+				setPosition(x, y);
+				Map.getInstance().mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
+				fadeDirection =! fadeDirection;
+			} 		
+			//speed of fade
+			alpha += fadeDirection == true ? 0.015 : -0.015;
+			
+			} else {
+				
+				fadeDirection =! fadeDirection;
+				alpha = 0;
+				
+				entity.getComponent(B2dBodyComponent.class).body.setAwake(true);
+				
+				Map.getInstance().death = false;
+				
+				
+			}
+		}
 	
 	public void setGravityScale(float scale) {
 		entity.getComponent(B2dBodyComponent.class).body.setGravityScale(scale);

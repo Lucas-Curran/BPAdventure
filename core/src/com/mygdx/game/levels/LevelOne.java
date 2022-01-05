@@ -55,8 +55,10 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		super.createLevel(15, 0, 1, 100, 10);
 		camera = new Camera();
 		
-		door = bodyFactory.makeBoxPolyBody(4, 1.0f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
-		door.setUserData("Door");
+//		door = bodyFactory.makeBoxPolyBody(4, 1.0f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+		DoorBuilder db = DoorBuilder.getInstance();
+		db.createDoor(7, 1, -35, 188, BodyFactory.STEEL, "Door");
+		System.out.println(db.doors.toString());
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
 		

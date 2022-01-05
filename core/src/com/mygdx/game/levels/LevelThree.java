@@ -85,7 +85,6 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 		lavaCeiling2.setUserData("lavaCeiling2");
 		
-		
 //		rotator = bodyFactory.makeBoxPolyBody(-22, 104f, 1, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
 		
 		
@@ -151,12 +150,12 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 
 		
 		
-		polygonSpriteBatch = new PolygonSpriteBatch();
-		
-		polySprites = new ArrayList<>();
-		triangles = new ArrayList<>();
-		bodies = new ArrayList<>();
-		polygonShapes = new ArrayList<>();
+//		polygonSpriteBatch = new PolygonSpriteBatch();
+//		
+//		polySprites = new ArrayList<>();
+//		triangles = new ArrayList<>();
+//		bodies = new ArrayList<>();
+//		polygonShapes = new ArrayList<>();
 		
 		isCreated = true;
 		
@@ -166,21 +165,21 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
 		
-		for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {	
-			
-			Body body = bodyFactory.getBoxBodies().get(i);
-			Fixture fixture = body.getFixtureList().get(0);
-			PolygonShape shape = (PolygonShape) fixture.getShape();
-			
-			float[] vertices = calculateVertices(shape, body);		
-			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
-			
-			bodies.add(body);
-			polygonShapes.add(shape);
-			this.triangles.add(triangles);
-	
-//			polySprites.add(newSprite);
-		}
+//		for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {	
+//			
+//			Body body = bodyFactory.getBoxBodies().get(i);
+//			Fixture fixture = body.getFixtureList().get(0);
+//			PolygonShape shape = (PolygonShape) fixture.getShape();
+//			
+//			float[] vertices = calculateVertices(shape, body);		
+//			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
+//			
+//			bodies.add(body);
+//			polygonShapes.add(shape);
+//			this.triangles.add(triangles);
+//	
+////			polySprites.add(newSprite);
+//		}
 	}
 	
 
@@ -194,14 +193,14 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		camera.getCamera().update();
 		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
         
-		polygonSpriteBatch.begin();
-		for (int i = 0; i < triangles.size(); i++) {
-			vertices = calculateVertices(polygonShapes.get(i), bodies.get(i));
-			PolygonRegion newRegion = new PolygonRegion(textureRegion, vertices, triangles.get(i));
-			PolygonSprite newSprite = new PolygonSprite(newRegion);
-			newSprite.draw(polygonSpriteBatch);
-		}
-		polygonSpriteBatch.end();
+//		polygonSpriteBatch.begin();
+//		for (int i = 0; i < triangles.size(); i++) {
+//			vertices = calculateVertices(polygonShapes.get(i), bodies.get(i));
+//			PolygonRegion newRegion = new PolygonRegion(textureRegion, vertices, triangles.get(i));
+//			PolygonSprite newSprite = new PolygonSprite(newRegion);
+//			newSprite.draw(polygonSpriteBatch);
+//		}
+//		polygonSpriteBatch.end();
 		
 		 
 	}
@@ -235,19 +234,19 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		return polygonSpriteBatch;
 	}
 	
-	public float[] calculateVertices(PolygonShape shape, Body body) {
-		Vector2 mTmp = new Vector2();
-		int vertexCount = shape.getVertexCount();
-		float[] vertices = new float[vertexCount * 2];
-		for (int k = 0; k < vertexCount; k++) {
-			shape.getVertex(k, mTmp);
-			mTmp.rotateDeg(body.getAngle()*MathUtils.radiansToDegrees);
-			mTmp.add(body.getPosition());
-			vertices[k*2] = mTmp.x;
-			vertices[k*2+1] = mTmp.y;
-		}
-		return vertices;
-	}
+//	public float[] calculateVertices(PolygonShape shape, Body body) {
+//		Vector2 mTmp = new Vector2();
+//		int vertexCount = shape.getVertexCount();
+//		float[] vertices = new float[vertexCount * 2];
+//		for (int k = 0; k < vertexCount; k++) {
+//			shape.getVertex(k, mTmp);
+//			mTmp.rotateDeg(body.getAngle()*MathUtils.radiansToDegrees);
+//			mTmp.add(body.getPosition());
+//			vertices[k*2] = mTmp.x;
+//			vertices[k*2+1] = mTmp.y;
+//		}
+//		return vertices;
+//	}
 	
 	public void setCameraPosition(Vector3 position) {
 		camera.getCamera().position.set(position);

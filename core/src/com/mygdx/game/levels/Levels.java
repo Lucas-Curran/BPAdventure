@@ -11,11 +11,13 @@ public class Levels {
 	private LevelOne levelOne;
 	private LevelTwo levelTwo;
 	private LevelThree levelThree;
+	private LevelSeven levelSeven;
 	
 	public Levels(World world) {
 		levelOne = new LevelOne();
 		levelTwo = new LevelTwo();
 		levelThree = new LevelThree(world);
+		levelSeven = new LevelSeven(world);
 	}
 	
 	public LevelOne getLevelOne() {
@@ -28,6 +30,10 @@ public class Levels {
 	
 	public LevelThree getLevelThree() {
 		return levelThree;
+	}
+	
+	public LevelSeven getLevelSeven() {
+		return levelSeven;
 	}
 	
 	public void dispose() {
