@@ -29,13 +29,14 @@ import com.mygdx.game.Engine;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
 import com.mygdx.game.components.*;
+import com.mygdx.game.components.BulletComponent.Owner;
 import com.mygdx.game.systems.*;
 
 public class EntityHandler implements ApplicationListener {
 
 	Engine engine;
 	protected PooledEngine pooledEngine;
-	TextureRegion tex;
+	protected TextureRegion tex;
 	BodyFactory bodyFactory;
 	public GameWorld gameWorld;
 	RenderingSystem renderingSystem;
@@ -46,6 +47,7 @@ public class EntityHandler implements ApplicationListener {
 	private Player player;
 	private Enemy enemies;
 	private NPC npc;
+	private Bullet bullets;
 	
 	public boolean loadingZone;
 	public boolean talkingZone;
@@ -99,6 +101,9 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
+		pooledEngine.addSystem(new EnemySystem());
+		pooledEngine.addSystem(new SteeringSystem());
+		pooledEngine.addSystem(new BulletSystem());
 		
 //		Pixmap rescaleTex = new Pixmap(Gdx.files.internal("thinkBubble.png"));
 //		Pixmap scaled = new Pixmap(3)
@@ -117,6 +122,7 @@ public class EntityHandler implements ApplicationListener {
 		npc = new NPC();
 		//pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 		pooledEngine.addEntity(player.createPlayer(15, 1));
+		bullets = new Bullet();
 	}
 
 	@Override
@@ -187,6 +193,12 @@ public class EntityHandler implements ApplicationListener {
 	public void spawnLevelTwo() {
 		for (Entity enemy : enemies.getLevelTwo()) {
 			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void spawnBullets() {
+		for (Entity bullet : bullets.getBullets()) {
+			pooledEngine.addEntity(bullet);
 		}
 	}
 	

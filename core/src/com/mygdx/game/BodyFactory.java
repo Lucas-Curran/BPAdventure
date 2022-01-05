@@ -186,5 +186,11 @@ public class BodyFactory {
 	public ArrayList<Body> getBoxBodies() {
 		return boxBodies;
 	}
+
+	public void makeAllFixturesSensors(Body bod){
+	for(Fixture fix :bod.getFixtureList()){
+		fix.setSensor(true);
+	}
+}
 	
 }
