@@ -39,9 +39,10 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		float[] vertices;
 		
 		Body door;
-		DoorBuilder db;
+		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
-		LevelDestination destination = new LevelDestination();
+		Body[] platforms = new Body[20];
+		
 		
 		public LevelSeven(World world) {
 			this.world = world;
@@ -52,17 +53,12 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			super.createLevel(15, 600, 1, 100, 20);
 			camera = new Camera();
 			
-//			door = bodyFactory.makeBoxPolyBody(4, 1.0f, 2, 2, BodyFactory.STEEL, BodyType.StaticBody, false, true);
-//			door.setUserData("Door");
-			
-			db = DoorBuilder.getInstance();
-			db.createDoor(-30, 583, 55, 55, BodyFactory.STEEL, "door2", LevelDestination.OVERWORLD);
-			
-//			bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
+			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583f, 6, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[1] = bodyFactory.makeBoxPolyBody(-32, 585.5f, 8, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 			
 			NPC npc = new NPC();
 			String[] words = {"hi my name is jin"};
-			npc.spawnNPC(words, -30, 582);
+			npc.spawnNPC(words, -32, 582);
 			
 			Map.getInstance().getEntityHandler().spawnShopNPC();
 			

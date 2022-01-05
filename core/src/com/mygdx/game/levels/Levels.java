@@ -20,6 +20,27 @@ public class Levels {
 		levelSeven = new LevelSeven(world);
 	}
 	
+	public static enum LevelDestination {
+		 
+		OVERWORLD 	("overworld_bg.png"),
+		LVL_2  						(""),
+		LVL_3  		 ("fireCave_bg.png"),
+		LVL_4  						(""),
+		LVL_5  						(""),
+		LVL_6  						(""),
+		LVL_7  	   ("purpleCave_bg.png");
+		
+		private final String value;
+		
+		LevelDestination(String value) {
+			this.value = value;
+		}
+		
+		public String getValue() { return value; }
+		
+		
+	}
+	
 	public LevelOne getLevelOne() {
 		return levelOne;
 	}

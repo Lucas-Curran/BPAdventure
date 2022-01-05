@@ -2,9 +2,6 @@ package com.mygdx.game.levels;
 
 import java.util.ArrayList;
 
-import javax.swing.Box;
-
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,26 +9,19 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
-import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
-import com.mygdx.game.RoomFactory;
-import com.mygdx.game.components.B2dBodyComponent;
-import com.mygdx.game.components.TextureComponent;
-import com.mygdx.game.components.TransformComponent;
-import com.mygdx.game.components.TypeComponent;
-import com.mygdx.game.entities.EntityHandler;
+import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class LevelOne extends LevelFactory implements ApplicationListener {
 	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
@@ -49,14 +39,13 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	float[] vertices;
 	
 	DoorBuilder db = DoorBuilder.getInstance();
-	LevelDestination destination = new LevelDestination();
 	
 	@Override
 	public void create() {
 		super.createLevel(15, 0, 1, 100, 10);
 		camera = new Camera();
 		
-		db.createDoor(7, 1, -35, 188, BodyFactory.STEEL, "Door", destination.LEVEL_THREE);
+		db.createDoor(15, 2, -35, 585, BodyFactory.STEEL, "Door", LevelDestination.LVL_7);
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
 		bodyFactory.makeBoxPolyBody(10, 1, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, true, false);

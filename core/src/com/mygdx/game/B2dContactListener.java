@@ -34,7 +34,6 @@ public class B2dContactListener implements ContactListener {
 		for (int i = 0; i < db.doors.size(); i++) {
 			
 			if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
-				System.out.println(db.destinations.get(i));
 				parent.loadingZone = true;
 				parent.setDestinationX(db.destinationsX.get(i));
 				parent.setDestinationY(db.destinationsY.get(i));
