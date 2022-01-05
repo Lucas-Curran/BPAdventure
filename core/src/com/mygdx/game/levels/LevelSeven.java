@@ -41,6 +41,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		Body door;
 		DoorBuilder db;
 		World world;
+		LevelDestination destination = new LevelDestination();
 		
 		public LevelSeven(World world) {
 			this.world = world;
@@ -55,7 +56,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 //			door.setUserData("Door");
 			
 			db = DoorBuilder.getInstance();
-			db.createDoor(-30, 583, 55, 55, BodyFactory.STEEL, "door2");
+			db.createDoor(-30, 583, 55, 55, BodyFactory.STEEL, "door2", LevelDestination.OVERWORLD);
 			
 //			bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
 			

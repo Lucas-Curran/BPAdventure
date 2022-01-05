@@ -62,6 +62,7 @@ public class EntityHandler implements ApplicationListener {
 	
 	public float destinationX = 0;
 	public float destinationY = 0;
+	public String destination = "";
 	
 	public float getDestinationX() {
 		return destinationX;
@@ -77,6 +78,14 @@ public class EntityHandler implements ApplicationListener {
 
 	public void setDestinationY(float destinationY) {
 		this.destinationY = destinationY;
+	}
+	
+	public String getDestination() {
+		return destination;
+	}
+	
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 	
 	public EntityHandler() {
@@ -136,7 +145,7 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
-		teleportPlayer(getDestinationX(), getDestinationY());
+		teleportPlayer(getDestinationX(), getDestinationY(), getDestination());
 		killPlayer(6f, 3f);
 		setJumpScale();//call this
 	}
@@ -202,9 +211,9 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
-	public void teleportPlayer(float x, float y) {
+	public void teleportPlayer(float x, float y, String location) {
 		if (Map.getInstance().teleporting == true) {
-			player.fadePlayer(x, y);
+			player.fadePlayer(x, y, location);
 		}
 	}
 	

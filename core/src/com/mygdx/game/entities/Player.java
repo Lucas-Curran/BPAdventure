@@ -86,7 +86,7 @@ public class Player extends EntityHandler {
 		entity.getComponent(B2dBodyComponent.class).body.setLinearVelocity(new Vector2(0, 0));
 	}
 	
-	public void fadePlayer(float x, float y) {
+	public void fadePlayer(float x, float y, String level) {
 
 	if (alpha >= 0) {	
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -102,7 +102,7 @@ public class Player extends EntityHandler {
 		
 		if (alpha >= 1) {
 			setPosition(x, y);
-			Map.getInstance().mapBackground = new Texture(Gdx.files.internal("fireCave_bg.png"));
+			Map.getInstance().mapBackground = new Texture(Gdx.files.internal(level));
 			fadeDirection =! fadeDirection;
 		} 		
 		//speed of fade
@@ -163,4 +163,7 @@ public class Player extends EntityHandler {
 	public void setGravityScale(float scale) {
 		entity.getComponent(B2dBodyComponent.class).body.setGravityScale(scale);
 	}
+	
 }
+
+

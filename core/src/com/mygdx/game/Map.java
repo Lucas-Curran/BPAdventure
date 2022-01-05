@@ -46,7 +46,7 @@ public class Map implements Screen, InputProcessor {
 	private Camera cam;
 
 	public boolean teleporting, gravitySwitch, death;
-	
+public String location;	
 	private TextureAtlas textureAtlas;
 
 	private Hotbar hotbar;
