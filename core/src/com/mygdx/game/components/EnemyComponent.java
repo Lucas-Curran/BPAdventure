@@ -28,4 +28,5 @@ public class EnemyComponent implements Component {
 		public int getValue() { return value; }
 	}
 	public EnemyState enemyMode = EnemyState.PATROL;
+	public int health = 5;
 }
