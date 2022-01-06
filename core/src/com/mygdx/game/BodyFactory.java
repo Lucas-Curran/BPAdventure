@@ -97,7 +97,7 @@ public class BodyFactory {
 		case ICE:
 			fixtureDef.density = 1f;
 			fixtureDef.friction = 0.0f;
-			fixtureDef.restitution = 0.0f;
+			fixtureDef.restitution = 5.0f;
 		default:
 			fixtureDef.density = 7f;
 			fixtureDef.friction = 0.5f;

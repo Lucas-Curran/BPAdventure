@@ -160,7 +160,8 @@ public class Player extends EntityHandler {
 				alpha = 0;
 				
 				entity.getComponent(B2dBodyComponent.class).body.setAwake(true);
-				
+				setGravityScale(1);
+				Map.getInstance().setGravitySwitch(false);
 				Map.getInstance().death = false;
 				
 				

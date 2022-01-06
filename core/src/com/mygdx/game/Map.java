@@ -47,6 +47,10 @@ public class Map implements Screen, InputProcessor {
 	private Camera cam;
 
 	public boolean teleporting, gravitySwitch, death;
+public void setGravitySwitch(boolean gravitySwitch) {
+		this.gravitySwitch = gravitySwitch;
+	}
+
 public String location;	
 	private TextureAtlas textureAtlas;
 
@@ -204,10 +208,16 @@ public String location;
 			entityHandler.getPlayer().setGravityScale(-1);
 			gravitySwitch = true;
 			return true;
-		} else if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == false && !inAction()) {
-			entityHandler.getPlayer().setGravityScale(1);
-			gravitySwitch = false;
-			return false;
+		}
+//		} else if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == false && !inAction()) {
+//			entityHandler.getPlayer().setGravityScale(1);
+//			gravitySwitch = false;
+//			return false;
+//		}
+		
+		if(entityHandler.killZone == true && !inAction()) {
+			death = true;
+			return true;
 		}
 		
 		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
@@ -228,10 +238,7 @@ public String location;
 			return true;
 		} 
 		
-		if(entityHandler.killZone == true && !inAction()) {
-			death = true;
-			return true;
-		}
+		
 		
 		return false;
 	}
