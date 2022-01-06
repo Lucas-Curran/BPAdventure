@@ -49,7 +49,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		super.createLevel();
 		camera = new Camera();
 		
-		Texture texture = new Texture(Gdx.files.internal("ground.txt"));
+		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 		
 		door = bodyFactory.makeBoxPolyBody(4, 20, 2, 2, BodyFactory.STEEL, BodyType.DynamicBody, Level.LEVELONE, false, false, texture);
 		door.setUserData("Door");		
