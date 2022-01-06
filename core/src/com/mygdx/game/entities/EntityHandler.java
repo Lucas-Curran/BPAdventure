@@ -242,6 +242,7 @@ public class EntityHandler implements ApplicationListener {
 			batch.draw(talkTexture, npcX, npcY, 1f, 1f);
 			batch.end();
 		}
+		
 	}
 	
 	public SpriteBatch getBatch() {

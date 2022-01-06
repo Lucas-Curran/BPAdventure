@@ -90,8 +90,9 @@ public class Enemy extends EntityHandler {
 	
 	public ArrayList<Entity> getLevelTwo() {	
 		enemies.clear();
-//		createEnemy(0, 5, 0, 2);
-//		createEnemy(-5, 10, 0, 2);
+		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+		createEnemy(25, 94, EnemyState.PATROL, 1, 2f);
+		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
 	}
 	

@@ -19,40 +19,43 @@ import com.mygdx.game.Map;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class LevelTwo extends LevelFactory implements ApplicationListener{
 	boolean isCreated;
     static boolean inLevelTwo;
-	private NPC npc;
+	private NPC startNPC;
+	private NPC endNPC;
 	private Texture chestImage;
 	private Rectangle chest;
 	private Camera camera;
 	private PolygonSpriteBatch polygonSpriteBatch;
 	
+	
+	
 	Body[] chests = new Body[1];
 	@Override
 	public void create() {
-		super.createLevel(15, 100, 1, 100, 10);
+		
+		//Creates level 
+		super.createLevel(15, 100, 1, 50, 10);
 		isCreated = true;
 		inLevelTwo = true;
         
 		camera = new Camera();
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		
-		chests[0] = bodyFactory.makeBoxPolyBody(-32, 92f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+		DoorBuilder db = DoorBuilder.getInstance();
+		//Creates Level One NPCs
 		Map.getInstance().getEntityHandler().spawnLevelTwo();
-//		npc = new NPC();
-//		npc.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, -32, 92);
+		startNPC = new NPC();
+		startNPC.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92);
+		endNPC = new NPC();
+		endNPC.spawnNPC(new String[] {"So you're alive", "Take this and good luck, hopefully you'll make it farther than that last one"}, 35, 92);
 		
-		chestImage = new Texture(Gdx.files.internal("chest.png"));
-		chest = new Rectangle();
-		chest.x= -32;
-		chest.y = 92;
-		chest.width = 64;
-		chest.height = 64;
+		//Creates door to Level 3
 		
-		
-		//super.createLevel(x, y, width, height, npcX);
+		db.createDoor(37, 92, -32, 188, BodyFactory.STEEL, "Door", LevelDestination.LVL_3);
 	}
 
 	@Override
@@ -64,11 +67,12 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	public void render() {
 		//render map
 		//camera.getCamera().update();
-		camera.getCamera().update();
-		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
-		polygonSpriteBatch.begin();
-		polygonSpriteBatch.draw(chestImage, chest.x, chest.y);
-		polygonSpriteBatch.end();
+		
+//		camera.getCamera().update();
+//		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
+//		polygonSpriteBatch.begin();
+//		polygonSpriteBatch.draw(chestImage, chest.x, chest.y);
+//		polygonSpriteBatch.end();
 	}
 
 	@Override

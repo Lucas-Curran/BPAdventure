@@ -115,20 +115,20 @@ public String location;
 	@Override
 	public void render(float delta) {
 		
-		if (levels.getLevelOne().getInLevelOne()) {
+//		if (levels.getLevelOne().getInLevelOne()) {
 			entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
 			entityHandler.getBatch().begin();
 			entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 			entityHandler.getBatch().end(); //draws map
-		} else if (levels.getLevelTwo().getInLevelTwo()) {
-			entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
-			entityHandler.getBatch().begin();
-			entityHandler.getBatch().draw(caveBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
-			entityHandler.getBatch().end(); //draws map
-		}
+//		} else if (levels.getLevelTwo().getInLevelTwo()) {
+//			entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
+//			entityHandler.getBatch().begin();
+//			entityHandler.getBatch().draw(caveBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
+//			entityHandler.getBatch().end(); //draws map
+		//}
 		entityHandler.render();
 		//levels.getLevelTwo().setCameraPosition(entityHandler.getCameraPosition());
-		levels.getLevelTwo().render();
+//		levels.getLevelTwo().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
 			playerHUD.render(delta);
