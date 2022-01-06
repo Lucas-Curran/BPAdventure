@@ -129,6 +129,11 @@ public String location;
 		entityHandler.render();
 		//levels.getLevelTwo().setCameraPosition(entityHandler.getCameraPosition());
 //		levels.getLevelTwo().render();
+		
+		if (entityHandler.killZone == true) {
+			death = true;
+		}
+		
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
 			playerHUD.render(delta);
@@ -227,11 +232,6 @@ public String location;
 			textBox.setWritingSpeed(0.045f);
 			return true;
 		} 
-		
-		if(entityHandler.killZone == true && !inAction()) {
-			death = true;
-			return true;
-		}
 		
 		return false;
 	}

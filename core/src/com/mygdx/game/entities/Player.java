@@ -129,6 +129,8 @@ public class Player extends EntityHandler {
 	
 	public void fadePlayerToBeginning(float x, float y) {
 
+		Map.getInstance().death = false;	
+		
 		if (alpha >= 0) {	
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -157,13 +159,8 @@ public class Player extends EntityHandler {
 			} else {
 				
 				fadeDirection =! fadeDirection;
-				alpha = 0;
-				
-				entity.getComponent(B2dBodyComponent.class).body.setAwake(true);
-				
-				Map.getInstance().death = false;
-				
-				
+				alpha = 0;				
+				entity.getComponent(B2dBodyComponent.class).body.setAwake(true);							
 			}
 		}
 	
