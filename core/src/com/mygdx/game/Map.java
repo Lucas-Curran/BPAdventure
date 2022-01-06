@@ -72,7 +72,7 @@ public String location;
 		
 		Skin skin = new Skin(textureAtlas);
 		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
-		caveBackground = new Texture(Gdx.files.internal("caveBackground.png"));
+		
 	}
 	
 	static {
@@ -125,7 +125,7 @@ public String location;
 //			entityHandler.getBatch().begin();
 //			entityHandler.getBatch().draw(caveBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 //			entityHandler.getBatch().end(); //draws map
-		//}
+//		}
 		entityHandler.render();
 		//levels.getLevelTwo().setCameraPosition(entityHandler.getCameraPosition());
 //		levels.getLevelTwo().render();

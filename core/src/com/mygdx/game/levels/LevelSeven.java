@@ -53,8 +53,8 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			super.createLevel(15, 600, 1, 100, 20);
 			camera = new Camera();
 			
-			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583f, 6, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
-			platforms[1] = bodyFactory.makeBoxPolyBody(-32, 585.5f, 8, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583.5f, 6, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[1] = bodyFactory.makeBoxPolyBody(-32, 586f, 8, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 			
 			NPC npc = new NPC();
 			String[] words = {"hi my name is jin"};
