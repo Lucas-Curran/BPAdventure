@@ -37,6 +37,7 @@ public class NPC extends EntityHandler {
 				b2dbody.body.setUserData(entity);
 				
 				// add the components to the entity
+				entity.add(npcComp);
 				entity.add(type);
 				entity.add(colComp);
 				entity.add(b2dbody);

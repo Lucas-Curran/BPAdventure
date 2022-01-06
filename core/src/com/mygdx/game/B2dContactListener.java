@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
+import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.levels.DoorBuilder;
@@ -109,7 +110,7 @@ public class B2dContactListener implements ContactListener {
 					parent.npcX = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().x;
 					parent.npcY = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().y;
 					parent.talkingZone = true;
-					
+					parent.setCurrentNPCText(colEnt.getComponent(NPCComponent.class).text);
 				}
 			}else if(colb != null){
 				colb.collisionEntity = ent;
@@ -117,6 +118,7 @@ public class B2dContactListener implements ContactListener {
 					parent.npcX = ent.getComponent(B2dBodyComponent.class).body.getPosition().x;
 					parent.npcY = ent.getComponent(B2dBodyComponent.class).body.getPosition().y;
 					parent.talkingZone = true;
+					parent.setCurrentNPCText(ent.getComponent(NPCComponent.class).text);
 				}
 			}
 		}
@@ -124,11 +126,38 @@ public class B2dContactListener implements ContactListener {
  
 	@Override
 	public void endContact(Contact contact) {
+		
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
-		parent.loadingZone = false;
-		parent.talkingZone = false;
-		parent.killZone = false;
+
+		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
+			parent.killZone = false;
+			
+		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
+			parent.killZone = false;
+		}
+		
+		for (int i = 0; i < db.doors.size(); i++) {
+			if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
+				parent.loadingZone = false;
+			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {
+				parent.loadingZone = false;
+			}
+		}
+		
+		if(fa.getBody().getUserData() instanceof Entity){
+			Entity entA = (Entity) fa.getBody().getUserData();
+			if (entA.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+				parent.talkingZone = false;
+			}
+		}
+		
+		if (fb.getBody().getUserData() instanceof Entity) {
+			Entity entB = (Entity) fb.getBody().getUserData();
+			if (entB.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+				parent.talkingZone = false;
+			}
+		}
 		
 	}
 	@Override
