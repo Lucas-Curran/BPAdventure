@@ -68,6 +68,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			npc.spawnNPC(words, -32, 582);
 			
 			Map.getInstance().getEntityHandler().spawnShopNPC();
+			Map.getInstance().getEntityHandler().spawnLevelSeven();
 			
 			polygonSpriteBatch = new PolygonSpriteBatch();
 			

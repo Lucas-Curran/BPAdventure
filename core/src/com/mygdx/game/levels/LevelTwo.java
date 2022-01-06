@@ -55,7 +55,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		
 		//Creates door to Level 3
 		
-		db.createDoor(37, 92, -32, 188, BodyFactory.STEEL, "Door", LevelDestination.LVL_3);
+		db.createDoor(37, 92, -32, 188, BodyFactory.STEEL, "Door243", LevelDestination.LVL_3);
 	}
 
 	@Override
