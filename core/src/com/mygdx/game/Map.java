@@ -47,7 +47,7 @@ public class Map implements Screen, InputProcessor {
 	private Camera cam;
 
 	public boolean teleporting, gravitySwitch, death;
-	
+public String location;	
 	private TextureAtlas textureAtlas;
 
 	private Hotbar hotbar;
@@ -199,16 +199,12 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
-		if(entityHandler.killZone == true && !inAction()) {
-			death = true;
-			return true;
-		}
 		
-		if (entityHandler.gravityZone == true && !inAction()) {
+		if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == true && !inAction()) {
 			entityHandler.getPlayer().setGravityScale(-1);
 			gravitySwitch = true;
 			return true;
-		} else if (entityHandler.gravityZone == false && !inAction()) {
+		} else if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == false && !inAction()) {
 			entityHandler.getPlayer().setGravityScale(1);
 			gravitySwitch = false;
 			return false;
@@ -231,6 +227,11 @@ public class Map implements Screen, InputProcessor {
 			textBox.setWritingSpeed(0.045f);
 			return true;
 		} 
+		
+		if(entityHandler.killZone == true && !inAction()) {
+			death = true;
+			return true;
+		}
 		
 		return false;
 	}

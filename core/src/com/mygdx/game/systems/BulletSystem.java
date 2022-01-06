@@ -38,7 +38,6 @@ public class BulletSystem extends IteratingSystem{
 		float ey = enemyBody.body.getPosition().y;
 		
 		if (Math.abs(bx - ex) > 7 || Math.abs(by - ey) > 7) {
-			System.out.println("dead");
 			bullet.isDead = true;
 		}
 		

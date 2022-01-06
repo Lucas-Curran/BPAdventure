@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.GameWorld;
+import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class DoorBuilder {
 	
@@ -14,15 +15,17 @@ public class DoorBuilder {
 	public ArrayList<Body> doors = new ArrayList<>();
 	public ArrayList<Float> destinationsX = new ArrayList<>();
 	public ArrayList<Float> destinationsY = new ArrayList<>();
+	public ArrayList<String> destinations = new ArrayList<>();
 	
 	BodyFactory bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());;
 	
-	public Body createDoor(float posx, float posy, float desX, float desY, int material, String name) {
+	public Body createDoor(float posx, float posy, float desX, float desY, int material, String name, LevelDestination level) {
 		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true);
 		door.setUserData(name);
 		doors.add(door);
 		destinationsX.add(desX);
 		destinationsY.add(desY);
+		destinations.add(level.getValue());
 		return door;
 	}
 	
