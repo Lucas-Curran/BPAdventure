@@ -23,7 +23,7 @@ public class Levels {
 	public static enum LevelDestination {
 		 
 		OVERWORLD 	("overworld_bg.png"),
-		LVL_2  						(""),
+		LVL_2  	  ("caveBackground.png"),
 		LVL_3  		 ("fireCave_bg.png"),
 		LVL_4  						(""),
 		LVL_5  						(""),
