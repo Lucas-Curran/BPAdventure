@@ -42,6 +42,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 		Body[] platforms = new Body[20];
+		Body[] papers = new Body[20];
 		
 		
 		public LevelSeven(World world) {
@@ -53,8 +54,14 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			super.createLevel(15, 600, 1, 100, 20);
 			camera = new Camera();
 			
-			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583.5f, 6, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583.5f, 6, 1, BodyFactory.ICE, BodyType.StaticBody, false, false);
 			platforms[1] = bodyFactory.makeBoxPolyBody(-32, 586f, 8, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[2] = bodyFactory.makeBoxPolyBody(-32, 588.5f, 7, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			papers[0] = bodyFactory.makeBoxPolyBody(-34, 590f, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+			platforms[3] = bodyFactory.makeBoxPolyBody(-27, 590f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[4] = bodyFactory.makeBoxPolyBody(-25, 592f, 0.5f, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[5] = bodyFactory.makeBoxPolyBody(-23, 594f, 0.5f, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[6] = bodyFactory.makeBoxPolyBody(-25, 596f, 0.25f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 			
 			NPC npc = new NPC();
 			String[] words = {"hi my name is jin"};

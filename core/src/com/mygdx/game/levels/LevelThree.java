@@ -27,6 +27,7 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class LevelThree extends LevelFactory implements ApplicationListener{
 	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
@@ -61,6 +62,8 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		super.createLevel(15, 200, 1, 100, 15);
 		camera = new Camera();
 		
+		DoorBuilder db = DoorBuilder.getInstance();
+		
 		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 		pillars[2] = bodyFactory.makeBoxPolyBody(-30, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 		pillars[3] = bodyFactory.makeBoxPolyBody(-25, 187f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, false, false);
@@ -76,8 +79,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		pillars[12] = bodyFactory.makeBoxPolyBody(18, 196f, 1, 7, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 		pillars[13].setUserData("gravityPillar2");
-		level3EndDoor = bodyFactory.makeBoxPolyBody(45, 187f, 2, 4, BodyFactory.STEEL, BodyType.StaticBody, false, true);
-		level3EndDoor.setUserData("lvl3EndDoor");
+		db.createDoor(45, 187f, 0, 0, BodyFactory.STEEL, "lvl3EndDoor", LevelDestination.LVL_4);
 		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 		lavaFloor.setUserData("lavaFloor");
 		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);

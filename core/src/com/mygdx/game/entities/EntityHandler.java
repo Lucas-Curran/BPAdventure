@@ -209,6 +209,12 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
+	public void spawnLevelSeven() {
+		for (Entity enemy : enemies.getLevelSeven()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	
 	public void spawnBullets() {
 		for (Entity bullet : bullets.getBullets()) {
 			pooledEngine.addEntity(bullet);
