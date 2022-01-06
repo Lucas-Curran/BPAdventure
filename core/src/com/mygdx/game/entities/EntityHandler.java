@@ -194,7 +194,7 @@ public class EntityHandler implements ApplicationListener {
 	}		
 	
 	public void spawnShopNPC() {
-		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Been around these parts before? I haven't personally.","Get the hell outta my face"}, 115, 4));
+		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Been around these parts before? I haven't personally.","Get the hell outta my face"}, -5, 1));
 	}
 	
 	public void spawnLevelOne() {
@@ -248,6 +248,7 @@ public class EntityHandler implements ApplicationListener {
 			batch.draw(talkTexture, npcX, npcY, 1f, 1f);
 			batch.end();
 		}
+		
 	}
 	
 	public SpriteBatch getBatch() {

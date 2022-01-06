@@ -37,7 +37,7 @@ public class Levels {
 		}
 		
 		public String getValue() { return value; }
-		
+		// could use value to do chests, if value = cave give this item
 		
 	}
 	
