@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.NPCComponent;
+import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.levels.DoorBuilder;
@@ -35,15 +36,25 @@ public class B2dContactListener implements ContactListener {
 		for (int i = 0; i < db.doors.size(); i++) {
 			
 			if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
-				parent.loadingZone = true;
-				parent.setDestinationX(db.destinationsX.get(i));
-				parent.setDestinationY(db.destinationsY.get(i));
-				parent.setDestination(db.destinations.get(i));
-
+				if (fb.getBody().getUserData() instanceof Entity) {
+					Entity entB = (Entity) fb.getBody().getUserData();
+					if (entB.getComponent(PlayerComponent.class) != null) {
+						parent.loadingZone = true;
+						parent.setDestinationX(db.destinationsX.get(i));
+						parent.setDestinationY(db.destinationsY.get(i));
+						parent.setDestination(db.destinations.get(i));
+					}
+				}
 			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {
-				System.out.println("Hit door");
-				parent.loadingZone = true;
-
+				if (fa.getBody().getUserData() instanceof Entity) {
+					Entity entA = (Entity) fa.getBody().getUserData();
+					if (entA.getComponent(PlayerComponent.class) != null) {
+						parent.loadingZone = true;
+						parent.setDestinationX(db.destinationsX.get(i));
+						parent.setDestinationY(db.destinationsY.get(i));
+						parent.setDestination(db.destinations.get(i));
+					}
+				}
 			}
 		}
 
