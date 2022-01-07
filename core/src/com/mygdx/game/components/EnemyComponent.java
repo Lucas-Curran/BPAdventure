@@ -11,8 +11,9 @@ public class EnemyComponent implements Component {
 	public boolean isGoingUp = false;
 	public boolean isFalling = false;
 	public int range = 2;
-	public int bulletXPos;
-	public int bulletYPos;
+	public int bulletXDirection;
+	public int bulletYDirection;
+	public int bulletRange;
 	public static enum EnemyState {
 		PATROL		(0),
 		BOUNCE		(1),

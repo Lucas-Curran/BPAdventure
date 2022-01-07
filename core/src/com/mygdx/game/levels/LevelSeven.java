@@ -78,14 +78,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			slide = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 592, BodyFactory.ICE, BodyType.StaticBody, false, false);
 			
 			platforms[9] = bodyFactory.makeBoxPolyBody(-5, 592f, 6f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
-			
-			Bullet bullet = new Bullet();
-//	        Vector2 aim = Utilities.aimTo(bodyCom.body.getPosition(), playerCom.body.getPosition());
-			Vector2 aim = new Vector2(-2, 0);
-	        aim.scl(1);
-	        
-	        Map.getInstance().getEntityHandler().getPooledEngine().addEntity(bullet.createBullet(17, 1.5f, aim.x, aim.y, BulletComponent.Owner.ENEMY));
-			
+	        			
 			NPC npc = new NPC();
 			String[] words = {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
 					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"};
