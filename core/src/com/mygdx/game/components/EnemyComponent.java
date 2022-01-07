@@ -11,13 +11,16 @@ public class EnemyComponent implements Component {
 	public boolean isGoingUp = false;
 	public boolean isFalling = false;
 	public int range = 2;
+	public int bulletXPos;
+	public int bulletYPos;
 	public static enum EnemyState {
 		PATROL		(0),
 		BOUNCE		(1),
 		VERTICAL	(2),
 		JUMP		(3),
 		STEERING	(4),
-		BOSS		(5);
+		BOSS		(5),
+		SHOOTER		(6);
 
 		private final int value;
 		

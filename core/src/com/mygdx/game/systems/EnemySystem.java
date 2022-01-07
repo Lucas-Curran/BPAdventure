@@ -57,6 +57,9 @@ public class EnemySystem extends IteratingSystem {
 			case PATROL: 
 				aiOne();
 				break;
+			case SHOOTER:
+				aiBullet(enemyCom.bulletXPos, enemyCom.bulletYPos);
+				break;
 			case BOUNCE:
 				aiTwo();
 				break;
@@ -103,6 +106,23 @@ public class EnemySystem extends IteratingSystem {
 		
 		bodyCom.body.setTransform(bodyCom.body.getPosition().x + speed, bodyCom.body.getPosition().y, bodyCom.body.getAngle());
 
+	}
+	
+	private void aiBullet(int xDirection, int yDirection) {
+		
+		if (timer > 0) {
+		timer -= 0.1;
+		return;
+	}
+	timer = 4f;
+		
+		Bullet bullet = new Bullet();
+		Vector2 aim = new Vector2(xDirection, yDirection);
+		aim.scl(1);
+		
+		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y, BulletComponent.Owner.ENEMY));
+		
+		
 	}
 	
 	

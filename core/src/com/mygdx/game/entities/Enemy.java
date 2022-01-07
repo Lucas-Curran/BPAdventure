@@ -24,7 +24,60 @@ public class Enemy extends EntityHandler {
 		enemies = new ArrayList<Entity>();
 	}
 	
-	public Entity createEnemy(int posx, int posy, EnemyState enemyType, int range, float radius) {
+	public Entity createEnemy(int posx, float f, EnemyState enemyType, int range, float radius) {
+		
+		// Create the Entity and all the components that will go in the entity
+		Entity entity = pooledEngine.createEntity();
+		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
+		TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
+		TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
+		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
+		PlayerComponent player = pooledEngine.createComponent(PlayerComponent.class);
+		EnemyComponent enemy = pooledEngine.createComponent(EnemyComponent.class);
+		SteeringComponent steering = pooledEngine.createComponent(SteeringComponent.class);
+		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
+
+		// create the data for the components and add them to the components
+		BodyType bodyType = enemyType.getValue() <= 2 ? BodyType.KinematicBody : BodyType.DynamicBody;
+		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, f, radius, BodyFactory.OTHER, bodyType, true, false);
+		// set object position (x,y,z) z used to define draw order 0 first drawn
+		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
+		position.scale.set(radius, radius);
+		texture.region = tex;
+		type.type = TypeComponent.ENEMY;
+		player.player = false;
+		b2dbody.body.setUserData(entity);
+		enemy.xPostCenter = b2dbody.body.getPosition().x;
+		enemy.yPostCenter = b2dbody.body.getPosition().y;
+		enemy.range = range;
+		enemy.enemyMode = enemyType;
+		
+		b2dbody.body.setGravityScale(0.8f);
+		b2dbody.body.setLinearDamping(0.3f);
+		b2dbody.body.setUserData(entity);
+		if (enemyType == EnemyState.STEERING) {
+			b2dbody.body.setGravityScale(0f);
+			//Set steering behavior
+			steering.body = b2dbody.body;
+			steering.steeringBehavior = SteeringPresets.getWander(steering);
+			steering.currentMode = SteeringComponent.SteeringState.WANDER;
+			entity.add(steering);
+
+		}
+		
+		// add the components to the entity
+		entity.add(b2dbody);
+		entity.add(position);
+		entity.add(type);
+		entity.add(texture);
+		entity.add(enemy);
+		entity.add(colComp);
+
+		enemies.add(entity);
+		return entity;
+	}
+	
+public Entity createEnemyShooter(float posx, float posy, EnemyState enemyType, int range, float radius, int bulletXPos, int bulletYPos) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -49,6 +102,8 @@ public class Enemy extends EntityHandler {
 		b2dbody.body.setUserData(entity);
 		enemy.xPostCenter = b2dbody.body.getPosition().x;
 		enemy.yPostCenter = b2dbody.body.getPosition().y;
+		enemy.bulletXPos = bulletXPos;
+		enemy.bulletYPos = bulletYPos;
 		enemy.range = range;
 		enemy.enemyMode = enemyType;
 		
@@ -98,8 +153,8 @@ public class Enemy extends EntityHandler {
 	
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
-		createEnemy(-33, 589, EnemyState.PATROL, 2, 1f);
-//		createEnemy(-10, 5, EnemyState.VERTICAL, 1, 1f);
+		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f);
+		createEnemyShooter(17, 1.5f, EnemyState.SHOOTER, 1, 1f, 0, 1);
 //		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f);
 //		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
 //		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);

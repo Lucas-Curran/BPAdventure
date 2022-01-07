@@ -22,7 +22,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
+import com.mygdx.game.components.BulletComponent;
 
 public class LevelSeven extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
@@ -43,6 +45,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		World world;
 		Body[] platforms = new Body[20];
 		Body[] papers = new Body[20];
+		Body slide;
 		
 		
 		public LevelSeven(World world) {
@@ -62,10 +65,33 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			platforms[4] = bodyFactory.makeBoxPolyBody(-25, 592f, 0.5f, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 			platforms[5] = bodyFactory.makeBoxPolyBody(-23, 594f, 0.5f, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 			platforms[6] = bodyFactory.makeBoxPolyBody(-25, 596f, 0.25f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[7] = bodyFactory.makeBoxPolyBody(-22, 598f, 4f, 0.1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			papers[1] = bodyFactory.makeBoxPolyBody(-21, 599f, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+			platforms[8] = bodyFactory.makeBoxPolyBody(-12, 590f, 4f, 0.1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			
+			
+			Vector2 vertex1 = new Vector2(3, 0);
+			Vector2 vertex2 = new Vector2(6, -2);
+			Vector2 vertex3 = new Vector2(1, 5);
+			
+			Vector2[] triangleVertices = {vertex1, vertex2, vertex3};
+			slide = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 592, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			
+			platforms[9] = bodyFactory.makeBoxPolyBody(-5, 592f, 6f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			
+			Bullet bullet = new Bullet();
+//	        Vector2 aim = Utilities.aimTo(bodyCom.body.getPosition(), playerCom.body.getPosition());
+			Vector2 aim = new Vector2(-2, 0);
+	        aim.scl(1);
+	        
+	        Map.getInstance().getEntityHandler().getPooledEngine().addEntity(bullet.createBullet(17, 1.5f, aim.x, aim.y, BulletComponent.Owner.ENEMY));
 			
 			NPC npc = new NPC();
-			String[] words = {"hi my name is jin"};
+			String[] words = {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
+					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"};
 			npc.spawnNPC(words, -32, 582);
+			String[] message = {"Watch out for the projectiles!"};
+			npc.spawnNPC(message, -3, 593);
 			
 			Map.getInstance().getEntityHandler().spawnShopNPC();
 			Map.getInstance().getEntityHandler().spawnLevelSeven();
@@ -85,21 +111,21 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
 			texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
 			
-			for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {	
-				
-				Body body = bodyFactory.getBoxBodies().get(i);
-				Fixture fixture = body.getFixtureList().get(0);
-				PolygonShape shape = (PolygonShape) fixture.getShape();
-				
-				float[] vertices = calculateVertices(shape, body);		
-				short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
-				
-				bodies.add(body);
-				polygonShapes.add(shape);
-				this.triangles.add(triangles);
-		
-				//polySprites.add(newSprite);
-			}
+//			for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {	
+//				
+//				Body body = bodyFactory.getBoxBodies().get(i);
+//				Fixture fixture = body.getFixtureList().get(0);
+//				PolygonShape shape = (PolygonShape) fixture.getShape();
+//				
+//				float[] vertices = calculateVertices(shape, body);		
+//				short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
+//				
+//				bodies.add(body);
+//				polygonShapes.add(shape);
+//				this.triangles.add(triangles);
+//		
+//				//polySprites.add(newSprite);
+//			}
 		}
 		
 

@@ -37,6 +37,10 @@ public class EntityHandler implements ApplicationListener {
 
 	Engine engine;
 	protected PooledEngine pooledEngine;
+	public PooledEngine getPooledEngine() {
+		return pooledEngine;
+	}
+
 	protected TextureRegion tex;
 	BodyFactory bodyFactory;
 	public GameWorld gameWorld;
