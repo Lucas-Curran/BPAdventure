@@ -30,7 +30,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	private Rectangle chest;
 	private Camera camera;
 	private PolygonSpriteBatch polygonSpriteBatch;
-	
+	private DoorBuilder doorBuilderTwo = DoorBuilder.getInstance();
 	
 	
 	Body[] chests = new Body[1];
@@ -45,17 +45,17 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		camera = new Camera();
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		
-		DoorBuilder db = DoorBuilder.getInstance();
+		
 		//Creates Level One NPCs
 		Map.getInstance().getEntityHandler().spawnLevelTwo();
 		startNPC = new NPC();
 		startNPC.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92);
 		endNPC = new NPC();
-		endNPC.spawnNPC(new String[] {"So you're alive", "Take this and good luck, hopefully you'll make it farther than that last one"}, 35, 92);
+		endNPC.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92);
 		
 		//Creates door to Level 3
-		
-		db.createDoor(37, 92, -32, 188, BodyFactory.STEEL, "Door243", LevelDestination.LVL_3);
+		DoorBuilder db = DoorBuilder.getInstance();
+		db.createDoor(37, 92, -35, 188, BodyFactory.STEEL, "Door243", LevelDestination.LVL_3);
 	}
 
 	@Override
@@ -65,14 +65,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 
 	@Override
 	public void render() {
-		//render map
-		//camera.getCamera().update();
-		
-//		camera.getCamera().update();
-//		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
-//		polygonSpriteBatch.begin();
-//		polygonSpriteBatch.draw(chestImage, chest.x, chest.y);
-//		polygonSpriteBatch.end();
+	
 	}
 
 	@Override

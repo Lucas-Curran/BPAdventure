@@ -147,7 +147,7 @@ public Entity createEnemyShooter(float posx, float posy, EnemyState enemyType, i
 	public ArrayList<Entity> getLevelTwo() {	
 		enemies.clear();
 		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
-		createEnemy(25, 94, EnemyState.PATROL, 1, 2f);
+		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
 		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
 	}

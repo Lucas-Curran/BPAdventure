@@ -40,7 +40,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	float[] vertices;
 	
-	DoorBuilder db = DoorBuilder.getInstance();
+	private DoorBuilder db = DoorBuilder.getInstance();
 	
 	@Override
 	public void create() {
@@ -48,8 +48,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		camera = new Camera();
 		inLevelOne = true;
 		
-		db.createDoor(17, 1.5f, -35, 585, BodyFactory.STEEL, "Door1", LevelDestination.LVL_7);
-//		db.createDoor(15, 1.5f, -35, 188, BodyFactory.ICE, "Door3", LevelDestination.LVL_3);
+		db.createDoor(15, 1.5f, 0, 96, BodyFactory.STEEL, "Door", LevelDestination.LVL_2);
 
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);

@@ -11,12 +11,15 @@ public class Levels {
 	private LevelOne levelOne;
 	private LevelTwo levelTwo;
 	private LevelThree levelThree;
+	private LevelFour levelFour;
 	private LevelSeven levelSeven;
 	
 	public Levels(World world) {
 		levelOne = new LevelOne();
 		levelTwo = new LevelTwo();
 		levelThree = new LevelThree(world);
+		levelFour = new LevelFour(world);
+	//	levelFive = new LevelFive(world); 
 		levelSeven = new LevelSeven(world);
 	}
 	
@@ -53,6 +56,10 @@ public class Levels {
 		return levelThree;
 	}
 	
+	public LevelFour getLevelFour() {
+		return levelFour;
+	}
+	
 	public LevelSeven getLevelSeven() {
 		return levelSeven;
 	}
@@ -61,6 +68,7 @@ public class Levels {
 		levelOne.dispose();
 		levelTwo.dispose();
 		levelThree.dispose();
+		levelFour.dispose();
 	}
 	
 }
