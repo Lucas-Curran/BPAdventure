@@ -52,7 +52,12 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
-		bodyFactory.makeBoxPolyBody(10, 1, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, true, false);
+		bodyFactory.makeBoxPolyBody(10, 2, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, Level.LEVELONE, true, false, texture);
+		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+		
+		// door = bodyFactory.makeBoxPolyBody(4, 20, 2, 2, BodyFactory.STEEL, BodyType.DynamicBody, Level.LEVELONE, false, false, texture);
+		// door.setUserData("Door");		
+		
 		Map.getInstance().getEntityHandler().spawnLevelOne();
 		Map.getInstance().getEntityHandler().spawnShopNPC();
 		

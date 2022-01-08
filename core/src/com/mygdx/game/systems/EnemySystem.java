@@ -85,6 +85,13 @@ public class EnemySystem extends IteratingSystem {
 				break;
 		}
 		
+		
+		//Check if health is less than 0 and set enemy to dead
+		if (enemyCom.health <= 0) {
+			bodyCom.isDead = true;
+		}
+		
+		
 	}
 	
 	/**
