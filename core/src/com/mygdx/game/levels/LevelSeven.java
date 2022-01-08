@@ -44,10 +44,10 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		Body door;
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
-		Body[] platforms = new Body[20];
+		Body[] platforms = new Body[25];
 		Body[] papers = new Body[20];
-		Body[] spikes = new Body[6];
-		Body slide;;
+		Body[] spikes = new Body[7];
+		Body slide;
 		
 		
 		public LevelSeven(World world) {
@@ -95,6 +95,12 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			platforms[17] = bodyFactory.makeBoxPolyBody(43f, 591f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 			platforms[18] = bodyFactory.makeBoxPolyBody(43f, 588f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
 			
+			platforms[19] = bodyFactory.makeBoxPolyBody(52f, 594.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[20] = bodyFactory.makeBoxPolyBody(52f, 591.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[21] = bodyFactory.makeBoxPolyBody(52f, 588.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[22] = bodyFactory.makeBoxPolyBody(52f, 585.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[23] = bodyFactory.makeBoxPolyBody(40f, 590.5f, 1f, 18f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			
 			Vector2 vertex11 = new Vector2(0, 0);
 			Vector2 vertex12 = new Vector2(1, 0);
 			Vector2 vertex13 = new Vector2(0.5f, 2);
@@ -107,6 +113,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			spikes[3] = bodyFactory.makePolygonShapeBody(triangleVertices2, 48, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
 			spikes[4] = bodyFactory.makePolygonShapeBody(triangleVertices2, 49, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
 			spikes[5] = bodyFactory.makePolygonShapeBody(triangleVertices2, 50, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			spikes[6] = bodyFactory.makePolygonShapeBody(triangleVertices2, 51, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
 			
 			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, true);
 			
