@@ -24,6 +24,7 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
+import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.components.BulletComponent;
 
 public class LevelSeven extends LevelFactory implements ApplicationListener {
@@ -45,7 +46,8 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		World world;
 		Body[] platforms = new Body[20];
 		Body[] papers = new Body[20];
-		Body slide;
+		Body[] spikes = new Body[6];
+		Body slide;;
 		
 		
 		public LevelSeven(World world) {
@@ -78,6 +80,38 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			slide = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 592, BodyFactory.ICE, BodyType.StaticBody, false, false);
 			
 			platforms[9] = bodyFactory.makeBoxPolyBody(-5, 592f, 6f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[10] = bodyFactory.makeBoxPolyBody(1, 592f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[11] = bodyFactory.makeBoxPolyBody(1, 594.5f, 3f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			papers[2] = bodyFactory.makeBoxPolyBody(2, 598, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+			platforms[12] = bodyFactory.makeBoxPolyBody(9.5f, 592f, 1f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[13] = bodyFactory.makeBoxPolyBody(15f, 592f, 3f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			papers[3] = bodyFactory.makeBoxPolyBody(16, 593, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+			platforms[14] = bodyFactory.makeBoxPolyBody(25.5f, 592f, 8f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			
+			db.createDoor(28.5f, 593.5f, 43, 599, BodyFactory.RUBBER, "doorLvl7Teleport", LevelDestination.LVL_7);
+			
+			platforms[15] = bodyFactory.makeBoxPolyBody(43f, 597f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[16] = bodyFactory.makeBoxPolyBody(43f, 594f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[17] = bodyFactory.makeBoxPolyBody(43f, 591f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			platforms[18] = bodyFactory.makeBoxPolyBody(43f, 588f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+			
+			Vector2 vertex11 = new Vector2(0, 0);
+			Vector2 vertex12 = new Vector2(1, 0);
+			Vector2 vertex13 = new Vector2(0.5f, 2);
+			
+			Vector2[] triangleVertices2 = {vertex11, vertex12, vertex13};
+			
+			spikes[0] = bodyFactory.makePolygonShapeBody(triangleVertices2, 45, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			spikes[1] = bodyFactory.makePolygonShapeBody(triangleVertices2, 46, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			spikes[2] = bodyFactory.makePolygonShapeBody(triangleVertices2, 47, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			spikes[3] = bodyFactory.makePolygonShapeBody(triangleVertices2, 48, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			spikes[4] = bodyFactory.makePolygonShapeBody(triangleVertices2, 49, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			spikes[5] = bodyFactory.makePolygonShapeBody(triangleVertices2, 50, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
+			
+			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+			
+			db.createDoor(60, 582.5f, 1.5f, 17, BodyFactory.WOOD, "endOfLevel7", LevelDestination.OVERWORLD);
+			
 	        			
 			NPC npc = new NPC();
 			String[] words = {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
