@@ -32,4 +32,5 @@ public class EnemyComponent implements Component {
 		public int getValue() { return value; }
 	}
 	public EnemyState enemyMode = EnemyState.PATROL;
+	public float timer = 10f;
 }
