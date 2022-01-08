@@ -228,6 +228,9 @@ public class EntityHandler implements ApplicationListener {
 	}
 	
 	public void spawnLevelTwo() {
+		
+		
+		
 		for (Entity enemy : enemies.getLevelTwo()) {
 			pooledEngine.addEntity(enemy);
 		}
@@ -307,6 +310,10 @@ public class EntityHandler implements ApplicationListener {
 	
 	public TextureRegion getTextureRegion(TextureRegion texture) {
 		return texture;
+	}
+	
+	public NPC getNPC() {
+		return npc;
 	}
 	
 }
