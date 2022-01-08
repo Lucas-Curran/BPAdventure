@@ -57,6 +57,7 @@ public class Player extends EntityHandler {
 		player.player = true;
 		type.type = TypeComponent.PLAYER;
 		stateCom.set(StateComponent.STATE_NORMAL);
+		
 		b2dbody.body.setUserData(entity);
 		steering.body = b2dbody.body;
 		
