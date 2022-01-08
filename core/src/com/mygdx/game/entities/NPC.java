@@ -47,4 +47,6 @@ public class NPC extends EntityHandler {
 				return entity;
 	}
 	
+	
+	
 }
