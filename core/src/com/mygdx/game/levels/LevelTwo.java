@@ -47,10 +47,11 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		
 		
 		//Creates Level One NPCs
-		NPC npc = Map.getInstance().getEntityHandler().getNPC();
 		Map.getInstance().getEntityHandler().spawnLevelTwo();
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92, normalMan));
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92, normalMan));		
+		startNPC = new NPC();
+		startNPC.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92);
+		endNPC = new NPC();
+		endNPC.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92);
 		
 		//Creates door to Level 3
 		DoorBuilder db = DoorBuilder.getInstance();

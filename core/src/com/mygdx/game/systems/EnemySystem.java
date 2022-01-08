@@ -6,8 +6,6 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
@@ -17,7 +15,6 @@ import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.components.EnemyComponent.EnemyState;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.Enemy;
-import com.mygdx.game.entities.EntityHandler;
 
 public class EnemySystem extends IteratingSystem {
 
@@ -34,8 +31,6 @@ public class EnemySystem extends IteratingSystem {
 	Random rNum = new Random();
 	
     static int iteration = 1;
-    TextureAtlas textureAtlas;
-	private TextureRegion tex;
 	
 	public EnemySystem() {
 		super(Family.all(EnemyComponent.class).get());
@@ -83,13 +78,6 @@ public class EnemySystem extends IteratingSystem {
 				aiOne();
 				break;
 		}
-		
-		
-		//Check if health is less than 0 and set enemy to dead
-		if (enemyCom.health <= 0) {
-			bodyCom.isDead = true;
-		}
-		
 		
 	}
 	
@@ -250,10 +238,8 @@ public class EnemySystem extends IteratingSystem {
 			shoot(2f);
 		} else if (move <= 20) {
 			//Spawn a steering type enemy
-			textureAtlas = new TextureAtlas("textures.txt");
-			tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 			Enemy e = new Enemy();
-			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f,tex));
+			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
 		}
 		
 		
