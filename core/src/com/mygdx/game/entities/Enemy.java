@@ -77,6 +77,52 @@ public class Enemy extends EntityHandler {
 		return entity;
 	}
 	
+public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange) {
+		
+		// Create the Entity and all the components that will go in the entity
+		Entity entity = pooledEngine.createEntity();
+		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
+		TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
+		TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
+		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
+		PlayerComponent player = pooledEngine.createComponent(PlayerComponent.class);
+		EnemyComponent enemy = pooledEngine.createComponent(EnemyComponent.class);
+		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
+
+		// create the data for the components and add them to the components
+		b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, radius, BodyFactory.OTHER, BodyType.DynamicBody, true, false);
+		// set object position (x,y,z) z used to define draw order 0 first drawn
+		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
+		position.scale.set(radius, radius);
+		texture.region = tex;
+		type.type = TypeComponent.ENEMY;
+		player.player = false;
+		b2dbody.body.setUserData(entity);
+		enemy.xPostCenter = b2dbody.body.getPosition().x;
+		enemy.yPostCenter = b2dbody.body.getPosition().y;
+		enemy.bulletXDirection = bulletXDirection;
+		enemy.bulletYDirection = bulletYDirection;
+		enemy.bulletRange = bulletRange;
+		enemy.range = range;
+		enemy.enemyMode = EnemyState.SHOOTER;
+		
+		b2dbody.body.setGravityScale(0.8f);
+		b2dbody.body.setLinearDamping(0.3f);
+		b2dbody.body.setUserData(entity);
+		
+		// add the components to the entity
+		entity.add(b2dbody);
+		entity.add(position);
+		entity.add(type);
+		entity.add(texture);
+		entity.add(enemy);
+		entity.add(colComp);
+
+		enemies.add(entity);
+		return entity;
+	}
+
+	
 	public ArrayList<Entity> getLevelOne() {
 		enemies.clear();
 		createEnemy(5, 5, EnemyState.PATROL, 1, 1f);
@@ -90,29 +136,27 @@ public class Enemy extends EntityHandler {
 	
 	public ArrayList<Entity> getLevelTwo() {	
 		enemies.clear();
-//		createEnemy(0, 5, 0, 2);
-//		createEnemy(-5, 10, 0, 2);
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
-	}
-	
-	public Entity returnEnemy(int id) {
-		return enemies.get(id);
 	}
 	
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
-
-//		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, tex);
-		//createEnemyShooter(17, 1.5f, EnemyState.SHOOTER, 1, 1f, -2, 0, 7);
-//		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f);
-
 		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f);
 		createEnemyShooter(0, 593, 1, 1f, -2, 0, 7);
 //		createEnemy(11, 595, EnemyState.PATROL, 5, 1f);
-
 //		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
 //		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);
 //		createEnemy (30, 4, EnemyState.BOSS, 0, 2f);
 		return enemies;
 	}
+
+	
+	public Entity returnEnemy(int id) {
+		return enemies.get(id);
+	}
+	
+	
 }

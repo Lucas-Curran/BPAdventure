@@ -30,7 +30,7 @@ public class EnemySystem extends IteratingSystem {
 	
 	Random rNum = new Random();
 	
-	static float timer = 10f;
+	
     static int iteration = 1;
 	
 	public EnemySystem() {
@@ -98,11 +98,11 @@ public class EnemySystem extends IteratingSystem {
 		
 		if (distFromOrigin > enemyCom.range) {
 			//pause on edge
-			if (timer > 0) {
-				timer -= 0.1;
+			if (enemyCom.timer > 0) {
+				enemyCom.timer -= 0.1;
 				return;
 			}
-			timer = 4f;
+			enemyCom.timer = 4f;
 			//flip direction
 			enemyCom.isGoingLeft = !enemyCom.isGoingLeft;
 		} else {
@@ -132,6 +132,7 @@ public class EnemySystem extends IteratingSystem {
 		
 	}
 
+
 	
 	
 	/**
@@ -159,11 +160,11 @@ public class EnemySystem extends IteratingSystem {
 		
 		if (distFromOrigin > enemyCom.range) {
 			//pause on peak/low
-			if (timer > 0) {
-				timer -= 0.1;
+			if (enemyCom.timer > 0) {
+				enemyCom.timer -= 0.1;
 				return;
 			}
-			timer = 4f;
+			enemyCom.timer = 4f;
 			//flip direction
 			enemyCom.isGoingUp = !enemyCom.isGoingUp;
 		} else {
@@ -179,11 +180,11 @@ public class EnemySystem extends IteratingSystem {
 	 * Jump type enemy
 	 */
 	private void aiFour() {
-		if (timer > 0) {
-			timer -= 0.1;
+		if (enemyCom.timer > 0) {
+			enemyCom.timer -= 0.1;
 			return;
 		}
-		timer = 10f;
+		enemyCom.timer = 10f;
 		
 		bodyCom.body.applyForceToCenter(0, 0f,true);
 		
@@ -222,11 +223,11 @@ public class EnemySystem extends IteratingSystem {
 	 * Boss enemy ai
 	 */
 	private void boss() {
-		if (timer > 0) {
-			timer -= 0.1;
+		if (enemyCom.timer > 0) {
+			enemyCom.timer -= 0.1;
 			return;
 		}
-		timer = 15f;
+		enemyCom.timer = 15f;
 		
 		bodyCom.body.applyForceToCenter(0, 0f,true);
 		
@@ -264,10 +265,6 @@ public class EnemySystem extends IteratingSystem {
 		
 		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y + offset, aim.x, aim.y, 7, BulletComponent.Owner.ENEMY));
 	}
-
-	
-	
-	
 	
 	
 }
