@@ -138,9 +138,19 @@ public class B2dContactListener implements ContactListener {
 
 		for (int i = 0; i < db.doors.size(); i++) {
 			if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
-				parent.loadingZone = false;
+				if (fb.getBody().getUserData() instanceof Entity) {
+					Entity entB = (Entity) fb.getBody().getUserData();
+					if (entB.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
+						parent.loadingZone = false;
+					}
+				}
 			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {
-				parent.loadingZone = false;
+				if (fa.getBody().getUserData() instanceof Entity) {
+					Entity entA = (Entity) fa.getBody().getUserData();
+					if (entA.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
+						parent.loadingZone = false;
+					}
+				}
 			}
 		}
 		
