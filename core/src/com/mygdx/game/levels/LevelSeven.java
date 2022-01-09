@@ -124,15 +124,15 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture);
 			
-			db.createDoor(60, 582.5f, 1.5f, 17, BodyFactory.WOOD, "endOfLevel7", LevelDestination.LVL_8);
+			db.createDoor(45, 587, -35, 688, BodyFactory.STONE, "doorTo8", LevelDestination.LVL_8);
 			
 	        			
 			NPC npc = new NPC();
 			String[] words = {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
 					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"};
-			npc.spawnNPC(words, -32, 582, tex);
+			npc.spawnNPC(words, -32, 582, textureRegion);
 			String[] message = {"Watch out for the projectiles!"};
-			npc.spawnNPC(message, -3, 593, tex);
+			npc.spawnNPC(message, -3, 593, textureRegion);
 			
 			Map.getInstance().getEntityHandler().spawnShopNPC();
 			Map.getInstance().getEntityHandler().spawnLevelSeven();

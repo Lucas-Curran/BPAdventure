@@ -62,7 +62,7 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			
 			Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 			
-			db.createDoor(60, 582.5f, 1.5f, 17, BodyFactory.WOOD, "endOfLevel8", LevelDestination.LVL_9);
+			db.createDoor(45, 687, -35, 788, BodyFactory.STONE, "doorTo9", LevelDestination.LVL_9);
 			
 	        			
 			NPC npc = new NPC();

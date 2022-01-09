@@ -62,7 +62,7 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 			
 			Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 			
-			db.createDoor(45, 387, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
+			db.createDoor(45, 382, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
 			
 	        			
 			NPC npc = new NPC();

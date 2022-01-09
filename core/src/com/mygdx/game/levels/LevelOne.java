@@ -52,7 +52,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 		
 		
-		db.createDoor(15, 1.5f, -10, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
+		db.createDoor(15, 1.5f, -35, 588, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_7);
 
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
