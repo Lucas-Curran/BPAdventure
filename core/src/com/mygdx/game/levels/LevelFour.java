@@ -12,6 +12,8 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 public class LevelFour extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
 	World world;
+	
+	DoorBuilder db = DoorBuilder.getInstance();
 
 	
 	
@@ -24,6 +26,10 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		
 		//Creates level 
 		super.createLevel(15, 300, 1, 100, 15);
+		db.createDoor(45, 287, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
+		
+		Map.getInstance().getEntityHandler().spawnShopNPC();
+		Map.getInstance().getEntityHandler().spawnLevelFour();
 		
 	}
     

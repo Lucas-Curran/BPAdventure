@@ -142,6 +142,38 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		return enemies;
 	}
 	
+	public ArrayList<Entity> getLevelThree() {	
+		enemies.clear();
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		return enemies;
+	}
+	
+	public ArrayList<Entity> getLevelFour() {	
+		enemies.clear();
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		return enemies;
+	}
+	
+	public ArrayList<Entity> getLevelFive() {	
+		enemies.clear();
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		return enemies;
+	}
+	
+	public ArrayList<Entity> getLevelSix() {	
+		enemies.clear();
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		return enemies;
+	}
+	
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
 		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f);
@@ -150,6 +182,30 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 //		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
 //		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);
 //		createEnemy (30, 4, EnemyState.BOSS, 0, 2f);
+		return enemies;
+	}
+	
+	public ArrayList<Entity> getLevelEight() {	
+		enemies.clear();
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		return enemies;
+	}
+	
+	public ArrayList<Entity> getLevelNine() {	
+		enemies.clear();
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		return enemies;
+	}
+	
+	public ArrayList<Entity> getLevelTen() {	
+		enemies.clear();
+//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
+//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
 	}
 

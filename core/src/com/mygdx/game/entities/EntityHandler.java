@@ -131,6 +131,7 @@ public class EntityHandler implements ApplicationListener {
 		bullets = new Bullet();
 		
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
+		
 	}
 
 	@Override
@@ -205,8 +206,44 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
+	public void spawnLevelThree() {
+		for (Entity enemy : enemies.getLevelThree()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	public void spawnLevelFour() {
+		for (Entity enemy : enemies.getLevelFour()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	public void spawnLevelFive() {
+		for (Entity enemy : enemies.getLevelFive()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	public void spawnLevelSix() {
+		for (Entity enemy : enemies.getLevelSix()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	
 	public void spawnLevelSeven() {
 		for (Entity enemy : enemies.getLevelSeven()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	public void spawnLevelEight() {
+		for (Entity enemy : enemies.getLevelEight()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	public void spawnLevelNine() {
+		for (Entity enemy : enemies.getLevelNine()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	public void spawnLevelTen() {
+		for (Entity enemy : enemies.getLevelTen()) {
 			pooledEngine.addEntity(enemy);
 		}
 	}

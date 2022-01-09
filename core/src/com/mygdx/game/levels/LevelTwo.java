@@ -29,7 +29,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	private Rectangle chest;
 	private Camera camera;
 	private PolygonSpriteBatch polygonSpriteBatch;
-	private DoorBuilder doorBuilderTwo = DoorBuilder.getInstance();
+	private DoorBuilder db = DoorBuilder.getInstance();
 	
 	
 	Body[] chests = new Body[1];
@@ -51,8 +51,8 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		endNPC.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92);
 		
 		//Creates door to Level 3
-		DoorBuilder db = DoorBuilder.getInstance();
-		db.createDoor(37, 92, -35, 188, BodyFactory.STEEL, "Door243", LevelDestination.LVL_3);
+//		db.createDoor(37, 92, -35, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
+		db.createDoor(37, 92, 50, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
 	}
 
 	@Override

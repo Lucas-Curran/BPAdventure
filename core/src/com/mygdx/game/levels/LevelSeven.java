@@ -124,7 +124,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture);
 			
-			db.createDoor(60, 582.5f, 1.5f, 17, BodyFactory.WOOD, "endOfLevel7", LevelDestination.OVERWORLD);
+			db.createDoor(60, 582.5f, 1.5f, 17, BodyFactory.WOOD, "endOfLevel7", LevelDestination.LVL_8);
 			
 	        			
 			NPC npc = new NPC();

@@ -129,8 +129,32 @@ public class Map implements Screen, InputProcessor {
 			levels.getLevelThree().create();
 		}
 		
+		if (!levels.getLevelFour().isCreated()) {
+			levels.getLevelFour().create();
+		}
+		
+		if (!levels.getLevelFive().isCreated()) {
+			levels.getLevelFive().create();
+		}
+		
+		if (!levels.getLevelSix().isCreated()) {
+			levels.getLevelSix().create();
+		}
+		
 		if (!levels.getLevelSeven().isCreated()) {
 			levels.getLevelSeven().create();
+		}
+		
+		if (!levels.getLevelEight().isCreated()) {
+			levels.getLevelEight().create();
+		}
+		
+		if (!levels.getLevelNine().isCreated()) {
+			levels.getLevelNine().create();
+		}
+		
+		if (!levels.getLevelTen().isCreated()) {
+			levels.getLevelTen().create();
 		}
 	}
 

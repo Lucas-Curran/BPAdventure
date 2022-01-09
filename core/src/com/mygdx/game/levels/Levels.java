@@ -12,7 +12,12 @@ public class Levels {
 	private LevelTwo levelTwo;
 	private LevelThree levelThree;
 	private LevelFour levelFour;
+	private LevelFive levelFive;
+	private LevelSix levelSix;
 	private LevelSeven levelSeven;
+	private LevelEight levelEight;
+	private LevelNine levelNine;
+	private LevelTen levelTen;
 	
 	public Levels(World world) {
 
@@ -20,8 +25,13 @@ public class Levels {
 		levelTwo = new LevelTwo();
 		levelThree = new LevelThree(world);
 		levelFour = new LevelFour(world);
-	//	levelFive = new LevelFive(world); 
+		levelFive = new LevelFive(world);
+		levelSix = new LevelSix(world);
 		levelSeven = new LevelSeven(world);
+		levelEight = new LevelEight(world);
+		levelNine = new LevelNine(world);
+		levelTen = new LevelTen(world);
+			
 	}
 	
 	public static enum LevelDestination {
@@ -29,10 +39,13 @@ public class Levels {
 		OVERWORLD 	("overworld_bg.png"),
 		LVL_2  	  ("caveBackground.png"),
 		LVL_3  		 ("fireCave_bg.png"),
-		LVL_4  						(""),
-		LVL_5  						(""),
-		LVL_6  						(""),
-		LVL_7  	   ("purpleCave_bg.png");
+		LVL_4  			 ("snow_bg.png"),
+		LVL_5  		 ("goldCave_bg.png"),
+		LVL_6  		   ("desert_bg.png"),
+		LVL_7  	   ("purpleCave_bg.png"),
+		LVL_8		   ("jungle_bg.png"),
+		LVL_9	   ("nearTheEnd_bg.png"),
+		LVL_10			  ("sky_bg.png");
 		
 		private final String value;
 		
@@ -61,8 +74,28 @@ public class Levels {
 		return levelFour;
 	}
 	
+	public LevelFive getLevelFive() {
+		return levelFive;
+	}
+	
+	public LevelSix getLevelSix() {
+		return levelSix;
+	}
+	
 	public LevelSeven getLevelSeven() {
 		return levelSeven;
+	}
+	
+	public LevelEight getLevelEight() {
+		return levelEight;
+	}
+	
+	public LevelNine getLevelNine() {
+		return levelNine;
+	}
+	
+	public LevelTen getLevelTen() {
+		return levelTen;
 	}
 	
 	public void dispose() {
@@ -70,6 +103,12 @@ public class Levels {
 		levelTwo.dispose();
 		levelThree.dispose();
 		levelFour.dispose();
+		levelFive.dispose();
+		levelSix.dispose();
+		levelSeven.dispose();
+		levelEight.dispose();
+		levelNine.dispose();
+		levelTen.dispose();
 	}
 	
 }
