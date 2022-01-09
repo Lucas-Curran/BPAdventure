@@ -122,7 +122,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			spikes[5] = bodyFactory.makePolygonShapeBody(triangleVertices2, 50, 581.5f, BodyFactory.ICE, BodyType.StaticBody, LevelDestination.LVL_7, false, false, texture);
 			spikes[6] = bodyFactory.makePolygonShapeBody(triangleVertices2, 51, 581.5f, BodyFactory.ICE, BodyType.StaticBody, LevelDestination.LVL_7, false, false, texture);
 			
-			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody, false, true);
+			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL,BodyType.StaticBody, LevelDestination.LVL_7, false, true, texture);
 			
 			db.createDoor(60, 582.5f, 1.5f, 17, BodyFactory.WOOD, "endOfLevel7", LevelDestination.OVERWORLD);
 			
