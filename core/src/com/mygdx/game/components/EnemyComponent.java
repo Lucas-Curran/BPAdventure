@@ -10,6 +10,10 @@ public class EnemyComponent implements Component {
 	public boolean isGoingLeft = false;
 	public boolean isGoingUp = false;
 	public boolean isFalling = false;
+	public int bulletXDirection;
+	public int bulletYDirection;
+	public int bulletRange;
+
 	public int range = 2;
 	public static enum EnemyState {
 		PATROL		(0),
@@ -28,5 +32,6 @@ public class EnemyComponent implements Component {
 		public int getValue() { return value; }
 	}
 	public EnemyState enemyMode = EnemyState.PATROL;
+	public float timer = 10f;
 	public int health = 5;
 }

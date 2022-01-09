@@ -15,6 +15,7 @@ public class Levels {
 	private LevelSeven levelSeven;
 	
 	public Levels(World world) {
+
 		levelOne = new LevelOne();
 		levelTwo = new LevelTwo();
 		levelThree = new LevelThree(world);

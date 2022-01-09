@@ -54,13 +54,13 @@ public class Map implements Screen, InputProcessor {
 
 	private Camera cam;
 
-	public boolean teleporting;
+	public boolean teleporting, death;
 	
 	private TextureAtlas textureAtlas;
 
 	private Hotbar hotbar;
 	
-	private Texture mapBackground;
+	public Texture mapBackground;
 	
 	private PlayerHUD playerHUD;
 	private Money money;
@@ -68,6 +68,13 @@ public class Map implements Screen, InputProcessor {
 	private AudioManager am;
 	private Weapon weapon;
 	private boolean swing;
+	
+	boolean gravitySwitch;
+	
+	public void setGravitySwitch(boolean gravitySwitch) {
+		this.gravitySwitch = gravitySwitch;
+	}
+
 
 	private Map() {
 		cam = new Camera();
@@ -79,7 +86,6 @@ public class Map implements Screen, InputProcessor {
 		
 		entityHandler = new EntityHandler();
 		levels = new Levels(entityHandler.getWorld());
-		
 		am = new AudioManager();
 	
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
@@ -114,6 +120,17 @@ public class Map implements Screen, InputProcessor {
 		}
 		if (!levels.getLevelOne().isCreated()) {
 			levels.getLevelOne().create();
+		} 
+		if (!levels.getLevelTwo().isCreated()) {
+			levels.getLevelTwo().create();
+		}
+		
+		if (!levels.getLevelThree().isCreated()) {
+			levels.getLevelThree().create();
+		}
+		
+		if (!levels.getLevelSeven().isCreated()) {
+			levels.getLevelSeven().create();
 		}
 	}
 
@@ -148,6 +165,10 @@ public class Map implements Screen, InputProcessor {
 				}
 			}
 			playerHUD.render(delta);
+		}
+		
+		if (entityHandler.killZone == true) {
+			death = true;
 		}
 	}
 
@@ -212,6 +233,19 @@ public class Map implements Screen, InputProcessor {
 		
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
+			return true;
+		}
+		
+		
+		
+		if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == true && !inAction()) {
+			entityHandler.getPlayer().setGravityScale(-1);
+			gravitySwitch = true;
+			return true;
+		}
+		
+		if(entityHandler.killZone == true && !inAction()) {
+			death = true;
 			return true;
 		}
 		
@@ -287,6 +321,11 @@ public class Map implements Screen, InputProcessor {
 		if (teleporting) {
 			return true;
 		} 
+		
+		if (death) {
+			return true;
+		}
+
 		
 		if (textBox.isVisible()) {
 			return true;

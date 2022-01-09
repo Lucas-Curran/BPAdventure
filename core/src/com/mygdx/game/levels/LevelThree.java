@@ -69,27 +69,27 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		
 		DoorBuilder db = DoorBuilder.getInstance();
 		
-		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[2] = bodyFactory.makeBoxPolyBody(-30, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[3] = bodyFactory.makeBoxPolyBody(-25, 187f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[4] = bodyFactory.makeBoxPolyBody(-14, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[5] = bodyFactory.makeBoxPolyBody(-8, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
+		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+		pillars[2] = bodyFactory.makeBoxPolyBody(-30, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[3] = bodyFactory.makeBoxPolyBody(-25, 187f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[4] = bodyFactory.makeBoxPolyBody(-14, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[5] = bodyFactory.makeBoxPolyBody(-8, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
 		pillars[5].setUserData("gravityPillar");
-		pillars[6] = bodyFactory.makeBoxPolyBody(-5, 199f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[7] = bodyFactory.makeBoxPolyBody(0, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[8] = bodyFactory.makeBoxPolyBody(5, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[9] = bodyFactory.makeBoxPolyBody(5, 195f, 4, 1, BodyFactory.STEEL, BodyType.DynamicBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[10] = bodyFactory.makeBoxPolyBody(10, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[11] = bodyFactory.makeBoxPolyBody(14, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[12] = bodyFactory.makeBoxPolyBody(18, 196f, 1, 7, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
+		pillars[6] = bodyFactory.makeBoxPolyBody(-5, 199f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, false, false);
+		pillars[7] = bodyFactory.makeBoxPolyBody(0, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[8] = bodyFactory.makeBoxPolyBody(5, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[9] = bodyFactory.makeBoxPolyBody(5, 195f, 4, 1, BodyFactory.STEEL, BodyType.DynamicBody,  false, false);
+		pillars[10] = bodyFactory.makeBoxPolyBody(10, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[11] = bodyFactory.makeBoxPolyBody(14, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[12] = bodyFactory.makeBoxPolyBody(18, 196f, 1, 7, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
 		pillars[13].setUserData("gravityPillar2");
 		db.createDoor(45, 187f, 0, 0, BodyFactory.STEEL, "lvl3EndDoor", LevelDestination.LVL_4);
-		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
+		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
 		lavaFloor.setUserData("lavaFloor");
-		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
+		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
 		lavaCeiling.setUserData("lavaCeiling");
-		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
+		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
 		lavaCeiling2.setUserData("lavaCeiling2");
 		
 //		rotator = bodyFactory.makeBoxPolyBody(-22, 104f, 1, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
@@ -118,10 +118,10 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		Vector2[] triangleVertices3 = {vertex21, vertex22, vertex23};
 		Vector2[] triangleVertices4 = {vertex31, vertex32, vertex33};
 		
-		blade1 = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 186, BodyFactory.STEEL, BodyType.DynamicBody, LevelDestination.LVL_3, false, false, texture);
-		blade2 = bodyFactory.makePolygonShapeBody(triangleVertices2, -22, 186, BodyFactory.STEEL, BodyType.DynamicBody, LevelDestination.LVL_3, false, false, texture);
-		slide = bodyFactory.makePolygonShapeBody(triangleVertices3, 21, 195, BodyFactory.ICE, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
-		slideJump = bodyFactory.makePolygonShapeBody(triangleVertices4, 35, 195, BodyFactory.ICE, BodyType.StaticBody, LevelDestination.LVL_3, false, false, texture);
+		blade1 = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 186, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
+		blade2 = bodyFactory.makePolygonShapeBody(triangleVertices2, -22, 186, BodyFactory.STEEL, BodyType.DynamicBody,  false, false);
+		slide = bodyFactory.makePolygonShapeBody(triangleVertices3, 21, 195, BodyFactory.ICE, BodyType.StaticBody,  false, false);
+		slideJump = bodyFactory.makePolygonShapeBody(triangleVertices4, 35, 195, BodyFactory.ICE, BodyType.StaticBody,  false, false);
 		slide.setGravityScale(0);
 		blade1.setGravityScale(0);
 		blade2.setGravityScale(0);

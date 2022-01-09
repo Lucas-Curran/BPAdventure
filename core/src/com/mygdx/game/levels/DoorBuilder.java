@@ -26,7 +26,7 @@ public class DoorBuilder {
 	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 	
 	public Body createDoor(float posx, float posy, float desX, float desY, int material, String name, LevelDestination level) {
-		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, level, false, true, texture);
+		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true);
 		door.setUserData(name);
 		doors.add(door);
 		destinationsX.add(desX);

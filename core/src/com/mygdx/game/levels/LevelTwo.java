@@ -23,7 +23,6 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class LevelTwo extends LevelFactory implements ApplicationListener{
 	boolean isCreated;
-    static boolean inLevelTwo;
 	private NPC startNPC;
 	private NPC endNPC;
 	private Texture chestImage;
@@ -39,9 +38,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		
 		//Creates level 
 		super.createLevel(15, 100, 1, 50, 10);
-		isCreated = true;
-		inLevelTwo = true;
-        
+		isCreated = true;        
 		camera = new Camera();
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		
@@ -77,13 +74,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		return isCreated;
 	}
 	
-	public boolean getInLevelTwo() {
-		return inLevelTwo;
-	}
-	
-	public void setInLevelTwo(boolean inLevelTwo) {
-		this.inLevelTwo = inLevelTwo;
-	}
+
 
 	
 }

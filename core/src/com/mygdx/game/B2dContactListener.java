@@ -8,14 +8,17 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
+import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.levels.DoorBuilder;
  
 public class B2dContactListener implements ContactListener {
 	
 	private EntityHandler parent;
+	DoorBuilder db = DoorBuilder.getInstance();
 	
 	public B2dContactListener(EntityHandler parent){ 
 		this.parent = parent;
@@ -26,12 +29,61 @@ public class B2dContactListener implements ContactListener {
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
 
-		if (fa.getBody().getUserData() == "Door") {
-			System.out.println("Hit door");
-			parent.loadingZone = true;
-		} else if (fb.getBody().getUserData() == "Door") {
-			System.out.println("Hit door");
-			parent.loadingZone = true;
+for (int i = 0; i < db.doors.size(); i++) {
+			
+			if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
+				if (fb.getBody().getUserData() instanceof Entity) {
+					Entity entB = (Entity) fb.getBody().getUserData();
+					if (entB.getComponent(PlayerComponent.class) != null) {
+						parent.loadingZone = true;
+						parent.setDestinationX(db.destinationsX.get(i));
+						parent.setDestinationY(db.destinationsY.get(i));
+						parent.setDestination(db.destinations.get(i));
+					}
+				}
+			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {
+				if (fa.getBody().getUserData() instanceof Entity) {
+					Entity entA = (Entity) fa.getBody().getUserData();
+					if (entA.getComponent(PlayerComponent.class) != null) {
+						parent.loadingZone = true;
+						parent.setDestinationX(db.destinationsX.get(i));
+						parent.setDestinationY(db.destinationsY.get(i));
+						parent.setDestination(db.destinations.get(i));
+					}
+				}
+			}
+		}
+
+		if (fa.getBody().getUserData() == "gravityPillar") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = true;
+			
+		} else if (fb.getBody().getUserData() == "gravityPillar") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = true;
+
+		}
+		
+		if (fa.getBody().getUserData() == "gravityPillar2") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = false;
+			
+		} else if (fb.getBody().getUserData() == "gravityPillar2") {
+			System.out.println("Hit gravitySwitch");
+			parent.gravityZone = false;
+
+		}
+		
+		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
+			System.out.println("Hit lava");
+			parent.killZone = true;
+			parent.gravityZone = false;
+			
+		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
+			System.out.println("Hit lava");
+			parent.killZone = true;
+			parent.gravityZone = false;
+
 		}
 		
 		if (fa.getBody().getUserData() instanceof Entity){
@@ -82,6 +134,13 @@ public class B2dContactListener implements ContactListener {
 		Fixture fb = contact.getFixtureB();
 		parent.loadingZone = false;
 		parent.talkingZone = false;
+		
+		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
+			parent.killZone = false;
+			
+		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
+			parent.killZone = false;
+		}
 		
 	}
 	@Override

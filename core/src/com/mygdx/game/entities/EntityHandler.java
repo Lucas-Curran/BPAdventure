@@ -53,11 +53,39 @@ public class EntityHandler implements ApplicationListener {
 	
 	public boolean loadingZone;
 	public boolean talkingZone;
+	public boolean killZone;
+	public boolean gravityZone;
 	public float npcX;
 	public float npcY;
 	
 	private Texture talkTexture;
 	private PolygonSpriteBatch polygonSpriteBatch;
+	float destinationX, destinationY;
+	String destination;
+	
+	public float getDestinationX() {
+        return destinationX;
+    }
+
+    public void setDestinationX(float destinationX) {
+        this.destinationX = destinationX;
+    }
+
+    public float getDestinationY() {
+        return destinationY;
+    }
+
+    public void setDestinationY(float destinationY) {
+        this.destinationY = destinationY;
+    }
+    
+    public String getDestination() {
+    	return destination;
+    }
+    
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 	
 	public EntityHandler() {
 		engine = new Engine();
@@ -116,8 +144,9 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
-		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
-		teleportPlayer(20f, 2.7f); //call this
+//		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBoxBodies());
+		teleportPlayer(destinationX, destinationY, destination);
+		killPlayer(17, 1.5f);//call this
 	}
 	
 	@Override
@@ -188,11 +217,17 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
-	public void teleportPlayer(float x, float y) {
+	public void teleportPlayer(float x, float y, String destination) {
 		if (Map.getInstance().teleporting == true) {
-			player.fadePlayer(x, y);
+			player.fadePlayer(x, y, destination);
 		}
 	}
+	
+	public void killPlayer(float x, float y) {
+        if (Map.getInstance().death == true) {
+            player.fadePlayerToBeginning(x, y);
+        }
+    }
 	
 	public void renderSpeechBubble() {
 		if (talkingZone) {

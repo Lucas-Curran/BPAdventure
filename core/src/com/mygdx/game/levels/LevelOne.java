@@ -52,11 +52,11 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 		
 		db.createDoor(17, 1.5f, 23f, 594f, BodyFactory.STEEL, "Door1", LevelDestination.LVL_7);
-//		db.createDoor(15, 1.5f, -35, 188, BodyFactory.ICE, "Door3", LevelDestination.LVL_3);
+		db.createDoor(15, 1.5f, -35, 188, BodyFactory.ICE, "Door3", LevelDestination.LVL_3);
 
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
-		bodyFactory.makeBoxPolyBody(10, 1, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.OVERWORLD, true, false, texture);
+		bodyFactory.makeBoxPolyBody(10, 1, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, true, false);
 		Map.getInstance().getEntityHandler().spawnLevelOne();
 		Map.getInstance().getEntityHandler().spawnShopNPC();
 		
@@ -77,21 +77,21 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
 		
-		for (int i = 0; i < bodyFactory.getLevelOneBodies().size(); i++) {	
-			
-			Body body = bodyFactory.getLevelOneBodies().get(i);
-			Fixture fixture = body.getFixtureList().get(0);
-			PolygonShape shape = (PolygonShape) fixture.getShape();
-			
-			float[] vertices = calculateVertices(shape, body);		
-			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
-			
-			bodies.add(body);
-			polygonShapes.add(shape);
-			this.triangles.add(triangles);
-	
-			//polySprites.add(newSprite);
-		}
+//		for (int i = 0; i < bodyFactory.getLevelOneBodies().size(); i++) {	
+//			
+//			Body body = bodyFactory.getLevelOneBodies().get(i);
+//			Fixture fixture = body.getFixtureList().get(0);
+//			PolygonShape shape = (PolygonShape) fixture.getShape();
+//			
+//			float[] vertices = calculateVertices(shape, body);		
+//			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
+//			
+//			bodies.add(body);
+//			polygonShapes.add(shape);
+//			this.triangles.add(triangles);
+//	
+//			//polySprites.add(newSprite);
+//		}
 	}
 	
 
@@ -129,14 +129,6 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	@Override
 	public void dispose() {
 		
-	}
-	
-	public boolean getInLevelOne() {
-		return inLevelOne;
-	}
-	
-	public void setInLevelOne(boolean inLevelOne) {
-		this.inLevelOne = inLevelOne;
 	}
 	
 	public boolean isCreated() {

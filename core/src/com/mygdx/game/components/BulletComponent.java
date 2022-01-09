@@ -9,6 +9,7 @@ public class BulletComponent implements Component, Poolable{
 	public float yVel = 0;
 	public boolean isDead = false;
 	public Owner owner = Owner.NONE;
+	public int range;
 	
 	@Override
 	public void reset() {
