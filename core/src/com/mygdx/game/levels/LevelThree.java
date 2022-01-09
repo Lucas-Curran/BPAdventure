@@ -69,27 +69,29 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		
 		DoorBuilder db = DoorBuilder.getInstance();
 		
-		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false);
-		pillars[2] = bodyFactory.makeBoxPolyBody(-30, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[3] = bodyFactory.makeBoxPolyBody(-25, 187f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[4] = bodyFactory.makeBoxPolyBody(-14, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[5] = bodyFactory.makeBoxPolyBody(-8, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+		
+		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+		pillars[2] = bodyFactory.makeBoxPolyBody(-30, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[3] = bodyFactory.makeBoxPolyBody(-25, 187f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[4] = bodyFactory.makeBoxPolyBody(-14, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[5] = bodyFactory.makeBoxPolyBody(-8, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		pillars[5].setUserData("gravityPillar");
-		pillars[6] = bodyFactory.makeBoxPolyBody(-5, 199f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, false, false);
-		pillars[7] = bodyFactory.makeBoxPolyBody(0, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[8] = bodyFactory.makeBoxPolyBody(5, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[9] = bodyFactory.makeBoxPolyBody(5, 195f, 4, 1, BodyFactory.STEEL, BodyType.DynamicBody,  false, false);
-		pillars[10] = bodyFactory.makeBoxPolyBody(10, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[11] = bodyFactory.makeBoxPolyBody(14, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[12] = bodyFactory.makeBoxPolyBody(18, 196f, 1, 7, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
-		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		pillars[6] = bodyFactory.makeBoxPolyBody(-5, 199f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+		pillars[7] = bodyFactory.makeBoxPolyBody(0, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[8] = bodyFactory.makeBoxPolyBody(5, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[9] = bodyFactory.makeBoxPolyBody(5, 195f, 4, 1, BodyFactory.STEEL, BodyType.DynamicBody,  false, false, texture);
+		pillars[10] = bodyFactory.makeBoxPolyBody(10, 198f, 1, 4, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[11] = bodyFactory.makeBoxPolyBody(14, 197f, 1, 5, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[12] = bodyFactory.makeBoxPolyBody(18, 196f, 1, 7, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		pillars[13].setUserData("gravityPillar2");
 		db.createDoor(45, 187f, 0, 0, BodyFactory.STEEL, "lvl3EndDoor", LevelDestination.LVL_4);
-		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		lavaFloor.setUserData("lavaFloor");
-		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		lavaCeiling.setUserData("lavaCeiling");
-		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false);
+		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		lavaCeiling2.setUserData("lavaCeiling2");
 		
 //		rotator = bodyFactory.makeBoxPolyBody(-22, 104f, 1, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
@@ -165,28 +167,6 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 //		polygonShapes = new ArrayList<>();
 		
 		isCreated = true;
-		
-		Texture texture = new Texture(Gdx.files.internal("ground.txt"));
-		textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
-		textureRegion.flip(false, true);
-		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
-		
-//		for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {	
-//			
-//			Body body = bodyFactory.getBoxBodies().get(i);
-//			Fixture fixture = body.getFixtureList().get(0);
-//			PolygonShape shape = (PolygonShape) fixture.getShape();
-//			
-//			float[] vertices = calculateVertices(shape, body);		
-//			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
-//			
-//			bodies.add(body);
-//			polygonShapes.add(shape);
-//			this.triangles.add(triangles);
-//	
-////			polySprites.add(newSprite);
-//		}
 	}
 	
 
@@ -197,18 +177,6 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 
 	@Override
 	public void render() {	
-		camera.getCamera().update();
-		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
-        
-//		polygonSpriteBatch.begin();
-//		for (int i = 0; i < triangles.size(); i++) {
-//			vertices = calculateVertices(polygonShapes.get(i), bodies.get(i));
-//			PolygonRegion newRegion = new PolygonRegion(textureRegion, vertices, triangles.get(i));
-//			PolygonSprite newSprite = new PolygonSprite(newRegion);
-//			newSprite.draw(polygonSpriteBatch);
-//		}
-//		polygonSpriteBatch.end();
-		
 		 
 	}
 

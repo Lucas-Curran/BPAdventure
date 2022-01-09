@@ -28,7 +28,7 @@ public class Weapon {
 	
 	public void createSword(float x, float y) {
 		Texture texture = new Texture(Gdx.files.internal("border.png"));
-		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1.3f, BodyFactory.STEEL, BodyType.DynamicBody, false, true);
+		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1.3f, BodyFactory.STEEL, BodyType.DynamicBody, false, true, texture);
 		sword.setGravityScale(0);
 	}
 	

@@ -144,7 +144,7 @@ public class EntityHandler implements ApplicationListener {
 		updateCamera();
 		updateEntities();
 		renderSpeechBubble();
-//		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBoxBodies());
+		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
 		teleportPlayer(destinationX, destinationY, destination);
 		killPlayer(17, 1.5f);//call this
 	}

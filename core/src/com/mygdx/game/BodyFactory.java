@@ -31,7 +31,7 @@ public class BodyFactory {
 	
 	private World world;
 	private static BodyFactory thisInstance;
-	private ArrayList<Body> boxBodies;
+	private ArrayList<Object[]> bodies;
 	
 	public static final int STEEL = 0;
 	public static final int WOOD = 1;
@@ -41,7 +41,7 @@ public class BodyFactory {
 	public static final int ICE = 5;
 	
 	private BodyFactory(World world){
-		boxBodies = new ArrayList<>();
+		bodies = new ArrayList<>();
 		this.world = world;
 		
 	}
@@ -147,7 +147,7 @@ public class BodyFactory {
 	 * @param isSensor
 	 * @return
 	 */
-	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor, Texture texture){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
@@ -161,8 +161,8 @@ public class BodyFactory {
 		poly.setAsBox(width/2, height/2);
 		boxBody.createFixture(makeFixture(material,poly,isSensor));
 		poly.dispose();
-		
-		boxBodies.add(boxBody);
+	
+		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
 		
 		return boxBody;
 	}
@@ -181,17 +181,14 @@ public class BodyFactory {
 			
 		return boxBody;
 	}
-	
-	
-	
-	public ArrayList<Body> getBoxBodies() {
-		return boxBodies;
-	}
 
 	public void makeAllFixturesSensors(Body bod){
 	for(Fixture fix :bod.getFixtureList()){
 		fix.setSensor(true);
 	}
 }
+	public ArrayList<Object[]> getBodies() {
+		return bodies;
+	}
 	
 }
