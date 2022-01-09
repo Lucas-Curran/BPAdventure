@@ -147,7 +147,7 @@ public class EntityHandler implements ApplicationListener {
 		bullets = new Bullet();
 		pooledEngine.addSystem(new CollisionSystem());
 		
-		pooledEngine.addEntity(player.createPlayer(20, 600));
+		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 		
 	}
 
