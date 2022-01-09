@@ -23,6 +23,7 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
+
 public class LevelOne extends LevelFactory implements ApplicationListener {
 	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
 	boolean isCreated;
@@ -47,13 +48,19 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		super.createLevel(15, 0, 1, 100, 10);
 		camera = new Camera();
 		inLevelOne = true;
+		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+		
 		
 		db.createDoor(17, 1.5f, 23f, 594f, BodyFactory.STEEL, "Door1", LevelDestination.LVL_7);
 //		db.createDoor(15, 1.5f, -35, 188, BodyFactory.ICE, "Door3", LevelDestination.LVL_3);
 
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
-		bodyFactory.makeBoxPolyBody(10, 1, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, true, false);
+		bodyFactory.makeBoxPolyBody(10, 2, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, LevelDestination.OVERWORLD, true, false, texture);
+		
+		// door = bodyFactory.makeBoxPolyBody(4, 20, 2, 2, BodyFactory.STEEL, BodyType.DynamicBody, Level.LEVELONE, false, false, texture);
+		// door.setUserData("Door");		
+		
 		Map.getInstance().getEntityHandler().spawnLevelOne();
 		Map.getInstance().getEntityHandler().spawnShopNPC();
 		
@@ -66,15 +73,14 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		
 		isCreated = true;
 		
-		Texture texture = new Texture(Gdx.files.internal("ground.txt"));
 		textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
 		textureRegion.flip(false, true);
 		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
 		
-		for (int i = 0; i < bodyFactory.getBoxBodies().size(); i++) {	
+		for (int i = 0; i < bodyFactory.getLevelTwoBodies().size(); i++) {	
 			
-			Body body = bodyFactory.getBoxBodies().get(i);
+			Body body = bodyFactory.getLevelTwoBodies().get(i);
 			Fixture fixture = body.getFixtureList().get(0);
 			PolygonShape shape = (PolygonShape) fixture.getShape();
 			

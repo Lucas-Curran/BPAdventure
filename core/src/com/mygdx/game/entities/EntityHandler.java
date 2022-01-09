@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,6 +29,7 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.Engine;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.components.*;
 import com.mygdx.game.components.BulletComponent.Owner;
 import com.mygdx.game.levels.Levels;
@@ -41,13 +43,20 @@ public class EntityHandler implements ApplicationListener {
 		return pooledEngine;
 	}
 
-	protected TextureRegion tex;
 	BodyFactory bodyFactory;
 	public GameWorld gameWorld;
 	RenderingSystem renderingSystem;
 	SpriteBatch batch;
 	Camera cam;
+	
 	TextureAtlas textureAtlas;
+	protected TextureRegion tex;
+	
+	TextureAtlas levelTwoAtlas;
+	protected TextureRegion rockMob;
+	protected TextureRegion spikyRockMob;
+	protected TextureRegion UnknownBeing;
+	protected TextureRegion normalMan;
 	
 	private Levels levels;
 	
@@ -70,6 +79,7 @@ public class EntityHandler implements ApplicationListener {
 	public float destinationX = 0;
 	public float destinationY = 0;
 	public String destination = "";
+	private PolygonSpriteBatch polygonSpriteBatch;
 	
 	public float getDestinationX() {
 		return destinationX;
@@ -101,8 +111,14 @@ public class EntityHandler implements ApplicationListener {
 		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
 		pooledEngine = engine.getInstance();
 		cam = new Camera();
+		
 		textureAtlas = new TextureAtlas("textures.txt");
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter")); // sets the character texture
+		
+		levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+		rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
+		spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
+		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
 		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		
 		batch = new SpriteBatch();
@@ -117,6 +133,8 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
 		pooledEngine.addSystem(new CollisionSystem());
 		pooledEngine.addSystem(new PlayerControlSystem());
+
+		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		pooledEngine.addSystem(new EnemySystem());
 		pooledEngine.addSystem(new SteeringSystem());
 		pooledEngine.addSystem(new BulletSystem());
@@ -128,6 +146,10 @@ public class EntityHandler implements ApplicationListener {
 		talkingZone = false;
 		gravityZone = false;
 		killZone = false;
+	
+		
+		polygonSpriteBatch = new PolygonSpriteBatch();
+		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
 		
 	}
 	
@@ -135,11 +157,10 @@ public class EntityHandler implements ApplicationListener {
 	public void create() {
 		player = new Player();
 		enemies = new Enemy();
-		//levels = new Levels();
 		npc = new NPC();
-		//pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
-		pooledEngine.addEntity(player.createPlayer(15, 9));
 		bullets = new Bullet();
+		
+		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y)); //maybe change to 15,9
 	}
 
 	@Override
@@ -156,6 +177,8 @@ public class EntityHandler implements ApplicationListener {
 		teleportPlayer(getDestinationX(), getDestinationY(), getDestination());
 		killPlayer(6f, 3f);
 		setJumpScale();//call this
+		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies()); // might mess something up
+		//teleportPlayer(20f, 2.7f); //call this
 	}
 	
 	@Override
@@ -198,7 +221,7 @@ public class EntityHandler implements ApplicationListener {
 	}		
 	
 	public void spawnShopNPC() {
-		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Been around these parts before? I haven't personally.","Get the hell outta my face"}, -5, 1));
+		pooledEngine.addEntity(npc.spawnNPC(new String[] {"Been around these parts before? I haven't personally.","Get the hell outta my face"}, -5, 1, tex));
 	}
 	
 	public void spawnLevelOne() {
@@ -208,6 +231,9 @@ public class EntityHandler implements ApplicationListener {
 	}
 	
 	public void spawnLevelTwo() {
+		
+		
+		
 		for (Entity enemy : enemies.getLevelTwo()) {
 			pooledEngine.addEntity(enemy);
 		}
@@ -283,6 +309,14 @@ public class EntityHandler implements ApplicationListener {
 	
 	public String[] getCurrentNPCText() {
 		return currentNPCText;
+	}
+	
+	public TextureRegion getTextureRegion(TextureRegion texture) {
+		return texture;
+	}
+	
+	public NPC getNPC() {
+		return npc;
 	}
 	
 }
