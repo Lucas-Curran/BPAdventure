@@ -167,7 +167,7 @@ public class BodyFactory {
 		return boxBody;
 	}
 	
-	public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+	public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor, Texture texture){
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
 		boxBodyDef.position.x = posx;
@@ -178,6 +178,8 @@ public class BodyFactory {
 		polygon.set(vertices);
 		boxBody.createFixture(makeFixture(material,polygon, false));
 		polygon.dispose();
+		
+		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
 			
 		return boxBody;
 	}

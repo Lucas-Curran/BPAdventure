@@ -84,7 +84,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			Vector2 vertex3 = new Vector2(1, 5);
 			
 			Vector2[] triangleVertices = {vertex1, vertex2, vertex3};
-			slide = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 592, BodyFactory.ICE, BodyType.StaticBody,  false, false);
+			slide = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 592, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
 			
 			platforms[9] = bodyFactory.makeBoxPolyBody(-5, 592f, 6f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			platforms[10] = bodyFactory.makeBoxPolyBody(1, 592f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
@@ -114,13 +114,13 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 			Vector2[] triangleVertices2 = {vertex11, vertex12, vertex13};
 			
-			spikes[0] = bodyFactory.makePolygonShapeBody(triangleVertices2, 45, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false);
-			spikes[1] = bodyFactory.makePolygonShapeBody(triangleVertices2, 46, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false);
-			spikes[2] = bodyFactory.makePolygonShapeBody(triangleVertices2, 47, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false);
-			spikes[3] = bodyFactory.makePolygonShapeBody(triangleVertices2, 48, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false);
-			spikes[4] = bodyFactory.makePolygonShapeBody(triangleVertices2, 49, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false);
-			spikes[5] = bodyFactory.makePolygonShapeBody(triangleVertices2, 50, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false);
-			spikes[6] = bodyFactory.makePolygonShapeBody(triangleVertices2, 51, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false);
+			spikes[0] = bodyFactory.makePolygonShapeBody(triangleVertices2, 45, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
+			spikes[1] = bodyFactory.makePolygonShapeBody(triangleVertices2, 46, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
+			spikes[2] = bodyFactory.makePolygonShapeBody(triangleVertices2, 47, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
+			spikes[3] = bodyFactory.makePolygonShapeBody(triangleVertices2, 48, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
+			spikes[4] = bodyFactory.makePolygonShapeBody(triangleVertices2, 49, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
+			spikes[5] = bodyFactory.makePolygonShapeBody(triangleVertices2, 50, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			spikes[6] = bodyFactory.makePolygonShapeBody(triangleVertices2, 51, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
 			
 			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture);
 			

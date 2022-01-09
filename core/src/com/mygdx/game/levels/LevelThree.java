@@ -120,10 +120,10 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		Vector2[] triangleVertices3 = {vertex21, vertex22, vertex23};
 		Vector2[] triangleVertices4 = {vertex31, vertex32, vertex33};
 		
-		blade1 = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 186, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
-		blade2 = bodyFactory.makePolygonShapeBody(triangleVertices2, -22, 186, BodyFactory.STEEL, BodyType.DynamicBody,  false, false);
-		slide = bodyFactory.makePolygonShapeBody(triangleVertices3, 21, 195, BodyFactory.ICE, BodyType.StaticBody,  false, false);
-		slideJump = bodyFactory.makePolygonShapeBody(triangleVertices4, 35, 195, BodyFactory.ICE, BodyType.StaticBody,  false, false);
+		blade1 = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 186, BodyFactory.STEEL, BodyType.DynamicBody, false, false, texture);
+		blade2 = bodyFactory.makePolygonShapeBody(triangleVertices2, -22, 186, BodyFactory.STEEL, BodyType.DynamicBody,  false, false, texture);
+		slide = bodyFactory.makePolygonShapeBody(triangleVertices3, 21, 195, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
+		slideJump = bodyFactory.makePolygonShapeBody(triangleVertices4, 35, 195, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
 		slide.setGravityScale(0);
 		blade1.setGravityScale(0);
 		blade2.setGravityScale(0);
