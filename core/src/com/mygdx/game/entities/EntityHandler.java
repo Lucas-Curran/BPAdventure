@@ -164,7 +164,8 @@ public class EntityHandler implements ApplicationListener {
 		renderSpeechBubble();
 		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
 		teleportPlayer(destinationX, destinationY, destination);
-		killPlayer(17, 1.5f);//call this
+		killPlayer(17, 1.5f);
+		setJumpScale();//call this
 	}
 	
 	@Override
@@ -271,6 +272,15 @@ public class EntityHandler implements ApplicationListener {
             player.fadePlayerToBeginning(x, y);
         }
     }
+	
+	public void setJumpScale() {
+		if (Map.getInstance().gravitySwitch == true) {
+			pooledEngine.getSystem(PlayerControlSystem.class).setJumpScale(-40);
+		} else if (Map.getInstance().gravitySwitch == false){
+			pooledEngine.getSystem(PlayerControlSystem.class).setJumpScale(40);
+		}
+	}
+
 	
 	public void renderSpeechBubble() {
 		if (talkingZone) {

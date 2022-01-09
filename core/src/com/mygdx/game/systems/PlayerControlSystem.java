@@ -32,6 +32,13 @@ public class PlayerControlSystem extends IteratingSystem {
 		cam = new Camera();
 	}
 	
+	public float jumpScale = 40;
+
+	public void setJumpScale(float jumpScale) {
+		this.jumpScale = jumpScale;
+	}
+
+	
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
 		B2dBodyComponent b2body = bodm.get(entity);
@@ -72,7 +79,7 @@ public class PlayerControlSystem extends IteratingSystem {
 					(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
 				System.out.println("Jump");
 				b2body.body.applyForceToCenter(0, 0f,true);
-				b2body.body.applyLinearImpulse(0f, 40f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
+				b2body.body.applyLinearImpulse(0f, jumpScale, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
 				state.set(StateComponent.STATE_JUMPING);
 			}
 		}

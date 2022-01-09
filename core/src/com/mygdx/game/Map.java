@@ -69,7 +69,7 @@ public class Map implements Screen, InputProcessor {
 	private Weapon weapon;
 	private boolean swing;
 	
-	boolean gravitySwitch;
+	public boolean gravitySwitch;
 	
 	public void setGravitySwitch(boolean gravitySwitch) {
 		this.gravitySwitch = gravitySwitch;
