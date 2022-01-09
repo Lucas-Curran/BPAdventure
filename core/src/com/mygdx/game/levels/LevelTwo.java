@@ -1,5 +1,7 @@
 package com.mygdx.game.levels;
 
+//Any textures not credited are either either public domain or custom made.
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -30,14 +32,14 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	private Camera camera;
 	private PolygonSpriteBatch polygonSpriteBatch;
 	private DoorBuilder db = DoorBuilder.getInstance();
-	
+	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 	
 	Body[] chests = new Body[1];
 	@Override
 	public void create() {
 		
 		//Creates level 
-		super.createLevel(15, 100, 1, 50, 10);
+		super.createLevel(15, 100, 1, 50, 10, texture);
 		isCreated = true;        
 		camera = new Camera();
 		polygonSpriteBatch = new PolygonSpriteBatch();

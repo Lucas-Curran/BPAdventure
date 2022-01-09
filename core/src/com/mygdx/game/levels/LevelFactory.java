@@ -1,5 +1,6 @@
 package com.mygdx.game.levels;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.RoomFactory;
@@ -16,8 +17,8 @@ public class LevelFactory extends EntityHandler {
 		roomFactory = new RoomFactory();
 	}
 	
-	public void createLevel(float posx, float posy, float width, float height, float height2) {
-		roomFactory.makeRectangleRoom( posx,  posy,  width,  height,  height2);
+	public void createLevel(float posx, float posy, float width, float height, float height2, Texture texture) {
+		roomFactory.makeRectangleRoom(posx,  posy,  width,  height,  height2, texture);
 	}
 	
 	
