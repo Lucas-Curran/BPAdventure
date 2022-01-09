@@ -123,8 +123,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			npc.spawnNPC(words, -32, 582, textureRegion);
 			String[] message = {"Watch out for the projectiles!"};
 			npc.spawnNPC(message, -3, 593, textureRegion);
-			
-			Map.getInstance().getEntityHandler().spawnShopNPC();
+
 			Map.getInstance().getEntityHandler().spawnLevelSeven();
 			
 			isCreated = true;
