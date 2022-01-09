@@ -30,17 +30,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
 	boolean isCreated;
 	static boolean inLevelOne;
-	private PolygonSpriteBatch polygonSpriteBatch;
-	private ArrayList<PolygonSprite> polySprites;
-	private Camera camera;
-	
-	private ArrayList<short[]> triangles;
-	private ArrayList<Body> bodies;
-	private ArrayList<PolygonShape> polygonShapes;
-	
-	private TextureRegion textureRegion;
-	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
-	
+	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
 	float[] vertices;
 	private ShopWindow shopWindow;
 	
@@ -49,7 +39,6 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	@Override
 	public void create() {
 		super.createLevel(15, 0, 1, 100, 10, texture);
-		camera = new Camera();
 		inLevelOne = true;
 		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 		
@@ -58,42 +47,13 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
-		bodyFactory.makeBoxPolyBody(10, 1, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, true, false, new Texture(Gdx.files.internal("newGround.png")));
+		bodyFactory.makeBoxPolyBody(10, 1, 5, 1, BodyFactory.STEEL, BodyType.StaticBody, true, false, texture);
 		Map.getInstance().getEntityHandler().spawnLevelOne();
 		Map.getInstance().getEntityHandler().spawnShopNPC();
 		
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getMoney());
-		
-		polygonSpriteBatch = new PolygonSpriteBatch();
-		
-		polySprites = new ArrayList<>();
-		triangles = new ArrayList<>();
-		bodies = new ArrayList<>();
-		polygonShapes = new ArrayList<>();
-		
+
 		isCreated = true;
-		
-		
-		textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
-		textureRegion.flip(false, true);
-		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
-		
-//		for (int i = 0; i < bodyFactory.getLevelOneBodies().size(); i++) {	
-//			
-//			Body body = bodyFactory.getLevelOneBodies().get(i);
-//			Fixture fixture = body.getFixtureList().get(0);
-//			PolygonShape shape = (PolygonShape) fixture.getShape();
-//			
-//			float[] vertices = calculateVertices(shape, body);		
-//			short triangles[] = new EarClippingTriangulator().computeTriangles(vertices).toArray();
-//			
-//			bodies.add(body);
-//			polygonShapes.add(shape);
-//			this.triangles.add(triangles);
-//	
-//			//polySprites.add(newSprite);
-//		}
 	}
 	
 
@@ -104,16 +64,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 
 	@Override
 	public void render() {	
-		camera.getCamera().update();
-		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
-		polygonSpriteBatch.begin();
-		for (int i = 0; i < triangles.size(); i++) {
-			vertices = calculateVertices(polygonShapes.get(i), bodies.get(i));
-			PolygonRegion newRegion = new PolygonRegion(textureRegion, vertices, triangles.get(i));
-			PolygonSprite newSprite = new PolygonSprite(newRegion);
-			newSprite.draw(polygonSpriteBatch);
-		}
-		polygonSpriteBatch.end();
+	
 	}
 
 	@Override
@@ -135,32 +86,6 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	public boolean isCreated() {
 		return isCreated;
-	}
-	
-	public ArrayList<PolygonSprite> getPolySprites() {
-		return polySprites;
-	}
-	
-	public PolygonSpriteBatch getPolygonSpriteBatch() {
-		return polygonSpriteBatch;
-	}
-	
-	public float[] calculateVertices(PolygonShape shape, Body body) {
-		Vector2 mTmp = new Vector2();
-		int vertexCount = shape.getVertexCount();
-		float[] vertices = new float[vertexCount * 2];
-		for (int k = 0; k < vertexCount; k++) {
-			shape.getVertex(k, mTmp);
-			mTmp.rotateDeg(body.getAngle()*MathUtils.radiansToDegrees);
-			mTmp.add(body.getPosition());
-			vertices[k*2] = mTmp.x;
-			vertices[k*2+1] = mTmp.y;
-		}
-		return vertices;
-	}
-	
-	public void setCameraPosition(Vector3 position) {
-		camera.getCamera().position.set(position);
 	}
 	
 	public ShopWindow getShopWindow() {

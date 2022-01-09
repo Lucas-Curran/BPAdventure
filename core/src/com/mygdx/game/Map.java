@@ -274,7 +274,7 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
-			textBox.setOptions(true, "Shop", "Close");
+			//textBox.setOptions(true, "Shop", "Close");
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -282,13 +282,7 @@ public class Map implements Screen, InputProcessor {
 					textBox.hideTextBow();
 				}
 			} else {
-				textBox.setColor(Color.FOREST);
-				textBox.setText(new String[]{
-						"This is the first sentence", 
-						"This is the second sentence", 
-						"This is the third sentence", 
-						"This is the fourth sentence", 
-						"This is the fifth sentence"});
+				textBox.setText(entityHandler.getCurrentNPCText());
 			}
 			return true;
 		}
