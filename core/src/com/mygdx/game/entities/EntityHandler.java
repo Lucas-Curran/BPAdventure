@@ -38,13 +38,20 @@ public class EntityHandler implements ApplicationListener {
 
 	Engine engine;
 	protected PooledEngine pooledEngine;
-	protected TextureRegion tex;
 	BodyFactory bodyFactory;
 	GameWorld gameWorld;
 	RenderingSystem renderingSystem;
 	SpriteBatch batch;
 	Camera cam;
+	
 	TextureAtlas textureAtlas;
+	protected TextureRegion tex;
+
+	TextureAtlas levelTwoAtlas;
+	protected TextureRegion rockMob;
+	protected TextureRegion spikyRockMob;
+	protected TextureRegion UnknownBeing;
+	protected TextureRegion normalMan;
 	
 	private Player player;
 	private Enemy enemies;
@@ -93,8 +100,15 @@ public class EntityHandler implements ApplicationListener {
 		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
 		pooledEngine = engine.getInstance();
 		cam = new Camera();
+		
 		textureAtlas = new TextureAtlas("textures.txt");
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+		
+		levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+		rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
+		spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
+		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
+		
 		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		
 		batch = new SpriteBatch();
@@ -190,7 +204,7 @@ public class EntityHandler implements ApplicationListener {
 	
 	public void spawnShopNPC() {
 		String[] string = {""};
-		pooledEngine.addEntity(npc.spawnNPC(string, 10, 1));
+		pooledEngine.addEntity(npc.spawnNPC(string, 10, 1, tex));
 	}
 	
 	public void spawnLevelOne() {
