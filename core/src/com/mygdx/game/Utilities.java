@@ -120,7 +120,7 @@ public class Utilities {
 			PolygonRegion newRegion = new PolygonRegion((TextureRegion) bodies.get(i)[3], vertices, (short[]) bodies.get(i)[2]);
 			PolygonSprite newSprite = new PolygonSprite(newRegion);
 			newSprite.draw(polygonSpriteBatch);
-			//polygonSpriteBatch.draw(newRegion, 0, 0, 0, 0, 1, 1, 1f, 1f, 0);
+			//polygonSpriteBatch.draw(newRegion, 0, 0, 0, 0, 1, 1, 1/32f, 1/32f, 0);
 		}
 		polygonSpriteBatch.end();
 	}

@@ -70,6 +70,8 @@ public class EntityHandler implements ApplicationListener {
 	float destinationX, destinationY;
 	String destination;
 	
+	private String[] currentNPCText;
+	
 	public float getDestinationX() {
         return destinationX;
     }
@@ -308,6 +310,14 @@ public class EntityHandler implements ApplicationListener {
 	public World getWorld() {
 		// TODO Auto-generated method stub
 		return gameWorld.getInstance();
+	}
+	
+	public void setCurrentNPCText(String[] currentNPCText) {
+		this.currentNPCText = currentNPCText;
+	}
+	
+	public String[] getCurrentNPCText() {
+		return currentNPCText;
 	}
 	
 }

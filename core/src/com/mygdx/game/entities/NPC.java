@@ -46,6 +46,7 @@ public class NPC extends EntityHandler {
 				position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
 				texture.region = npcTexture;
 				type.type = TypeComponent.NPC;
+				npcComp.text = text;
 				npcComp.wares = getShopWares();
 				
 				b2dbody.body.setUserData(entity);

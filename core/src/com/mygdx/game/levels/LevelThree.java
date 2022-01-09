@@ -30,19 +30,9 @@ import com.mygdx.game.entities.Player;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class LevelThree extends LevelFactory implements ApplicationListener{
-	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
+	
 	boolean isCreated;
-	private PolygonSpriteBatch polygonSpriteBatch;
-	private ArrayList<PolygonSprite> polySprites;
-	private Camera camera;
-	
-	private ArrayList<short[]> triangles;
-	private ArrayList<Body> bodies;
-	private ArrayList<PolygonShape> polygonShapes;
-	
-	private TextureRegion textureRegion;
-	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
-	
+
 	GameWorld gameWorld;
 	World world;
 	Box2DDebugRenderer renderer;
@@ -58,14 +48,8 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 	}
 	
 	@Override
-	public void create() {
-		textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
-		textureRegion.flip(false, true);
-		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
-				
+	public void create() {			
 		super.createLevel(15, 200, 1, 100, 15);
-		camera = new Camera();
 		
 		DoorBuilder db = DoorBuilder.getInstance();
 		
@@ -157,15 +141,6 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 //        world.createJoint(weldJointDef);
 //        world.createJoint(weldJointDef2);
 
-		
-		
-//		polygonSpriteBatch = new PolygonSpriteBatch();
-//		
-//		polySprites = new ArrayList<>();
-//		triangles = new ArrayList<>();
-//		bodies = new ArrayList<>();
-//		polygonShapes = new ArrayList<>();
-		
 		isCreated = true;
 	}
 	
@@ -199,32 +174,6 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 	
 	public boolean isCreated() {
 		return isCreated;
-	}
-	
-	public ArrayList<PolygonSprite> getPolySprites() {
-		return polySprites;
-	}
-	
-	public PolygonSpriteBatch getPolygonSpriteBatch() {
-		return polygonSpriteBatch;
-	}
-	
-//	public float[] calculateVertices(PolygonShape shape, Body body) {
-//		Vector2 mTmp = new Vector2();
-//		int vertexCount = shape.getVertexCount();
-//		float[] vertices = new float[vertexCount * 2];
-//		for (int k = 0; k < vertexCount; k++) {
-//			shape.getVertex(k, mTmp);
-//			mTmp.rotateDeg(body.getAngle()*MathUtils.radiansToDegrees);
-//			mTmp.add(body.getPosition());
-//			vertices[k*2] = mTmp.x;
-//			vertices[k*2+1] = mTmp.y;
-//		}
-//		return vertices;
-//	}
-	
-	public void setCameraPosition(Vector3 position) {
-		camera.getCamera().position.set(position);
 	}
 	
 }
