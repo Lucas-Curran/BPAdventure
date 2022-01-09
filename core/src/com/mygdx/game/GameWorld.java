@@ -16,4 +16,6 @@ public class GameWorld {
 	public World getInstance() {
 		return instance;
 	}
+	
+	// does this count as a change
 }
