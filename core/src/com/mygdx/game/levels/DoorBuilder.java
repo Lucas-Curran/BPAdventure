@@ -23,10 +23,10 @@ public class DoorBuilder {
 	public ArrayList<String> destinations = new ArrayList<>();
 	
 	BodyFactory bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
-	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+	Texture texture = new Texture(Gdx.files.internal("border.png"));
 	
 	public Body createDoor(float posx, float posy, float desX, float desY, int material, String name, LevelDestination level) {
-		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true, new Texture(Gdx.files.internal("newGround.png")));
+		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true, texture);
 		door.setUserData(name);
 		doors.add(door);
 		destinationsX.add(desX);

@@ -31,13 +31,6 @@ import com.mygdx.game.components.BulletComponent;
 
 public class LevelNine extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
-		private PolygonSpriteBatch polygonSpriteBatch;
-		private ArrayList<PolygonSprite> polySprites;
-		private Camera camera;
-		
-		private ArrayList<short[]> triangles;
-		private ArrayList<Body> bodies;
-		private ArrayList<PolygonShape> polygonShapes;
 		
 		private TextureRegion textureRegion;
 		
@@ -54,30 +47,12 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		}
 		
 		@Override
-		public void create() {
-			textureRegion = new TextureRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
-			textureRegion.flip(false, true);
-			texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
-			texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
+		public void create() {	
 			super.createLevel(15, 800, 1, 100, 20, texture);
-			camera = new Camera();
-			
-			Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 			
 			db.createDoor(45, 787, -35, 888, BodyFactory.STONE, "doorTo10", LevelDestination.LVL_10);
-			
-	        			
-			NPC npc = new NPC();
-			
-			Map.getInstance().getEntityHandler().spawnShopNPC();
+
 			Map.getInstance().getEntityHandler().spawnLevelNine();
-			
-			polygonSpriteBatch = new PolygonSpriteBatch();
-			
-			polySprites = new ArrayList<>();
-			triangles = new ArrayList<>();
-			bodies = new ArrayList<>();
-			polygonShapes = new ArrayList<>();
 			
 			isCreated = true;
 		}
@@ -112,31 +87,5 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		
 		public boolean isCreated() {
 			return isCreated;
-		}
-		
-		public ArrayList<PolygonSprite> getPolySprites() {
-			return polySprites;
-		}
-		
-		public PolygonSpriteBatch getPolygonSpriteBatch() {
-			return polygonSpriteBatch;
-		}
-		
-		public float[] calculateVertices(PolygonShape shape, Body body) {
-			Vector2 mTmp = new Vector2();
-			int vertexCount = shape.getVertexCount();
-			float[] vertices = new float[vertexCount * 2];
-			for (int k = 0; k < vertexCount; k++) {
-				shape.getVertex(k, mTmp);
-				mTmp.rotateDeg(body.getAngle()*MathUtils.radiansToDegrees);
-				mTmp.add(body.getPosition());
-				vertices[k*2] = mTmp.x;
-				vertices[k*2+1] = mTmp.y;
-			}
-			return vertices;
-		}
-		
-		public void setCameraPosition(Vector3 position) {
-			camera.getCamera().position.set(position);
 		}
 }
