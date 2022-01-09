@@ -56,7 +56,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		DoorBuilder db = DoorBuilder.getInstance();
 		
 		Texture texture = new Texture(Gdx.files.internal("crackedPillar.png"));
-		Texture texture2 = new Texture(Gdx.files.internal("lava_ground.png"));
+		Texture texture2 = new Texture(Gdx.files.internal("lava.png"));
 		// author FunwithPixels	
 		
 		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
