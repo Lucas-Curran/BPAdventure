@@ -1,10 +1,12 @@
 package com.mygdx.game.systems;
 
+import com.mygdx.game.Map;
 import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TypeComponent;
-
+import com.mygdx.game.ui.HealthBar;
+import com.mygdx.game.ui.StatusUI;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
@@ -16,6 +18,7 @@ public class CollisionSystem  extends IteratingSystem {
 	 ComponentMapper<CollisionComponent> cm;
 	 ComponentMapper<PlayerComponent> pm;
 	 ComponentMapper<BulletComponent> bc;
+	 HealthBar hb;
  
 	public CollisionSystem() {
 		// only need to worry about player collisions
@@ -24,6 +27,7 @@ public class CollisionSystem  extends IteratingSystem {
 		 cm = ComponentMapper.getFor(CollisionComponent.class);
 		 pm = ComponentMapper.getFor(PlayerComponent.class);
 		 bc = ComponentMapper.getFor(BulletComponent.class);
+		 hb = Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar();
 	}
 
 	@Override
@@ -40,6 +44,8 @@ public class CollisionSystem  extends IteratingSystem {
 					switch(type.type){
 					case TypeComponent.ENEMY:
 						//do player hit enemy thing
+						
+						hb.setHP(hb.getHP() - 25);
 						System.out.println("player hit enemy");
 						break;
 					case TypeComponent.SCENERY:
@@ -54,6 +60,7 @@ public class CollisionSystem  extends IteratingSystem {
 						break;
 					case TypeComponent.BULLET:
 						//do player hit bullet thing
+						hb.setHP(hb.getHP() - 20);
 						System.out.println("player hit bullet");
 						break;
 					case TypeComponent.OTHER:

@@ -122,18 +122,6 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		enemies.add(entity);
 		return entity;
 	}
-
-	
-	public ArrayList<Entity> getLevelOne() {
-		enemies.clear();
-		createEnemy(5, 5, EnemyState.PATROL, 1, 1f, tex);
-		createEnemy(-10, 5, EnemyState.VERTICAL, 1, 1f, tex);
-		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f, tex);
-		createEnemy(8, 3, EnemyState.JUMP, 2, 1f, tex);
-		createEnemy(25, 4, EnemyState.STEERING, 0, 1f, tex);
-		//createEnemy (30, 4, EnemyState.BOSS, 0, 2f, tex);
-		return enemies;
-	}
 	
 	public ArrayList<Entity> getLevelTwo() {	
 		enemies.clear();

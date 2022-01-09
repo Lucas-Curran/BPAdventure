@@ -123,7 +123,7 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new AnimationSystem());
 		pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
 		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
-		pooledEngine.addSystem(new CollisionSystem());
+		
 		pooledEngine.addSystem(new PlayerControlSystem());
 
 		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
@@ -145,6 +145,7 @@ public class EntityHandler implements ApplicationListener {
 		enemies = new Enemy();
 		npc = new NPC();
 		bullets = new Bullet();
+		pooledEngine.addSystem(new CollisionSystem());
 		
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 		
@@ -204,18 +205,7 @@ public class EntityHandler implements ApplicationListener {
 					0);
 		}
 	}		
-	
-	public void spawnShopNPC() {
-		String[] string = {""};
-		pooledEngine.addEntity(npc.spawnNPC(string, 10, 1, tex));
-	}
-	
-	public void spawnLevelOne() {
-		for (Entity enemy : enemies.getLevelOne()) {
-			pooledEngine.addEntity(enemy);
-		}
-	}
-	
+
 	public void spawnLevelTwo() {
 		for (Entity enemy : enemies.getLevelTwo()) {
 			pooledEngine.addEntity(enemy);
