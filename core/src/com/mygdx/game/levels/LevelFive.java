@@ -1,5 +1,7 @@
 package com.mygdx.game.levels;
 
+//Any textures not credited are either either public domain or custom made.
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -31,7 +33,7 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 
 		private TextureRegion textureRegion;
-		
+		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
 		float[] vertices;
 		
 		Body door;
@@ -44,7 +46,7 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 		
 		@Override
 		public void create() {	
-			super.createLevel(15, 400, 1, 100, 20);
+			super.createLevel(15, 400, 1, 100, 20, texture);
 			
 			db.createDoor(45, 382, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
 			      			

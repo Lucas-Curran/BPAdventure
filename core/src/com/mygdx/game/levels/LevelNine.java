@@ -1,5 +1,7 @@
 package com.mygdx.game.levels;
 
+//Any textures not credited are either either public domain or custom made.
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -57,7 +59,7 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 			textureRegion.flip(false, true);
 			texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
 			texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);	
-			super.createLevel(15, 800, 1, 100, 20);
+			super.createLevel(15, 800, 1, 100, 20, texture);
 			camera = new Camera();
 			
 			Texture texture = new Texture(Gdx.files.internal("newGround.png"));

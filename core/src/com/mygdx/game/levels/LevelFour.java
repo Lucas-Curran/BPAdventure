@@ -1,6 +1,10 @@
 package com.mygdx.game.levels;
 
+//Any textures not credited are either either public domain or custom made.
+
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
@@ -12,6 +16,7 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 public class LevelFour extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
 	World world;
+	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 	
 	DoorBuilder db = DoorBuilder.getInstance();
 
@@ -25,7 +30,7 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 	public void create() {
 		
 		//Creates level 
-		super.createLevel(15, 300, 1, 100, 15);
+		super.createLevel(15, 300, 1, 100, 15, texture);
 		db.createDoor(45, 287, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
 
 		Map.getInstance().getEntityHandler().spawnLevelFour();

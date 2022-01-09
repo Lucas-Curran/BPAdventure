@@ -1,5 +1,7 @@
 package com.mygdx.game.levels;
 
+//Any textures not credited are either either public domain or custom made.
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -36,12 +38,12 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		super.createLevel(15, 0, 1, 100, 10);
+		super.createLevel(15, 0, 1, 100, 10, texture);
 		inLevelOne = true;
 		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 		
 		
-		db.createDoor(15, 1.5f, -35, 588, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_7);
+		db.createDoor(15, 1.5f, -35, 188, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_3);
 
 		
 		bodyFactory.makeCirclePolyBody(1, 1, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);

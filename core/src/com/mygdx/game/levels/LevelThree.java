@@ -1,5 +1,7 @@
 package com.mygdx.game.levels;
 
+// Any textures not credited are either either public domain or custom made.
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -30,7 +32,7 @@ import com.mygdx.game.entities.Player;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class LevelThree extends LevelFactory implements ApplicationListener{
-	
+	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
 	boolean isCreated;
 
 	GameWorld gameWorld;
@@ -49,11 +51,13 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 	
 	@Override
 	public void create() {			
-		super.createLevel(15, 200, 1, 100, 15);
+		super.createLevel(15, 200, 1, 100, 15, texture);
 		
 		DoorBuilder db = DoorBuilder.getInstance();
 		
-		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+		Texture texture = new Texture(Gdx.files.internal("crackedPillar.png"));
+		Texture texture2 = new Texture(Gdx.files.internal("terracotta_ground.png"));
+		// author FunwithPixels	
 		
 		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 		pillars[2] = bodyFactory.makeBoxPolyBody(-30, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
@@ -71,11 +75,11 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		pillars[13].setUserData("gravityPillar2");
 		db.createDoor(45, 187f, -35, 288, BodyFactory.STEEL, "DoorTo4", LevelDestination.LVL_4);
-		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
 		lavaFloor.setUserData("lavaFloor");
-		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
 		lavaCeiling.setUserData("lavaCeiling");
-		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
 		lavaCeiling2.setUserData("lavaCeiling2");
 		
 //		rotator = bodyFactory.makeBoxPolyBody(-22, 104f, 1, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
