@@ -160,7 +160,8 @@ public class EntityHandler implements ApplicationListener {
 	}		
 	
 	public void spawnShopNPC() {
-		pooledEngine.addEntity(npc.spawnNPC("", 10, 1));
+		String[] string = {""};
+		pooledEngine.addEntity(npc.spawnNPC(string, 10, 1));
 	}
 	
 	public void spawnLevelOne() {
