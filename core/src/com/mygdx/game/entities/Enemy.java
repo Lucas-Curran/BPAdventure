@@ -145,9 +145,9 @@ public class Enemy extends EntityHandler {
 	
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
-		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, tex);
+		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f);
 //		createEnemyShooter(0, 593, EnemyState.SHOOTER, 1, 1f, -2, 0, 7);
-		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, tex);
+		createEnemy(11, 595, EnemyState.PATROL, 5, 1f);
 //		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
 //		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);
 //		createEnemy (30, 4, EnemyState.BOSS, 0, 2f);
