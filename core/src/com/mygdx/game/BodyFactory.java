@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.levels.Levels.LevelDestination;
 
 /**
  * Used for generating box2d bodies with varied fixtures and shapes
@@ -30,7 +31,17 @@ public class BodyFactory {
 	
 	private World world;
 	private static BodyFactory thisInstance;
-	private ArrayList<Body> boxBodies;
+	
+	private ArrayList<Body> levelOneBodies;
+	private ArrayList<Body> levelTwoBodies;
+	private ArrayList<Body> levelThreeBodies;
+	private ArrayList<Body> levelFourBodies;
+	private ArrayList<Body> levelFiveBodies;
+	private ArrayList<Body> levelSixBodies;
+	private ArrayList<Body> levelSevenBodies;
+	
+	
+	private ArrayList<Object[]> bodies;
 	
 	public static final int STEEL = 0;
 	public static final int WOOD = 1;
@@ -40,7 +51,17 @@ public class BodyFactory {
 	public static final int ICE = 5;
 	
 	private BodyFactory(World world){
-		boxBodies = new ArrayList<>();
+		
+		levelOneBodies = new ArrayList<>();
+		levelTwoBodies = new ArrayList<>();
+		levelThreeBodies = new ArrayList<>();
+		levelFourBodies = new ArrayList<>();
+		levelFiveBodies = new ArrayList<>();
+		levelSixBodies = new ArrayList<>();
+		levelSevenBodies = new ArrayList<>();
+		
+		bodies = new ArrayList<>();
+		
 		this.world = world;
 		
 	}
@@ -90,18 +111,21 @@ public class BodyFactory {
 			fixtureDef.density = 1f;
 			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 0.00f;
-		case OTHER:
-			fixtureDef.density = 1f;
-			fixtureDef.friction = 0.0f;
-			fixtureDef.restitution = 0.0f;
+			break;
 		case ICE:
 			fixtureDef.density = 1f;
 			fixtureDef.friction = 0.0f;
 			fixtureDef.restitution = 5.0f;
+		case OTHER:
+			fixtureDef.density = 0f;
+			fixtureDef.friction = 0.0f;
+			fixtureDef.restitution = 0.0f;
+			break;
 		default:
 			fixtureDef.density = 7f;
 			fixtureDef.friction = 0.5f;
 			fixtureDef.restitution = 0.0f;
+			break;
 		}
 		return fixtureDef;
 	}
@@ -130,6 +154,8 @@ public class BodyFactory {
 		circleShape.setRadius(radius /2);
 		boxBody.createFixture(makeFixture(material,circleShape, isSensor));
 		circleShape.dispose();
+//		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
+//		addToLevel(level, boxBody);
 		return boxBody;
 	}
 	
@@ -146,7 +172,7 @@ public class BodyFactory {
 	 * @param isSensor
 	 * @return
 	 */
-	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, LevelDestination level, boolean fixedRotation, boolean isSensor, Texture texture){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
@@ -160,13 +186,19 @@ public class BodyFactory {
 		poly.setAsBox(width/2, height/2);
 		boxBody.createFixture(makeFixture(material,poly,isSensor));
 		poly.dispose();
+
+		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
 		
-		boxBodies.add(boxBody);
+		if (level == null) {
+			return boxBody;
+		}
+		
+		addToLevel(level, boxBody);
 		
 		return boxBody;
 	}
 	
-	public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
+	public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy, int material, BodyType bodyType, LevelDestination level, boolean fixedRotation, boolean isSensor, Texture texture){
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
 		boxBodyDef.position.x = posx;
@@ -177,20 +209,64 @@ public class BodyFactory {
 		polygon.set(vertices);
 		boxBody.createFixture(makeFixture(material,polygon, false));
 		polygon.dispose();
+		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
+		addToLevel(level, boxBody);
 			
 		return boxBody;
 	}
 	
+	public ArrayList<Object[]> getBodies() {
+		return bodies;
+	}
 	
+	public ArrayList<Body> getLevelOneBodies() {
+		return levelOneBodies;
+	}
 	
-	public ArrayList<Body> getBoxBodies() {
-		return boxBodies;
+	public ArrayList<Body> getLevelTwoBodies() {
+		return levelTwoBodies;
+	}
+
+	public ArrayList<Body> getLevelThreeBodies() {
+		return levelThreeBodies;
+	}
+	
+	public ArrayList<Body> getLevelFourBodies() {
+		return levelFourBodies;
 	}
 
 	public void makeAllFixturesSensors(Body bod){
-	for(Fixture fix :bod.getFixtureList()){
-		fix.setSensor(true);
+		for(Fixture fix :bod.getFixtureList()){
+			fix.setSensor(true);
+		}
+	}
+	
+	private void addToLevel(LevelDestination level, Body boxBody) {
+		switch (level) {
+		case OVERWORLD:
+			levelOneBodies.add(boxBody);
+			break;
+		case LVL_2:
+			levelTwoBodies.add(boxBody);
+			break;
+		case LVL_3:
+			levelThreeBodies.add(boxBody);
+			break;
+		case LVL_4:
+			levelFourBodies.add(boxBody);
+			break;
+		case LVL_5:
+			levelFiveBodies.add(boxBody);
+			break;
+		case LVL_6:
+			levelSixBodies.add(boxBody);
+			break;
+		case LVL_7:
+			levelSevenBodies.add(boxBody);
+			break;
+		default:
+			break;
+		}
 	}
 }
 	
-}

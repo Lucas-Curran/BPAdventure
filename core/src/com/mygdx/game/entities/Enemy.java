@@ -3,6 +3,8 @@ package com.mygdx.game.entities;
 import java.util.ArrayList;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.TextureAtlasData.Region;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.components.B2dBodyComponent;
@@ -24,7 +26,7 @@ public class Enemy extends EntityHandler {
 		enemies = new ArrayList<Entity>();
 	}
 	
-	public Entity createEnemy(int posx, float f, EnemyState enemyType, int range, float radius) {
+	public Entity createEnemy(int posx, float f, EnemyState enemyType, int range, float radius, TextureRegion entityTexture) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -43,7 +45,7 @@ public class Enemy extends EntityHandler {
 		// set object position (x,y,z) z used to define draw order 0 first drawn
 		position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
 		position.scale.set(radius, radius);
-		texture.region = tex;
+		texture.region = entityTexture;
 		type.type = TypeComponent.ENEMY;
 		player.player = false;
 		b2dbody.body.setUserData(entity);
@@ -124,27 +126,27 @@ public class Enemy extends EntityHandler {
 	
 	public ArrayList<Entity> getLevelOne() {
 		enemies.clear();
-		createEnemy(5, 5, EnemyState.PATROL, 1, 1f);
-		createEnemy(-10, 5, EnemyState.VERTICAL, 1, 1f);
-		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f);
-		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
-		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);
-		createEnemy (30, 4, EnemyState.BOSS, 0, 2f);
+		createEnemy(5, 5, EnemyState.PATROL, 1, 1f, tex);
+		createEnemy(-10, 5, EnemyState.VERTICAL, 1, 1f, tex);
+		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f, tex);
+		createEnemy(8, 3, EnemyState.JUMP, 2, 1f, tex);
+		createEnemy(25, 4, EnemyState.STEERING, 0, 1f, tex);
+		createEnemy (30, 4, EnemyState.BOSS, 0, 2f, tex);
 		return enemies;
 	}
 	
 	public ArrayList<Entity> getLevelTwo() {	
 		enemies.clear();
-//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
-//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
-//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		createEnemy(15, 92, EnemyState.PATROL, 1, 1f, rockMob);
+		createEnemy(25, 93, EnemyState.PATROL, 1, 2f, spikyRockMob);
+		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f, rockMob);
 		return enemies;
 	}
 	
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
-//		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f);
-		createEnemyShooter(17, 1.5f, 1, 1f, -2, 0, 7);
+		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, tex);
+		//createEnemyShooter(17, 1.5f, EnemyState.SHOOTER, 1, 1f, -2, 0, 7);
 //		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f);
 //		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
 //		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);

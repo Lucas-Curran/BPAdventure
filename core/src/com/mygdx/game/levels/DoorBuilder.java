@@ -2,6 +2,8 @@ package com.mygdx.game.levels;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
@@ -21,10 +23,11 @@ public class DoorBuilder {
 	public ArrayList<String> destinations = new ArrayList<>();
 	
 	BodyFactory bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
+	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 	
 	
 	public Body createDoor(float posx, float posy, float desX, float desY, int material, String name, LevelDestination level) {
-		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true);
+		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, level, false, true, texture);
 		door.setUserData(name);
 		doors.add(door);
 		destinationsX.add(desX);

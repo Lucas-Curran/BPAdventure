@@ -53,7 +53,8 @@ public class CollisionSystem  extends IteratingSystem {
 						}
 						break;
 					case TypeComponent.BULLET:
-						System.out.print("player hit bullet");
+						//do player hit bullet thing
+						System.out.println("player hit bullet");
 						break;
 					case TypeComponent.OTHER:
 						//do player hit other thing
