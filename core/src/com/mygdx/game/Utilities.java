@@ -68,7 +68,7 @@ public class Utilities {
 	
 	public static TextButton buttonSettings(TextButton button) {
 		button.getLabel().setAlignment(Align.left);
-		button.getLabelCell().padLeft(35);
+		button.getLabelCell().padLeft(25);
 		button.getLabel().setFontScale(2,2);
 		return button;
 	}

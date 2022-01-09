@@ -23,7 +23,7 @@ public class MainMenu implements Screen, InputProcessor {
 	private Camera cam;
 	private Stage stage;
 	private Table table;
-	private TextButton startButton;
+	private TextButton startButton, continueButton, settingsButton, quitButton;
 	private TextButtonStyle textButtonStyle;
 	private Skin skin;
 	private TextureAtlas textureAtlas;
@@ -40,10 +40,23 @@ public class MainMenu implements Screen, InputProcessor {
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		
 		startButton = new TextButton("Start", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		continueButton = new TextButton("Continue", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		settingsButton = new TextButton("Settings", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		quitButton = new TextButton("Quit", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		
 		Utilities.buttonSettings(startButton);
+		Utilities.buttonSettings(continueButton);
+		Utilities.buttonSettings(settingsButton);
+		Utilities.buttonSettings(quitButton);
 	
-		table.left().padBottom(100);
-		table.add(startButton).width(300).height(100);
+		table.left().bottom().padBottom(10);
+		table.add(startButton).width(180).height(70).pad(10);
+		table.row();
+		table.add(continueButton).width(180).height(70).pad(10);
+		table.row();
+		table.add(settingsButton).width(180).height(70).pad(10);
+		table.row();
+		table.add(quitButton).width(180).height(70).pad(10);
 		stage.addActor(table);
 		am = new AudioManager();
 	}

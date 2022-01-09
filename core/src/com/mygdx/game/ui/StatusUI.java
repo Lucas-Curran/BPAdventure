@@ -13,11 +13,12 @@ import com.mygdx.game.Utilities;
 public class StatusUI extends Window {
 
 	private Money money;
+	private HealthBar hpBar;
 	
 	public StatusUI(Money money) {
 		super("Status", new WindowStyle(new BitmapFont(), Color.RED, null));
 		this.money = money;
-		HealthBar hpBar = new HealthBar();
+		hpBar = new HealthBar();
 		this.money.setName("money");
 		this.setFillParent(true);
 		this.padTop(20);
@@ -29,6 +30,10 @@ public class StatusUI extends Window {
 	
 	public Money getMoney() {
 		return money;
+	}
+	
+	public HealthBar getHealthBar() {
+		return hpBar;
 	}
 	
 }
