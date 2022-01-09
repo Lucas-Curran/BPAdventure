@@ -78,7 +78,7 @@ public class Map implements Screen, InputProcessor {
 		playerHUD = new PlayerHUD(money);
 		
 		entityHandler = new EntityHandler();
-		levels = new Levels();
+		levels = new Levels(entityHandler.getWorld());
 		
 		am = new AudioManager();
 	

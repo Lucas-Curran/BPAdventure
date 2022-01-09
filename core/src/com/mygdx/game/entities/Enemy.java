@@ -99,4 +99,14 @@ public class Enemy extends EntityHandler {
 		return enemies.get(id);
 	}
 	
+	public ArrayList<Entity> getLevelSeven() {
+		enemies.clear();
+//		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, tex);
+		//createEnemyShooter(17, 1.5f, EnemyState.SHOOTER, 1, 1f, -2, 0, 7);
+//		createEnemy(20, 5, EnemyState.BOUNCE, 1, 1f);
+//		createEnemy(8, 3, EnemyState.JUMP, 2, 1f);
+//		createEnemy(25, 4, EnemyState.STEERING, 0, 1f);
+//		createEnemy (30, 4, EnemyState.BOSS, 0, 2f);
+		return enemies;
+	}
 }

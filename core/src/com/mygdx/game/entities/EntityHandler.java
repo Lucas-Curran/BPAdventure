@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.B2dContactListener;
 import com.mygdx.game.BodyFactory;
@@ -159,7 +160,7 @@ public class EntityHandler implements ApplicationListener {
 	}		
 	
 	public void spawnShopNPC() {
-		pooledEngine.addEntity(npc.spawnNPC(10, 1));
+		pooledEngine.addEntity(npc.spawnNPC("", 10, 1));
 	}
 	
 	public void spawnLevelOne() {
@@ -170,6 +171,12 @@ public class EntityHandler implements ApplicationListener {
 	
 	public void spawnLevelTwo() {
 		for (Entity enemy : enemies.getLevelTwo()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void spawnLevelSeven() {
+		for (Entity enemy : enemies.getLevelSeven()) {
 			pooledEngine.addEntity(enemy);
 		}
 	}
@@ -209,6 +216,11 @@ public class EntityHandler implements ApplicationListener {
 	
 	public Vector3 getCameraPosition() {
 		return cam.getCamera().position;
+	}
+	
+	public World getWorld() {
+		// TODO Auto-generated method stub
+		return gameWorld.getInstance();
 	}
 	
 }
