@@ -48,7 +48,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		endNPC.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92, tex);
 		
 		//Creates door to Level 3
-		db.createDoor(37, 92, 50, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
+		db.createDoor(37, 92.5f, 50, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
 	}
 
 	@Override

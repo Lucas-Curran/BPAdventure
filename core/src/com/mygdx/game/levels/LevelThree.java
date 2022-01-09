@@ -74,7 +74,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		pillars[12] = bodyFactory.makeBoxPolyBody(18, 196f, 1, 7, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		pillars[13].setUserData("gravityPillar2");
-		db.createDoor(45, 187f, -35, 288, BodyFactory.STEEL, "DoorTo4", LevelDestination.LVL_4);
+		db.createDoor(45, 187.5f, -35, 288, BodyFactory.STEEL, "DoorTo4", LevelDestination.LVL_4);
 		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
 		lavaFloor.setUserData("lavaFloor");
 		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
@@ -85,7 +85,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 //		rotator = bodyFactory.makeBoxPolyBody(-22, 104f, 1, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
 		
 		
-		sawCenter = bodyFactory.makeCirclePolyBody(-20, 190f, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
+		sawCenter = bodyFactory.makeCirclePolyBody(-20, 190f, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false, texture);
 		
 		Vector2 vertex1 = new Vector2(1, 3);
 		Vector2 vertex2 = new Vector2(3, 4);
