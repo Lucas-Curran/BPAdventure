@@ -13,6 +13,7 @@ public class BulletSystem extends IteratingSystem{
 	private ComponentMapper<BulletComponent> bc;
 	Entity enemy;
 	B2dBodyComponent bulletCom, enemyCom;
+	int range;
 	
 	@SuppressWarnings("unchecked")
 	public BulletSystem(){
@@ -30,6 +31,7 @@ public class BulletSystem extends IteratingSystem{
 		B2dBodyComponent b2body = bodm.get(entity);
 		BulletComponent bullet = bc.get(entity);
 		B2dBodyComponent enemyBody = bodm.get(enemy);
+		range = bullet.range;
 		
 		//get position values
 		float bx = b2body.body.getPosition().x;

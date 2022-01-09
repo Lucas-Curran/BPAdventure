@@ -60,6 +60,9 @@ public class EnemySystem extends IteratingSystem {
 			case BOUNCE:
 				aiTwo();
 				break;
+			case SHOOTER:
+				aiBullet();
+				break;
 			case VERTICAL:
 				aiThree();
 				break;
@@ -111,6 +114,24 @@ public class EnemySystem extends IteratingSystem {
 		bodyCom.body.setTransform(bodyCom.body.getPosition().x + speed, bodyCom.body.getPosition().y, bodyCom.body.getAngle());
 
 	}
+	
+	private void aiBullet() {
+		if (enemyCom.timer > 0) {
+			enemyCom.timer -= 0.1;
+			return;
+		}
+		enemyCom.timer = 5f;
+		
+		Bullet bullet = new Bullet();
+		Vector2 aim = new Vector2(enemyCom.bulletXDirection, enemyCom.bulletYDirection);
+		aim.scl(1);
+		
+		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y,
+				enemyCom.bulletRange, BulletComponent.Owner.ENEMY));
+		
+		
+	}
+
 	
 	
 	/**
@@ -241,7 +262,7 @@ public class EnemySystem extends IteratingSystem {
 		Vector2 aim = Utilities.aimTo(bodyCom.body.getPosition(), playerCom.body.getPosition());
 		aim.scl(5);
 		
-		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y + offset, aim.x, aim.y, BulletComponent.Owner.ENEMY));
+		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y + offset, aim.x, aim.y, 7, BulletComponent.Owner.ENEMY));
 	}
 
 	
