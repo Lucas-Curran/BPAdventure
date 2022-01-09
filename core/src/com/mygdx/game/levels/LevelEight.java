@@ -37,14 +37,15 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 		Body door;
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
-
+		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+		
 		public LevelEight(World world) {
 			this.world = world;
 		}
 		
 		@Override
 		public void create() {
-			super.createLevel(15, 700, 1, 100, 20);
+			super.createLevel(15, 700, 1, 100, 20, texture);
 			
 			db.createDoor(45, 687, -35, 788, BodyFactory.STONE, "doorTo9", LevelDestination.LVL_9);
 			

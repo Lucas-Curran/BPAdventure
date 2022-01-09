@@ -34,7 +34,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 		
 		private TextureRegion textureRegion;
-		
+		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
 		float[] vertices;
 		
 		Body door;

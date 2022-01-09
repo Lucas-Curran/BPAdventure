@@ -30,7 +30,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	//roomFactory.makeRectangleRoom(15, 9, 1, 100, 10);
 	boolean isCreated;
 	static boolean inLevelOne;
-	
+	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
 	float[] vertices;
 	private ShopWindow shopWindow;
 	
