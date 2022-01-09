@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
@@ -27,6 +29,9 @@ public class EnemySystem extends IteratingSystem {
 	B2dBodyComponent bodyCom;
 	B2dBodyComponent playerCom;
 	Bullet bullet;
+	
+	 private TextureAtlas textureAtlas;
+	 private TextureRegion tex;
 	
 	Random rNum = new Random();
 	
@@ -249,7 +254,10 @@ public class EnemySystem extends IteratingSystem {
 		} else if (move <= 20) {
 			//Spawn a steering type enemy
 			Enemy e = new Enemy();
-			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
+			textureAtlas = new TextureAtlas("textures.txt");
+			tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+			//getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
+			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f,tex));
 		}
 		
 		
