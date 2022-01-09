@@ -31,7 +31,7 @@ public class Bullet extends EntityHandler {
 		CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
 		BulletComponent bul = pooledEngine.createComponent(BulletComponent.class);
 		
-		b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.5f, BodyFactory.OTHER, BodyType.DynamicBody, true, true);
+		b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.5f, BodyFactory.OTHER, BodyType.DynamicBody,true, true);
 		b2dbody.body.setBullet(true); // increase physics computation to limit body traveling through other objects
 		b2dbody.body.setGravityScale(0);
 		bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player

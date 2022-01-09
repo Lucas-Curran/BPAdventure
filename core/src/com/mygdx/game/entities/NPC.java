@@ -17,7 +17,7 @@ import com.mygdx.game.components.TypeComponent;
 
 public class NPC extends EntityHandler {
 	
-	public Entity spawnNPC(String[] text, int posx, int posy, TextureRegion npcTexture) {
+	public Entity spawnNPC(String[] text, int posx, int posy) {
 		
 				Entity entity = pooledEngine.createEntity();
 				B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
@@ -31,7 +31,7 @@ public class NPC extends EntityHandler {
 				b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, 1, BodyFactory.OTHER, BodyType.KinematicBody,true, true);
 				// set object position (x,y,z) z used to define draw order 0 first drawn
 				position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
-				texture.region = npcTexture;
+				texture.region = tex;
 				type.type = TypeComponent.NPC;
 				npcComp.text = text;
 				b2dbody.body.setUserData(entity);
@@ -46,7 +46,5 @@ public class NPC extends EntityHandler {
 				
 				return entity;
 	}
-	
-	
 	
 }

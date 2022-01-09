@@ -33,5 +33,4 @@ public class EnemyComponent implements Component {
 	}
 	public EnemyState enemyMode = EnemyState.PATROL;
 	public float timer = 10f;
-	public int health = 5;
 }
