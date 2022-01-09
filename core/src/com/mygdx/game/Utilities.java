@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.math.Vector2;
@@ -92,6 +93,7 @@ public class Utilities {
 	public static Object[] addPolygonTexture(Texture texture, Body body) {
 
 		Fixture fixture = body.getFixtureList().get(0);
+
 		PolygonShape shape = (PolygonShape) fixture.getShape();
 			
 		float[] vertices = calculateVertices(shape, body);		

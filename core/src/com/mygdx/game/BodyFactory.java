@@ -132,7 +132,7 @@ public class BodyFactory {
 		boxBody.createFixture(makeFixture(material,circleShape, isSensor));
 		circleShape.dispose();
 		
-		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
+		//bodies.add(Utilities.addPolygonTexture(texture, boxBody));
 		
 		return boxBody;
 	}

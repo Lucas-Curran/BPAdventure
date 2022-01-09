@@ -144,16 +144,12 @@ public class B2dContactListener implements ContactListener {
 			}
 		}
 		
-		if(fa.getBody().getUserData() instanceof Entity){
+		if(fa.getBody().getUserData() instanceof Entity && fb.getBody().getUserData() instanceof Entity){
 			Entity entA = (Entity) fa.getBody().getUserData();
-			if (entA.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
-				parent.talkingZone = false;
-			}
-		}
-		
-		if (fb.getBody().getUserData() instanceof Entity) {
 			Entity entB = (Entity) fb.getBody().getUserData();
-			if (entB.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+			if (entA.getComponent(TypeComponent.class).type == TypeComponent.NPC && entB.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
+				parent.talkingZone = false;
+			} else if (entB.getComponent(TypeComponent.class).type == TypeComponent.NPC && entA.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
 				parent.talkingZone = false;
 			}
 		}

@@ -40,8 +40,6 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		platforms[0] = bodyFactory.makeBoxPolyBody(1, 285f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 		platforms[0] = bodyFactory.makeBoxPolyBody(12, 287f, 20, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 
-		
-		Map.getInstance().getEntityHandler().spawnShopNPC();
 		Map.getInstance().getEntityHandler().spawnLevelFour();
 		
 	}
