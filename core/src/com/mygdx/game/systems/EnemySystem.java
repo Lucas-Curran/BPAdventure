@@ -37,6 +37,7 @@ public class EnemySystem extends IteratingSystem {
 	
 	
     static int iteration = 1;
+    float timerReset = 0;
 	
 	public EnemySystem() {
 		super(Family.all(EnemyComponent.class).get());
@@ -121,11 +122,12 @@ public class EnemySystem extends IteratingSystem {
 	}
 	
 	private void aiBullet() {
+		timerReset = Math.max(timerReset, enemyCom.timer);
 		if (enemyCom.timer > 0) {
 			enemyCom.timer -= 0.1;
 			return;
 		}
-		enemyCom.timer = 5f;
+		enemyCom.timer = timerReset;
 		
 		Bullet bullet = new Bullet();
 		Vector2 aim = new Vector2(enemyCom.bulletXDirection, enemyCom.bulletYDirection);

@@ -78,7 +78,7 @@ public class Enemy extends EntityHandler {
 		return entity;
 	}
 	
-public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange) {
+public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -106,6 +106,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		enemy.bulletRange = bulletRange;
 		enemy.range = range;
 		enemy.enemyMode = EnemyState.SHOOTER;
+		enemy.timer = time;
 		
 		b2dbody.body.setGravityScale(0.8f);
 		b2dbody.body.setLinearDamping(0.3f);
@@ -173,7 +174,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
 		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, tex);
-		createEnemyShooter(0, 593, 1, 1f, -2, 0, 7);
+		createEnemyShooter(0, 593, 1, 1f, -2, 0, 7, 10);
 		return enemies;
 	}
 	
