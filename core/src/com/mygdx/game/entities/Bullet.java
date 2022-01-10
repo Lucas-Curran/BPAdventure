@@ -24,7 +24,7 @@ public class Bullet extends EntityHandler {
 		bullets = new ArrayList<Entity>();
 	}
 	
-	public Entity createBullet(float x, float y, float xVel, float yVel, int range, Owner owner) {
+	public Entity createBullet(float x, float y, float xVel, float yVel, int range, Owner owner, Entity ownerEntity) {
 		Entity entity = pooledEngine.createEntity();
 		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
 		TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
@@ -45,7 +45,8 @@ public class Bullet extends EntityHandler {
 		bul.yVel = yVel;
 		bul.range = range;
 		bul.owner = owner;
-		
+		bul.ownerEntity = ownerEntity;
+
 		entity.add(bul);
 		entity.add(colComp);
 		entity.add(b2dbody);
