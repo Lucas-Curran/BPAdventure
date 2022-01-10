@@ -176,7 +176,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
 		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
-		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+		createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
 		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob);
 		createEnemyShooter(52, 595.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
 		createEnemyShooter(52, 598.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
