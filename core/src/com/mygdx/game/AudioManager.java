@@ -7,7 +7,7 @@ import com.badlogic.gdx.audio.Music;
 
 public class AudioManager {
 		
-		private HashMap<String, Music> music;
+		private static HashMap<String, Music> music;
 		Music caveMusic, menuMusic, overworldMusic, shopMusic;
 		SqliteManager sm = new SqliteManager();
 		float volume;
@@ -54,9 +54,11 @@ public class AudioManager {
 	public void updateAll() {
 		for (java.util.Map.Entry<String, Music> set : music.entrySet()) {
 			volume = sm.getVolume();
-			set.getValue().stop();
-			System.out.println(volume);
+			set.getValue().setVolume(volume);
+			System.out.println(set.getValue().getVolume());
 		}
+		
+//		music.get("menu").setVolume(volume);
 
 	}
 	

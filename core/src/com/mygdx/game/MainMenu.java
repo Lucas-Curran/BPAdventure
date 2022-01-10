@@ -74,7 +74,6 @@ public class MainMenu implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 		
-		//am.playMenu();
 		
 		spriteBatch.setProjectionMatrix(cam.getCombined());
 		spriteBatch.begin();
@@ -149,8 +148,10 @@ public class MainMenu implements Screen, InputProcessor {
 			 
 		 } else if (settingsButton.isPressed()) {
 			 if (Screens.getSettings() != null) {
+				 am.stopAll();
 				 Screens.toSettings(Screens.getSettings());
 			 } else {
+				 am.stopAll();
 				 Screens.toSettings(new Settings());
 			 }
 		 } else if (quitButton.isPressed()) {

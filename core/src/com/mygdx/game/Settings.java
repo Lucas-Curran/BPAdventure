@@ -19,11 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 
-public class Settings implements Screen, InputProcessor {
+public class Settings implements Screen {
 	Texture settingsBackground;
 	TextButton creditsBtn, returnBtn;
 
-	Slider volumeSlider;
+	static Slider volumeSlider;
 	Container<Slider> container;
 	BitmapFont font;
 	Label sliderLabel, volumeLabel;
@@ -36,7 +36,7 @@ public class Settings implements Screen, InputProcessor {
 	private Camera cam;
 	private Stage stage;
 	private InputMultiplexer inputMultiplexer;
-	private AudioManager am;
+	private AudioManager am = new AudioManager();
 	private SqliteManager sm; 
 	int sliderValue; //replace with value from database later
 	
@@ -52,6 +52,7 @@ public class Settings implements Screen, InputProcessor {
 		table = new Table();
 		sm = new SqliteManager();
 		sliderValue = sm.getVolume();
+		am.playMenu();
 		
 	}
 	
@@ -60,7 +61,7 @@ public class Settings implements Screen, InputProcessor {
 	 */
 	@Override
 	public void show() {
-		
+		Gdx.input.setInputProcessor(stage);
 		
 		volumeSlider = new Slider(0, 100, 1, false, Utilities.sliderStyles());
 		container = new Container<Slider>(volumeSlider);
@@ -101,12 +102,9 @@ public class Settings implements Screen, InputProcessor {
 		
 //		table.debug();
 		stage.addActor(table);
+	
 		
-		inputMultiplexer = new InputMultiplexer();
-		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(stage);		
 		
-		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 	
 	/**
@@ -129,15 +127,17 @@ public class Settings implements Screen, InputProcessor {
 		}
 		
 		if (returnBtn.isPressed()) {
-			Screens.toMenu(Screens.getMenu());
+			
 			sm.updateVolume(sliderValue);
+			audioManager.stopAll();
+			Screens.toMenu(Screens.getMenu());
 		}
 		
 		if (volumeSlider.isDragging()) {
 			sliderValue = (int) volumeSlider.getValue();
 			sliderLabel.setText(sliderValue);
 			sm.updateVolume(sliderValue);
-			audioManager.updateAll();
+			audioManager.getMusic("menu").setVolume(sliderValue);;
 			
 		}
 		
@@ -168,53 +168,5 @@ public class Settings implements Screen, InputProcessor {
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(float amountX, float amountY) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
