@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
+import com.mygdx.game.components.EnemyComponent;
+import com.mygdx.game.entities.Enemy;
  
 public class BulletSystem extends IteratingSystem{
 	
@@ -25,11 +27,12 @@ public class BulletSystem extends IteratingSystem{
 	
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
-		//get enemy entity
-		enemy = super.getEngine().getSystem(EnemySystem.class).enemy;
+		
 		//get box 2d body and bullet components
 		B2dBodyComponent b2body = bodm.get(entity);
 		BulletComponent bullet = bc.get(entity);
+		//get enemy entity
+		enemy = bullet.ownerEntity;
 		B2dBodyComponent enemyBody = bodm.get(enemy);
 		range = bullet.range;
 		
@@ -39,7 +42,7 @@ public class BulletSystem extends IteratingSystem{
 		float ex = enemyBody.body.getPosition().x;
 		float ey = enemyBody.body.getPosition().y;
 		
-		if (Math.abs(bx - ex) > 7 || Math.abs(by - ey) > 7) {
+		if (Math.abs(bx - ex) > range || Math.abs(by - ey) > range) {
 			bullet.isDead = true;
 		}
 		
