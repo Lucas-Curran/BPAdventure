@@ -151,7 +151,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		
 		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, tex);
 		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, tex);
-//		createEnemyShooter(-16f, 287f, 1, 1f, -2, 0, 7, 7, tex);
+		createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, tex);
 		
 		
 		return enemies;
@@ -159,8 +159,17 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	
 	public ArrayList<Entity> getLevelFive() {	
 		enemies.clear();
-//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
-//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+		createEnemy(-10, 383, EnemyState.BOUNCE, 1, 1.4f, tex);
+		createEnemy(-9, 382, EnemyState.PATROL, 1, 1f, tex); //mummy
+		createEnemy(-10, 382, EnemyState.PATROL, 1, 1f, tex);
+		
+		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, tex);
+		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, tex);
+		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, tex);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, tex);
+		createEnemyShooter(42, 382, 1, 4f, -2, 0, 7, 7, tex);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, tex);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, tex);
 //		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
 	}
