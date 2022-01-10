@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.math.Vector2;
@@ -26,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -45,8 +47,9 @@ public class Utilities {
 	public static Skin ACTUAL_UI_SKIN = new Skin(Gdx.files.internal("uiskin.json"));
 	
 	private static TextButtonStyle textButtonStyle;
-	private static Skin buttonSkin;
-	private static TextureAtlas textureAtlasTest;
+	private static SliderStyle sliderStyle;
+	private static Skin buttonSkin, sliderSkin;
+	private static TextureAtlas textureAtlasTest, textureAtlasUI;
 	private static BitmapFont font;
 
 	public static TextureRegion[] spriteSheetToFrames(TextureRegion region, int FRAME_COLS, int FRAME_ROWS){
@@ -89,9 +92,20 @@ public class Utilities {
 		return textButtonStyle;
 	}	
 	
+	public static SliderStyle sliderStyles() {
+		sliderSkin = new Skin(Gdx.files.internal("uiskin.json"));
+		textureAtlasUI = new TextureAtlas("uiskin.txt");
+		sliderSkin.addRegions(textureAtlasUI);
+		sliderStyle = new SliderStyle();
+		sliderStyle.knob = sliderSkin.getDrawable("default-slider-knob");
+		sliderStyle.background = sliderSkin.getDrawable("default-slider");
+		return sliderStyle;
+	}
+	
 	public static Object[] addPolygonTexture(Texture texture, Body body) {
 
 		Fixture fixture = body.getFixtureList().get(0);
+
 		PolygonShape shape = (PolygonShape) fixture.getShape();
 			
 		float[] vertices = calculateVertices(shape, body);		

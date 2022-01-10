@@ -146,7 +146,11 @@ public class MainMenu implements Screen, InputProcessor {
 		 } else if (continueButton.isPressed()) {
 			 
 		 } else if (settingsButton.isPressed()) {
-			 
+			 if (Screens.getSettings() != null) {
+				 Screens.toSettings(Screens.getSettings());
+			 } else {
+				 Screens.toSettings(new Settings());
+			 }
 		 } else if (quitButton.isPressed()) {
 			 dispose();
 			 Gdx.app.exit();

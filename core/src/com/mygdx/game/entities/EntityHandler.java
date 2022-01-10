@@ -322,4 +322,8 @@ public class EntityHandler implements ApplicationListener {
 		return currentNPCText;
 	}
 	
+	public PooledEngine getPooledEngine() {
+		return pooledEngine;
+	}
+	
 }
