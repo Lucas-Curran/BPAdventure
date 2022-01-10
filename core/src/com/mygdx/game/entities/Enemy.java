@@ -177,6 +177,14 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
 		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
 		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob);
+		createEnemyShooter(52, 595.5f, 1, 1f, -2, 5, 7, 10, spikySlime);
+		createEnemyShooter(52, 598.5f, 1, 1f, -2, 5, 7, 10, spikySlime);
+		createEnemyShooter(52, 592.5f, 1, 1f, -2, 5, 7, 10, spikySlime);
+		createEnemyShooter(52, 589.5f, 1, 1f, -2, 5, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
 
 		return enemies;
 	}
