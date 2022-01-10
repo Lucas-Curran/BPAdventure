@@ -36,12 +36,19 @@ public class AudioManager {
 		return music.get(key);
 	}
 	
+	/**
+	 * Stop all music
+	 */
 	public void stopAll() {
 		for (java.util.Map.Entry<String, Music> set : music.entrySet()) {
 			set.getValue().stop();
 		}
 	}
 	
+	/**
+	 * Play certain song
+	 * @param song - Song played
+	 */
 	public void playSong(String song) {
 		if (!music.get(song).isPlaying()) {
 			music.get(song).setVolume(0.1f);
@@ -50,18 +57,30 @@ public class AudioManager {
 		}
 	}
 	
+	/**
+	 * Plays cave music
+	 */
 	public void playCave() {
 		playSong("cave");
 	}
 	
+	/**
+	 * Plays menu music
+	 */
 	public void playMenu() {
 		playSong("menu");
 	}
 	
+	/**
+	 * Plays shop music
+	 */
 	public void playShop() {
 		playSong("shop");
 	}
 	
+	/**
+	 * Player overworld music
+	 */
 	public void playOverworld() {
 		playSong("overworld");
 	}

@@ -81,6 +81,8 @@ public class MainMenu implements Screen, InputProcessor {
 		spriteBatch.draw(menuBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		spriteBatch.end();		
 		
+		am.playMenu();
+		
 		stage.act(delta);
 		stage.draw();
 	}

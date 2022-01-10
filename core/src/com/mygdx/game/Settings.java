@@ -37,7 +37,8 @@ public class Settings implements Screen, InputProcessor {
 	private Stage stage;
 	private InputMultiplexer inputMultiplexer;
 	private AudioManager am;
-	int sliderValue = 50; //replace with value from database later
+	private SqliteManager sm; 
+	int sliderValue; //replace with value from database later
 	
 	/**
 	 * Sets camera and game
@@ -49,6 +50,8 @@ public class Settings implements Screen, InputProcessor {
 		cam = new Camera();
 		stage = new Stage();
 		table = new Table();
+		sm = new SqliteManager();
+		sliderValue = sm.getVolume();
 		
 	}
 	
@@ -134,6 +137,8 @@ public class Settings implements Screen, InputProcessor {
 			sliderValue = (int) volumeSlider.getValue();
 			sliderLabel.setText(sliderValue);
 //			audioManager.updateAll();
+//			sm.updateVolume(sliderValue);
+			System.out.println(sliderValue);
 		}
 		
 		stage.act(delta);
