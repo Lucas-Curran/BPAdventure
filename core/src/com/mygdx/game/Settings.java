@@ -122,8 +122,7 @@ public class Settings implements Screen, InputProcessor {
 		spriteBatch.draw(settingsBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		spriteBatch.end();		
 		
-		stage.act(delta);
-		stage.draw();
+		
 		
 		if (creditsBtn.isPressed()) {
 			//Add in transition to credits
@@ -131,14 +130,15 @@ public class Settings implements Screen, InputProcessor {
 		
 		if (returnBtn.isPressed()) {
 			Screens.toMenu(Screens.getMenu());
+			sm.updateVolume(sliderValue);
 		}
 		
 		if (volumeSlider.isDragging()) {
 			sliderValue = (int) volumeSlider.getValue();
 			sliderLabel.setText(sliderValue);
-//			audioManager.updateAll();
-//			sm.updateVolume(sliderValue);
-			System.out.println(sliderValue);
+			sm.updateVolume(sliderValue);
+			audioManager.updateAll();
+			
 		}
 		
 		stage.act(delta);

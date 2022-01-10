@@ -14,7 +14,7 @@ public class SqliteManager {
 	public SqliteManager() {
 		connect();
 		createTable();
-		defaultInfo();
+//		defaultInfo();
 	}
 	
 	
@@ -93,7 +93,7 @@ public class SqliteManager {
 	}
 	
 	public void updateVolume(int volume) {
-		String sql = "UPDATE Progress SET Volume = " + volume;
+		String sql = "UPDATE Progress SET Volume = " + volume + " WHERE id = 1";
 		try {
 			PreparedStatement input = connect().prepareStatement(sql);
 			input.executeUpdate();
@@ -104,7 +104,7 @@ public class SqliteManager {
 	}
 	
 	public int getVolume() {
-		String sql = "SELECT Volume FROM Progress";
+		String sql = "SELECT Volume FROM Progress WHERE id = 1";
 		int volumeData = 50;
 		try {
 			conn = DriverManager.getConnection(playerURL);

@@ -49,12 +49,24 @@ public class AudioManager {
 	}
 	
 	/**
+	 * Update all music
+	 */
+	public void updateAll() {
+		for (java.util.Map.Entry<String, Music> set : music.entrySet()) {
+			volume = sm.getVolume();
+			set.getValue().stop();
+			System.out.println(volume);
+		}
+
+	}
+	
+	/**
 	 * Play certain song
 	 * @param song - Song played
 	 */
 	public void playSong(String song) {
 		if (!music.get(song).isPlaying()) {
-			music.get(song).setVolume(volume/100);
+			music.get(song).setVolume(volume);
 			music.get(song).setLooping(true);
 			music.get(song).play();
 		}
