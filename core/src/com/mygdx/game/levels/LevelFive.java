@@ -48,10 +48,14 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 		public void create() {	
 			super.createLevel(15, 400, 1, 100, 20, texture);
 			
-			db.createDoor(45, 382.5f, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
+			db.createDoor(62, 382.5f, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
 			      			
 			NPC npc = new NPC();
-			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"All my soldiers are gone...", "I don't know who you are but you're our last chance to make it out alive."}, -32, 382, tex));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I can't go on...", "Go back while you still can, there's no end to this nightmare."}, 15, 382, tex));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Honestly, that was impressive. Go on, don't worry this time it's actually a nice surpise."}, 60, 382, unknownBeing));
+
+			Map.getInstance().getEntityHandler().spawnLevelFive();
 			isCreated = true;
 		}
 		

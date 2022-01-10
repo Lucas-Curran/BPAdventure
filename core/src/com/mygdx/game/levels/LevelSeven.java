@@ -89,7 +89,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			platforms[12] = bodyFactory.makeBoxPolyBody(9.5f, 592f, 1f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			platforms[13] = bodyFactory.makeBoxPolyBody(15f, 592f, 3f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			papers[3] = bodyFactory.makeBoxPolyBody(16, 593, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture2);
-			platforms[14] = bodyFactory.makeBoxPolyBody(25.5f, 592f, 8f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			platforms[14] = bodyFactory.makeBoxPolyBody(25.3f, 592f, 8f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			
 			db.createDoor(28.5f, 593.5f, 43, 599, BodyFactory.RUBBER, "doorLvl7Teleport", LevelDestination.LVL_7);
 			
@@ -118,7 +118,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			spikes[5] = bodyFactory.makePolygonShapeBody(triangleVertices2, 50, 581.5f, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			spikes[6] = bodyFactory.makePolygonShapeBody(triangleVertices2, 51, 581.5f, BodyFactory.ICE, BodyType.StaticBody,  false, false, texture);
 			
-			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture2);
+			papers[4] = bodyFactory.makeBoxPolyBody(53, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture2);
 			
 			db.createDoor(55, 582.5f, -35, 688, BodyFactory.STONE, "doorTo8", LevelDestination.LVL_8);
 			
