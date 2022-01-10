@@ -143,9 +143,16 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	
 	public ArrayList<Entity> getLevelFour() {	
 		enemies.clear();
-//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
-//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
-//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		createEnemy(12, 258, EnemyState.PATROL, 1, 1f, tex);
+		createEnemy(0, 266, EnemyState.PATROL, 1, 1.3f,tex);
+		createEnemy(2, 266, EnemyState.BOUNCE, 1, 1f, tex);
+		createEnemy(19, 275, EnemyState.PATROL, 1, 1f, tex);
+		
+		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, tex);
+		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, tex);
+		createEnemyShooter(-16, 287, 1, 1f, -2, 0, 7);
+		
+		
 		return enemies;
 	}
 	
@@ -196,6 +203,15 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 //		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
 //		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
 //		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		return enemies;
+	}
+	
+	public ArrayList<Entity> getIceDungeon() {
+		enemies.clear();
+		createEnemy(495, 92, EnemyState.PATROL, 1, 1f, spikyRockMob);
+		createEnemy(494, 93, EnemyState.BOUNCE, 1, 1f, rockMob);
+		createEnemy(496, 92, EnemyState.BOUNCE, 1, 1f, rockMob);
+		createEnemy(505, 93, EnemyState.PATROL, 1, 2f, spikyRockMob);
 		return enemies;
 	}
 
