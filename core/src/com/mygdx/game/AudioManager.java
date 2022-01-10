@@ -9,6 +9,8 @@ public class AudioManager {
 		
 		private HashMap<String, Music> music;
 		Music caveMusic, menuMusic, overworldMusic, shopMusic;
+		SqliteManager sm = new SqliteManager();
+		float volume;
 			
 	/**
 	 * Creates hashmap of music objects
@@ -25,6 +27,7 @@ public class AudioManager {
 		music.put("shop", shopMusic);
 		music.put("menu", menuMusic);
 		music.put("overworld", overworldMusic);
+		volume = sm.getVolume();
 	}
 		
 	/**
@@ -51,7 +54,7 @@ public class AudioManager {
 	 */
 	public void playSong(String song) {
 		if (!music.get(song).isPlaying()) {
-			music.get(song).setVolume(0.1f);
+			music.get(song).setVolume(volume/100);
 			music.get(song).setLooping(true);
 			music.get(song).play();
 		}

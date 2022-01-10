@@ -48,7 +48,7 @@ public class SqliteManager {
 					+ "Stage INTEGER, \n"
 					+ "Currency INTEGER, \n"
 					+ "Health INTEGER, \n"
-					+ "Volume INTEGER, \n"
+					+ "Volume INTEGER"
 					+ ");";
 			
 			String inventorySQL = "CREATE TABLE IF NOT EXISTS Inventory (\n"
@@ -57,14 +57,14 @@ public class SqliteManager {
 					+ "Column INTEGER, \n"
 					+ "Item INTEGER, \n"
 					+ "Amount INTEGER, \n"
-					+ "Tier INTEGER, \n"
+					+ "Tier INTEGER"
 					+ ");";
 			
 			System.out.println("Conection to SQLite has been established.");
 			Statement playerStatement = connect().createStatement();
 //			Statement inventoryStatement = connect().createStatement();
 			playerStatement.execute(playerSQL);
-//			playerStatement.execute(inventorySQL);
+			playerStatement.execute(inventorySQL);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
