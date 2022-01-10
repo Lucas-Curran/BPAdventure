@@ -76,7 +76,7 @@ public class EnemySystem extends IteratingSystem {
 				aiFour();
 				break;
 			case STEERING:
-				aiSteering(entity);
+				aiSteering();
 				break;
 			case BOSS:
 				boss();
@@ -134,7 +134,7 @@ public class EnemySystem extends IteratingSystem {
 		aim.scl(1);
 		
 		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y,
-				enemyCom.bulletRange, BulletComponent.Owner.ENEMY));
+				enemyCom.bulletRange, BulletComponent.Owner.ENEMY, enemy));
 		
 		
 	}
@@ -209,9 +209,8 @@ public class EnemySystem extends IteratingSystem {
 	
 	/**
 	 * Chase type enemy using steering
-	 * @param entity - Enemy entity
 	 */
-	private void aiSteering(Entity entity) {
+	private void aiSteering() {
 		float distance = playerCom.body.getPosition().dst(bodyCom.body.getPosition());
 		SteeringComponent playerSteering = steering.get(player);
 		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
@@ -273,7 +272,7 @@ public class EnemySystem extends IteratingSystem {
 		Vector2 aim = Utilities.aimTo(bodyCom.body.getPosition(), playerCom.body.getPosition());
 		aim.scl(5);
 		
-		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y + offset, aim.x, aim.y, 7, BulletComponent.Owner.ENEMY));
+		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y + offset, aim.x, aim.y, 7, BulletComponent.Owner.ENEMY, enemy));
 	}
 	
 	

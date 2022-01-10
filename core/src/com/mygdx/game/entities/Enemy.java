@@ -19,7 +19,7 @@ import com.mygdx.game.systems.SteeringPresets;
 
 public class Enemy extends EntityHandler {
 	
-	private ArrayList<Entity> enemies;
+	private static ArrayList<Entity> enemies;
 	
 	public Enemy() {
 		enemies = new ArrayList<Entity>();
@@ -122,6 +122,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		entity.add(colComp);
 
 		enemies.add(entity);
+		
 		return entity;
 	}
 	
@@ -150,7 +151,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		
 		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, tex);
 		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, tex);
-		createEnemyShooter(-16f, 287f, 1, 1f, -2, 0, 7, 7, tex);
+//		createEnemyShooter(-16f, 287f, 1, 1f, -2, 0, 7, 7, tex);
 		
 		
 		return enemies;
@@ -174,9 +175,17 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
-		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
+//		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
 		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
 		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob);
+		createEnemyShooter(52, 595.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
+		createEnemyShooter(52, 598.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
+		createEnemyShooter(52, 592.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
+		createEnemyShooter(52, 589.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
 
 		return enemies;
 	}
@@ -219,5 +228,8 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		return enemies.get(id);
 	}
 	
+	public ArrayList<Entity> geEnemies(){
+		return enemies;
+	}
 	
 }

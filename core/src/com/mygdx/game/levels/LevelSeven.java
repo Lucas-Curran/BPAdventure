@@ -101,7 +101,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			platforms[19] = bodyFactory.makeBoxPolyBody(52f, 594.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[20] = bodyFactory.makeBoxPolyBody(52f, 591.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			platforms[21] = bodyFactory.makeBoxPolyBody(52f, 588.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
-			platforms[22] = bodyFactory.makeBoxPolyBody(52f, 585.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			platforms[22] = bodyFactory.makeBoxPolyBody(52f, 597.5f, 2f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			platforms[23] = bodyFactory.makeBoxPolyBody(40f, 590.5f, 1f, 18f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			
 			Vector2 vertex11 = new Vector2(0, 0);
