@@ -50,7 +50,7 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		public void create() {	
 			super.createLevel(15, 800, 1, 100, 20, texture);
 			
-			db.createDoor(45, 787, -35, 888, BodyFactory.STONE, "doorTo10", LevelDestination.LVL_10);
+			db.createDoor(45, 782.5f, -35, 888, BodyFactory.STONE, "doorTo10", LevelDestination.LVL_10);
 
 			Map.getInstance().getEntityHandler().spawnLevelNine();
 			
