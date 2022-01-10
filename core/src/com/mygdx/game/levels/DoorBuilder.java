@@ -21,6 +21,7 @@ public class DoorBuilder {
 	public ArrayList<Float> destinationsX = new ArrayList<>();
 	public ArrayList<Float> destinationsY = new ArrayList<>();
 	public ArrayList<String> destinations = new ArrayList<>();
+	public ArrayList<LevelDestination> createdLevels = new ArrayList<>();
 	
 	BodyFactory bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
 	Texture texture = new Texture(Gdx.files.internal("blackDoor.png"));
@@ -32,6 +33,7 @@ public class DoorBuilder {
 		destinationsX.add(desX);	
 		destinationsY.add(desY);
 		destinations.add(level.getValue());
+		createdLevels.add(level);
 		return door;
 	}
 	

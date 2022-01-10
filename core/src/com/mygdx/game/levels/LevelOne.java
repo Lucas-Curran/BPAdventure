@@ -40,7 +40,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		super.createLevel(15, 9, 1, 100, 10, texture);
 		inLevelOne = true;
 		
-		db.createDoor(15, 1.5f, -33, 289, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_4);
+		db.createDoor(15, 1.5f, -35, 688, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_8);
 	
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getMoney());
 

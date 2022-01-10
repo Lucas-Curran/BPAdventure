@@ -40,6 +40,7 @@ public class B2dContactListener implements ContactListener {
 						parent.setDestinationX(db.destinationsX.get(i));
 						parent.setDestinationY(db.destinationsY.get(i));
 						parent.setDestination(db.destinations.get(i));
+						parent.setCreatedLevel(db.createdLevels.get(i));
 					}
 				}
 			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {

@@ -32,6 +32,7 @@ import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.*;
 import com.mygdx.game.components.BulletComponent.Owner;
+import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.systems.*;
 
 public class EntityHandler implements ApplicationListener {
@@ -75,7 +76,16 @@ public class EntityHandler implements ApplicationListener {
 	private PolygonSpriteBatch polygonSpriteBatch;
 	float destinationX, destinationY;
 	String destination;
+	LevelDestination createdLevel;
 	
+	public LevelDestination getCreatedLevel() {
+		return createdLevel;
+	}
+
+	public void setCreatedLevel(LevelDestination createdLevel) {
+		this.createdLevel = createdLevel;
+	}
+
 	private String[] currentNPCText;
 	
 	public float getDestinationX() {
@@ -161,6 +171,8 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(new CollisionSystem());
 		
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
+		
+		setCreatedLevel(LevelDestination.OVERWORLD);
 		
 	}
 

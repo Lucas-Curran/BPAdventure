@@ -40,6 +40,7 @@ import com.mygdx.game.levels.LevelOne;
 import com.mygdx.game.levels.Levels;
 import com.mygdx.game.ui.Money;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class Map implements Screen, InputProcessor {
 
@@ -121,39 +122,39 @@ public class Map implements Screen, InputProcessor {
 		if (!levels.getLevelOne().isCreated()) {
 			levels.getLevelOne().create();
 		} 
-		if (!levels.getLevelTwo().isCreated()) {
+		if (!levels.getLevelTwo().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_2) {
 			levels.getLevelTwo().create();
 		}
 		
-		if (!levels.getLevelThree().isCreated()) {
+		if (!levels.getLevelThree().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_3) {
 			levels.getLevelThree().create();
 		}
 		
-		if (!levels.getLevelFour().isCreated()) {
+		if (!levels.getLevelFour().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_4) {
 			levels.getLevelFour().create();
 		}
 		
-		if (!levels.getLevelFive().isCreated()) {
+		if (!levels.getLevelFive().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_5) {
 			levels.getLevelFive().create();
 		}
 		
-		if (!levels.getLevelSix().isCreated()) {
+		if (!levels.getLevelSix().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_6) {
 			levels.getLevelSix().create();
 		}
 		
-		if (!levels.getLevelSeven().isCreated()) {
+		if (!levels.getLevelSeven().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_7) {
 			levels.getLevelSeven().create();
 		}
 		
-		if (!levels.getLevelEight().isCreated()) {
+		if (!levels.getLevelEight().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_8) {
 			levels.getLevelEight().create();
 		}
 		
-		if (!levels.getLevelNine().isCreated()) {
+		if (!levels.getLevelNine().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_9) {
 			levels.getLevelNine().create();
 		}
 		
-		if (!levels.getLevelTen().isCreated()) {
+		if (!levels.getLevelTen().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_10) {
 			levels.getLevelTen().create();
 		}
 		
@@ -198,6 +199,8 @@ public class Map implements Screen, InputProcessor {
 		if (entityHandler.killZone == true) {
 			death = true;
 		}
+		
+		levels.dispose(entityHandler.getCreatedLevel());
 	}
 
 	@Override
@@ -229,7 +232,7 @@ public class Map implements Screen, InputProcessor {
 		entityHandler.dispose();
 		stage.dispose();
 		font.dispose();
-		levels.dispose();
+		levels.disposeAll();
 	}
 
 	@Override

@@ -19,6 +19,7 @@ public class Levels {
 	private LevelNine levelNine;
 	private LevelTen levelTen;
 	private IceDungeon iceDungeon;
+	LevelFactory[] levels;
 	
 	public Levels(World world) {
 
@@ -33,6 +34,8 @@ public class Levels {
 		levelNine = new LevelNine(world);
 		levelTen = new LevelTen(world);
 		iceDungeon = new IceDungeon(world);
+		
+		levels = new LevelFactory[] {levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, levelTen};
 			
 	}
 	
@@ -104,7 +107,58 @@ public class Levels {
 		return iceDungeon;
 	}
 	
-	public void dispose() {
+	public void dispose(LevelDestination level) {
+		int levelNumber = 0;
+		switch(level) {
+		case OVERWORLD:
+			levelNumber = 0;
+			break;
+		case LVL_2:
+			levelNumber = 1;
+			break;
+		case LVL_3:
+			levelNumber = 2;
+			break;
+		case LVL_4:
+			levelNumber = 3;
+			break;
+		case LVL_5:
+			levelNumber = 4;
+			break;
+		case LVL_6:
+			levelNumber = 5;
+			break;
+		case LVL_7:
+			levelNumber = 6;
+			break;
+		case LVL_8:
+			levelNumber = 7;
+			break;
+		case LVL_9:
+			levelNumber = 8;
+			break;
+		case LVL_10:
+			levelNumber = 9;
+			break;
+
+		}
+		
+		if (levelNumber != 0) {
+			for (int i = 0; i < levelNumber; i++) {
+				levels[i].dispose();
+			}
+		}
+
+		if (levelNumber != 9) {
+			for (int i = (levelNumber + 1); i <= 9; i++) {
+				levels[i].dispose();
+			}
+		}
+		
+
+	}
+	
+	public void disposeAll() {
 		levelOne.dispose();
 		levelTwo.dispose();
 		levelThree.dispose();
