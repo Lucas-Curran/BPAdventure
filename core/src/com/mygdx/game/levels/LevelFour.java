@@ -34,7 +34,7 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		
 		camera = new Camera(); 
 		
-		db.createDoor(45, 287, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
+		db.createDoor(45, 282.5f, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
 		
 		platforms[0] = bodyFactory.makeBoxPolyBody(0, 283f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 		platforms[0] = bodyFactory.makeBoxPolyBody(1, 285f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);

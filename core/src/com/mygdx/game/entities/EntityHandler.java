@@ -48,10 +48,16 @@ public class EntityHandler implements ApplicationListener {
 	protected TextureRegion tex;
 
 	TextureAtlas levelTwoAtlas;
+	public TextureAtlas levelSevenAtlas;
 	protected TextureRegion rockMob;
 	protected TextureRegion spikyRockMob;
 	protected TextureRegion UnknownBeing;
 	protected TextureRegion normalMan;
+	protected TextureRegion bulletLeft;
+	protected TextureRegion slimyMob;
+	protected TextureRegion oldMan;
+	protected TextureRegion spikySlime;
+	protected TextureRegion squirrelMan;
 	
 	private Player player;
 	private Enemy enemies;
@@ -110,6 +116,12 @@ public class EntityHandler implements ApplicationListener {
 		rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
 		spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
 		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
+		
+		levelSevenAtlas = new TextureAtlas("moreSprites.txt");
+		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
+		spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
+		slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
+		
 		
 		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		

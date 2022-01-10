@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.MathUtils;
@@ -34,7 +35,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 		
 		private TextureRegion textureRegion;
-		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+		Texture texture = new Texture(Gdx.files.internal("skull_ground.png"));	
 		float[] vertices;
 		
 		Body door;
@@ -53,7 +54,11 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		public void create() {
 			super.createLevel(15, 600, 1, 100, 20, texture);
 			
-			Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+			Texture texture = new Texture(Gdx.files.internal("stone_ground.png"));
+			
+			levelSevenAtlas = new TextureAtlas("moreSprites.txt");
+			oldMan = new TextureRegion(levelSevenAtlas.findRegion("oldMan"));
+			squirrelMan = new TextureRegion(levelSevenAtlas.findRegion("squirrelMan"));
 			
 			
 			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583.5f, 6, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
@@ -114,15 +119,14 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 			papers[4] = bodyFactory.makeBoxPolyBody(55, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture);
 			
-			db.createDoor(45, 587, -35, 688, BodyFactory.STONE, "doorTo8", LevelDestination.LVL_8);
+			db.createDoor(55, 582.5f, -35, 688, BodyFactory.STONE, "doorTo8", LevelDestination.LVL_8);
 			
 	        			
 			NPC npc = new NPC();
-			String[] words = {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
-					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"};
-			npc.spawnNPC(words, -32, 582, textureRegion);
-			String[] message = {"Watch out for the projectiles!"};
-			npc.spawnNPC(message, -3, 593, textureRegion);
+			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
+					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"}, -32, 582, squirrelMan));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Watch out for the projectiles!"}, -3, 593, oldMan));
 
 			Map.getInstance().getEntityHandler().spawnLevelSeven();
 			
