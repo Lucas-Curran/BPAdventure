@@ -7,6 +7,7 @@ public class Screens {
 	private static Game game;
 	private static Screens instance;
 	private static MainMenu mMenu;
+	private static Settings settings;
 	
 	public Screens(Game game) {
 		Screens.game = game;
@@ -15,6 +16,11 @@ public class Screens {
 	public static void toMenu(MainMenu menu) {
 		mMenu = menu;
 		game.setScreen(menu);
+	}
+	
+	public static void toSettings(Settings settings) {
+		Screens.settings = settings;
+		game.setScreen(settings);
 	}
 	
 	public static void toMap() {
@@ -31,6 +37,10 @@ public class Screens {
 	
 	public static MainMenu getMenu() {
 		return mMenu;
+	}
+	
+	public static Settings getSettings() {
+		return settings;
 	}
 	
 }
