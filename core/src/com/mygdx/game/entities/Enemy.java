@@ -78,8 +78,8 @@ public class Enemy extends EntityHandler {
 		return entity;
 	}
 	
-public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange,  TextureRegion entityTexture) {
-public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time) {
+
+public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -150,7 +150,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		
 		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, tex);
 		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, tex);
-		createEnemyShooter(-16, 287, 1, 1f, -2, 0, 7);
+		createEnemyShooter(-16f, 287f, 1, 1f, -2, 0, 7, 7, tex);
 		
 		
 		return enemies;
@@ -175,10 +175,9 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
 		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
-		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, spikySlime);
-		createEnemy(10, 595, EnemyState.PATROL, 5, 1f, slimyMob);
-		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, tex);
-		createEnemyShooter(0, 593, 1, 1f, -2, 0, 7, 10);
+		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob);
+
 		return enemies;
 	}
 	
