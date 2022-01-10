@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -56,6 +57,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 	private TextButton confirmButton;
 	private ShopItem selectedBuyItem;
 	private ShopItem selectedSellItem;
+	private Group itemToRemove;
 	
 	public ShopWindow(HashMap<Label, ShopItem> buyList, HashMap<Label, ShopItem> sellList, Money money) {
 		super("Shop", new WindowStyle(new BitmapFont(), Color.RED, windowBg));
@@ -108,14 +110,15 @@ public class ShopWindow extends Window implements InputProcessor  {
 					selectedBuyItem = (ShopItem) tempGroup.getChild(1);
 					Label tempLabel = (Label) tempGroup.getChild(0);
 					selectedBuyItem.setName(tempLabel.getText().toString());
-					float width = tempGroup.getWidth();
-					float height = tempGroup.getHeight();
-					float groupX = tempGroup.getX(Align.left);
-					float groupY = tempGroup.getY(Align.top);
-					borderImage.setSize(width + BORDER_WIDTH * 2, height + BORDER_WIDTH * 2);
-					borderImage.setPosition(groupX - BORDER_WIDTH + 18, groupY + 22 + height - BORDER_WIDTH);
-					stage.addActor(borderImage);
-					tempGroup.getParent().getParent().getParent().toFront();
+					itemToRemove = tempGroup;
+//					float width = tempGroup.getWidth();
+//					float height = tempGroup.getHeight();
+//					float groupX = tempGroup.getX(Align.left);
+//					float groupY = tempGroup.getY(Align.top);
+//					borderImage.setSize(width + BORDER_WIDTH * 2, height + BORDER_WIDTH * 2);
+//					borderImage.setPosition(groupX - BORDER_WIDTH + 18, groupY + 22 + height - BORDER_WIDTH);
+//					stage.addActor(borderImage);
+//					tempGroup.getParent().getParent().getParent().toFront();
 					return true;
 				}			
 	  					
@@ -150,14 +153,15 @@ public class ShopWindow extends Window implements InputProcessor  {
 					selectedBuyItem = null;
 					selectedSellItem = null;
 					selectedSellItem = (ShopItem) tempGroup.getChild(1);
-					float width = tempGroup.getWidth();
-					float height = tempGroup.getHeight();
-					float groupX = tempGroup.getX(Align.left);
-					float groupY = tempGroup.getY(Align.top);
-					borderImage.setSize(width + BORDER_WIDTH * 2, height + BORDER_WIDTH * 2);
-					borderImage.setPosition(groupX - BORDER_WIDTH + 18, groupY + 22 + height - BORDER_WIDTH);
-					stage.addActor(borderImage);
-					tempGroup.getParent().getParent().getParent().toFront();
+					itemToRemove = tempGroup;
+//					float width = tempGroup.getWidth();
+//					float height = tempGroup.getHeight();
+//					float groupX = tempGroup.getX(Align.left);
+//					float groupY = tempGroup.getY(Align.top);
+//					borderImage.setSize(width + BORDER_WIDTH * 2, height + BORDER_WIDTH * 2);
+//					borderImage.setPosition(groupX - BORDER_WIDTH + 18, groupY + 22 + height - BORDER_WIDTH);
+//					stage.addActor(borderImage);
+//					tempGroup.getParent().getParent().getParent().toFront();
 					return true;
 				}			
 	  					
@@ -274,16 +278,106 @@ public class ShopWindow extends Window implements InputProcessor  {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (confirmButton.isPressed()) {
 			System.out.println("Confirm button pressed");
+			Money money = com.mygdx.game.Map.getInstance().getPlayerHUD().getStatusUI().getMoney();
 			if (selectedBuyItem != null) {
 				InventoryItem tempItem = new InventoryItem(selectedBuyItem);
 				System.out.println("Bought item " + selectedBuyItem.getName());
 				com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(tempItem, selectedBuyItem.getName());
-				Money money = com.mygdx.game.Map.getInstance().getPlayerHUD().getStatusUI().getMoney();
 				money.setMoney(money.getMoney() - selectedBuyItem.getCost());
+				buyList.remove(itemToRemove.getChild(0));		
 			}
 			if (selectedSellItem != null) {
-				
+				money.setMoney(money.getMoney() + 1);
+				itemToRemove.remove();
 			}
+			
+				sellTable.clearChildren();
+				buyTable.clearChildren();
+				
+				for (Map.Entry<Label, ShopItem> set : buyList.entrySet()) {	
+					set.getKey().setWrap(true);
+					final Group tempGroup = new Group();
+					
+//					set.getKey().setWidth(150);
+//					set.getKey().setHeight(32);
+//					
+//					set.getValue().setWidth(32);
+//					set.getValue().setHeight(32);
+//					
+//					set.getValue().setBounds(set.getValue().getX() + set.getKey().getWidth(), set.getValue().getY(), 32, 32);
+					
+					tempGroup.addActor(set.getKey());
+					tempGroup.addActor(set.getValue());
+					
+					buyTable.add(tempGroup).width(182).height(32).padTop(10);
+					
+					tempGroup.addListener(new ClickListener() {
+
+						@Override
+						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+							borderImage.remove();
+							selectedBuyItem = null;
+							selectedSellItem = null;
+							selectedBuyItem = (ShopItem) tempGroup.getChild(1);
+							Label tempLabel = (Label) tempGroup.getChild(0);
+							selectedBuyItem.setName(tempLabel.getText().toString());
+							itemToRemove = tempGroup;
+//							float width = tempGroup.getWidth();
+//							float height = tempGroup.getHeight();
+//							float groupX = tempGroup.getX(Align.left);
+//							float groupY = tempGroup.getY(Align.top);
+//							borderImage.setSize(width + BORDER_WIDTH * 2, height + BORDER_WIDTH * 2);
+//							borderImage.setPosition(groupX - BORDER_WIDTH + 18, groupY + 22 + height - BORDER_WIDTH);
+//							stage.addActor(borderImage);
+//							tempGroup.getParent().getParent().getParent().toFront();
+							return true;
+						}			
+			  					
+					});
+					buyTable.row();
+				}
+				
+				for (Map.Entry<Label, ShopItem> set : com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().getAllItems().entrySet()) {
+					set.getKey().setWrap(true);
+					final Group tempGroup = new Group();
+					
+					set.getKey().setWidth(150);
+					set.getKey().setHeight(32);
+					
+					set.getValue().setWidth(32);
+					set.getValue().setHeight(32);
+					
+					set.getValue().setBounds(set.getValue().getX() + set.getKey().getWidth(), set.getValue().getY(), 32, 32);
+					
+					tempGroup.addActor(set.getKey());
+					tempGroup.addActor(set.getValue());
+					
+					sellTable.add(tempGroup).width(182).height(32).padTop(10);
+					
+					tempGroup.addListener(new ClickListener() {
+
+						@Override
+						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+							borderImage.remove();
+							selectedBuyItem = null;
+							selectedSellItem = null;
+							selectedSellItem = (ShopItem) tempGroup.getChild(1);
+//							float width = tempGroup.getWidth();
+//							float height = tempGroup.getHeight();
+//							float groupX = tempGroup.getX(Align.left);
+//							float groupY = tempGroup.getY(Align.top);
+//							borderImage.setSize(width + BORDER_WIDTH * 2, height + BORDER_WIDTH * 2);
+//							borderImage.setPosition(groupX - BORDER_WIDTH + 18, groupY + 22 + height - BORDER_WIDTH);
+//							stage.addActor(borderImage);
+//							tempGroup.getParent().getParent().getParent().toFront();
+							return true;
+						}			
+			  					
+					});
+					sellTable.row();
+				}
+			
+			
 			setShopVisible(false);
 			return true;
 		}

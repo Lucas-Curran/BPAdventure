@@ -45,7 +45,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		
 		NPC npc = new NPC();
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Would you like to take a look at my wares?"}, 13, 1, tex, true));
-		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getMoney());
+		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getPlayerHUD().getInventory().getAllItems(), Map.getInstance().getMoney());
 		
 		isCreated = true;
 	}
