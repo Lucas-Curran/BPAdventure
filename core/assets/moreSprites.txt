@@ -1,0 +1,47 @@
+moreSprites.png
+size: 32, 191
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bullet(left)
+  rotate: false
+  xy: 0, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+bullet(right)
+  rotate: false
+  xy: 0, 32
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+oldMan
+  rotate: false
+  xy: 0, 64
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+slimyMob
+  rotate: false
+  xy: 0, 96
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+spikySlime
+  rotate: false
+  xy: 0, 128
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+squirrelMan
+  rotate: false
+  xy: 0, 159
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,82 @@
+bpaatlas.png
+size: 704, 808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arrowAni
+  rotate: false
+  xy: 384, 0
+  size: 320, 32
+  orig: 320, 32
+  offset: 0, 0
+  index: -1
+holderBoots
+  rotate: false
+  xy: 32, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+holderChest
+  rotate: false
+  xy: 64, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+holderHelmet
+  rotate: false
+  xy: 96, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+holderLegs
+  rotate: false
+  xy: 128, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+holderShield
+  rotate: false
+  xy: 160, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+holderSword
+  rotate: false
+  xy: 192, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+IceCharacter
+  rotate: false
+  xy: 0, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+invBackground
+  rotate: false
+  xy: 0, 328
+  size: 640, 480
+  orig: 640, 480
+  offset: 0, 0
+  index: -1
+itemsBackground
+  rotate: false
+  xy: 224, 0
+  size: 160, 128
+  orig: 160, 128
+  offset: 0, 0
+  index: -1
+textbox2
+  rotate: false
+  xy: 0, 128
+  size: 600, 200
+  orig: 600, 200
+  offset: 0, 0
+  index: -1

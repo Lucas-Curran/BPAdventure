@@ -5,177 +5,199 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
+import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.InventoryItem.ItemUseType;
+import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
-public class Inventory extends Stage {
+public class Inventory extends Window {
+
+	private static TextureRegion background = new TextureRegion(Utilities.UISKIN.getAtlas().findRegion("invBackground"));
 	
-	private Stage stage;
-	private Table table;
-	private TextureRegion tex;
-	private TextureRegion background;
-	private TextureAtlas atlas;
-	private Image backgroundImage;
-	private Image image;
-	
-	private Camera cam;
-	
-	private HashMap<Integer, Item> items;
+	private Table equipmentTable;
+	private Table slotsTable;
 	
 	private DragAndDrop dragAndDrop;
 	
-	private final float NUM_ROWS = 4;
-	private final float NUM_COLUMNS = 5;
+	private final int NUM_ROWS = 4;
+	private final int NUM_COLUMNS = 5;
+	private final int INVENTORY_SPACE = NUM_ROWS * NUM_COLUMNS;
+	public final int HOTBAR_LENGTH = NUM_COLUMNS;
+	
+	private final int SLOT_WIDTH = 32;
+	private final int SLOT_HEIGHT = 32;
+	
+	private Array<Actor> inventoryActors;
 	
 	private Array<Cell> cells;
 
+	private ArrayList<Image> inventoryImages = new ArrayList<Image>();
+	
+	private Array<Cell> sourceCells;
+
 	public Inventory() {
-		cam = new Camera();
+		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
 		
-		stage = new Stage();
-		table = new Table();
-		
-		table.setFillParent(true);
-		table.setDebug(true);
-		table.pad(2);
-		table.bottom();
-		
-		atlas = new TextureAtlas(Gdx.files.internal("adventureatlas.txt"));
-		background = atlas.findRegion("inventory");
-		backgroundImage = new Image(background);
-		
-		table.setBackground(backgroundImage.getDrawable());
-		table.setVisible(false);
-		
-		items = new HashMap<Integer, Item>();
-
 		dragAndDrop = new DragAndDrop();
+		dragAndDrop.setKeepWithinStage(false);
 		
-		stage.addActor(table);	
+		inventoryActors = new Array<Actor>();
 		
-		createGrid();
-		
-		cells = table.getCells();
+		slotsTable = new Table();
+		slotsTable.setName("Slots_Table");
 
-	}
-	
-	public void render() {
-		dragAndDrop.setDragActorPosition(image.getWidth()/2 - (Gdx.graphics.getWidth() - 640)/2, -(image.getHeight()/2));
+		equipmentTable = new Table();
+		equipmentTable.setName("Equipment_Table");
+		equipmentTable.defaults().space(10);
 		
-		stage.act();
-		stage.draw();
-	}
-	
-	public void createGrid() {
-		for (int i = 0; i < NUM_ROWS; i++) {
-			for (int j = 0; j < NUM_COLUMNS; j++) {
-				table.add().size(32);
-			}
-			table.row();
-		}
-	}
-	
-	public void arrangeInventory() {
-		for (int position : items.keySet()) {
-			System.out.println("Key: " + position + " Value: " + items.get(position).name);
-			tex = items.get(position).texture;
-			image = new Image(tex);
-			
-			for (Cell<?> cell : cells) {
-				if (!cell.hasActor()) {
-					cell.setActor(image);
-					break;
-				}
-			}
-			
-			dragAndDrop.addSource(new Source(image) {
-	
-				float payloadX;
-				float payloadY;
+		InventorySlot headSlot = new InventorySlot(
+				ItemUseType.ARMOR_HELMET.getValue(),
+				new Image(Utilities.UISKIN.getRegion("holderHelmet")));
+		
+		InventorySlot leftArmSlot = new InventorySlot(
+				ItemUseType.WEAPON_ONEHAND.getValue() |
+				ItemUseType.WEAPON_TWOHAND.getValue(),
+				new Image(Utilities.UISKIN.getRegion("holderSword")));
+		
+		InventorySlot rightArmSlot = new InventorySlot(
+				ItemUseType.ARMOR_SHIELD.getValue(),
+				new Image(Utilities.UISKIN.getRegion("holderShield")));
+		
+		InventorySlot chestSlot = new InventorySlot(
+				ItemUseType.ARMOR_CHEST.getValue(),
+				new Image(Utilities.UISKIN.getRegion("holderChest")));
+		
+		InventorySlot legsSlot = new InventorySlot(
+				ItemUseType.ARMOR_LEGS.getValue(),
+				new Image(Utilities.UISKIN.getRegion("holderLegs")));
+		
+		InventorySlot bootsSlot = new InventorySlot(
+				ItemUseType.ARMOR_FEET.getValue(),
+				new Image(Utilities.UISKIN.getRegion("holderBoots")));
+		
+		dragAndDrop.addTarget(new InventorySlotTarget(headSlot));
+		dragAndDrop.addTarget(new InventorySlotTarget(leftArmSlot));
+		dragAndDrop.addTarget(new InventorySlotTarget(rightArmSlot));
+		dragAndDrop.addTarget(new InventorySlotTarget(chestSlot));
+		dragAndDrop.addTarget(new InventorySlotTarget(legsSlot));
+		dragAndDrop.addTarget(new InventorySlotTarget(bootsSlot));
+		
+		slotsTable.setBackground(new Image(Utilities.UISKIN.getRegion("itemsBackground")).getDrawable());
+				
+		for (int i = 1; i <= INVENTORY_SPACE; i++) {
+			InventorySlot inventorySlot = new InventorySlot();
+			dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
+			slotsTable.add(inventorySlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+			inventorySlot.addListener(new ClickListener() {
 				
 				@Override
-				public Payload dragStart(InputEvent event, float x, float y, int pointer) {				
-					Payload payload = new Payload();
-					payload.setObject(image);
-					payload.setDragActor(getActor());
-					payloadX = payload.getDragActor().getX(Align.bottomLeft);
-					payloadY = payload.getDragActor().getY(Align.bottomLeft);
-					return payload;
-				}
-
-				@Override
-				public void dragStop(InputEvent event, float x, float y, int pointer, Payload payload, Target target) {
-					if (target != null) {
-						payload.getDragActor().setPosition(target.getActor().getX(Align.bottomLeft), target.getActor().getY(Align.bottomLeft));
-						target.getActor().setPosition(payloadX, payloadY);
-					} else {
-						payload.getDragActor().setPosition(payloadX, payloadY);
+				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+					super.touchUp(event, x, y, pointer, button);
+					if (getTapCount() == 2) {
+						setTapCount(0);
+						InventorySlot slot = (InventorySlot) event.getListenerActor();
+						if (slot.hasItem()) {
+							InventoryItem item = slot.getTopInventoryItem();
+							if (item.isConsumable()) {
+								slot.removeActor(item);
+								slot.remove(item);
+							}
+						}
 					}
-					super.dragStop(event, x, y, pointer, payload, target);
-				}
-			});
-			
-			dragAndDrop.addTarget(new Target(image) {
-				
-				@Override
-				public boolean drag(Source source, Payload payload, float x, float y, int pointer) {
-					getActor().setColor(Color.GREEN);
-					return true;
-				}
-
-				@Override
-				public void drop(Source source, Payload payload, float x, float y, int pointer) {
-					System.out.println("On target");
-	
-				}
-
-				@Override
-				public void reset(Source source, Payload payload) {
-					getActor().setColor(Color.WHITE);
-					super.reset(source, payload);
 				}
 				
 			});
-			
-		}
-	}
-	
-	public Stage getStage() {
-		return stage;
-	}
-	
-	public void showInventory() {
-		table.setVisible(true);
+			if (i % NUM_COLUMNS == 0) {
+				slotsTable.row();
+			}
+		}	
+
+		equipmentTable.padLeft(10);
 		
+		equipmentTable.add();
+		equipmentTable.add(headSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		equipmentTable.row();
+		
+		equipmentTable.add(leftArmSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		equipmentTable.add(chestSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		equipmentTable.add(rightArmSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		equipmentTable.row();
+		
+		equipmentTable.add();
+		equipmentTable.right().add(legsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		equipmentTable.row();
+		
+		equipmentTable.add();
+		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+		
+		this.setFillParent(true);
+		this.add(equipmentTable);
+		this.add(slotsTable);
+		this.getTitleTable().padTop(300).padLeft(178);
+		this.pack();
+		
+		sourceCells = slotsTable.getCells(); 
 	}
 	
-	public void closeInventory() {
-		table.setVisible(false);
-	}
+	 public void addItemToInventory(InventoryItem item, String itemName){
+            for (int i = 0; i < sourceCells.size; i++) {
+	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+	                if (inventorySlot == null)  {
+	                	continue;            
+	                }
+	                int numItems = inventorySlot.getNumItems();
+	                if (numItems == 0) {
+	                    item.setName(itemName);
+	                    inventorySlot.add(item);
+	                    dragAndDrop.addSource(new InventorySlotSource(inventorySlot, dragAndDrop));           
+	                    break;
+	                }
+	            }
+	    }
+
 	
-	public boolean isVisible() {
-		if (table.isVisible()) {
-			return true;
-		} else {
-			return false;
+	public ArrayList<Cell> getHotbarItems() {
+		ArrayList<Cell> hotbarItems = new ArrayList<Cell>();
+		for (int i = 0; i < HOTBAR_LENGTH; i++) {
+			hotbarItems.add(i, cells.get(i));
 		}
+		return hotbarItems;
 	}
 	
-	public void addItem(Item item) {
-		items.put(items.size(), item);
+	public ArrayList<Image> getHotbarImages() {
+		return inventoryImages;
+	}
+	
+	public Array<Actor> getInventoryActors() {
+		return inventoryActors;
+	}
+
+	public Table getSlotsTable() {
+		return slotsTable;
 	}
 	
 }

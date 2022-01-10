@@ -1,0 +1,12 @@
+test.png
+size: 210, 85
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+MenuRectangle
+  rotate: false
+  xy: 0, 0
+  size: 210, 85
+  orig: 210, 85
+  offset: 0, 0
+  index: -1

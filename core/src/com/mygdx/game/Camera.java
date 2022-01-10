@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
@@ -21,6 +22,8 @@ public class Camera implements ApplicationListener {
 	
 	static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth()/PPM;
 	static final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight()/PPM;
+	static final float textureWidth = Gdx.graphics.getWidth();
+	static final float textureHeight = Gdx.graphics.getHeight();
 	
 	public Camera() {
 		create();
@@ -31,19 +34,27 @@ public class Camera implements ApplicationListener {
 		if (cam == null) {						
 			cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
-			viewport = new FitViewport(cam.viewportWidth, cam.viewportHeight, cam);		
+			viewport = new FitViewport(cam.viewportWidth, cam.viewportHeight, cam);	
 		}
 	}
 
 	@Override
-	public void resize(int width, int height) {    
+	public void resize(int width, int height) { 
 		viewport.update(width, height, false);	
+		Map.getInstance().getTextBox().resize(width, height);
+		if (Map.getInstance().getLevels().getLevelOne().getShopWindow() != null) {
+			Map.getInstance().getLevels().getLevelOne().resize(width, height);
+		}
+		if (Screens.getGame().getScreen() == Screens.getMenu()) {
+			Screens.getMenu().resize(width, height);
+		}
+		
+		Map.getInstance().getPlayerHUD().resize(width, height);
 	}
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -73,6 +84,10 @@ public class Camera implements ApplicationListener {
 	
 	public Viewport getViewport() {
 		return viewport;
+	}
+	
+	public float getX() {
+		return cam.position.x;
 	}
 	
 	
