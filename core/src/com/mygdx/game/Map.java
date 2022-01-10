@@ -156,6 +156,10 @@ public class Map implements Screen, InputProcessor {
 		if (!levels.getLevelTen().isCreated()) {
 			levels.getLevelTen().create();
 		}
+		
+		if (!levels.getIceDungeon().isCreated()) {
+			levels.getIceDungeon().create();
+		}
 	}
 
 	@Override
@@ -181,7 +185,6 @@ public class Map implements Screen, InputProcessor {
 		
 		
 		levels.getLevelOne().render();
-		levels.getLevelThree().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
 			if (levels.getLevelOne().getShopWindow().isShopVisible()) {
@@ -269,18 +272,12 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
-		if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == false && !inAction()) {
-			entityHandler.getPlayer().setGravityScale(1);
-			gravitySwitch = false;
-			return true;
-		}
-		
 		if(entityHandler.killZone == true && !inAction()) {
 			death = true;
 			return true;
 		}
 		
-		if (Input.Keys.R == keycode && (entityHandler.talkingZone == true || textBox.isVisible()) && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
+		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
 			//textBox.setOptions(true, "Shop", "Close");
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {

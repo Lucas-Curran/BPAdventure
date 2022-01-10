@@ -256,6 +256,12 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 	
+	public void spawnIceDungeon() {
+		for (Entity enemy : enemies.getIceDungeon()) {
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	
 	public void spawnBullets() {
 		for (Entity bullet : bullets.getBullets()) {
 			pooledEngine.addEntity(bullet);

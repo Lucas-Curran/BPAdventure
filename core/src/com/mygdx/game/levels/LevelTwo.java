@@ -30,7 +30,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	private Texture chestImage;
 	private Rectangle chest;
 	private DoorBuilder db = DoorBuilder.getInstance();
-	Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+	Texture texture = new Texture(Gdx.files.internal("crackedPillar.png"));
 	
 	Body[] chests = new Body[1];
 	@Override

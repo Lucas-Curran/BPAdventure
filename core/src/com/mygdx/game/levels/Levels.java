@@ -18,6 +18,7 @@ public class Levels {
 	private LevelEight levelEight;
 	private LevelNine levelNine;
 	private LevelTen levelTen;
+	private IceDungeon iceDungeon;
 	
 	public Levels(World world) {
 
@@ -31,6 +32,7 @@ public class Levels {
 		levelEight = new LevelEight(world);
 		levelNine = new LevelNine(world);
 		levelTen = new LevelTen(world);
+		iceDungeon = new IceDungeon(world);
 			
 	}
 	
@@ -98,6 +100,10 @@ public class Levels {
 		return levelTen;
 	}
 	
+	public IceDungeon getIceDungeon() {
+		return iceDungeon;
+	}
+	
 	public void dispose() {
 		levelOne.dispose();
 		levelTwo.dispose();
@@ -109,6 +115,7 @@ public class Levels {
 		levelEight.dispose();
 		levelNine.dispose();
 		levelTen.dispose();
+		iceDungeon.dispose();
 	}
 	
 }
