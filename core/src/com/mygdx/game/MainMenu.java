@@ -148,10 +148,8 @@ public class MainMenu implements Screen, InputProcessor {
 		 } else if (settingsButton.isPressed()) {
 			 if (Screens.getSettings() != null) {
 				 Screens.toSettings(Screens.getSettings());
-				 System.out.println("1");
 			 } else {
 				 Screens.toSettings(new Settings());
-				 System.out.println("2");
 			 }
 		 } else if (quitButton.isPressed()) {
 			 dispose();
