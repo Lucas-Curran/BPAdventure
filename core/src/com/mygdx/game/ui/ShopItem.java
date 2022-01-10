@@ -11,9 +11,9 @@ public class ShopItem extends Image {
 	private int itemAttributes;
 	private int itemUseType;
 	private ItemTypeID itemTypeID;
-	private float cost;
+	private int cost;
 	
-	public ShopItem(InventoryItem item, float cost) {
+	public ShopItem(InventoryItem item, int cost) {
 		super(item.getDrawable());
 		itemAttributes = item.getItemAttributes();
 		itemUseType = item.getItemUseType();
@@ -21,11 +21,11 @@ public class ShopItem extends Image {
 		this.cost = cost;
 	}
 
-	public float getCost() {
+	public int getCost() {
 		return cost;
 	}
 
-	public void setCost(float cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
 	}
 

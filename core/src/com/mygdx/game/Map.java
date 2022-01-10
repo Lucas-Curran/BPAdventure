@@ -111,9 +111,7 @@ public class Map implements Screen, InputProcessor {
 		inputMultiplexer.addProcessor(playerHUD.getStage());
 		inputMultiplexer.addProcessor(textBox.getInstance());
 		inputMultiplexer.addProcessor(textBox.getStage());
-		
-		Gdx.input.setInputProcessor(inputMultiplexer);
-		
+
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
 			weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
@@ -156,6 +154,11 @@ public class Map implements Screen, InputProcessor {
 		if (!levels.getLevelTen().isCreated()) {
 			levels.getLevelTen().create();
 		}
+		
+		inputMultiplexer.addProcessor(levels.getLevelOne().getShopWindow());
+		inputMultiplexer.addProcessor(levels.getLevelOne().getShopWindow().getStage());
+		
+		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 
 	@Override
@@ -187,6 +190,7 @@ public class Map implements Screen, InputProcessor {
 				if (playerHUD.getStatusUI().getMoney().getParent() == playerHUD.getStatusUI()) {
 					playerHUD.getStatusUI().getMoney().remove();
 				}
+				levels.getLevelOne().getShopWindow().render(delta);
 			}
 			playerHUD.render(delta);
 		}
@@ -282,7 +286,7 @@ public class Map implements Screen, InputProcessor {
 					textBox.hideTextBow();
 				}
 			} else {
-				textBox.setText(entityHandler.getCurrentNPCText());
+				textBox.setText(entityHandler.getCurrentNPCText(), entityHandler.hasOptions());
 			}
 			return true;
 		}

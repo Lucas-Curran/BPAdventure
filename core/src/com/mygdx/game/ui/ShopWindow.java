@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -30,10 +33,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.Utilities;
+import com.mygdx.game.item.InventoryItem;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 
-public class ShopWindow extends Window {
+public class ShopWindow extends Window implements InputProcessor  {
 	
 	private Table buyTable;
 	private Table sellTable;
@@ -49,8 +53,9 @@ public class ShopWindow extends Window {
 	private ScrollPane scroll;
 	private final int BORDER_WIDTH = 3;
 	private Money money;
-
-	//TODO: Scrollable table - https://stackoverflow.com/questions/23944088/libgdx-table-in-scrollpane
+	private TextButton confirmButton;
+	private ShopItem selectedBuyItem;
+	private ShopItem selectedSellItem;
 	
 	public ShopWindow(HashMap<Label, ShopItem> buyList, HashMap<Label, ShopItem> sellList, Money money) {
 		super("Shop", new WindowStyle(new BitmapFont(), Color.RED, windowBg));
@@ -72,7 +77,6 @@ public class ShopWindow extends Window {
 		getTitleTable().padBottom(15);
 		
 		stage = new Stage();	
-		com.mygdx.game.Map.getInstance().getInputMultiplexer().addProcessor(stage);
 		stage.setDebugAll(true);
 
 		buyTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
@@ -99,6 +103,11 @@ public class ShopWindow extends Window {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					borderImage.remove();
+					selectedBuyItem = null;
+					selectedSellItem = null;
+					selectedBuyItem = (ShopItem) tempGroup.getChild(1);
+					Label tempLabel = (Label) tempGroup.getChild(0);
+					selectedBuyItem.setName(tempLabel.getText().toString());
 					float width = tempGroup.getWidth();
 					float height = tempGroup.getHeight();
 					float groupX = tempGroup.getX(Align.left);
@@ -138,6 +147,9 @@ public class ShopWindow extends Window {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					borderImage.remove();
+					selectedBuyItem = null;
+					selectedSellItem = null;
+					selectedSellItem = (ShopItem) tempGroup.getChild(1);
 					float width = tempGroup.getWidth();
 					float height = tempGroup.getHeight();
 					float groupX = tempGroup.getX(Align.left);
@@ -153,7 +165,7 @@ public class ShopWindow extends Window {
 			sellTable.row();
 		}
 		
-		TextButton confirmButton = new TextButton("Confirm", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		confirmButton = new TextButton("Confirm", Utilities.buttonStyles("default-rect", "default-rect-down"));
 		Utilities.buttonSettings(confirmButton);
 		
 		infoTable = new Table();
@@ -200,6 +212,7 @@ public class ShopWindow extends Window {
 	
 	public void setShopVisible(boolean isVisible) {
 		container.setVisible(isVisible);
+		confirmButton.setVisible(isVisible);
 	}
 	
 	public boolean isShopVisible() {
@@ -232,5 +245,71 @@ public class ShopWindow extends Window {
         scalePixmap.dispose();
         return pixmaptexture;
     }
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		if (confirmButton.isPressed()) {
+			System.out.println("Confirm button pressed");
+			if (selectedBuyItem != null) {
+				InventoryItem tempItem = new InventoryItem(selectedBuyItem);
+				System.out.println("Bought item " + selectedBuyItem.getName());
+				com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(tempItem, selectedBuyItem.getName());
+				Money money = com.mygdx.game.Map.getInstance().getPlayerHUD().getStatusUI().getMoney();
+				money.setMoney(money.getMoney() - selectedBuyItem.getCost());
+			}
+			if (selectedSellItem != null) {
+				
+			}
+			setShopVisible(false);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(float amountX, float amountY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public Stage getStage() {
+		return stage;
+	}
 	
 }

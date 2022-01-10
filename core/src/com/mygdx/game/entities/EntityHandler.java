@@ -71,6 +71,7 @@ public class EntityHandler implements ApplicationListener {
 	String destination;
 	
 	private String[] currentNPCText;
+	private boolean hasOptions;
 	
 	public float getDestinationX() {
         return destinationX;
@@ -322,6 +323,14 @@ public class EntityHandler implements ApplicationListener {
 	
 	public PooledEngine getPooledEngine() {
 		return pooledEngine;
+	}
+	
+	public boolean hasOptions() {
+		return hasOptions;
+	}
+	
+	public void setHasOptions(boolean hasOptions) {
+		this.hasOptions = hasOptions;
 	}
 	
 }

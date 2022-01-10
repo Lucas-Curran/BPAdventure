@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.ui.ShopWindow;
 
@@ -41,9 +42,11 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 		inLevelOne = true;
 		
 		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
-	
+		
+		NPC npc = new NPC();
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Would you like to take a look at my wares?"}, 13, 1, tex, true));
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getMoney());
-
+		
 		isCreated = true;
 	}
 	
