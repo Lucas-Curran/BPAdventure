@@ -48,7 +48,7 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 		public void create() {	
 			super.createLevel(15, 400, 1, 100, 20, texture);
 			
-			db.createDoor(45, 382, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
+			db.createDoor(45, 382.5f, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
 			      			
 			NPC npc = new NPC();
 			
