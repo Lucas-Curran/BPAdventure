@@ -160,7 +160,7 @@ public class EntityHandler implements ApplicationListener {
 		bullets = new Bullet();
 		pooledEngine.addSystem(new CollisionSystem());
 		
-		pooledEngine.addEntity(player.createPlayer(0, 595));
+		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 		
 	}
 
@@ -343,5 +343,5 @@ public class EntityHandler implements ApplicationListener {
 	public PooledEngine getPooledEngine() {
 		return pooledEngine;
 	}
-
+	
 }
