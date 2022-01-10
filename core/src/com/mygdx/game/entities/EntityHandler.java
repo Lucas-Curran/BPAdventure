@@ -51,7 +51,7 @@ public class EntityHandler implements ApplicationListener {
 	public TextureAtlas levelSevenAtlas;
 	protected TextureRegion rockMob;
 	protected TextureRegion spikyRockMob;
-	protected TextureRegion UnknownBeing;
+	protected TextureRegion unknownBeing;
 	protected TextureRegion normalMan;
 	protected TextureRegion bulletLeft;
 	protected TextureRegion slimyMob;
@@ -116,6 +116,7 @@ public class EntityHandler implements ApplicationListener {
 		rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
 		spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
 		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
+		unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
 		
 		levelSevenAtlas = new TextureAtlas("moreSprites.txt");
 		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
