@@ -41,8 +41,8 @@ public class EntityHandler implements ApplicationListener {
 	BodyFactory bodyFactory;
 	GameWorld gameWorld;
 	RenderingSystem renderingSystem;
-	SpriteBatch batch;
-	Camera cam;
+	public SpriteBatch batch;
+	public Camera cam;
 	
 	TextureAtlas textureAtlas;
 	protected TextureRegion tex;
@@ -133,6 +133,7 @@ public class EntityHandler implements ApplicationListener {
 		
 		loadingZone = false;
 		talkingZone = false;
+		gravityZone = false;
 		
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
@@ -278,6 +279,7 @@ public class EntityHandler implements ApplicationListener {
 			pooledEngine.getSystem(PlayerControlSystem.class).setJumpScale(-40);
 		} else if (Map.getInstance().gravitySwitch == false){
 			pooledEngine.getSystem(PlayerControlSystem.class).setJumpScale(40);
+			
 		}
 	}
 

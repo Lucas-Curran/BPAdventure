@@ -117,7 +117,7 @@ public class BodyFactory {
 	 * @param fixedRotation - rotation
 	 * @return body
 	 */
-	public Body makeCirclePolyBody(float posx, float posy, float radius, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor, Texture texture){
+	public Body makeCirclePolyBody(float posx, float posy, float radius, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor){
 		// create a definition
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
@@ -132,7 +132,7 @@ public class BodyFactory {
 		boxBody.createFixture(makeFixture(material,circleShape, isSensor));
 		circleShape.dispose();
 		
-		//bodies.add(Utilities.addPolygonTexture(texture, boxBody));
+		
 		
 		return boxBody;
 	}

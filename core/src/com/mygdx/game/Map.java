@@ -181,6 +181,7 @@ public class Map implements Screen, InputProcessor {
 		
 		
 		levels.getLevelOne().render();
+		levels.getLevelThree().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
 			if (levels.getLevelOne().getShopWindow().isShopVisible()) {
@@ -265,6 +266,12 @@ public class Map implements Screen, InputProcessor {
 		if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == true && !inAction()) {
 			entityHandler.getPlayer().setGravityScale(-1);
 			gravitySwitch = true;
+			return true;
+		}
+		
+		if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == false && !inAction()) {
+			entityHandler.getPlayer().setGravityScale(1);
+			gravitySwitch = false;
 			return true;
 		}
 		

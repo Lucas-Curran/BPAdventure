@@ -85,7 +85,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 //		rotator = bodyFactory.makeBoxPolyBody(-22, 104f, 1, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
 		
 		
-		sawCenter = bodyFactory.makeCirclePolyBody(-20, 190f, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false, texture);
+		sawCenter = bodyFactory.makeCirclePolyBody(-20, 190f, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
 		
 		Vector2 vertex1 = new Vector2(1, 3);
 		Vector2 vertex2 = new Vector2(3, 4);
@@ -156,6 +156,10 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 
 	@Override
 	public void render() {	
+		 batch.setProjectionMatrix(cam.getCombined());
+		 batch.begin();
+		 batch.draw(texture, -20, 190);
+		 batch.end();
 		 
 	}
 
