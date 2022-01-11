@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.ui.ReportBugWindow;
 
 public class MainMenu implements Screen, InputProcessor {
 
@@ -23,17 +24,19 @@ public class MainMenu implements Screen, InputProcessor {
 	private Camera cam;
 	private Stage stage;
 	private Table table;
-	private TextButton startButton, continueButton, settingsButton, quitButton;
+	private TextButton startButton, continueButton, settingsButton, quitButton, reportBugButton;
 	private TextButtonStyle textButtonStyle;
 	private Skin skin;
 	private TextureAtlas textureAtlas;
 	private BitmapFont font;
 	private InputMultiplexer inputMultiplexer;
 	private AudioManager am;
+	private ReportBugWindow bugWindow;
 	
 	public MainMenu() {
 		menuBackground = new Texture(Gdx.files.internal("menu_bg.png"));
 		spriteBatch = new SpriteBatch();
+		bugWindow = new ReportBugWindow();
 		cam = new Camera();
 		stage = new Stage();
 		table = new Table();
@@ -43,11 +46,15 @@ public class MainMenu implements Screen, InputProcessor {
 		continueButton = new TextButton("Continue", Utilities.buttonStyles("default-rect", "default-rect-down"));
 		settingsButton = new TextButton("Settings", Utilities.buttonStyles("default-rect", "default-rect-down"));
 		quitButton = new TextButton("Quit", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		reportBugButton = new TextButton("Report Bug", Utilities.buttonStyles("default-rect", "default-rect-down"));
+		
+		reportBugButton.getLabelCell().padRight(20);
 		
 		Utilities.buttonSettings(startButton);
 		Utilities.buttonSettings(continueButton);
 		Utilities.buttonSettings(settingsButton);
 		Utilities.buttonSettings(quitButton);
+		Utilities.buttonSettings(reportBugButton);
 	
 		table.left().bottom().padBottom(10);
 		table.add(startButton).width(180).height(70).pad(10);
@@ -57,7 +64,9 @@ public class MainMenu implements Screen, InputProcessor {
 		table.add(settingsButton).width(180).height(70).pad(10);
 		table.row();
 		table.add(quitButton).width(180).height(70).pad(10);
+		table.add(reportBugButton).width(180).height(70).padLeft(250);
 		stage.addActor(table);
+		
 		am = new AudioManager();
 	}
 	
@@ -66,7 +75,8 @@ public class MainMenu implements Screen, InputProcessor {
 		
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(stage);		
+		inputMultiplexer.addProcessor(stage);	
+		inputMultiplexer.addProcessor(bugWindow.getStage());
 		
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
@@ -79,15 +89,20 @@ public class MainMenu implements Screen, InputProcessor {
 		spriteBatch.setProjectionMatrix(cam.getCombined());
 		spriteBatch.begin();
 		spriteBatch.draw(menuBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
-		spriteBatch.end();		
-		
+		spriteBatch.end();	
+	
 		stage.act(delta);
 		stage.draw();
+		
+		if (bugWindow.isBugWindowVisible()) {
+			bugWindow.render(delta);
+		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, false);
+		bugWindow.resize(width, height);
 	}
 
 	@Override
@@ -154,6 +169,8 @@ public class MainMenu implements Screen, InputProcessor {
 		 } else if (quitButton.isPressed()) {
 			 dispose();
 			 Gdx.app.exit();
+		 } else if (reportBugButton.isPressed()) {
+			 bugWindow.setBugWindowVisible(true);
 		 }
 		return false;
 	}
