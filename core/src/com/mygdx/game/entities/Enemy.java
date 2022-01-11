@@ -86,7 +86,7 @@ public class Enemy extends EntityHandler {
 	}
 	
 
-public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture) {
+public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture, boolean random) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -109,6 +109,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		b2dbody.body.setUserData(entity);
 		enemy.xPostCenter = b2dbody.body.getPosition().x;
 		enemy.yPostCenter = b2dbody.body.getPosition().y;
+		enemy.random = random;
 		enemy.bulletXDirection = bulletXDirection;
 		enemy.bulletYDirection = bulletYDirection;
 		enemy.bulletRange = bulletRange;
@@ -132,54 +133,6 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		
 		return entity;
 	}
-
-public Entity createEnemyRandomShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture) {
-	
-	// Create the Entity and all the components that will go in the entity
-	Entity entity = pooledEngine.createEntity();
-	B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
-	TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
-	TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
-	TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
-	PlayerComponent player = pooledEngine.createComponent(PlayerComponent.class);
-	EnemyComponent enemy = pooledEngine.createComponent(EnemyComponent.class);
-	CollisionComponent colComp = pooledEngine.createComponent(CollisionComponent.class);
-
-	// create the data for the components and add them to the components
-	b2dbody.body = bodyFactory.makeCirclePolyBody(posx, posy, radius, BodyFactory.OTHER, BodyType.DynamicBody, true, false);
-	// set object position (x,y,z) z used to define draw order 0 first drawn
-	position.position.set(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y, 0);
-	position.scale.set(radius, radius);
-	texture.region = entityTexture;
-	type.type = TypeComponent.ENEMY;
-	player.player = false;
-	b2dbody.body.setUserData(entity);
-	enemy.xPostCenter = b2dbody.body.getPosition().x;
-	enemy.yPostCenter = b2dbody.body.getPosition().y;
-	enemy.bulletXDirection = enemy.randomBulletDirection;
-	enemy.bulletYDirection = enemy.randomBulletDirection;
-	
-	enemy.bulletRange = bulletRange;
-	enemy.range = range;
-	enemy.enemyMode = EnemyState.SHOOTER;
-	enemy.timer = time;
-	
-	b2dbody.body.setGravityScale(0.8f);
-	b2dbody.body.setLinearDamping(0.3f);
-	b2dbody.body.setUserData(entity);
-	
-	// add the components to the entity
-	entity.add(b2dbody);
-	entity.add(position);
-	entity.add(type);
-	entity.add(texture);
-	entity.add(enemy);
-	entity.add(colComp);
-
-	enemies.add(entity);
-	
-	return entity;
-}
 
 public ArrayList<Entity> getOverworld() {	
 	enemies.clear();
@@ -212,7 +165,7 @@ public ArrayList<Entity> getOverworld() {
 		
 		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, Utilities.tex);
 		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, Utilities.tex);
-		createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.tex);
+		createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.tex, false);
 		
 		
 		return enemies;
@@ -227,10 +180,10 @@ public ArrayList<Entity> getOverworld() {
 		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.tex);
 		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.tex);
 		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.tex);
-		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex);
-		createEnemyShooter(42, 382, 1, 4f, -2, 0, 7, 7, Utilities.tex);
-		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex);
-		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex, false);
+		createEnemyShooter(42, 382, 1, 4f, -2, 0, 7, 7, Utilities.tex, false);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex, false);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex, false);
 //		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
 	}
@@ -246,7 +199,7 @@ public ArrayList<Entity> getOverworld() {
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
 		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
-		createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+		createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime, false);
 		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob);
 		
 		
@@ -266,7 +219,7 @@ public ArrayList<Entity> getOverworld() {
 		createEnemy(-16, 686, EnemyState.STEERING, 1, 1.3f, slimyMob);
 		createEnemy(-24, 686, EnemyState.STEERING, 1, 1.3f, slimyMob);
 		createEnemy(0, 686, EnemyState.VERTICAL, 3, 2f, slimyMob);
-		createEnemyRandomShooter(7, 686, 1, 2f, -2, 5, 8, 4, spikySlime);
+		createEnemyShooter(7, 686, 1, 2f, -2, 5, 8, 4, spikySlime, true);
 //		System.out.println(enemy.randomBulletDirection);
 //		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;

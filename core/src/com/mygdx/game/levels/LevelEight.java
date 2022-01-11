@@ -40,6 +40,8 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+		Body[] pillars = new Body[20];
+		Body[] platforms = new Body[20];
 		
 		public LevelEight(World world) {
 			this.world = world;
@@ -51,10 +53,17 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			
 			db.createDoor(45, 682.5f, -35, 788, BodyFactory.STONE, "doorTo9", LevelDestination.LVL_9);
 			
-			
 			makeSaw(-20, 685f);
 			makeSaw(-12, 685f);
 			makeSaw(-4, 685f);
+			
+			pillars[0] = bodyFactory.makeBoxPolyBody(15, 692, 1, 15, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			pillars[1] = bodyFactory.makeBoxPolyBody(22, 688, 1, 15, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			platforms[0] = bodyFactory.makeBoxPolyBody(21, 683.8f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			platforms[1] = bodyFactory.makeBoxPolyBody(16, 685.5f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			platforms[2] = bodyFactory.makeBoxPolyBody(21, 687f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			platforms[3] = bodyFactory.makeBoxPolyBody(16, 689f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			platforms[3] = bodyFactory.makeBoxPolyBody(21, 692f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			
 	        			
 			NPC npc = new NPC();

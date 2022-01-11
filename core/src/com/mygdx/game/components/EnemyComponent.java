@@ -14,11 +14,11 @@ public class EnemyComponent implements Component {
 	public int bulletXDirection;
 	public int bulletYDirection;
 	public int bulletRange;
-	public int randomBulletDirection;
+	public boolean random;
 
-	public void setRandomBulletDirection(int randomBulletDirection) {
-		this.randomBulletDirection = randomBulletDirection;
-	}
+//	public void setRandomBulletDirection(int randomBulletDirection) {
+//		this.randomBulletDirection = randomBulletDirection;
+//	}
 	public static enum EnemyState {
 		PATROL		(0),
 		BOUNCE		(1),

@@ -131,12 +131,18 @@ public class EnemySystem extends IteratingSystem {
 		enemyCom.timer = timerReset;
 		
 		Bullet bullet = new Bullet();
-		Vector2 aim = new Vector2(enemyCom.bulletXDirection, enemyCom.bulletYDirection);
+		Random rNum = new Random();
+		Vector2 aim;
+		if (enemyCom.random) {
+			enemyCom.bulletXDirection = -(1 + rNum.nextInt(10));
+			enemyCom.bulletYDirection = (1 + rNum.nextInt(10));
+		 
+		}
+		 aim = new Vector2(enemyCom.bulletXDirection, enemyCom.bulletYDirection);
+
 		aim.scl(1);
 		
-		Random rNum = new Random();
-		
-		enemyCom.setRandomBulletDirection(1 + rNum.nextInt(10));
+
 		
 		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y,
 				enemyCom.bulletRange, BulletComponent.Owner.ENEMY, enemy));
