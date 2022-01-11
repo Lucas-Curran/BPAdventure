@@ -1,6 +1,6 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made.
+//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
 
 import java.util.ArrayList;
 
@@ -49,8 +49,8 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 		public void create() {	
 			super.createLevel(15, 400, 1, 100, 20, texture);
 			
-//			db.createDoor(62, 382.5f, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
-			db.createDoor(-35, 382.5f, -35, 488, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
+			db.createDoor(62, 382.5f, -35, 470, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
+		
 			
 			unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
 			      			

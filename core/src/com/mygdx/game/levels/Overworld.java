@@ -1,6 +1,6 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made.
+//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 		
 //		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
 		
-		db.createDoor(15, 1.5f, -35, 686, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_8);
+		db.createDoor(15, 1.5f, 60, 467, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_6);
 		
 		NPC npc = new NPC();
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Would you like to take a look at my wares?"}, 13, 1, tex, true));

@@ -1,6 +1,6 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made.
+//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
 
 import java.util.ArrayList;
 
@@ -24,6 +24,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
@@ -49,16 +50,37 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 		public void create() {
 			super.createLevel(15, 500, 1, 100, 50, texture);
 
-			db.createDoor(-30, 458, -35, 586, BodyFactory.STONE, "doorTo7", LevelDestination.LVL_7);
+			db.createDoor(21, 459, -35, 586, BodyFactory.STONE, "doorTo7", LevelDestination.LVL_7);
 			
 			platforms[0] = bodyFactory.makeBoxPolyBody(-10, 454f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			platforms[1] = bodyFactory.makeBoxPolyBody(-8, 455f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[2] = bodyFactory.makeBoxPolyBody(8, 457f, 20, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[2] = bodyFactory.makeBoxPolyBody(8, 457f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[3] = bodyFactory.makeBoxPolyBody(8, 457f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[4] = bodyFactory.makeBoxPolyBody(8, 458f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[5] = bodyFactory.makeBoxPolyBody(12, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[6] = bodyFactory.makeBoxPolyBody(13, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[7] = bodyFactory.makeBoxPolyBody(14, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[8] = bodyFactory.makeBoxPolyBody(15, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[9] = bodyFactory.makeBoxPolyBody(16, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+
+			platforms[10] = bodyFactory.makeBoxPolyBody(25, 459f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[11] = bodyFactory.makeBoxPolyBody(27, 461f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[12] = bodyFactory.makeBoxPolyBody(29, 463f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[13] = bodyFactory.makeBoxPolyBody(46, 465f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[12] = bodyFactory.makeBoxPolyBody(60, 467f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+
+			platforms[14] = bodyFactory.makeBoxPolyBody(56, 468f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[15] = bodyFactory.makeBoxPolyBody(54, 470f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[16] = bodyFactory.makeBoxPolyBody(52, 472f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[17] = bodyFactory.makeBoxPolyBody(50, 474f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			
-			
-	        			
+			platforms[18] = bodyFactory.makeBoxPolyBody(32, 476f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+
+			TextureRegion slime = Utilities.slimeKing;
 			NPC npc = new NPC();
-			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Bow before the king and recieve your reward."}, 3, 458, slime, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Bow before the king and recieve your reward."}, 18, 458, slime, false));
+
 			Map.getInstance().getEntityHandler().spawnLevelSix();
 
 			isCreated = true;

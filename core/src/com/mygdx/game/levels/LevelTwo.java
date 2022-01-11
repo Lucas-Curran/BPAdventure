@@ -1,6 +1,6 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made.
+//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
 
 import java.util.ArrayList;
 

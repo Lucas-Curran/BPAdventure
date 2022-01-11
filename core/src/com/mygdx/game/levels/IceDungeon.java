@@ -1,5 +1,7 @@
 package com.mygdx.game.levels;
 
+//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

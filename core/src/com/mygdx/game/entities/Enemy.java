@@ -165,7 +165,7 @@ public ArrayList<Entity> getOverworld() {
 		
 		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, Utilities.iceMonster);
 		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, Utilities.iceBird);
-		createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.iceMonster);
+		createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.iceMonster,false);
 		return enemies;
 	}
 	
@@ -176,17 +176,25 @@ public ArrayList<Entity> getOverworld() {
 		
 		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.flyingEye);
 		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.flyingEye);
-//		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex);
-		createEnemyShooter(42, 382, 1, 4f, -2, 0, 7, 7, Utilities.eyeBoss);
-//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		createEnemy(40, 382, EnemyState.STEERING, 1, 1.3f, Utilities.flyingEye);
+		createEnemyShooter(42, 382, 1, 3f, -2, 0, 7, 7, Utilities.eyeBoss, false);
 		return enemies;
 	}
 	
 	public ArrayList<Entity> getLevelSix() {	
 		enemies.clear();
-//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
-//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
-//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		createEnemy(14, 463, EnemyState.PATROL, 0, 4f, Utilities.slimeKing);
+		
+//		createEnemy(43, 466, EnemyState.STEERING, 1, 1.3f, Utilities.jungleDragon);
+//		createEnemy(45, 466, EnemyState.STEERING, 1, 1.7f, Utilities.jungleDragon);
+//		createEnemy(44, 466, EnemyState.STEERING, 1, 1.3f, Utilities.jungleDragon);
+//		
+//		createEnemy(35, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+//		createEnemy(36, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+//		createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+//		createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+//		createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+		createEnemy(34, 479, EnemyState.BOUNCE, 1, 3f, Utilities.slimeKing);
 		return enemies;
 	}
 	
