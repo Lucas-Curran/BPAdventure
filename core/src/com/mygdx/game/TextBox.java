@@ -283,7 +283,7 @@ public class TextBox implements InputProcessor {
 			table.setVisible(false);
 			yesButton.setVisible(false);
 			noButton.setVisible(false);
-			Map.getInstance().getLevels().getLevelOne().getShopWindow().setShopVisible(true);
+			Map.getInstance().getLevels().getOverworld().getShopWindow().setShopVisible(true);
 			return true;
 		} else if (noButton.isPressed()) {
 			table.setVisible(false);

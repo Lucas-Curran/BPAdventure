@@ -119,15 +119,15 @@ public class Map implements Screen, InputProcessor {
 			entityHandler.create();
 			weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
 		}
-		if (!levels.getLevelOne().isCreated()) {
-			levels.getLevelOne().create();
+		if (!levels.getOverworld().isCreated()) {
+			levels.getOverworld().create();
 		} 
 		
 		if (!levels.getIceDungeon().isCreated()) {
 			levels.getIceDungeon().create();
 		}
-		inputMultiplexer.addProcessor(levels.getLevelOne().getShopWindow());
-		inputMultiplexer.addProcessor(levels.getLevelOne().getShopWindow().getStage());
+		inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow());
+		inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow().getStage());
 		
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
@@ -154,11 +154,11 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		
-		levels.getLevelOne().render();
+		levels.getOverworld().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
-			if (levels.getLevelOne().getShopWindow().isShopVisible()) {
-				levels.getLevelOne().getShopWindow().render(delta);
+			if (levels.getOverworld().getShopWindow().isShopVisible()) {
+				levels.getOverworld().getShopWindow().render(delta);
 			}
 			playerHUD.render(delta);
 		}
@@ -326,7 +326,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
-		if (levels.getLevelOne().getShopWindow().isShopVisible()) {
+		if (levels.getOverworld().getShopWindow().isShopVisible()) {
 			return true;
 		}
 		
