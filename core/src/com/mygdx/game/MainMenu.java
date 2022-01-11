@@ -90,16 +90,19 @@ public class MainMenu implements Screen, InputProcessor {
 		spriteBatch.begin();
 		spriteBatch.draw(menuBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		spriteBatch.end();	
-
-		
+	
 		stage.act(delta);
 		stage.draw();
-		bugWindow.render(delta);
+		
+		if (bugWindow.isBugWindowVisible()) {
+			bugWindow.render(delta);
+		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, false);
+		bugWindow.resize(width, height);
 	}
 
 	@Override
