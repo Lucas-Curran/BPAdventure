@@ -34,6 +34,7 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 
 		private TextureRegion textureRegion;
 		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+		Body[] platforms = new Body[25];
 		float[] vertices;
 		
 		Body door;
@@ -46,14 +47,18 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 		
 		@Override
 		public void create() {
-			super.createLevel(15, 500, 1, 100, 20, texture);
+			super.createLevel(15, 500, 1, 100, 50, texture);
 
-			db.createDoor(45, 482.5f, -35, 586, BodyFactory.STONE, "doorTo7", LevelDestination.LVL_7);
+			db.createDoor(-30, 458, -35, 586, BodyFactory.STONE, "doorTo7", LevelDestination.LVL_7);
+			
+			platforms[0] = bodyFactory.makeBoxPolyBody(-10, 454f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[1] = bodyFactory.makeBoxPolyBody(-8, 455f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[2] = bodyFactory.makeBoxPolyBody(8, 457f, 20, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			
 			
 	        			
 			NPC npc = new NPC();
-
+			
 			Map.getInstance().getEntityHandler().spawnLevelSix();
 
 			isCreated = true;

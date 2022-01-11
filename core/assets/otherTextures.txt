@@ -1,0 +1,124 @@
+otherTextures.png
+size: 64, 245
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+desertShield
+  rotate: false
+  xy: 32, 53
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+eyeBoss
+  rotate: false
+  xy: 0, 85
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+flyingEye
+  rotate: false
+  xy: 32, 85
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+frostAxe
+  rotate: false
+  xy: 0, 117
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+iceBird
+  rotate: false
+  xy: 0, 24
+  size: 32, 25
+  orig: 32, 25
+  offset: 0, 0
+  index: -1
+iceGolem
+  rotate: false
+  xy: 32, 0
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+iceHelmet
+  rotate: false
+  xy: 32, 24
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+iceMonster
+  rotate: false
+  xy: 0, 53
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+iceShield
+  rotate: false
+  xy: 32, 117
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+iceSword
+  rotate: false
+  xy: 0, 149
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+jungleChest
+  rotate: false
+  xy: 32, 149
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+jungleDragon
+  rotate: false
+  xy: 0, 0
+  size: 32, 23
+  orig: 32, 23
+  offset: 0, 0
+  index: -1
+jungleHelmet
+  rotate: false
+  xy: 0, 181
+  size: 28, 32
+  orig: 28, 32
+  offset: 0, 0
+  index: -1
+jungleStaff
+  rotate: false
+  xy: 28, 181
+  size: 18, 32
+  orig: 18, 32
+  offset: 0, 0
+  index: -1
+mummyEnemy
+  rotate: false
+  xy: 46, 181
+  size: 18, 32
+  orig: 18, 32
+  offset: 0, 0
+  index: -1
+slimeKing
+  rotate: false
+  xy: 0, 213
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+soldierKnight
+  rotate: false
+  xy: 32, 213
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: -1

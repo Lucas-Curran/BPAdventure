@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -15,15 +16,23 @@ import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.InventoryItem.ItemAttribute;
+import com.mygdx.game.item.InventoryItem.ItemTypeID;
+import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.levels.DoorBuilder;
 import com.mygdx.game.levels.Levels;
 import com.mygdx.game.levels.Levels.LevelDestination;
+import com.mygdx.game.ui.Money;
  
 public class B2dContactListener implements ContactListener {
 	
 	private EntityHandler parent;
 	DoorBuilder db = DoorBuilder.getInstance();
 	
+	private TextureAtlas textureAtlas;
+
+	private boolean blessingOne = false;
 	
 	public B2dContactListener(EntityHandler parent){ 
 		this.parent = parent;
@@ -164,6 +173,20 @@ public class B2dContactListener implements ContactListener {
 
 		}
 		
+		/**
+		 * Gives players items based on what blessing they activated
+		 */
+	
+		textureAtlas = new TextureAtlas("atlas_levelTwo.txt");
+		if (fa.getBody().getUserData() == "levelTwoBlessing" && !blessingOne) {
+			InventoryItem worldKey = new InventoryItem(textureAtlas.findRegion("World Key"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS01);
+			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(worldKey, "World Key");
+			blessingOne = true;
+			
+			
+		}
+		
+		
 		if (fa.getBody().getUserData() instanceof Entity){
 			Entity ent = (Entity) fa.getBody().getUserData();
 			entityCollision(ent,fb);
@@ -173,6 +196,10 @@ public class B2dContactListener implements ContactListener {
 			entityCollision(ent,fa);
 			return;
 		}
+		
+		
+		
+
 		
 	}
  

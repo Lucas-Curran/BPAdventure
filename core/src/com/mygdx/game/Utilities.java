@@ -48,6 +48,22 @@ public class Utilities {
 	public static TextureRegion tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 
 	public static TextureAtlas levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+	public static TextureRegion rockMob = Utilities.levelTwoAtlas.findRegion("RockMobEnemy");
+	public static TextureRegion spikyRockMob = Utilities.levelTwoAtlas.findRegion("SpikyRockEnemy");
+	//public static TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
+	//public static TextureRegion unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
+	
+	public static TextureAtlas otherTexturesAtlas = new TextureAtlas("otherTextures.txt");
+	public static TextureRegion eyeBoss = Utilities.otherTexturesAtlas.findRegion("eyeBoss");
+	public static TextureRegion flyingEye = Utilities.otherTexturesAtlas.findRegion("flyingEye");
+	public static TextureRegion iceBird = Utilities.otherTexturesAtlas.findRegion("iceBird");
+	public static TextureRegion iceGolem = Utilities.otherTexturesAtlas.findRegion("iceGolem");
+	public static TextureRegion iceMonster = Utilities.otherTexturesAtlas.findRegion("iceMonster");
+	public static TextureRegion jungleDragon = Utilities.otherTexturesAtlas.findRegion("jungleDragon");
+	public static TextureRegion mummyEnemy = Utilities.otherTexturesAtlas.findRegion("mummyEnemy");
+	public static TextureRegion slimeKing = Utilities.otherTexturesAtlas.findRegion("slimeKing");
+	public static TextureRegion soldierKnight = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
+	
 	public static TextureAtlas levelSevenAtlas = new TextureAtlas("moreSprites.txt");
 
 	

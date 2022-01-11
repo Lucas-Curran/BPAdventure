@@ -175,10 +175,8 @@ public class EntityHandler implements ApplicationListener {
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 		
 		levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
-		rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
-		spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
-		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
-		unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
+//		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
+//		unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
 		
 		levelSevenAtlas = new TextureAtlas("moreSprites.txt");
 		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
