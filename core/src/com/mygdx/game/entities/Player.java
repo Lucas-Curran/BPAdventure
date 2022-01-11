@@ -32,7 +32,7 @@ public class Player extends EntityHandler {
 	
 	private ShapeRenderer shapeRenderer;
 	
-	Levels levels = new Levels(gameWorld.getInstance());
+	Levels levels = new Levels();
 	
 	public Entity createPlayer(float x, float y) {
 		

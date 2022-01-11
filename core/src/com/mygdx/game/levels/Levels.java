@@ -20,8 +20,17 @@ public class Levels {
 	private LevelTen levelTen;
 	private IceDungeon iceDungeon;
 	LevelFactory[] levels;
+	World world;
 	
-	public Levels(World world) {
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	public void createAllLevels(World world) {
 
 		levelOne = new LevelOne();
 		levelTwo = new LevelTwo();
@@ -39,6 +48,7 @@ public class Levels {
 			
 	}
 	
+
 	public static enum LevelDestination {
 		 
 		OVERWORLD 	("overworld_bg.png"),

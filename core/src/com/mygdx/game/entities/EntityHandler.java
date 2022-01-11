@@ -32,6 +32,7 @@ import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.*;
 import com.mygdx.game.components.BulletComponent.Owner;
+import com.mygdx.game.levels.Levels;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.systems.*;
 
@@ -47,6 +48,7 @@ public class EntityHandler implements ApplicationListener {
 	
 	TextureAtlas textureAtlas;
 	protected TextureRegion tex;
+	Levels levels;
 
 	TextureAtlas levelTwoAtlas;
 	public TextureAtlas levelSevenAtlas;
@@ -113,6 +115,55 @@ public class EntityHandler implements ApplicationListener {
         this.destination = destination;
     }
 	
+	public EntityHandler(Levels levels) {
+		engine = new Engine();
+		gameWorld = new GameWorld();
+		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
+		pooledEngine = engine.getInstance();
+		cam = new Camera();
+		this.levels = levels;
+		
+		textureAtlas = new TextureAtlas("textures.txt");
+		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+		
+		levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+		rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
+		spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
+		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
+		unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
+		
+		levelSevenAtlas = new TextureAtlas("moreSprites.txt");
+		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
+		spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
+		slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
+		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
+		
+		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
+		
+		batch = new SpriteBatch();
+		
+		renderingSystem = new RenderingSystem(batch);
+		
+		batch.setProjectionMatrix(cam.getCombined());
+		
+		pooledEngine.addSystem(renderingSystem);
+		pooledEngine.addSystem(new AnimationSystem());
+		pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
+		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));		
+		pooledEngine.addSystem(new PlayerControlSystem());
+		pooledEngine.addSystem(new EnemySystem());
+		pooledEngine.addSystem(new SteeringSystem());
+		pooledEngine.addSystem(new BulletSystem());
+		
+		loadingZone = false;
+		talkingZone = false;
+		gravityZone = false;
+		
+		polygonSpriteBatch = new PolygonSpriteBatch();
+		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
+		
+	}
+	
 	public EntityHandler() {
 		engine = new Engine();
 		gameWorld = new GameWorld();
@@ -158,7 +209,6 @@ public class EntityHandler implements ApplicationListener {
 		
 		polygonSpriteBatch = new PolygonSpriteBatch();
 		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
-		
 	}
 	
 	@Override
@@ -341,6 +391,10 @@ public class EntityHandler implements ApplicationListener {
 	public World getWorld() {
 		// TODO Auto-generated method stub
 		return gameWorld.getInstance();
+	}
+	
+	public Levels getLevels() {
+		return levels;
 	}
 	
 	public void setCurrentNPCText(String[] currentNPCText) {

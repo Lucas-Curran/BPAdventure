@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -30,8 +31,13 @@ public class B2dContactListener implements ContactListener {
 
 	@Override
 	public void beginContact(Contact contact) {
-		Fixture fa = contact.getFixtureA();
-		Fixture fb = contact.getFixtureB();
+		final Fixture fa = contact.getFixtureA();
+		final Fixture fb = contact.getFixtureB();
+		
+		Gdx.app.postRunnable(new Runnable() {
+
+            @Override
+            public void run () {
 
 		for (int i = 0; i < db.doors.size(); i++) {
 			
@@ -45,36 +51,42 @@ public class B2dContactListener implements ContactListener {
 						parent.setDestination(db.destinations.get(i));
 						parent.setCreatedLevel(db.createdLevels.get(i));
 						
+						
+						
 						switch(db.createdLevels.get(i)) {
 						case OVERWORLD:
-//							levelNumber = 0;
+//							
 							break;
 						case LVL_2:
-//							levelNumber = 1;
+							
+				                	parent.getLevels().getLevelTwo().create();
+				                
+							
+							
 							break;
 						case LVL_3:
-//							levelNumber = 2;
+//							
 							break;
 						case LVL_4:
-//							levelNumber = 3;
+//							
 							break;
 						case LVL_5:
-//							levelNumber = 4;
+//							
 							break;
 						case LVL_6:
-//							levelNumber = 5;
+//							
 							break;
 						case LVL_7:
-//							levelNumber = 6;
+//							
 							break;
 						case LVL_8:
 //							parent.getLevels().getLevelEight().create();
 							break;
 						case LVL_9:
-//							levelNumber = 8;
+//							
 							break;
 						case LVL_10:
-//							levelNumber = 9;
+//							
 							break;
 
 						}
@@ -94,7 +106,9 @@ public class B2dContactListener implements ContactListener {
 				}
 			}
 		}
-
+            }
+        });
+// put thing here
 		if (fa.getBody().getUserData() == "gravityPillar") {
 			System.out.println("Hit gravitySwitch");
 			parent.gravityZone = true;

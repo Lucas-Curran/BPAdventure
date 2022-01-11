@@ -38,7 +38,7 @@ public class IceDungeon extends LevelFactory implements ApplicationListener {
 		
 		      			
 		NPC npc = new NPC();
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Welcome to the Ice Dungeon!", "Make it to the end for a great reward...or die trying."}, 485, 92, Utilities.tex));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Welcome to the Ice Dungeon!", "Make it to the end for a great reward...or die trying."}, 485, 92, Utilities.tex, false));
 		Map.getInstance().getEntityHandler().spawnIceDungeon();
 		
 	}

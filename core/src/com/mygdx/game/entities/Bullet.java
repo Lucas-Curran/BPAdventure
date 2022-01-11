@@ -22,6 +22,7 @@ public class Bullet extends EntityHandler {
 	private ArrayList<Entity> bullets;
 	
 	public Bullet() {
+		
 		bullets = new ArrayList<Entity>();
 	}
 	

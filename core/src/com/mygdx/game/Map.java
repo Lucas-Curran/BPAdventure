@@ -85,8 +85,10 @@ public class Map implements Screen, InputProcessor {
 		money = new Money();
 		playerHUD = new PlayerHUD(money);
 		
-		entityHandler = new EntityHandler();
-		levels = new Levels(entityHandler.getWorld());
+		levels = new Levels();
+		entityHandler = new EntityHandler(levels);
+		levels.createAllLevels(entityHandler.getWorld());
+		
 		am = new AudioManager();
 	
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
@@ -120,41 +122,41 @@ public class Map implements Screen, InputProcessor {
 		if (!levels.getLevelOne().isCreated()) {
 			levels.getLevelOne().create();
 		} 
-		if (!levels.getLevelTwo().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_2) {
-			levels.getLevelTwo().create();
-		}
-		
-		if (!levels.getLevelThree().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_3) {
-			levels.getLevelThree().create();
-		}
-		
-		if (!levels.getLevelFour().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_4) {
-			levels.getLevelFour().create();
-		}
-		
-		if (!levels.getLevelFive().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_5) {
-			levels.getLevelFive().create();
-		}
-		
-		if (!levels.getLevelSix().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_6) {
-			levels.getLevelSix().create();
-		}
-		
-		if (!levels.getLevelSeven().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_7) {
-			levels.getLevelSeven().create();
-		}
-		
-		if (!levels.getLevelEight().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_8) {
-			levels.getLevelEight().create();
-		}
-		
-		if (!levels.getLevelNine().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_9) {
-			levels.getLevelNine().create();
-		}
-		
-		if (!levels.getLevelTen().isCreated() || entityHandler.getCreatedLevel() == LevelDestination.LVL_10) {
-			levels.getLevelTen().create();
-		}
+//		if (!levels.getLevelTwo().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_2) {
+//			levels.getLevelTwo().create();
+//		}
+//		
+//		if (!levels.getLevelThree().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_3) {
+//			levels.getLevelThree().create();
+//		}
+//		
+//		if (!levels.getLevelFour().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_4) {
+//			levels.getLevelFour().create();
+//		}
+//		
+//		if (!levels.getLevelFive().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_5) {
+//			levels.getLevelFive().create();
+//		}
+//		
+//		if (!levels.getLevelSix().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_6) {
+//			levels.getLevelSix().create();
+//		}
+//		
+//		if (!levels.getLevelSeven().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_7) {
+//			levels.getLevelSeven().create();
+//		}
+//		
+//		if (!levels.getLevelEight().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_8) {
+//			levels.getLevelEight().create();
+//		}
+//		
+//		if (!levels.getLevelNine().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_9) {
+//			levels.getLevelNine().create();
+//		}
+//		
+//		if (!levels.getLevelTen().isCreated() && entityHandler.getCreatedLevel() == LevelDestination.LVL_10) {
+//			levels.getLevelTen().create();
+//		}
 		
 		if (!levels.getIceDungeon().isCreated()) {
 			levels.getIceDungeon().create();
