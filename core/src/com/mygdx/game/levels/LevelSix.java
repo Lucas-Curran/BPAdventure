@@ -50,6 +50,7 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 
 			db.createDoor(45, 482.5f, -35, 586, BodyFactory.STONE, "doorTo7", LevelDestination.LVL_7);
 			
+			
 	        			
 			NPC npc = new NPC();
 

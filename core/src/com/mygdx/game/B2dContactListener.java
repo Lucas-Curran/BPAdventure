@@ -55,43 +55,66 @@ public class B2dContactListener implements ContactListener {
 						
 						switch(db.createdLevels.get(i)) {
 						case OVERWORLD:
-//							
+							
+							parent.getLevels().getLevelOne().create();
 							break;
 						case LVL_2:
-							
-				                	parent.getLevels().getLevelTwo().create();
-				                
-							
-							
+							for (Entity enemy : parent.enemies.getOverworld()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+				            parent.getLevels().getLevelTwo().create();
 							break;
 						case LVL_3:
-//							
+							for (Entity enemy : parent.enemies.getLevelTwo()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelThree().create();
 							break;
 						case LVL_4:
-//							
+							for (Entity enemy : parent.enemies.getLevelThree()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelFour().create();
 							break;
 						case LVL_5:
-//							
+							for (Entity enemy : parent.enemies.getLevelFour()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelFive().create();
 							break;
 						case LVL_6:
-//							
+							for (Entity enemy : parent.enemies.getLevelFive()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelSix().create();
 							break;
 						case LVL_7:
-//							
+							for (Entity enemy : parent.enemies.getLevelSix()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelSeven().create();
 							break;
 						case LVL_8:
-//							parent.getLevels().getLevelEight().create();
+							for (Entity enemy : parent.enemies.getLevelSeven()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelEight().create();
 							break;
 						case LVL_9:
-//							
+							for (Entity enemy : parent.enemies.getLevelEight()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelNine().create();
 							break;
 						case LVL_10:
-//							
+							for (Entity enemy : parent.enemies.getLevelNine()) {
+								parent.getPooledEngine().removeEntity(enemy);
+							}
+							parent.getLevels().getLevelTen().create();
 							break;
 
 						}
-						System.out.println(parent.getCreatedLevel());
-						System.out.println(LevelDestination.LVL_8);
+						
 					}
 				}
 			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {

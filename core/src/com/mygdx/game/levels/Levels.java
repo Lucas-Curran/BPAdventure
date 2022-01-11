@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Levels {
 
-	private LevelOne levelOne;
+	private Overworld levelOne;
 	private LevelTwo levelTwo;
 	private LevelThree levelThree;
 	private LevelFour levelFour;
@@ -32,7 +32,7 @@ public class Levels {
 
 	public void createAllLevels(World world) {
 
-		levelOne = new LevelOne();
+		levelOne = new Overworld();
 		levelTwo = new LevelTwo();
 		levelThree = new LevelThree(world);
 		levelFour = new LevelFour(world);
@@ -73,7 +73,7 @@ public class Levels {
 		
 	}
 	
-	public LevelOne getLevelOne() {
+	public Overworld getLevelOne() {
 		return levelOne;
 	}
 	

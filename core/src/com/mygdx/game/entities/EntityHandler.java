@@ -63,7 +63,7 @@ public class EntityHandler implements ApplicationListener {
 	protected TextureRegion squirrelMan;
 	
 	private Player player;
-	private Enemy enemies;
+	public Enemy enemies;
 	private NPC npc;
 	private Bullet bullets;
 	

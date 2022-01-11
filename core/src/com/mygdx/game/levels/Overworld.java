@@ -27,9 +27,9 @@ import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.ui.ShopWindow;
 
-public class LevelOne extends LevelFactory implements ApplicationListener {
+public class Overworld extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
-	static boolean inLevelOne;
+	static boolean inOverworld;
 	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
 	float[] vertices;
 	private ShopWindow shopWindow;
@@ -39,7 +39,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	@Override
 	public void create() {
 		super.createLevel(15, 9, 1, 100, 10, texture);
-		inLevelOne = true;
+		inOverworld = true;
 		
 		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
 		
