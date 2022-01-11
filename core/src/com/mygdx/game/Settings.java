@@ -95,7 +95,7 @@ public class Settings implements Screen {
 		table.add(creditsBtn).padLeft(150).width(110);
 		table.setFillParent(true);
 		
-		table.debug();
+//		table.debug();
 		stage.addActor(table);
 	
 		
@@ -120,12 +120,12 @@ public class Settings implements Screen {
 		
 		// shows the credits screen
 		if (creditsBtn.isPressed()) {
-			//Add in transition to credits
+			dispose();
+			Screens.toCredits(new Credits());
 		}
 		
 		//Desposes settings screen and returns to menu screen
 		if (returnBtn.isPressed()) {
-			
 			sm.updateVolume(sliderValue);
 			dispose();
 			Screens.toMenu(Screens.getMenu());
