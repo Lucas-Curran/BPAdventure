@@ -54,8 +54,7 @@ public class AudioManager {
 	public void updateAll() {
 		for (java.util.Map.Entry<String, Music> set : music.entrySet()) {
 			volume = sm.getVolume();
-			set.getValue().setVolume(volume);
-			System.out.println(set.getValue().getVolume());
+			set.getValue().setVolume(volume / 100);
 		}
 		
 //		music.get("menu").setVolume(volume);
@@ -68,7 +67,7 @@ public class AudioManager {
 	 */
 	public void playSong(String song) {
 		if (!music.get(song).isPlaying()) {
-			music.get(song).setVolume(volume);
+			music.get(song).setVolume(volume / 100);
 			music.get(song).setLooping(true);
 			music.get(song).play();
 		}

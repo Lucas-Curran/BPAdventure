@@ -7,6 +7,7 @@ public class SqliteManager {
 	private static String playerURL = "jdbc:sqlite:Progress.db";
 //	private static String inventoryURL = "jdbc:sqlite:Inventory.db";
 	private static Connection conn = null;
+	private static boolean defaultTable = true;
 	
 	/**
 	 * Creates and connects to databases
@@ -14,7 +15,7 @@ public class SqliteManager {
 	public SqliteManager() {
 		connect();
 		createTable();
-//		defaultInfo();
+		defaultInfo();
 	}
 	
 	
@@ -83,10 +84,13 @@ public class SqliteManager {
 	public static void defaultInfo() {
 		String sql = "INSERT INTO Progress(Stage,Currency,Health,Volume) Values(0,0,100,50)";
 		try {
-			conn = DriverManager.getConnection(playerURL);
-			PreparedStatement input = connect().prepareStatement(sql);
-			input.executeUpdate();
-			conn.close();
+			if (defaultTable) {
+				conn = DriverManager.getConnection(playerURL);
+				PreparedStatement input = connect().prepareStatement(sql);
+				input.executeUpdate();
+				conn.close();
+				defaultTable = false;
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}

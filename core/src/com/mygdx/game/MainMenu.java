@@ -80,6 +80,7 @@ public class MainMenu implements Screen, InputProcessor {
 		spriteBatch.draw(menuBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		spriteBatch.end();		
 		
+		am.updateAll();
 		am.playMenu();
 		
 		stage.act(delta);
@@ -147,13 +148,8 @@ public class MainMenu implements Screen, InputProcessor {
 		 } else if (continueButton.isPressed()) {
 			 
 		 } else if (settingsButton.isPressed()) {
-			 if (Screens.getSettings() != null) {
-				 am.stopAll();
-				 Screens.toSettings(Screens.getSettings());
-			 } else {
 				 am.stopAll();
 				 Screens.toSettings(new Settings());
-			 }
 		 } else if (quitButton.isPressed()) {
 			 dispose();
 			 Gdx.app.exit();

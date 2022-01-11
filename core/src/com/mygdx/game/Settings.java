@@ -63,6 +63,7 @@ public class Settings implements Screen {
 		container.setTransform(true);
 		container.setScale(3f);
 		
+		sliderValue = sm.getVolume();
 		font = new BitmapFont();
 		sliderLabel = new Label(String.valueOf(sliderValue), new Label.LabelStyle(font, Color.ROYAL));
 		volumeLabel = new Label("Volume", new Label.LabelStyle(font, Color.ROYAL));
@@ -94,7 +95,7 @@ public class Settings implements Screen {
 		table.add(creditsBtn).padLeft(150).width(110);
 		table.setFillParent(true);
 		
-//		table.debug();
+		table.debug();
 		stage.addActor(table);
 	
 		
@@ -117,24 +118,25 @@ public class Settings implements Screen {
 		sliderValue = sm.getVolume();
 		am.playMenu();
 		
+		// shows the credits screen
 		if (creditsBtn.isPressed()) {
 			//Add in transition to credits
 		}
 		
+		//Desposes settings screen and returns to menu screen
 		if (returnBtn.isPressed()) {
 			
 			sm.updateVolume(sliderValue);
-			am.stopAll();
-			table.clearActions();
-			table.clearChildren();
+			dispose();
 			Screens.toMenu(Screens.getMenu());
 		}
 		
+		// changes volume in database and updates volume of music
 		if (volumeSlider.isDragging()) {
 			sliderValue = (int) volumeSlider.getValue();
 			sliderLabel.setText(sliderValue);
 			sm.updateVolume(sliderValue);
-			am.getMusic("menu").setVolume(sliderValue);
+			am.updateAll();
 			
 		}
 		
@@ -143,7 +145,7 @@ public class Settings implements Screen {
 	}
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+        stage.getViewport().update(width, height, true);   
 		
 	}
 	@Override
@@ -161,9 +163,17 @@ public class Settings implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Disposes the screen
+	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		am.stopAll();
+		table.clearActions();
+		table.clearChildren();
+		stage.dispose();
+		cam.dispose();
 		
 	}
 }
