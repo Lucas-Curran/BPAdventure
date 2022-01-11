@@ -31,6 +31,7 @@ public class Enemy extends EntityHandler {
 		enemies = new ArrayList<Entity>();
 	}
 	
+	
 	public Entity createEnemy(int posx, int posy, EnemyState enemyType, int range, float radius, TextureRegion entityTexture) {
 		
 		// Create the Entity and all the components that will go in the entity
@@ -85,7 +86,7 @@ public class Enemy extends EntityHandler {
 	}
 	
 
-public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture) {
+public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture, boolean random) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -108,6 +109,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		b2dbody.body.setUserData(entity);
 		enemy.xPostCenter = b2dbody.body.getPosition().x;
 		enemy.yPostCenter = b2dbody.body.getPosition().y;
+		enemy.random = random;
 		enemy.bulletXDirection = bulletXDirection;
 		enemy.bulletYDirection = bulletYDirection;
 		enemy.bulletRange = bulletRange;
@@ -190,12 +192,13 @@ public ArrayList<Entity> getOverworld() {
 	
 	public ArrayList<Entity> getLevelSeven() {
 		enemies.clear();
-//		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
-//		createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
-//		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob);
+		createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob);
+		createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime, false);
+		createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob);
+		
+		
 //		createEnemyShooter(52, 595.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
-//		createEnemyShooter(52, 598.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
-//		createEnemyShooter(52, 592.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
+		
 //		createEnemyShooter(52, 589.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
 //		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
 //		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
@@ -207,8 +210,11 @@ public ArrayList<Entity> getOverworld() {
 	
 	public ArrayList<Entity> getLevelEight() {	
 		enemies.clear();
-//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
-//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
+		createEnemy(-16, 686, EnemyState.STEERING, 1, 1.3f, slimyMob);
+		createEnemy(-24, 686, EnemyState.STEERING, 1, 1.3f, slimyMob);
+		createEnemy(0, 686, EnemyState.VERTICAL, 3, 2f, slimyMob);
+		createEnemyShooter(7, 686, 1, 2f, -2, 5, 8, 4, spikySlime, true);
+//		System.out.println(enemy.randomBulletDirection);
 //		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
 	}

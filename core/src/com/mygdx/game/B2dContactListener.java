@@ -65,7 +65,7 @@ public class B2dContactListener implements ContactListener {
 						switch(db.createdLevels.get(i)) {
 						case OVERWORLD:
 							
-							parent.getLevels().getLevelOne().create();
+							parent.getLevels().getOverworld().create();
 							break;
 						case LVL_2:
 							for (Entity enemy : parent.enemies.getOverworld()) {

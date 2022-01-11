@@ -42,8 +42,8 @@ public class Camera implements ApplicationListener {
 	public void resize(int width, int height) { 
 		viewport.update(width, height, false);	
 		Map.getInstance().getTextBox().resize(width, height);
-		if (Map.getInstance().getLevels().getLevelOne().getShopWindow() != null) {
-			Map.getInstance().getLevels().getLevelOne().resize(width, height);
+		if (Map.getInstance().getLevels().getOverworld().getShopWindow() != null) {
+			Map.getInstance().getLevels().getOverworld().resize(width, height);
 		}
 		if (Screens.getGame().getScreen() == Screens.getMenu()) {
 			Screens.getMenu().resize(width, height);

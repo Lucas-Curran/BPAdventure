@@ -109,7 +109,7 @@ public class Player extends EntityHandler {
 	        shapeRenderer.end();
 	        Gdx.gl.glDisable(GL20.GL_BLEND);
 
-	        System.out.println(alpha);
+//	        System.out.println(alpha);
 
 	        if (alpha >= 1) {
 	            
@@ -151,7 +151,7 @@ public class Player extends EntityHandler {
 //            batch.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
 
-            System.out.println(alpha);
+//            System.out.println(alpha);
 
             if (alpha >= 1) {
                 setPosition(x, y);

@@ -182,7 +182,6 @@ public class EntityHandler implements ApplicationListener {
 		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
 		spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
 		slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
-		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		
 		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		
@@ -211,6 +210,7 @@ public class EntityHandler implements ApplicationListener {
 	
 	@Override
 	public void create() {
+		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		player = new Player();
 		enemies = new Enemy();
 		npc = new NPC();

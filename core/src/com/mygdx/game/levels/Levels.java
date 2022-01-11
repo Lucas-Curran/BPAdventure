@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Levels {
 
-	private Overworld levelOne;
+	private Overworld overworld;
 	private LevelTwo levelTwo;
 	private LevelThree levelThree;
 	private LevelFour levelFour;
@@ -32,7 +32,7 @@ public class Levels {
 
 	public void createAllLevels(World world) {
 
-		levelOne = new Overworld();
+		overworld = new Overworld();
 		levelTwo = new LevelTwo();
 		levelThree = new LevelThree(world);
 		levelFour = new LevelFour(world);
@@ -44,7 +44,7 @@ public class Levels {
 		levelTen = new LevelTen(world);
 		iceDungeon = new IceDungeon(world);
 		
-		levels = new LevelFactory[] {levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, levelTen};
+		levels = new LevelFactory[] {overworld, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, levelTen};
 			
 	}
 	
@@ -73,8 +73,8 @@ public class Levels {
 		
 	}
 	
-	public Overworld getLevelOne() {
-		return levelOne;
+	public Overworld getOverworld() {
+		return overworld;
 	}
 	
 	public LevelTwo getLevelTwo() {
@@ -169,7 +169,7 @@ public class Levels {
 	}
 	
 	public void disposeAll() {
-		levelOne.dispose();
+		overworld.dispose();
 		levelTwo.dispose();
 		levelThree.dispose();
 		levelFour.dispose();
