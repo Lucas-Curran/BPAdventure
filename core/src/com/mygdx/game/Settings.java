@@ -30,13 +30,11 @@ public class Settings implements Screen {
 	Table table;
 	Skin skin;
 	
-	AudioManager audioManager = new AudioManager();
+	AudioManager am = new AudioManager();
 
 	private SpriteBatch spriteBatch;
 	private Camera cam;
 	private Stage stage;
-	private InputMultiplexer inputMultiplexer;
-	private AudioManager am = new AudioManager();
 	private SqliteManager sm; 
 	int sliderValue; //replace with value from database later
 	
@@ -51,9 +49,6 @@ public class Settings implements Screen {
 		stage = new Stage();
 		table = new Table();
 		sm = new SqliteManager();
-		sliderValue = sm.getVolume();
-		am.playMenu();
-		
 	}
 	
 	/**
@@ -88,7 +83,6 @@ public class Settings implements Screen {
 		returnBtn.setTransform(true);
 		returnBtn.scaleBy(1);
 		
-		table = new Table(skin);
 		table.left().bottom().pad(80);
 		table.add(volumeLabel).colspan(2).padBottom(50).right().padRight(43);
 		table.row();
@@ -120,7 +114,8 @@ public class Settings implements Screen {
 		spriteBatch.draw(settingsBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		spriteBatch.end();		
 		
-		
+		sliderValue = sm.getVolume();
+		am.playMenu();
 		
 		if (creditsBtn.isPressed()) {
 			//Add in transition to credits
@@ -129,7 +124,9 @@ public class Settings implements Screen {
 		if (returnBtn.isPressed()) {
 			
 			sm.updateVolume(sliderValue);
-			audioManager.stopAll();
+			am.stopAll();
+			table.clearActions();
+			table.clearChildren();
 			Screens.toMenu(Screens.getMenu());
 		}
 		
@@ -137,7 +134,7 @@ public class Settings implements Screen {
 			sliderValue = (int) volumeSlider.getValue();
 			sliderLabel.setText(sliderValue);
 			sm.updateVolume(sliderValue);
-			audioManager.getMusic("menu").setVolume(sliderValue);;
+			am.getMusic("menu").setVolume(sliderValue);
 			
 		}
 		
