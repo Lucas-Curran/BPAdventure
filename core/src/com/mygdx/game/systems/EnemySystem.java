@@ -29,6 +29,7 @@ public class EnemySystem extends IteratingSystem {
 	B2dBodyComponent bodyCom;
 	B2dBodyComponent playerCom;
 	Bullet bullet;
+	int randomBulletDirection;
 	
 	 private TextureAtlas textureAtlas;
 	 private TextureRegion tex;
@@ -132,6 +133,10 @@ public class EnemySystem extends IteratingSystem {
 		Bullet bullet = new Bullet();
 		Vector2 aim = new Vector2(enemyCom.bulletXDirection, enemyCom.bulletYDirection);
 		aim.scl(1);
+		
+		Random rNum = new Random();
+		
+		enemyCom.setRandomBulletDirection(1 + rNum.nextInt(10));
 		
 		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y,
 				enemyCom.bulletRange, BulletComponent.Owner.ENEMY, enemy));

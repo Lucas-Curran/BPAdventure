@@ -85,7 +85,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 			TransformComponent t = transformM.get(entity);
 	
 			if (tex.region == null || t.isHidden) {
-				System.out.println("Null texture");
+//				System.out.println("Null texture");
 				continue;
 			}
 			

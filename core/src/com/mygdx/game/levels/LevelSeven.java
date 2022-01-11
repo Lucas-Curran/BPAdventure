@@ -35,7 +35,9 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 	
 		boolean isCreated;
 		
-		private TextureRegion textureRegion;
+		private TextureRegion squirrelMan = levelSevenAtlas.findRegion("squirrelMan");
+		private TextureRegion oldMan = levelSevenAtlas.findRegion("oldMan");
+		
 		Texture texture = new Texture(Gdx.files.internal("skull_ground.png"));	
 		float[] vertices;
 		
@@ -57,11 +59,6 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 			Texture texture = new Texture(Gdx.files.internal("stone_ground.png"));
 			Texture texture2 = new Texture(Gdx.files.internal("keyCard.png"));
-			
-			
-			TextureRegion oldMan = Utilities.levelSevenAtlas.findRegion("oldMan");
-			TextureRegion squirrelMan = Utilities.levelSevenAtlas.findRegion("squirrelMan");
-			
 			
 			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583.5f, 6, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			platforms[1] = bodyFactory.makeBoxPolyBody(-32, 586f, 8, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
@@ -125,11 +122,12 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 	        			
 			NPC npc = new NPC();
-			String[] words = {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
-					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"};
-			npc.spawnNPC(words, -32, 582, textureRegion, false);
-			String[] message = {"Watch out for the projectiles!"};
-			npc.spawnNPC(message, -3, 593, textureRegion, false);
+			
+			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
+					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"}, -32, 582, squirrelMan, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Boo! Watch out for the projectiles!"}, -3, 593, oldMan, false));
+			
 
 			Map.getInstance().getEntityHandler().spawnLevelSeven();
 			

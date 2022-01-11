@@ -25,6 +25,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
@@ -52,10 +53,14 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			
 			
 			makeSaw(-20, 685f);
-			makeSaw(-10, 685f);
+			makeSaw(-12, 685f);
+			makeSaw(-4, 685f);
 			
 	        			
 			NPC npc = new NPC();
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Thank the Cave Lords... another soul!", 
+					"We haven't seen anyone for decades.", "There's bits of Jack everywhere...but he's doing alright, I think.", 
+					"This land is the most dangerous thus far Ice Cream...tread carefully."}, -32, 682, Utilities.levelSevenAtlas.findRegion("squirrelMan"), false));
 
 			Map.getInstance().getEntityHandler().spawnLevelEight();
 			
