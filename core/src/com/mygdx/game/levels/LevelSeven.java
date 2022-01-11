@@ -25,6 +25,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
@@ -57,9 +58,9 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			Texture texture = new Texture(Gdx.files.internal("stone_ground.png"));
 			Texture texture2 = new Texture(Gdx.files.internal("keyCard.png"));
 			
-			levelSevenAtlas = new TextureAtlas("moreSprites.txt");
-			oldMan = new TextureRegion(levelSevenAtlas.findRegion("oldMan"));
-			squirrelMan = new TextureRegion(levelSevenAtlas.findRegion("squirrelMan"));
+			
+			TextureRegion oldMan = Utilities.levelSevenAtlas.findRegion("oldMan");
+			TextureRegion squirrelMan = Utilities.levelSevenAtlas.findRegion("squirrelMan");
 			
 			
 			platforms[0] = bodyFactory.makeBoxPolyBody(-25, 583.5f, 6, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);

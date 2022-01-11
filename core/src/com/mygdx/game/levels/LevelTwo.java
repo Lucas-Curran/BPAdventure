@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.entities.Player;
@@ -43,6 +44,8 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		//Creates Level One NPCs
 		Map.getInstance().getEntityHandler().spawnLevelTwo();
 		NPC npc = new NPC();
+		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
+		TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/unknownBeing");
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92, normalMan));
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92, unknownBeing));
 		
@@ -67,6 +70,18 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	
 	public boolean isCreated() {
 		return isCreated;
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

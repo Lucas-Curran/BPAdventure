@@ -156,10 +156,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 
 	@Override
 	public void render() {	
-		 batch.setProjectionMatrix(cam.getCombined());
-		 batch.begin();
-		 batch.draw(texture, -20, 190);
-		 batch.end();
+		 
 		 
 	}
 

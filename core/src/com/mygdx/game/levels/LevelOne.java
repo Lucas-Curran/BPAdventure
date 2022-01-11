@@ -44,6 +44,7 @@ public class LevelOne extends LevelFactory implements ApplicationListener {
 	
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getMoney());
 
+//		Map.getInstance().getEntityHandler().spawnOverworld();
 		isCreated = true;
 	}
 	

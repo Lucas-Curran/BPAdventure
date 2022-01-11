@@ -143,17 +143,17 @@ public class Levels {
 
 		}
 		
-		if (levelNumber != 0) {
-			for (int i = 0; i < levelNumber; i++) {
-				levels[i].dispose();
-			}
-		}
-
-		if (levelNumber != 9) {
-			for (int i = (levelNumber + 1); i <= 9; i++) {
-				levels[i].dispose();
-			}
-		}
+//		if (levelNumber != 0) {
+//			for (int i = 0; i < levelNumber; i++) {
+//				levels[i].dispose();
+//			}
+//		}
+//
+//		if (levelNumber != 9) {
+//			for (int i = (levelNumber + 1); i <= 9; i++) {
+//				levels[i].dispose();
+//			}
+//		}
 		
 
 	}

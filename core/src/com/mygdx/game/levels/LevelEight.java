@@ -35,7 +35,7 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 
 		float[] vertices;
 		
-		Body sawCenter, blade1, blade2;
+		
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
@@ -50,40 +50,9 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			
 			db.createDoor(45, 682.5f, -35, 788, BodyFactory.STONE, "doorTo9", LevelDestination.LVL_9);
 			
-			sawCenter = bodyFactory.makeCirclePolyBody(-20, 690f, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
 			
-			Vector2 vertex1 = new Vector2(1, 3);
-			Vector2 vertex2 = new Vector2(3, 4);
-			Vector2 vertex3 = new Vector2(1, 5);
-			
-			Vector2 vertex11 = new Vector2(1, 3);
-			Vector2 vertex12 = new Vector2(-1, 4);
-			Vector2 vertex13 = new Vector2(1, 5);
-			
-			Vector2[] triangleVertices = {vertex1, vertex2, vertex3};
-			Vector2[] triangleVertices2 = {vertex11, vertex12, vertex13};
-
-			
-			blade1 = bodyFactory.makePolygonShapeBody(triangleVertices, -20, 686, BodyFactory.STEEL, BodyType.DynamicBody, false, false, texture);
-			blade2 = bodyFactory.makePolygonShapeBody(triangleVertices2, -22, 686, BodyFactory.STEEL, BodyType.DynamicBody,  false, false, texture);
-
-			blade1.setGravityScale(0);
-			blade2.setGravityScale(0);
-			
-			RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
-	        revoluteJointDef.initialize(sawCenter, blade1, sawCenter.getWorldCenter());
-	        revoluteJointDef.enableMotor = true;
-	        revoluteJointDef.motorSpeed = -3;
-	        revoluteJointDef.maxMotorTorque = 3000;
-	        
-	        RevoluteJointDef revoluteJointDef2 = new RevoluteJointDef();
-	        revoluteJointDef2.initialize(sawCenter, blade2, sawCenter.getWorldCenter());
-	        revoluteJointDef2.enableMotor = true;
-	        revoluteJointDef2.motorSpeed = -3;
-	        revoluteJointDef2.maxMotorTorque = 3000;
-
-	        world.createJoint(revoluteJointDef);
-	        world.createJoint(revoluteJointDef2);
+			makeSaw(-20, 685f);
+			makeSaw(-10, 685f);
 			
 	        			
 			NPC npc = new NPC();
@@ -119,6 +88,44 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 		@Override
 		public void dispose() {
 			
+		}
+		
+		public void makeSaw(float x, float y) {
+			Body sawCenter, blade1, blade2;
+			sawCenter = bodyFactory.makeCirclePolyBody(x, y, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
+			
+			Vector2 vertex1 = new Vector2(1, 3);
+			Vector2 vertex2 = new Vector2(3, 4);
+			Vector2 vertex3 = new Vector2(1, 5);
+			
+			Vector2 vertex11 = new Vector2(1, 3);
+			Vector2 vertex12 = new Vector2(-1, 4);
+			Vector2 vertex13 = new Vector2(1, 5);
+			
+			Vector2[] triangleVertices = {vertex1, vertex2, vertex3};
+			Vector2[] triangleVertices2 = {vertex11, vertex12, vertex13};
+
+			
+			blade1 = bodyFactory.makePolygonShapeBody(triangleVertices, x, y-4, BodyFactory.STEEL, BodyType.DynamicBody, false, false, texture);
+			blade2 = bodyFactory.makePolygonShapeBody(triangleVertices2, x-2, y-4, BodyFactory.STEEL, BodyType.DynamicBody,  false, false, texture);
+
+			blade1.setGravityScale(0);
+			blade2.setGravityScale(0);
+			
+			RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
+	        revoluteJointDef.initialize(sawCenter, blade1, sawCenter.getWorldCenter());
+	        revoluteJointDef.enableMotor = true;
+	        revoluteJointDef.motorSpeed = -3;
+	        revoluteJointDef.maxMotorTorque = 3000;
+	        
+	        RevoluteJointDef revoluteJointDef2 = new RevoluteJointDef();
+	        revoluteJointDef2.initialize(sawCenter, blade2, sawCenter.getWorldCenter());
+	        revoluteJointDef2.enableMotor = true;
+	        revoluteJointDef2.motorSpeed = -3;
+	        revoluteJointDef2.maxMotorTorque = 3000;
+
+	        world.createJoint(revoluteJointDef);
+	        world.createJoint(revoluteJointDef2);
 		}
 		
 		public boolean isCreated() {

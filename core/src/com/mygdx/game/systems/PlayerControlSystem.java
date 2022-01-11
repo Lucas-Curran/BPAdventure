@@ -64,20 +64,23 @@ public class PlayerControlSystem extends IteratingSystem {
 		if (!Map.getInstance().inAction()) {
 			if(Gdx.input.isKeyPressed(Input.Keys.A)){
 				player.direction = player.LEFT;
+				
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.D)){
 				player.direction = player.RIGHT;
+				
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 			}
 
 			if(!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
+				
 			}
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && 
 					(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
-				System.out.println("Jump");
+				
 				b2body.body.applyForceToCenter(0, 0f,true);
 				b2body.body.applyLinearImpulse(0f, jumpScale, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
 				state.set(StateComponent.STATE_JUMPING);

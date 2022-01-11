@@ -66,18 +66,18 @@ public class NPC extends EntityHandler {
 		
 		HashMap<Label, ShopItem> testMap = new HashMap<Label, ShopItem>();
 		
-		ShopItem tex1 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex2 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex3 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex4 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex5 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex6 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex7 = new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex8 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex9 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex10 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex11 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
-		ShopItem tex12 =  new ShopItem(new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex1 = new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex2 = new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex3 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex4 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex5 = new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex6 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex7 = new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex8 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex9 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex10 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex11 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
+		ShopItem tex12 =  new ShopItem(new InventoryItem(Utilities.textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01), 10);
 		
 		
 		Label label1 = new Label("Apple", Utilities.ACTUAL_UI_SKIN);

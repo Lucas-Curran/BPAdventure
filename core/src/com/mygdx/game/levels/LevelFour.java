@@ -4,12 +4,14 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
@@ -59,7 +61,8 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		platforms[14] = bodyFactory.makeBoxPolyBody(6, 283f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 		platforms[15] = bodyFactory.makeBoxPolyBody(-16, 286f, 40, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 		
-		
+		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
+		TextureRegion tex = Utilities.tex;
 		
 		//Map.getInstance().getEntityHandler().spawnShopNPC();
 		NPC npc = new NPC();
@@ -94,6 +97,13 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 	
 	public boolean isCreated() {
 		return isCreated;
+	}
+
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

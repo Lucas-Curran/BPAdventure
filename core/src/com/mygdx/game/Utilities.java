@@ -43,6 +43,14 @@ public class Utilities {
 	private static TextureAtlas atlas = new TextureAtlas("bpaatlas.txt");
 	private static TextureAtlas uiAtlas = new TextureAtlas("uiskin.txt");
 	
+	public static TextureAtlas textureAtlas = new TextureAtlas("textures.txt");
+	
+	public static TextureRegion tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+
+	public static TextureAtlas levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+	public static TextureAtlas levelSevenAtlas = new TextureAtlas("moreSprites.txt");
+
+	
 	public static Skin UISKIN = new Skin(atlas);
 	public static Skin ACTUAL_UI_SKIN = new Skin(Gdx.files.internal("uiskin.json"));
 	

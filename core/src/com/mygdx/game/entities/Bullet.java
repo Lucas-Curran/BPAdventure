@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.CollisionComponent;
@@ -38,7 +39,7 @@ public class Bullet extends EntityHandler {
 		b2dbody.body.setGravityScale(0);
 		bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player
 		position.position.set(x,y,0);
-		texture.region = bulletLeft;
+		texture.region = Utilities.levelSevenAtlas.findRegion("bullet(left)");
 		type.type = TypeComponent.BULLET;
 		b2dbody.body.setUserData(entity);
 		bul.xVel = xVel;

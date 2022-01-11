@@ -15,11 +15,14 @@ import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.levels.DoorBuilder;
+import com.mygdx.game.levels.Levels;
+import com.mygdx.game.levels.Levels.LevelDestination;
  
 public class B2dContactListener implements ContactListener {
 	
 	private EntityHandler parent;
 	DoorBuilder db = DoorBuilder.getInstance();
+	
 	
 	public B2dContactListener(EntityHandler parent){ 
 		this.parent = parent;
@@ -41,6 +44,42 @@ public class B2dContactListener implements ContactListener {
 						parent.setDestinationY(db.destinationsY.get(i));
 						parent.setDestination(db.destinations.get(i));
 						parent.setCreatedLevel(db.createdLevels.get(i));
+						
+						switch(db.createdLevels.get(i)) {
+						case OVERWORLD:
+//							levelNumber = 0;
+							break;
+						case LVL_2:
+//							levelNumber = 1;
+							break;
+						case LVL_3:
+//							levelNumber = 2;
+							break;
+						case LVL_4:
+//							levelNumber = 3;
+							break;
+						case LVL_5:
+//							levelNumber = 4;
+							break;
+						case LVL_6:
+//							levelNumber = 5;
+							break;
+						case LVL_7:
+//							levelNumber = 6;
+							break;
+						case LVL_8:
+//							parent.getLevels().getLevelEight().create();
+							break;
+						case LVL_9:
+//							levelNumber = 8;
+							break;
+						case LVL_10:
+//							levelNumber = 9;
+							break;
+
+						}
+						System.out.println(parent.getCreatedLevel());
+						System.out.println(LevelDestination.LVL_8);
 					}
 				}
 			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {

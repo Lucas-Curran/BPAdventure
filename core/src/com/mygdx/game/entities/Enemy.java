@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.EnemyComponent;
@@ -20,6 +21,11 @@ import com.mygdx.game.systems.SteeringPresets;
 public class Enemy extends EntityHandler {
 	
 	private static ArrayList<Entity> enemies;
+	
+	TextureRegion rockMob = Utilities.levelTwoAtlas.findRegion("RockMobEnemy");
+	TextureRegion spikyRockMob = Utilities.levelTwoAtlas.findRegion("spikyRockMob");
+	TextureRegion spikySlime = Utilities.levelSevenAtlas.findRegion("spikySlime");
+	TextureRegion slimyMob = Utilities.levelSevenAtlas.findRegion("slimyMob");
 	
 	public Enemy() {
 		enemies = new ArrayList<Entity>();
@@ -125,6 +131,12 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		
 		return entity;
 	}
+
+public ArrayList<Entity> getOverworld() {	
+	enemies.clear();
+	
+	return enemies;
+}
 	
 	public ArrayList<Entity> getLevelTwo() {	
 		enemies.clear();
@@ -144,14 +156,14 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	
 	public ArrayList<Entity> getLevelFour() {	
 		enemies.clear();
-		createEnemy(12, 258, EnemyState.PATROL, 1, 1f, tex);
-		createEnemy(0, 266, EnemyState.PATROL, 1, 1.3f,tex);
-		createEnemy(2, 266, EnemyState.BOUNCE, 1, 1f, tex);
-		createEnemy(19, 275, EnemyState.PATROL, 1, 1f, tex);
+		createEnemy(12, 258, EnemyState.PATROL, 1, 1f, Utilities.tex);
+		createEnemy(0, 266, EnemyState.PATROL, 1, 1.3f, Utilities.tex);
+		createEnemy(2, 266, EnemyState.BOUNCE, 1, 1f, Utilities.tex);
+		createEnemy(19, 275, EnemyState.PATROL, 1, 1f, Utilities.tex);
 		
-		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, tex);
-		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, tex);
-		createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, tex);
+		createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, Utilities.tex);
+		createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, Utilities.tex);
+		createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.tex);
 		
 		
 		return enemies;
@@ -159,17 +171,17 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	
 	public ArrayList<Entity> getLevelFive() {	
 		enemies.clear();
-		createEnemy(-10, 383, EnemyState.BOUNCE, 1, 1.4f, tex);
-		createEnemy(-9, 382, EnemyState.PATROL, 1, 1f, tex); //mummy
-		createEnemy(-10, 382, EnemyState.PATROL, 1, 1f, tex);
+		createEnemy(-10, 383, EnemyState.BOUNCE, 1, 1.4f, Utilities.tex);
+		createEnemy(-9, 382, EnemyState.PATROL, 1, 1f, Utilities.tex); //mummy
+		createEnemy(-10, 382, EnemyState.PATROL, 1, 1f, Utilities.tex);
 		
-		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, tex);
-		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, tex);
-		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, tex);
-		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, tex);
-		createEnemyShooter(42, 382, 1, 4f, -2, 0, 7, 7, tex);
-		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, tex);
-		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, tex);
+		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.tex);
+		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.tex);
+		createEnemy(41, 382, EnemyState.STEERING, 1, 1.3f, Utilities.tex);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex);
+		createEnemyShooter(42, 382, 1, 4f, -2, 0, 7, 7, Utilities.tex);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex);
+		createEnemyShooter(42, 382, 1, 1f, -2, 0, 7, 7, Utilities.tex);
 //		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
 		return enemies;
 	}
