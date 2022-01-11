@@ -124,10 +124,11 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 	        			
 			NPC npc = new NPC();
-			
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
-					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"}, -32, 582, squirrelMan));
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Watch out for the projectiles!"}, -3, 593, oldMan));
+			String[] words = {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
+					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"};
+			npc.spawnNPC(words, -32, 582, textureRegion, false);
+			String[] message = {"Watch out for the projectiles!"};
+			npc.spawnNPC(message, -3, 593, textureRegion, false);
 
 			Map.getInstance().getEntityHandler().spawnLevelSeven();
 			

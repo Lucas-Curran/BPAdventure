@@ -130,7 +130,6 @@ public class TextBox implements InputProcessor {
 		textSequence = 0;
 		
 		table.setVisible(false);
-		//doptions = true;
 	}
 	
 	public void renderTextBox(float delta) {
@@ -211,7 +210,13 @@ public class TextBox implements InputProcessor {
 		return table.isVisible();
 	}
 	
-	public void setText(String[] text) {
+	public void setText(String[] text, boolean hasOptions) {
+		options = false;
+		yesButton.setVisible(false);
+		noButton.setVisible(false);
+		if (hasOptions) {
+			options = true;
+		}
 		numChars = 0;
 		textSequence = 0;
 		this.text = text;
@@ -284,7 +289,6 @@ public class TextBox implements InputProcessor {
 			table.setVisible(false);
 			yesButton.setVisible(false);
 			noButton.setVisible(false);
-			System.out.println("no");
 			return true;
 		}
 		return false;

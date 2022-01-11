@@ -30,7 +30,7 @@ import com.mygdx.game.ui.ShopWindow;
 
 public class NPC extends EntityHandler {
 	
-	public Entity spawnNPC(String[] text, int posx, int posy, TextureRegion npcTexture) {
+	public Entity spawnNPC(String[] text, int posx, int posy, TextureRegion npcTexture, boolean hasOptions) {
 		
 				Entity entity = pooledEngine.createEntity();
 				B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
@@ -48,6 +48,7 @@ public class NPC extends EntityHandler {
 				type.type = TypeComponent.NPC;
 				npcComp.text = text;
 				npcComp.wares = getShopWares();
+				npcComp.hasOptions = hasOptions;
 				
 				b2dbody.body.setUserData(entity);
 				

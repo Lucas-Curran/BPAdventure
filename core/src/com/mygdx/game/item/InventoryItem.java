@@ -2,6 +2,7 @@ package com.mygdx.game.item;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.game.ui.ShopItem;
 
 public class InventoryItem extends Image {
 	
@@ -72,6 +73,13 @@ public class InventoryItem extends Image {
         this.itemTypeID = inventoryItem.getItemTypeID();
         this.itemAttributes = inventoryItem.getItemAttributes();
         this.itemUseType = inventoryItem.getItemUseType();
+    }
+	
+	public InventoryItem(ShopItem shopItem) {
+        super(shopItem.getDrawable());
+        this.itemTypeID = shopItem.getItemTypeID();
+        this.itemAttributes = shopItem.getItemAttributes();
+        this.itemUseType = shopItem.getItemUseType();
     }
 	
 	public InventoryItem() {
