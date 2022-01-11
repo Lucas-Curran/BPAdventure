@@ -183,6 +183,20 @@ public class Inventory extends Window {
 	            }
 	    }
 	 
+	 public void removeItemFromInventory(InventoryItem item) {
+		 for (int i = 0; i < sourceCells.size; i++) {
+			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+			 if (inventorySlot == null) {
+				 continue;
+			 }
+			 if (inventorySlot.hasItem()) {
+				 if (inventorySlot.getTopInventoryItem().getName().equals(item.getName())) {
+					 inventorySlot.getTopInventoryItem().remove();
+				 }
+			 }
+		 }
+	 }
+	 
 	 public HashMap<Label, ShopItem> getAllItems() {
 		 HashMap<Label, ShopItem> items = new HashMap<Label, ShopItem>();
 		 for (int i = 0; i < sourceCells.size; i++) {

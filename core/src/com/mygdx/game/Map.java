@@ -187,9 +187,6 @@ public class Map implements Screen, InputProcessor {
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
 			if (levels.getLevelOne().getShopWindow().isShopVisible()) {
-				if (playerHUD.getStatusUI().getMoney().getParent() == playerHUD.getStatusUI()) {
-					playerHUD.getStatusUI().getMoney().remove();
-				}
 				levels.getLevelOne().getShopWindow().render(delta);
 			}
 			playerHUD.render(delta);
@@ -278,7 +275,6 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (Input.Keys.R == keycode && (entityHandler.talkingZone == true || textBox.isVisible()) && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
-			//textBox.setOptions(true, "Shop", "Close");
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
