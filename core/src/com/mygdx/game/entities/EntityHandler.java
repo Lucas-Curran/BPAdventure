@@ -87,6 +87,7 @@ public class EntityHandler implements ApplicationListener {
 	}
 
 	private String[] currentNPCText;
+	private boolean hasOptions;
 	
 	public float getDestinationX() {
         return destinationX;
@@ -132,7 +133,7 @@ public class EntityHandler implements ApplicationListener {
 		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
 		spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
 		slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
-		
+		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		
 		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 		
@@ -145,11 +146,8 @@ public class EntityHandler implements ApplicationListener {
 		pooledEngine.addSystem(renderingSystem);
 		pooledEngine.addSystem(new AnimationSystem());
 		pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
-		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
-		
+		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));		
 		pooledEngine.addSystem(new PlayerControlSystem());
-
-		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 		pooledEngine.addSystem(new EnemySystem());
 		pooledEngine.addSystem(new SteeringSystem());
 		pooledEngine.addSystem(new BulletSystem());
@@ -355,6 +353,14 @@ public class EntityHandler implements ApplicationListener {
 	
 	public PooledEngine getPooledEngine() {
 		return pooledEngine;
+	}
+	
+	public boolean hasOptions() {
+		return hasOptions;
+	}
+	
+	public void setHasOptions(boolean hasOptions) {
+		this.hasOptions = hasOptions;
 	}
 	
 }

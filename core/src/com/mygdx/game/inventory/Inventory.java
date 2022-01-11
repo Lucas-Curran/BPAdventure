@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -25,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Camera;
@@ -32,6 +34,7 @@ import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
+import com.mygdx.game.ui.ShopItem;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
 public class Inventory extends Window {
@@ -164,6 +167,7 @@ public class Inventory extends Window {
 	}
 	
 	 public void addItemToInventory(InventoryItem item, String itemName){
+		 
             for (int i = 0; i < sourceCells.size; i++) {
 	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 	                if (inventorySlot == null)  {
@@ -178,7 +182,34 @@ public class Inventory extends Window {
 	                }
 	            }
 	    }
-
+	 
+	 public void removeItemFromInventory(InventoryItem item) {
+		 for (int i = 0; i < sourceCells.size; i++) {
+			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+			 if (inventorySlot == null) {
+				 continue;
+			 }
+			 if (inventorySlot.hasItem()) {
+				 if (inventorySlot.getTopInventoryItem().getName().equals(item.getName())) {
+					 inventorySlot.getTopInventoryItem().remove();
+				 }
+			 }
+		 }
+	 }
+	 
+	 public HashMap<Label, ShopItem> getAllItems() {
+		 HashMap<Label, ShopItem> items = new HashMap<Label, ShopItem>();
+		 for (int i = 0; i < sourceCells.size; i++) {
+			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+			 if (inventorySlot.hasItem()) {
+				 items.put(new Label(inventorySlot.getTopInventoryItem().getName(), 
+						 Utilities.ACTUAL_UI_SKIN), new ShopItem(inventorySlot.getTopInventoryItem(), 10));
+				 
+			 }
+		 }
+		return items;
+	 }
+	 
 	
 	public ArrayList<Cell> getHotbarItems() {
 		ArrayList<Cell> hotbarItems = new ArrayList<Cell>();

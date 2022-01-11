@@ -54,9 +54,9 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 			unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
 			      			
 			NPC npc = new NPC();
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"All my soldiers are gone...", "I don't know who you are but you're our last chance to make it out alive."}, -32, 382, Utilities.tex));
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I can't go on...", "Go back while you still can, there's no end to this nightmare."}, 15, 382, Utilities.tex));
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Honestly, that was impressive. Go on, don't worry this time it's actually a nice surpise."}, 60, 382, unknownBeing));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"All my soldiers are gone...", "I don't know who you are but you're our last chance to make it out alive."}, -32, 382, tex, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I can't go on...", "Go back while you still can, there's no end to this nightmare."}, 15, 382, tex, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Honestly, that was impressive. Go on, don't worry this time it's actually a nice surpise."}, 60, 382, unknownBeing, false));
 
 			Map.getInstance().getEntityHandler().spawnLevelFive();
 			isCreated = true;

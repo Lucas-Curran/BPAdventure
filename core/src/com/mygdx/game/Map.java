@@ -112,9 +112,7 @@ public class Map implements Screen, InputProcessor {
 		inputMultiplexer.addProcessor(playerHUD.getStage());
 		inputMultiplexer.addProcessor(textBox.getInstance());
 		inputMultiplexer.addProcessor(textBox.getStage());
-		
-		Gdx.input.setInputProcessor(inputMultiplexer);
-		
+
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
 			weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
@@ -161,6 +159,10 @@ public class Map implements Screen, InputProcessor {
 		if (!levels.getIceDungeon().isCreated()) {
 			levels.getIceDungeon().create();
 		}
+		inputMultiplexer.addProcessor(levels.getLevelOne().getShopWindow());
+		inputMultiplexer.addProcessor(levels.getLevelOne().getShopWindow().getStage());
+		
+		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 
 	@Override
@@ -189,9 +191,7 @@ public class Map implements Screen, InputProcessor {
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {
 			if (levels.getLevelOne().getShopWindow().isShopVisible()) {
-				if (playerHUD.getStatusUI().getMoney().getParent() == playerHUD.getStatusUI()) {
-					playerHUD.getStatusUI().getMoney().remove();
-				}
+				levels.getLevelOne().getShopWindow().render(delta);
 			}
 			playerHUD.render(delta);
 		}
@@ -280,8 +280,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
-		if (Input.Keys.R == keycode && entityHandler.talkingZone == true && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
-			//textBox.setOptions(true, "Shop", "Close");
+		if (Input.Keys.R == keycode && (entityHandler.talkingZone == true || textBox.isVisible()) && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -289,7 +288,7 @@ public class Map implements Screen, InputProcessor {
 					textBox.hideTextBow();
 				}
 			} else {
-				textBox.setText(entityHandler.getCurrentNPCText());
+				textBox.setText(entityHandler.getCurrentNPCText(), entityHandler.hasOptions());
 			}
 			return true;
 		}

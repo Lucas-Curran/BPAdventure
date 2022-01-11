@@ -66,8 +66,8 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		
 		//Map.getInstance().getEntityHandler().spawnShopNPC();
 		NPC npc = new NPC();
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Having fun?", "Well I hope you like climbing because you'll need to make it to the top to get out!"}, -28, 252, normalMan));
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Brrr...who are you?", "Go back down before it's too late kid, you'll never get past the guardian", "I should have never entered that cursed cave..."}, 2, 275, tex));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Having fun?", "Well I hope you like climbing because you'll need to make it to the top to get out!"}, -28, 252, normalMan, false));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Brrr...who are you?", "Go back down before it's too late kid, you'll never get past the guardian", "I should have never entered that cursed cave..."}, 2, 275, tex, false));
 		Map.getInstance().getEntityHandler().spawnLevelFour();
 		
 	}
