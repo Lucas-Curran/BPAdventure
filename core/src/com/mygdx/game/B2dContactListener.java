@@ -140,7 +140,7 @@ public class B2dContactListener implements ContactListener {
 		}
             }
         });
-// put thing here
+
 		if (fa.getBody().getUserData() == "gravityPillar") {
 			System.out.println("Hit gravitySwitch");
 			parent.gravityZone = true;
@@ -206,6 +206,14 @@ public class B2dContactListener implements ContactListener {
 	}
 	
 	private void endAllLevels() {
+		Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			
+		
 		for (Entity enemy : parent.enemies.getLevelTwo()) {
 			parent.getPooledEngine().removeEntity(enemy);
 		}
@@ -233,6 +241,9 @@ public class B2dContactListener implements ContactListener {
 		for (Entity enemy : parent.enemies.getLevelTen()) {
 			parent.getPooledEngine().removeEntity(enemy);
 		}
+}
+			
+		});
 		
 		
 	}
