@@ -34,7 +34,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	static boolean inLevelTwo;
 	Texture texture = new Texture(Gdx.files.internal("crackedPillar.png"));
 	
-	Body[] chests = new Body[1];
+	Body[] blessing = new Body[1];
 	@Override
 	public void create() {
 		
@@ -47,11 +47,13 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		Map.getInstance().getEntityHandler().spawnLevelTwo();
 		NPC npc = new NPC();
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
-		TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/unknownBeing");
+		TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92, normalMan, false));
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92, unknownBeing, false));
 
 		
+		blessing[0] = bodyFactory.makeBoxPolyBody(34, 92, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+		blessing[0].setUserData("levelTwoBlessing");
 		//Creates door to Level 3
 		db.createDoor(37, 92.5f, 50, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
 	}
