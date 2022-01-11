@@ -58,7 +58,7 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			makeSaw(-4, 685f);
 			
 			pillars[0] = bodyFactory.makeBoxPolyBody(15, 692, 1, 15, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
-			pillars[1] = bodyFactory.makeBoxPolyBody(22, 688, 1, 14, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			pillars[1] = bodyFactory.makeBoxPolyBody(22, 687.5f, 1, 13, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[0] = bodyFactory.makeBoxPolyBody(21, 683.8f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[1] = bodyFactory.makeBoxPolyBody(16, 685.5f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[2] = bodyFactory.makeBoxPolyBody(21, 687f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);

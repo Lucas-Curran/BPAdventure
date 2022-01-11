@@ -155,11 +155,13 @@ public class B2dContactListener implements ContactListener {
 		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
 			System.out.println("Hit lava");
 			parent.killZone = true;
+			endAllLevels();
 			parent.gravityZone = false;
 			
 		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
 			System.out.println("Hit lava");
 			parent.killZone = true;
+			endAllLevels();
 			parent.gravityZone = false;
 
 		}
@@ -173,6 +175,38 @@ public class B2dContactListener implements ContactListener {
 			entityCollision(ent,fa);
 			return;
 		}
+		
+	}
+	
+	private void endAllLevels() {
+		for (Entity enemy : parent.enemies.getLevelTwo()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelThree()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelFour()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelFive()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelSix()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelSeven()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelEight()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelNine()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		for (Entity enemy : parent.enemies.getLevelTen()) {
+			parent.getPooledEngine().removeEntity(enemy);
+		}
+		
 		
 	}
  
