@@ -263,9 +263,8 @@ public class ShopWindow extends Window implements InputProcessor  {
 					com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(tempItem, selectedBuyItem.getName());
 					money.setMoney(money.getMoney() - selectedBuyItem.getCost());
 					buyList.remove(itemToRemove.getChild(0));	
-				} else {
-					//System.out.println("not enough money");
-					//infoLabel.setText("Not enough money!");
+				} else {			
+					infoLabel.setText("Not enough money!");
 				}
 			}
 			if (selectedSellItem != null) {
