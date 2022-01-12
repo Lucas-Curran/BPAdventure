@@ -37,6 +37,15 @@ public class DoorBuilder {
 		return door;
 	}
 	
+	public Body createInternalDoor(float posx, float posy, float desX, float desY, int material, String name) {
+		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true, texture);
+		door.setUserData(name);
+		doors.add(door);
+		destinationsX.add(desX);	
+		destinationsY.add(desY);
+		return door;
+	}
+	
 	public void destroy(Body door) {
 		(new GameWorld().getInstance()).destroyBody(door);
 	}

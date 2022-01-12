@@ -71,6 +71,7 @@ public class Map implements Screen, InputProcessor {
 	private boolean swing;
 	
 	public boolean gravitySwitch;
+	public boolean createLevel;
 	
 	public void setGravitySwitch(boolean gravitySwitch) {
 		this.gravitySwitch = gravitySwitch;
@@ -231,6 +232,7 @@ public class Map implements Screen, InputProcessor {
 		
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
+			createLevel = true;
 			return true;
 		}
 		
