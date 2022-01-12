@@ -52,11 +52,12 @@ public class B2dContactListener implements ContactListener {
 		final Fixture fa = contact.getFixtureA();
 		final Fixture fb = contact.getFixtureB();
 		
+		// invokes a new Runnable in a separate thread to edit the world
 		Gdx.app.postRunnable(new Runnable() {
 
             @Override
             public void run () {
-
+            	// runs through all the doors and finds the one the user went through
 		for (int i = 0; i < db.doors.size(); i++) {
 			
 			if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
@@ -69,7 +70,8 @@ public class B2dContactListener implements ContactListener {
 						parent.setDestination(db.destinations.get(i));
 						parent.setCreatedLevel(db.createdLevels.get(i));
 						
-						
+						// depending on the parameter passed to the DoorBuilder, 
+						// a case here creates the appropriate level and destroys the previous
 						
 						switch(db.createdLevels.get(i)) {
 						case OVERWORLD:
@@ -80,7 +82,12 @@ public class B2dContactListener implements ContactListener {
 							for (Entity enemy : parent.enemies.getOverworld()) {
 								parent.getPooledEngine().removeEntity(enemy);
 							}
+							
+							System.out.println(parent.enemies.getLevelTwo().size());
+							if (parent.enemies.getLevelTwo().size() == 0) {
 				            parent.getLevels().getLevelTwo().create();
+							}
+						
 							break;
 						case LVL_3:
 							for (Entity enemy : parent.enemies.getLevelTwo()) {
@@ -130,8 +137,12 @@ public class B2dContactListener implements ContactListener {
 							}
 							parent.getLevels().getLevelTen().create();
 							break;
+						default:
+							
+							break;
 
 						}
+						// end if
 						
 					}
 				}
@@ -149,6 +160,8 @@ public class B2dContactListener implements ContactListener {
 		}
             }
         });
+		
+		// contact statements for other bodies in the game
 
 		if (fa.getBody().getUserData() == "gravityPillar") {
 			System.out.println("Hit gravitySwitch");

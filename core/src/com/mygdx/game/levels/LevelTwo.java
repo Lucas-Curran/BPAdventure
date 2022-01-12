@@ -51,7 +51,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		inLevelTwo = true;
 		isCreated = true;        
 		//Creates door to Level 3
-		db.createDoor(37, 92.5f, 50, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
+		db.createDoor(39, 92.5f, -35, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
 		
 		//Creates Level One NPCs
 		Map.getInstance().getEntityHandler().spawnLevelTwo();
@@ -59,10 +59,10 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
 		TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92, normalMan, false));
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Jump on top of that purple rock behind me to recieve your reward and exit through the door","...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92, unknownBeing, false));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Jump on top of that purple rock behind me to recieve your reward and exit through the door","...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 33, 92, unknownBeing, false));
 
 		
-		blessing[0] = bodyFactory.makeBoxPolyBody(39, 92, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
+		blessing[0] = bodyFactory.makeBoxPolyBody(36, 92, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 		blessing[0].setUserData("levelTwoBlessing");
 		
 	}
