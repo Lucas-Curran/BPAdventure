@@ -36,22 +36,24 @@ public class BulletSystem extends IteratingSystem{
 		B2dBodyComponent enemyBody = bodm.get(enemy);
 		range = bullet.range;
 		
+		if (enemyBody != null) {
 		//get position values
-		float bx = b2body.body.getPosition().x;
-		float by = b2body.body.getPosition().y;
-		float ex = enemyBody.body.getPosition().x;
-		float ey = enemyBody.body.getPosition().y;
-		
-		if (Math.abs(bx - ex) > range || Math.abs(by - ey) > range) {
-			bullet.isDead = true;
-		}
-		
-		// apply bullet velocity to bullet body
-		b2body.body.setLinearVelocity(bullet.xVel, bullet.yVel);
-		
-		//check if bullet is dead
-		if(bullet.isDead){
-			b2body.isDead = true;
+			float bx = b2body.body.getPosition().x;
+			float by = b2body.body.getPosition().y;
+			float ex = enemyBody.body.getPosition().x;
+			float ey = enemyBody.body.getPosition().y;
+			
+			if (Math.abs(bx - ex) > range || Math.abs(by - ey) > range) {
+				bullet.isDead = true;
+			}
+			
+			// apply bullet velocity to bullet body
+			b2body.body.setLinearVelocity(bullet.xVel, bullet.yVel);
+			
+			//check if bullet is dead
+			if(bullet.isDead){
+				b2body.isDead = true;
+			}
 		}
 	}
 }

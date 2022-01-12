@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
+import com.mygdx.game.components.EnemyComponent;
 import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TransformComponent;
@@ -252,6 +253,7 @@ public class B2dContactListener implements ContactListener {
 		
 		
 		
+		
 
 		
 	}
@@ -381,6 +383,15 @@ public class B2dContactListener implements ContactListener {
 			parent.killZone = false;
 		}
 		
+		if (fa.getBody().getUserData() == "Sword") {
+			if (fb.getBody().getUserData() instanceof Entity) {
+				Entity ent = (Entity) fb.getBody().getUserData();
+				if (ent.getComponent(TypeComponent.class).type == TypeComponent.ENEMY) {
+					ent.getComponent(EnemyComponent.class).health -= 1;
+
+				}
+			}
+		}
 	}
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {		
