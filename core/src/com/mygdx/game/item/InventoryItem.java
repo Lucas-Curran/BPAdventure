@@ -6,6 +6,9 @@ import com.mygdx.game.ui.ShopItem;
 
 public class InventoryItem extends Image {
 	
+	private int damage;
+	private int defense;
+	
 	public enum ItemAttribute {
 		CONSUMABLE(1),
 		EQUIPPABLE(2),
@@ -24,17 +27,18 @@ public class InventoryItem extends Image {
 	}
 	
 	public enum ItemUseType {
+		
 		ITEM_RESTORE_HEALTH(1),
 	    ITEM_RESTORE_MP(2),
 	    ITEM_DAMAGE(4),
-	    WEAPON_ONEHAND(8),
+	    WEAPON_ONEHAND(1),
 	    WEAPON_TWOHAND(16),
 	    ARMOR_SHIELD(32),
 	    ARMOR_HELMET(64),
 	    ARMOR_CHEST(128),
 	    ARMOR_FEET(256),
 		ARMOR_LEGS(512);
-		
+	
 		private int itemUseType;
 		
 		ItemUseType(int itemUseType) {
@@ -46,14 +50,28 @@ public class InventoryItem extends Image {
 		}
 	}
 	
-	public enum ItemTypeID {
-		ARMOR01,
+	public enum ItemTypeID {		
+		BODYARMOR01,
 		BOOTS01,
 		HELMET01,
 		LEGS01,
 		SHIELD01,
 		WEAPON01,
 		POTIONS01,
+		BODYARMOR02,
+		BOOTS02,
+		HELMET02,
+		LEGS02,
+		SHIELD02,
+		WEAPON02,
+		POTIONS02,
+		BODYARMOR03,
+		BOOTS03,
+		HELMET03,
+		LEGS03,
+		SHIELD03,
+		WEAPON03,
+		POTIONS03,
 		KEY1,
 		ICESWORD,
 		ICESHIELD,
@@ -73,6 +91,92 @@ public class InventoryItem extends Image {
 		this.itemTypeID = itemTypeID;
 		this.itemAttributes = itemAttributes;
 		this.itemUseType = itemUseType;
+		
+		switch(itemTypeID) {
+		
+		case BODYARMOR01:
+			defense = 1;
+			break;
+		case BODYARMOR02:
+			defense = 2;
+			break;
+		case BODYARMOR03:
+			defense = 3;
+			break;
+		case BOOTS01:
+			defense = 1;
+			break;
+		case BOOTS02:
+			defense = 2;
+			break;
+		case BOOTS03:
+			defense = 3;
+			break;
+		case DESERTSHIELD:
+			defense = 3;
+			break;
+		case HELMET01:
+			defense = 1;
+			break;
+		case HELMET02:
+			defense = 2;
+			break;
+		case HELMET03:
+			defense = 3;
+			break;
+		case ICESHIELD:
+			defense = 2;
+			break;
+		case ICESWORD:
+			damage = 3;
+			break;
+		case JUNGLECHEST:
+			break;
+		case JUNGLEHELMET:
+			defense = 2;
+			break;
+		case JUNGLESTAFF:
+			break;
+		case KEY1:
+			break;
+		case LEGS01:
+			defense = 1;
+			break;
+		case LEGS02:
+			defense = 2;
+			break;
+		case LEGS03:
+			defense = 3;
+			break;
+		case NONE:
+			break;
+		case POTIONS01:
+			break;
+		case POTIONS02:
+			break;
+		case POTIONS03:
+			break;
+		case SHIELD01:
+			defense = 1;
+			break;
+		case SHIELD02:
+			defense = 2;
+			break;
+		case SHIELD03:
+			defense = 3;
+			break;
+		case WEAPON01:
+			damage = 2;
+			break;
+		case WEAPON02:
+			damage = 3;
+			break;
+		case WEAPON03:
+			damage = 4;
+			break;
+		default:
+			break;
+		}
 	}
 	
 	public InventoryItem(InventoryItem inventoryItem){
@@ -80,6 +184,8 @@ public class InventoryItem extends Image {
         this.itemTypeID = inventoryItem.getItemTypeID();
         this.itemAttributes = inventoryItem.getItemAttributes();
         this.itemUseType = inventoryItem.getItemUseType();
+        this.defense = inventoryItem.getDefense();
+        this.damage = inventoryItem.getDamage();
     }
 	
 	public InventoryItem(ShopItem shopItem) {
@@ -87,6 +193,8 @@ public class InventoryItem extends Image {
         this.itemTypeID = shopItem.getItemTypeID();
         this.itemAttributes = shopItem.getItemAttributes();
         this.itemUseType = shopItem.getItemUseType();
+        this.damage = shopItem.getDamage();
+        this.defense = shopItem.getDefense();
     }
 	
 	public InventoryItem() {
@@ -134,6 +242,14 @@ public class InventoryItem extends Image {
 	
 	public int getItemAttributes() {
 		return itemAttributes;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+	
+	public int getDefense() {
+		return defense;
 	}
 	
 }

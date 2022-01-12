@@ -34,6 +34,9 @@ public class Player extends EntityHandler {
 	
 	Levels levels = new Levels();
 	
+	private int defense = 0;
+	private int damage = 1;
+	
 	public Entity createPlayer(float x, float y) {
 		
 		// Create the Entity and all the components that will go in the entity
@@ -175,4 +178,22 @@ public class Player extends EntityHandler {
 
             }
         }
+
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	
+	
 }

@@ -18,6 +18,8 @@ public class InventorySlot extends Stack {
 	private int numItems;
 	private int filterItemType;
 	
+	private boolean forEquippables;
+	
 	public InventorySlot() {
 			
 		filterItemType = 0;
@@ -32,14 +34,13 @@ public class InventorySlot extends Stack {
 		
 	}
 	
-	public InventorySlot(int filterItemType, Image slotBackground) {
+	public InventorySlot(int filterItemType, Image slotBackground, boolean forEquippables) {
 		this();
 		this.filterItemType = filterItemType;
 		this.slotBackground = slotBackground;
+		this.forEquippables = forEquippables;
 		slotStack.add(slotBackground);
-	}
-	
-	
+	}	
 	
 	@Override
     public void add(Actor actor) {
@@ -148,6 +149,8 @@ public class InventorySlot extends Stack {
 		return items;
 	}
 	
-	
+	public boolean isForEquippables() {
+		return forEquippables;
+	}	
 	
 }

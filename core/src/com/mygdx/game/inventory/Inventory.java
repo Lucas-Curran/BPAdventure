@@ -45,6 +45,7 @@ public class Inventory extends Window {
 	private Table slotsTable;
 	
 	private DragAndDrop dragAndDrop;
+	private InventorySlot headSlot, leftArmSlot, rightArmSlot, chestSlot, legsSlot, bootsSlot;
 	
 	private final int NUM_ROWS = 4;
 	private final int NUM_COLUMNS = 5;
@@ -77,30 +78,30 @@ public class Inventory extends Window {
 		equipmentTable.setName("Equipment_Table");
 		equipmentTable.defaults().space(10);
 		
-		InventorySlot headSlot = new InventorySlot(
+		headSlot = new InventorySlot(
 				ItemUseType.ARMOR_HELMET.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderHelmet")));
+				new Image(Utilities.UISKIN.getRegion("holderHelmet")), true);
 		
-		InventorySlot leftArmSlot = new InventorySlot(
+		leftArmSlot = new InventorySlot(
 				ItemUseType.WEAPON_ONEHAND.getValue() |
 				ItemUseType.WEAPON_TWOHAND.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderSword")));
+				new Image(Utilities.UISKIN.getRegion("holderSword")), true);
 		
-		InventorySlot rightArmSlot = new InventorySlot(
+		rightArmSlot = new InventorySlot(
 				ItemUseType.ARMOR_SHIELD.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderShield")));
+				new Image(Utilities.UISKIN.getRegion("holderShield")), true);
 		
-		InventorySlot chestSlot = new InventorySlot(
+		chestSlot = new InventorySlot(
 				ItemUseType.ARMOR_CHEST.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderChest")));
+				new Image(Utilities.UISKIN.getRegion("holderChest")), true);
 		
-		InventorySlot legsSlot = new InventorySlot(
+		legsSlot = new InventorySlot(
 				ItemUseType.ARMOR_LEGS.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderLegs")));
+				new Image(Utilities.UISKIN.getRegion("holderLegs")), true);
 		
-		InventorySlot bootsSlot = new InventorySlot(
+		bootsSlot = new InventorySlot(
 				ItemUseType.ARMOR_FEET.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderBoots")));
+				new Image(Utilities.UISKIN.getRegion("holderBoots")), true);
 		
 		dragAndDrop.addTarget(new InventorySlotTarget(headSlot));
 		dragAndDrop.addTarget(new InventorySlotTarget(leftArmSlot));
@@ -208,6 +209,34 @@ public class Inventory extends Window {
 			 }
 		 }
 		return items;
+	 }
+	 
+	 public int getPlayerDefense() {
+		 int defense = 0;
+		 if (headSlot.hasItem()) {
+			 defense += headSlot.getTopInventoryItem().getDefense();
+		 }
+		 if (rightArmSlot.hasItem()) {
+			 defense += rightArmSlot.getTopInventoryItem().getDefense();
+		 }
+		 if (chestSlot.hasItem()) {
+			 defense+= chestSlot.getTopInventoryItem().getDefense();
+		 }
+		 if (legsSlot.hasItem()) {
+			 defense+= legsSlot.getTopInventoryItem().getDefense();
+		 } 
+		 if (bootsSlot.hasItem()) {
+			 defense += bootsSlot.getTopInventoryItem().getDefense();
+		 }
+		 return defense;
+	 }
+	 
+	 public int getPlayerDamage() {
+		 int damage = 0;
+		 if (leftArmSlot.hasItem()) {
+			 damage += leftArmSlot.getTopInventoryItem().getDamage();
+		 }
+		 return damage;
 	 }
 	 
 	

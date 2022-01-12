@@ -11,6 +11,8 @@ public class ShopItem extends Image {
 	private int itemAttributes;
 	private int itemUseType;
 	private ItemTypeID itemTypeID;
+	private int defense;
+	private int damage;
 	private int cost;
 	
 	public ShopItem(InventoryItem item, int cost) {
@@ -18,7 +20,25 @@ public class ShopItem extends Image {
 		itemAttributes = item.getItemAttributes();
 		itemUseType = item.getItemUseType();
 		itemTypeID = item.getItemTypeID();
+		defense = item.getDefense();
+		damage = item.getDamage();
 		this.cost = cost;
+	}
+	
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 
 	public int getCost() {

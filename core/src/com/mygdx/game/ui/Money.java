@@ -16,7 +16,7 @@ public class Money extends Actor {
 	public Money() {
 		moneyTex = new Texture(Gdx.files.internal("money.png"));
 		bitmapFont = new BitmapFont();
-		money = 0;
+		money = 100;
 		x = 225;
 		y = 430;
 	}

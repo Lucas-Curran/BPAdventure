@@ -3,6 +3,7 @@ package com.mygdx.game.inventory;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
+import com.mygdx.game.Map;
 import com.mygdx.game.item.InventoryItem;
 
 public class InventorySlotTarget extends Target {
@@ -43,6 +44,21 @@ public class InventorySlotTarget extends Target {
 		
 		if (!targetSlot.hasItem()) {
 			targetSlot.add(sourceActor);
+			if (targetSlot.isForEquippables()) {
+				if (sourceActor.isInventoryItemDefensive()) {
+					Map.getInstance().getEntityHandler().getPlayer().setDefense(Map.getInstance().getEntityHandler().getPlayer().getDefense() + sourceActor.getDefense());
+				} else if (sourceActor.isInventoryItemWeapon()) {
+					Map.getInstance().getEntityHandler().getPlayer().setDamage(sourceActor.getDamage());
+				}
+			}
+			
+			if (sourceSlot.isForEquippables()) {
+				if (sourceActor.isInventoryItemDefensive()) {
+					Map.getInstance().getEntityHandler().getPlayer().setDefense(Map.getInstance().getEntityHandler().getPlayer().getDefense() - sourceActor.getDefense());
+				} else if (sourceActor.isInventoryItemWeapon()) {
+					Map.getInstance().getEntityHandler().getPlayer().setDamage(1);
+				}
+			}				
 		} else {
 			if (sourceActor.isSameItemType(targetActor) && sourceActor.isStackable()) {
 				targetSlot.add(sourceActor);

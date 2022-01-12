@@ -153,7 +153,9 @@ public class Map implements Screen, InputProcessor {
 				weapon.setSwingFinished(false);
 			}
 		}
-		
+
+		System.out.println("Damage: " + entityHandler.getPlayer().getDamage());
+		System.out.println("Defense: " + entityHandler.getPlayer().getDefense());
 		
 		levels.getOverworld().render();
 		textBox.renderTextBox(delta);
@@ -216,7 +218,7 @@ public class Map implements Screen, InputProcessor {
 	public boolean keyUp(int keycode) {
 
 		if (Input.Keys.T == keycode) {
-			InventoryItem apple = new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.ARMOR01);
+			InventoryItem apple = new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.BODYARMOR01);
 			playerHUD.getInventory().addItemToInventory(apple, "Apple");
 		}
 		

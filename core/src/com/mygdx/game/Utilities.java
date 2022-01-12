@@ -48,6 +48,7 @@ public class Utilities {
 	private static TextureAtlas atlas = new TextureAtlas("bpaatlas.txt");
 	private static TextureAtlas uiAtlas = new TextureAtlas("uiskin.txt");
 	
+	public static TextureAtlas itemsAtlas = new TextureAtlas("items.txt");
 	public static TextureAtlas textureAtlas = new TextureAtlas("textures.txt");
 	
 	public static TextureRegion tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
