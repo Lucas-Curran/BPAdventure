@@ -20,7 +20,7 @@ public class IceDungeon extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
 
 	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
-	Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
+	private Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
 	
 	float[] vertices;
 	

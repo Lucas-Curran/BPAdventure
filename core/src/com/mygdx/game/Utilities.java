@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
+/**
+ * Any textures not credited are either public domain or custom made by the BPAdventure Team. 
+ * All textures used are free to use for any purpose including commercially 
+ */
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -50,20 +55,23 @@ public class Utilities {
 	public static TextureAtlas levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
 	public static TextureRegion rockMob = Utilities.levelTwoAtlas.findRegion("RockMobEnemy");
 	public static TextureRegion spikyRockMob = Utilities.levelTwoAtlas.findRegion("SpikyRockEnemy");
-	//public static TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
-	//public static TextureRegion unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
-	
 	public static TextureAtlas otherTexturesAtlas = new TextureAtlas("otherTextures.txt");
 	public static TextureRegion eyeBoss = Utilities.otherTexturesAtlas.findRegion("eyeBoss");
 	public static TextureRegion flyingEye = Utilities.otherTexturesAtlas.findRegion("flyingEye");
 	public static TextureRegion iceBird = Utilities.otherTexturesAtlas.findRegion("iceBird");
-	public static TextureRegion iceGolem = Utilities.otherTexturesAtlas.findRegion("iceGolem");
 	public static TextureRegion iceMonster = Utilities.otherTexturesAtlas.findRegion("iceMonster");
 	public static TextureRegion jungleDragon = Utilities.otherTexturesAtlas.findRegion("jungleDragon");
 	public static TextureRegion mummyEnemy = Utilities.otherTexturesAtlas.findRegion("mummyEnemy");
 	public static TextureRegion slimeKing = Utilities.otherTexturesAtlas.findRegion("slimeKing");
 	public static TextureRegion soldierKnight = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
 	
+	/**
+	 * Attributions:
+	 * Ice Bird by Bevouliin licensed CC-BY 4.0: https://opengameart.org/content/flappy-bird-sprite-icy-flying-character
+	 * Mummy Enemy by Svetlana Kushnariova licensed CC-BY 4.0: https://opengameart.org/content/mummies 
+	 * Slime King by khairul169 licensed CC-BY 3.0: https://opengameart.org/content/slime-character
+	 * Soldier Knight by Segel licensed CC-BY 3.0: https://opengameart.org/content/2d-knight-chibi
+	 */
 	public static TextureAtlas levelSevenAtlas = new TextureAtlas("moreSprites.txt");
 
 	

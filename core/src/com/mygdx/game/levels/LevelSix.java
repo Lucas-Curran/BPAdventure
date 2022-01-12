@@ -1,6 +1,9 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
+/**
+ * Any textures not credited are either public domain or custom made by the BPAdventure Team. 
+ * All textures used are free to use for any purpose including commercially 
+ */
 
 import java.util.ArrayList;
 
@@ -34,8 +37,11 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 
 		private TextureRegion textureRegion;
+		private Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
 		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+
 		Body[] platforms = new Body[25];
+		Body[] blessings = new Body[25];
 		float[] vertices;
 		
 		Body door;
@@ -56,26 +62,29 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 			platforms[1] = bodyFactory.makeBoxPolyBody(-8, 455f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			platforms[2] = bodyFactory.makeBoxPolyBody(8, 457f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			platforms[3] = bodyFactory.makeBoxPolyBody(8, 457f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[4] = bodyFactory.makeBoxPolyBody(8, 458f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[5] = bodyFactory.makeBoxPolyBody(12, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[6] = bodyFactory.makeBoxPolyBody(13, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[7] = bodyFactory.makeBoxPolyBody(14, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[8] = bodyFactory.makeBoxPolyBody(15, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[9] = bodyFactory.makeBoxPolyBody(16, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[4] = bodyFactory.makeBoxPolyBody(12, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[5] = bodyFactory.makeBoxPolyBody(13, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[6] = bodyFactory.makeBoxPolyBody(14, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[7] = bodyFactory.makeBoxPolyBody(15, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[8] = bodyFactory.makeBoxPolyBody(16, 460f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 
-			platforms[10] = bodyFactory.makeBoxPolyBody(25, 459f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[11] = bodyFactory.makeBoxPolyBody(27, 461f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[12] = bodyFactory.makeBoxPolyBody(29, 463f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[13] = bodyFactory.makeBoxPolyBody(46, 465f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[19] = bodyFactory.makeBoxPolyBody(60, 466.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[9] = bodyFactory.makeBoxPolyBody(25, 459f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[10] = bodyFactory.makeBoxPolyBody(27, 461f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[11] = bodyFactory.makeBoxPolyBody(29, 463f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[12] = bodyFactory.makeBoxPolyBody(46, 465f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 
-			platforms[14] = bodyFactory.makeBoxPolyBody(56, 468f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[15] = bodyFactory.makeBoxPolyBody(54, 470f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[16] = bodyFactory.makeBoxPolyBody(52, 472f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[17] = bodyFactory.makeBoxPolyBody(50, 474f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			
-			platforms[18] = bodyFactory.makeBoxPolyBody(32, 476f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[20] = bodyFactory.makeBoxPolyBody(19, 477.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[13] = bodyFactory.makeBoxPolyBody(56, 468f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[14] = bodyFactory.makeBoxPolyBody(54, 470f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[15] = bodyFactory.makeBoxPolyBody(52, 472f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[16] = bodyFactory.makeBoxPolyBody(50, 474f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);		
+			platforms[17] = bodyFactory.makeBoxPolyBody(32, 476f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+
+			blessings[0] = bodyFactory.makeBoxPolyBody(60, 466.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
+			blessings[0].setUserData("levelSixBlessing3");
+			blessings[1] = bodyFactory.makeBoxPolyBody(19, 477.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
+			blessings[1].setUserData("levelSixBlessing2");
+			blessings[2] = bodyFactory.makeBoxPolyBody(8, 458f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
+			blessings[2].setUserData("levelSixBlessing1");
 
 			TextureRegion slime = Utilities.slimeKing;
 			NPC npc = new NPC();

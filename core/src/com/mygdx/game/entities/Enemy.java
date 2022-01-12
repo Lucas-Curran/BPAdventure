@@ -174,7 +174,7 @@ public ArrayList<Entity> getOverworld() {
 	public ArrayList<Entity> getLevelFive() {	
 		enemies.clear();
 		createEnemy(-10, 383, EnemyState.BOUNCE, 1, 1.4f, Utilities.flyingEye);
-		createEnemy(-9, 382, EnemyState.PATROL, 1, 1f, Utilities.mummyEnemy); //mummy
+		createEnemy(-9, 382, EnemyState.PATROL, 1, 1f, Utilities.mummyEnemy); 
 		
 		createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye);
 		createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye);
