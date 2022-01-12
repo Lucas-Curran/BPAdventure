@@ -1,7 +1,7 @@
 package com.mygdx.game.levels;
 
 /**
- * Any textures not credited are either either public domain or custom made by the BPAdventure Team. 
+ * Any textures not credited are either public domain or custom made by the BPAdventure Team. 
  * All textures used are free to use for any purpose including commercially 
  */
 

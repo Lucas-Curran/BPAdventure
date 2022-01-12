@@ -1,6 +1,9 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
+/**
+ * Any textures not credited are either public domain or custom made by the BPAdventure Team. 
+ * All textures used are free to use for any purpose including commercially 
+ */
 
 import java.util.ArrayList;
 
@@ -24,6 +27,10 @@ import com.mygdx.game.entities.NPC;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
+/**
+ * Class creates Level Two of the game
+ *
+ */
 public class LevelTwo extends LevelFactory implements ApplicationListener{
 	boolean isCreated;
 	private NPC startNPC;
