@@ -67,7 +67,7 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 			platforms[11] = bodyFactory.makeBoxPolyBody(27, 461f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			platforms[12] = bodyFactory.makeBoxPolyBody(29, 463f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			platforms[13] = bodyFactory.makeBoxPolyBody(46, 465f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
-			platforms[12] = bodyFactory.makeBoxPolyBody(60, 467f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[19] = bodyFactory.makeBoxPolyBody(60, 466.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 
 			platforms[14] = bodyFactory.makeBoxPolyBody(56, 468f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			platforms[15] = bodyFactory.makeBoxPolyBody(54, 470f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
@@ -75,11 +75,12 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 			platforms[17] = bodyFactory.makeBoxPolyBody(50, 474f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 			
 			platforms[18] = bodyFactory.makeBoxPolyBody(32, 476f, 30, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+			platforms[20] = bodyFactory.makeBoxPolyBody(19, 477.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 
 			TextureRegion slime = Utilities.slimeKing;
 			NPC npc = new NPC();
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Bow before the king and recieve your reward."}, 3, 458, slime, false));
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Bow before the king and recieve your reward."}, 18, 458, slime, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Continue on to the next level or head up to take on the Jungle Challenges."}, 18, 458, slime, false));
 
 			Map.getInstance().getEntityHandler().spawnLevelSix();
 

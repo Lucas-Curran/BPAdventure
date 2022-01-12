@@ -142,7 +142,7 @@ public ArrayList<Entity> getOverworld() {
 	
 	public ArrayList<Entity> getLevelTwo() {	
 		enemies.clear();
-		createEnemy(15, 92, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye);
+		createEnemy(15, 92, EnemyState.STEERING, 8, 1.3f, Utilities.rockMob);
 
 		createEnemy(15, 92, EnemyState.PATROL, 1, 1f, rockMob);
 		createEnemy(25, 93, EnemyState.PATROL, 1, 2f, spikyRockMob);
@@ -179,7 +179,7 @@ public ArrayList<Entity> getOverworld() {
 		createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye);
 		createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye);
 		createEnemy(40, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye);
-		createEnemyShooter(42, 382, 1, 3f, -2, 0, 7, 7, Utilities.eyeBoss, false);
+		createEnemyShooter(42, 382, 1, 2f, -2, 0, 7, 7, Utilities.eyeBoss, false);
 		return enemies;
 	}
 	
@@ -187,15 +187,12 @@ public ArrayList<Entity> getOverworld() {
 		enemies.clear();
 		createEnemy(14, 463, EnemyState.PATROL, 0, 4f, Utilities.slimeKing);
 		
-//		createEnemy(43, 466, EnemyState.STEERING, 1, 1.3f, Utilities.jungleDragon);
-//		createEnemy(45, 466, EnemyState.STEERING, 1, 1.7f, Utilities.jungleDragon);
-//		createEnemy(44, 466, EnemyState.STEERING, 1, 1.3f, Utilities.jungleDragon);
-//		
-//		createEnemy(35, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
-//		createEnemy(36, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
-//		createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
-//		createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
-//		createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+		createEnemy(43, 466, EnemyState.STEERING, 1, 1.3f, Utilities.jungleDragon);
+		createEnemy(45, 466, EnemyState.STEERING, 1, 1.7f, Utilities.jungleDragon);
+	
+		createEnemy(35, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+		createEnemy(36, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
+		createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon);
 		createEnemy(34, 479, EnemyState.BOUNCE, 1, 3f, Utilities.slimeKing);
 		return enemies;
 	}
