@@ -30,13 +30,11 @@ import com.mygdx.game.ui.ShopWindow;
 public class Overworld extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
 	static boolean inOverworld;
-	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));
 	float[] vertices;
 	private ShopWindow shopWindow;
-	
-	
 	private DoorBuilder db = DoorBuilder.getInstance();
-	
+
 	@Override
 	public void create() {
 		super.createLevel(15, 9, 1, 100, 10, texture);
@@ -48,44 +46,45 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 		db.createDoor(15, 1.5f, -35, 790, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_9);
 		
 		NPC npc = new NPC();
+		
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Would you like to take a look at my wares?"}, 13, 1, tex, true));
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getPlayerHUD().getInventory().getAllItems(), Map.getInstance().getMoney());
-		
+
 		isCreated = true;
 	}
-	
+
 
 	@Override
 	public void resize(int width, int height) {
-		
+
 	}
 
 	@Override
-	public void render() {	
-	
+	public void render() {
+
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose() {
-		
+
 	}
-	
+
 	public boolean isCreated() {
 		return isCreated;
 	}
-	
+
 	public ShopWindow getShopWindow() {
 		return shopWindow;
 	}

@@ -18,7 +18,7 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 	public Body body;	// stores a reference to our Box2D body
 	
 	// Steering data
-	float maxLinearSpeed = 200f;	// stores the max speed the entity can go
+	float maxLinearSpeed = 1000f;	// stores the max speed the entity can go
 	float maxLinearAcceleration = 200f;	// stores the max acceleration
 	float maxAngularSpeed = 200f;		// the max turning speed
 	float maxAngularAcceleration = 10f;// the max turning acceleration
@@ -30,6 +30,9 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 	private boolean tagged = false;		// This is a generic flag utilized in a variety of ways. (never used this myself)
 	private boolean independentFacing = false; // defines if the entity can move in a direction other than the way it faces)
 	
+	/**
+	 * Resets steering enemy
+	 */
 	@Override
 	public void reset() {
 		currentMode = SteeringState.NONE;
@@ -38,6 +41,10 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
 		
 	}
 	
+	/**
+	 * Returns if enemy is independent facing
+	 * @return - boolean
+	 */
 	public boolean isIndependentFacing () {
 		return independentFacing;
 	}

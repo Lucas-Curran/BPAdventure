@@ -1,5 +1,10 @@
 package com.mygdx.game.levels;
 
+/**
+ * Any textures not credited are either public domain or custom made by the BPAdventure Team. 
+ * All textures used are free to use for any purpose including commercially 
+ */
+
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
@@ -72,6 +77,13 @@ public class Levels {
 		// could use value to do chests, if value = cave give this item
 		
 	}
+	
+	/**
+	 * Attributions: 
+	 * Snow Background by greggman licensed CC-BY 3.0: https://opengameart.org/content/backgrounds-for-2d-platformers
+	 * Jungle Background by greggman licensed CC-BY 3.0: https://opengameart.org/content/backgrounds-for-2d-platformers
+	 * Sky Background by TAD licensed CC-BY 3.0: https://opengameart.org/content/sky-backgrounds
+	 */
 	
 	public Overworld getOverworld() {
 		return overworld;

@@ -6,6 +6,7 @@ public class Screens {
 	
 	private static Game game;
 	private static Screens instance;
+	private static Credits credits;
 	private static MainMenu mMenu;
 	private static Settings settings;
 	
@@ -21,6 +22,11 @@ public class Screens {
 	public static void toSettings(Settings settings) {
 		Screens.settings = settings;
 		game.setScreen(settings);
+	}
+	
+	public static void toCredits(Credits credits) {
+		Screens.credits = credits;
+		game.setScreen(credits);
 	}
 	
 	public static void toMap() {
@@ -43,4 +49,7 @@ public class Screens {
 		return settings;
 	}
 	
+	public static Credits getCredits() {
+		return credits;
+	}
 }

@@ -1,6 +1,9 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
+/**
+ * Any textures not credited are either public domain or custom made by the BPAdventure Team. 
+ * All textures used are free to use for any purpose including commercially 
+ */
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -23,8 +26,9 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 	private Camera camera;
 	DoorBuilder db = DoorBuilder.getInstance();
 	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));
+	private Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
 	Body[] platforms = new Body[25];
-	
+	Body[] blessings = new Body[25];
 	
 	public LevelFour(World world) {
 		this.world = world;
@@ -38,7 +42,7 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		
 		camera = new Camera(); 
 		
-		db.createDoor(45, 282.5f, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
+
 		db.createDoor(-33, 287.5f, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
 		db.createDoor(27, 276f, 480, 95, BodyFactory.STONE, "doorToDungeon", LevelDestination.LVL_2);
 		
@@ -63,13 +67,17 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		platforms[14] = bodyFactory.makeBoxPolyBody(6, 283f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 		platforms[15] = bodyFactory.makeBoxPolyBody(-16, 286f, 40, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 		
+		blessings[0] = bodyFactory.makeBoxPolyBody(-30, 287, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
+		blessings[0].setUserData("levelFourBlessing");
+		
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
 		TextureRegion tex = Utilities.tex;
 		
-		//Map.getInstance().getEntityHandler().spawnShopNPC();
+	
 		NPC npc = new NPC();
+		TextureRegion soldier = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Having fun?", "Well I hope you like climbing because you'll need to make it to the top to get out!"}, -28, 252, normalMan, false));
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Brrr...who are you?", "Go back down before it's too late kid, you'll never get past the guardian", "I should have never entered that cursed cave..."}, 2, 275, tex, false));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Brrr...who are you?", "Go back down before it's too late kid, you'll never get past the guardian", "I should have never entered that cursed cave..."}, 2, 275, soldier, false));
 		Map.getInstance().getEntityHandler().spawnLevelFour();
 		
 	}

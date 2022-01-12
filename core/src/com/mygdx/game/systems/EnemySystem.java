@@ -227,10 +227,10 @@ public class EnemySystem extends IteratingSystem {
 		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
 			sCom.steeringBehavior = SteeringPresets.getFlee(sCom, playerSteering);
 			sCom.currentMode = SteeringComponent.SteeringState.FLEE;
-		} else if(distance > 2 && distance < 8 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
+		} else if(distance > 2 && distance < enemyCom.range && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
 			sCom.steeringBehavior = SteeringPresets.getArrive(sCom, playerSteering);
 			sCom.currentMode = SteeringComponent.SteeringState.ARRIVE;
-		} else if(distance > 8 && sCom.currentMode != SteeringComponent.SteeringState.WANDER){
+		} else if(distance > enemyCom.range && sCom.currentMode != SteeringComponent.SteeringState.WANDER){
 			sCom.steeringBehavior  = SteeringPresets.getWander(sCom);
 			sCom.currentMode = SteeringComponent.SteeringState.WANDER;
 		}

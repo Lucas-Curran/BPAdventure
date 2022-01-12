@@ -7,8 +7,10 @@ import com.badlogic.gdx.audio.Music;
 
 public class AudioManager {
 		
-		private HashMap<String, Music> music;
+		private static HashMap<String, Music> music;
 		Music caveMusic, menuMusic, overworldMusic, shopMusic;
+		SqliteManager sm = new SqliteManager();
+		float volume;
 			
 	/**
 	 * Creates hashmap of music objects
@@ -25,6 +27,7 @@ public class AudioManager {
 		music.put("shop", shopMusic);
 		music.put("menu", menuMusic);
 		music.put("overworld", overworldMusic);
+		volume = sm.getVolume();
 	}
 		
 	/**
@@ -36,32 +39,64 @@ public class AudioManager {
 		return music.get(key);
 	}
 	
+	/**
+	 * Stop all music
+	 */
 	public void stopAll() {
 		for (java.util.Map.Entry<String, Music> set : music.entrySet()) {
 			set.getValue().stop();
 		}
 	}
 	
+	/**
+	 * Update all music
+	 */
+	public void updateAll() {
+		for (java.util.Map.Entry<String, Music> set : music.entrySet()) {
+			volume = sm.getVolume();
+			set.getValue().setVolume(volume / 100);
+		}
+		
+//		music.get("menu").setVolume(volume);
+
+	}
+	
+	/**
+	 * Play certain song
+	 * @param song - Song played
+	 */
 	public void playSong(String song) {
 		if (!music.get(song).isPlaying()) {
-			music.get(song).setVolume(0.1f);
+			music.get(song).setVolume(volume / 100);
 			music.get(song).setLooping(true);
 			music.get(song).play();
 		}
 	}
 	
+	/**
+	 * Plays cave music
+	 */
 	public void playCave() {
 		playSong("cave");
 	}
 	
+	/**
+	 * Plays menu music
+	 */
 	public void playMenu() {
 		playSong("menu");
 	}
 	
+	/**
+	 * Plays shop music
+	 */
 	public void playShop() {
 		playSong("shop");
 	}
 	
+	/**
+	 * Player overworld music
+	 */
 	public void playOverworld() {
 		playSong("overworld");
 	}
