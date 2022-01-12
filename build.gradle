@@ -46,6 +46,8 @@ project(":desktop") {
         implementation project(":core")
         implementation 'javax.mail:mail:1.5.0-b01'
         implementation 'javax.mail:javax.mail-api:1.6.2'
+        implementation 'com.esotericsoftware:kryonet:2.22.0-RC1'
+        implementation 'org.xerial:sqlite-jdbc:3.34.0'
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
@@ -63,6 +65,7 @@ project(":core") {
     dependencies {
     	implementation 'javax.mail:mail:1.5.0-b01'
         implementation 'javax.mail:javax.mail-api:1.6.2'
+    	implementation 'com.esotericsoftware:kryonet:2.22.0-RC1'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"

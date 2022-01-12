@@ -19,25 +19,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 
-public class Settings implements Screen, InputProcessor {
+public class Settings implements Screen {
 	Texture settingsBackground;
 	TextButton creditsBtn, returnBtn;
 
-	Slider volumeSlider;
+	static Slider volumeSlider;
 	Container<Slider> container;
 	BitmapFont font;
 	Label sliderLabel, volumeLabel;
 	Table table;
 	Skin skin;
 	
-	AudioManager audioManager = new AudioManager();
+	AudioManager am = new AudioManager();
 
 	private SpriteBatch spriteBatch;
 	private Camera cam;
 	private Stage stage;
-	private InputMultiplexer inputMultiplexer;
-	private AudioManager am;
-	int sliderValue = 50; //replace with value from database later
+	private SqliteManager sm; 
+	int sliderValue; //replace with value from database later
 	
 	/**
 	 * Sets camera and game
@@ -49,7 +48,7 @@ public class Settings implements Screen, InputProcessor {
 		cam = new Camera();
 		stage = new Stage();
 		table = new Table();
-		
+		sm = new SqliteManager();
 	}
 	
 	/**
@@ -57,13 +56,14 @@ public class Settings implements Screen, InputProcessor {
 	 */
 	@Override
 	public void show() {
-		
+		Gdx.input.setInputProcessor(stage);
 		
 		volumeSlider = new Slider(0, 100, 1, false, Utilities.sliderStyles());
 		container = new Container<Slider>(volumeSlider);
 		container.setTransform(true);
 		container.setScale(3f);
 		
+		sliderValue = sm.getVolume();
 		font = new BitmapFont();
 		sliderLabel = new Label(String.valueOf(sliderValue), new Label.LabelStyle(font, Color.ROYAL));
 		volumeLabel = new Label("Volume", new Label.LabelStyle(font, Color.ROYAL));
@@ -84,7 +84,6 @@ public class Settings implements Screen, InputProcessor {
 		returnBtn.setTransform(true);
 		returnBtn.scaleBy(1);
 		
-		table = new Table(skin);
 		table.left().bottom().pad(80);
 		table.add(volumeLabel).colspan(2).padBottom(50).right().padRight(43);
 		table.row();
@@ -98,12 +97,9 @@ public class Settings implements Screen, InputProcessor {
 		
 //		table.debug();
 		stage.addActor(table);
+	
 		
-		inputMultiplexer = new InputMultiplexer();
-		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(stage);		
 		
-		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 	
 	/**
@@ -119,21 +115,29 @@ public class Settings implements Screen, InputProcessor {
 		spriteBatch.draw(settingsBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		spriteBatch.end();		
 		
-		stage.act(delta);
-		stage.draw();
+		sliderValue = sm.getVolume();
+		am.playMenu();
 		
+		// shows the credits screen
 		if (creditsBtn.isPressed()) {
-			//Add in transition to credits
+			dispose();
+			Screens.toCredits(new Credits());
 		}
 		
+		//Desposes settings screen and returns to menu screen
 		if (returnBtn.isPressed()) {
+			sm.updateVolume(sliderValue);
+			dispose();
 			Screens.toMenu(Screens.getMenu());
 		}
 		
+		// changes volume in database and updates volume of music
 		if (volumeSlider.isDragging()) {
 			sliderValue = (int) volumeSlider.getValue();
 			sliderLabel.setText(sliderValue);
-//			audioManager.updateAll();
+			sm.updateVolume(sliderValue);
+			am.updateAll();
+			
 		}
 		
 		stage.act(delta);
@@ -141,7 +145,7 @@ public class Settings implements Screen, InputProcessor {
 	}
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+        stage.getViewport().update(width, height, true);   
 		
 	}
 	@Override
@@ -159,57 +163,17 @@ public class Settings implements Screen, InputProcessor {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Disposes the screen
+	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		am.stopAll();
+		table.clearActions();
+		table.clearChildren();
+		stage.dispose();
+		cam.dispose();
 		
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(float amountX, float amountY) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
