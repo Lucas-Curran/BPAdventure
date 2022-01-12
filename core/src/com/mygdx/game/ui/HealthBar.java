@@ -7,14 +7,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.mygdx.game.BpaAssetManager;
+import com.mygdx.game.SqliteManager;
 
 public class HealthBar extends Actor {
 
 	private NinePatchDrawable healthBarBackground;
 	private NinePatchDrawable healthBar;
 	private TextureAtlas skinAtlas;
-	
-	private float hpVal = 1;
+	SqliteManager sm = new SqliteManager();
+	private float hpVal = sm.getHealth() / 100;
 	
 	/**
 	 * Health bar constructor
@@ -46,7 +47,7 @@ public class HealthBar extends Actor {
 	 * @return - HP
 	 */
 	public int getHP() {
-		return (int) (hpVal * 100);
+		return sm.getHealth();
 	}
 	
 	/**
@@ -55,6 +56,7 @@ public class HealthBar extends Actor {
 	 */
 	public void setHP(int hpVal) {
 		this.hpVal = (float) hpVal / 100;
+		sm.updateHealth(hpVal);
 	}
 	
 }

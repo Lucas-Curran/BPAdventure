@@ -48,7 +48,6 @@ public class CollisionSystem  extends IteratingSystem {
 						//do player hit enemy thing
 						
 						hb.setHP(hb.getHP() - 25);
-					
 						System.out.println("player hit enemy");
 						break;
 					case TypeComponent.SCENERY:
