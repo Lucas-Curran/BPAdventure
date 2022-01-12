@@ -170,6 +170,7 @@ public class Player extends EntityHandler {
                 setGravityScale(1);
                 Map.getInstance().setGravitySwitch(false);
                 Map.getInstance().death = false;
+                Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().setHP(100);
 
 
             }

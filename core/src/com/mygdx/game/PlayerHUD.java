@@ -59,7 +59,11 @@ public class PlayerHUD extends Window {
 	
 	public void render(float delta) {		
 		stage.act(delta);
-		stage.draw();	
+		stage.draw();
+
+		if (statusUI.getHealthBar().getHP() <= 0) {
+			Map.getInstance().death = true;
+		}
 	}
 
 	

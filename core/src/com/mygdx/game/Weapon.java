@@ -21,55 +21,83 @@ public class Weapon {
 	
 	private final int LEFT = 1;
 	private final int RIGHT = 2;
+	private float x, y;
 	
 	public Weapon() {
 		bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
 	}
 	
 	public void createSword(float x, float y) {
+		this.x = x;
+		this.y = y;
 		Texture texture = new Texture(Gdx.files.internal("border.png"));
-		sword = bodyFactory.makeBoxPolyBody(x, y, 0.3f, 1.3f, BodyFactory.STEEL, BodyType.DynamicBody, false, true, texture);
+		sword = bodyFactory.makeBoxPolyBody(x, y, 1.3f, 0.3f, BodyFactory.STEEL, BodyType.DynamicBody, false, true, texture);
 		sword.setGravityScale(0);
+		sword.setUserData("Sword");		
 	}
 	
 	public void positionSword(float x, float y, int direction) {
 		this.direction = direction;
 		if (direction == LEFT) {
-			sword.setTransform(x - 0.5f, y + .4f, 0);
+			sword.setTransform(x - 0.7f, y, 0);
 		} else {
-			sword.setTransform(x + 0.5f, y + .4f, 0);
+			sword.setTransform(x + 0.7f, y, 0);
 		} 
 	}
 	
 	public void swingSword() {	
 		if (direction == LEFT) {
 			if (startSwing) {
-				sword.applyAngularImpulse(0.4f, true);	
-				if (sword.getAngularVelocity() >= 47) {
+//				sword.applyAngularImpulse(0.4f, true);	
+//				if (sword.getAngularVelocity() >= 47) {
+//					startSwing =! startSwing;
+//				}
+				
+				sword.applyLinearImpulse(-1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				if (sword.getLinearVelocity().x <= -30) {
 					startSwing =! startSwing;
 				}
 			} else if (!startSwing) {
-				sword.applyAngularImpulse(-0.4f, true);
-				if (sword.getAngularVelocity() < 0) {
-					sword.setAngularVelocity(0);
+//				sword.applyAngularImpulse(-0.4f, true);
+//				if (sword.getAngularVelocity() < 0) {
+//					sword.setAngularVelocity(0);
+//					swingFinished = true;	
+//					startSwing = true;
+//				}
+				
+				sword.applyLinearImpulse(1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				if (sword.getLinearVelocity().x > 0) {
+					sword.setLinearVelocity(0, 0);
 					swingFinished = true;	
 					startSwing = true;
 				}
 			}
+			
 		} else {
 			if (startSwing) {
-				sword.applyAngularImpulse(-0.4f, true);	
-				if (sword.getAngularVelocity() <= -47) {
+//				sword.applyAngularImpulse(-0.4f, true);	
+//				if (sword.getAngularVelocity() <= -47) {
+//					startSwing =! startSwing;
+//				}
+				sword.applyLinearImpulse(1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				if (sword.getLinearVelocity().x >= 30) {
 					startSwing =! startSwing;
 				}
 			} else if (!startSwing) {
-				sword.applyAngularImpulse(0.4f, true);
-				if (sword.getAngularVelocity() > 0) {
-					sword.setAngularVelocity(0);
+//				sword.applyAngularImpulse(0.4f, true);
+//				if (sword.getAngularVelocity() > 0) {
+//					sword.setAngularVelocity(0);
+//					swingFinished = true;	
+//					startSwing = true;
+//				}
+				sword.applyLinearImpulse(-1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				if (sword.getLinearVelocity().x < 0) {
+					sword.setLinearVelocity(0, 0);
 					swingFinished = true;	
 					startSwing = true;
 				}
 			}
+			
 		}
 	}
 	

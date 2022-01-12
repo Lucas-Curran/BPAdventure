@@ -56,7 +56,7 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-
+		shopWindow.resize(width, height);
 	}
 
 	@Override

@@ -121,4 +121,31 @@ public class SqliteManager {
 		}
 		return volumeData;
 	}
+	
+	public void updateHealth(float hp) {
+		String sql = "UPDATE Progress SET Health = " + hp + " WHERE id = 1";
+		try {
+			PreparedStatement input = connect().prepareStatement(sql);
+			input.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public int getHealth() {
+		String sql = "SELECT Volume FROM Progress WHERE id = 1";
+		int volumeData = 50;
+		try {
+			conn = DriverManager.getConnection(playerURL);
+			Statement stmt = connect().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			volumeData = rs.getInt("volume");
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return volumeData;
+	}
+	
 }
