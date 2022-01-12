@@ -44,8 +44,8 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
-        compile group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
-        compile 'javax.mail:javax.mail-api:1.5.3'
+        implementation 'javax.mail:mail:1.5.0-b01'
+        implementation 'javax.mail:javax.mail-api:1.6.2'
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
@@ -61,8 +61,8 @@ project(":core") {
 
 
     dependencies {
-        compile group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
-        compile 'javax.mail:javax.mail-api:1.5.3'
+    	implementation 'javax.mail:mail:1.5.0-b01'
+        implementation 'javax.mail:javax.mail-api:1.6.2'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
