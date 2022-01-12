@@ -40,9 +40,11 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 		float[] vertices;
 		
 		
+		
+		
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
-		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+		Texture texture = new Texture(Gdx.files.internal("ground_8.png"));
 		Body[] pillars = new Body[3];
 		Body[] platforms = new Body[20];
 		

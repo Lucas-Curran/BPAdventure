@@ -26,6 +26,21 @@ public class Enemy extends EntityHandler {
 	TextureRegion spikyRockMob = Utilities.levelTwoAtlas.findRegion("SpikyRockEnemy");
 	TextureRegion spikySlime = Utilities.levelSevenAtlas.findRegion("spikySlime");
 	TextureRegion slimyMob = Utilities.levelSevenAtlas.findRegion("slimyMob");
+	private TextureRegion boss_8 = Utilities.lvl89Atlas.findRegion("7_boss");
+	private TextureRegion rocketMob = Utilities.lvl89Atlas.findRegion("rocketMob");
+	private TextureRegion spiderMob = Utilities.lvl89Atlas.findRegion("spider");
+	private TextureRegion jumpingMob = Utilities.lvl89Atlas.findRegion("vertical");
+	
+	private TextureRegion boss_9 = Utilities.lvl89Atlas.findRegion("boss_enemy");
+	private TextureRegion vertical_9 = Utilities.lvl89Atlas.findRegion("jumpingMob");
+	private TextureRegion patrolMob = Utilities.lvl89Atlas.findRegion("patrol_mob");
+	private TextureRegion spikeBouncer = Utilities.lvl89Atlas.findRegion("spikeBouncer");
+	private TextureRegion steeringMob = Utilities.lvl89Atlas.findRegion("steeringMob");
+
+	
+	
+	
+	
 	public B2dBodyComponent b2dbody;
 	
 	public Enemy() {
@@ -218,13 +233,13 @@ public ArrayList<Entity> getOverworld() {
 	
 	public ArrayList<Entity> getLevelEight() {	
 		enemies.clear();
-		createEnemy(-16, 686, EnemyState.STEERING, 8, 1.3f, slimyMob);
-		createEnemy(-24, 686, EnemyState.STEERING, 8, 1.3f, slimyMob);
-		createEnemy(0, 686, EnemyState.VERTICAL, 3, 2f, slimyMob);
+		createEnemy(-16, 686, EnemyState.STEERING, 8, 1.3f, steeringMob);
+		createEnemy(-24, 686, EnemyState.STEERING, 8, 1.3f, steeringMob);
+		createEnemy(0, 686, EnemyState.VERTICAL, 3, 2f, spiderMob);
 		createEnemyShooter(7, 686, 1, 2f, -2, 5, 8, 4, spikySlime, true);
-		createEnemy(24, 686, EnemyState.STEERING, 3, 1, spikySlime);
-		createEnemy(28, 686, EnemyState.BOUNCE, 5, 2, slimyMob);
-		createEnemy(35, 686, EnemyState.BOSS, 10, 2, spikySlime);
+		createEnemy(24, 686, EnemyState.STEERING, 3, 1, steeringMob);
+		createEnemy(28, 686, EnemyState.BOUNCE, 5, 2, spikeBouncer);
+		createEnemy(35, 686, EnemyState.BOSS, 10, 2, boss_8);
 		return enemies;
 	}
 	// shooting parameters - x, y, range, radius, bulletX, bulletY, bulletRange, time, texture, random?
@@ -233,27 +248,27 @@ public ArrayList<Entity> getOverworld() {
 	public ArrayList<Entity> getLevelNine() {	
 		enemies.clear();
 		createEnemyShooter(-20, 797, 1, 1, -2, 0, 10, 8, spikySlime, false);
-		createEnemy(-10, 797, EnemyState.PATROL, 5, 1, slimyMob);
-		createEnemy(-10, 798, EnemyState.PATROL, 5, 1, slimyMob);
-		createEnemy(0, 797, EnemyState.STEERING, 3, 1, slimyMob);
-		createEnemy(0, 798, EnemyState.STEERING, 3, 1, slimyMob);
-		createEnemy(5, 797, EnemyState.VERTICAL, 1, 1, slimyMob);
-		createEnemyShooter(20, 797, 1, 1, -2, 0, 15, 8, spikySlime, false);
+		createEnemy(-10, 797, EnemyState.PATROL, 5, 1, patrolMob);
+		createEnemy(-10, 798, EnemyState.PATROL, 5, 1, patrolMob);
+		createEnemy(0, 797, EnemyState.STEERING, 3, 1, steeringMob);
+		createEnemy(0, 798, EnemyState.STEERING, 3, 1, steeringMob);
+		createEnemy(5, 797, EnemyState.VERTICAL, 1, 1, jumpingMob);
+//		createEnemyShooter(20, 797, 1, 1, -2, 0, 15, 8, spikySlime, false);
 		createEnemy(25, 797, EnemyState.JUMP, 1, 1, slimyMob);
 		createEnemy(30, 797, EnemyState.JUMP, 1, 1, slimyMob);
 		
-		createEnemy(50, 792, EnemyState.BOUNCE, 5, 1, slimyMob);
-		createEnemy(40, 792, EnemyState.BOUNCE, 5, 1, slimyMob);
+		createEnemy(50, 792, EnemyState.BOUNCE, 5, 1, spikeBouncer);
+		createEnemy(40, 792, EnemyState.BOUNCE, 5, 1, spikeBouncer);
 		createEnemyShooter(65, 792, 1, 1, -3, 0, 5, 8, spikySlime, true);
 		createEnemyShooter(55, 792, 1, 1, -3, 0, 5, 8, spikySlime, true);
-		createEnemy(45, 793, EnemyState.PATROL, 5, 1, slimyMob);
-		createEnemy(40, 792, EnemyState.PATROL, 5, 1, slimyMob);
-		createEnemy(35, 792, EnemyState.STEERING, 3, 1, slimyMob);
-		createEnemy(30, 792, EnemyState.JUMP, 1, 1, slimyMob);
-		createEnemy(25, 792, EnemyState.VERTICAL, 2, 2, slimyMob);
-		createEnemy(10, 792, EnemyState.BOSS, 20, 2, slimyMob);
-		createEnemy(0, 792, EnemyState.BOSS, 20, 2, slimyMob);
-		createEnemy(-10, 792, EnemyState.JUMP, 1, 2, slimyMob);
+		createEnemy(45, 793, EnemyState.PATROL, 5, 1, patrolMob);
+		createEnemy(40, 792, EnemyState.PATROL, 5, 1, patrolMob);
+		createEnemy(35, 792, EnemyState.STEERING, 3, 1, steeringMob);
+		createEnemy(30, 792, EnemyState.JUMP, 1, 1, jumpingMob);
+		createEnemy(25, 792, EnemyState.VERTICAL, 2, 2, vertical_9);
+		createEnemy(10, 792, EnemyState.BOSS, 20, 2, boss_9);
+		createEnemy(0, 792, EnemyState.BOSS, 20, 2, boss_9);
+		createEnemy(-10, 792, EnemyState.JUMP, 1, 2, jumpingMob);
 		
 		
 		createEnemyShooter(-30, 787, 1, 1, -3, 0, 5, 8, spikySlime, true);
@@ -264,7 +279,7 @@ public ArrayList<Entity> getOverworld() {
 		createEnemyShooter(20, 788, 1, 1, -3, 0, 5, 8, spikySlime, false);
 		createEnemyShooter(30, 789, 1, 1, -3, 0, 5, 8, spikySlime, true);
 		createEnemyShooter(40, 789, 1, 1, -3, 0, 5, 8, spikySlime, true);
-		createEnemy(50, 787, EnemyState.PATROL, 10, 1, slimyMob);
+		createEnemy(50, 787, EnemyState.PATROL, 10, 2, jumpingMob);
 		
 		
 		return enemies;

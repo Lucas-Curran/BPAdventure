@@ -44,7 +44,7 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 		
-		Texture texture = new Texture(Gdx.files.internal("newGround.png"));
+		Texture texture = new Texture(Gdx.files.internal("ground_9.png"));
 		
 		public LevelNine(World world) {
 			this.world = world;
@@ -78,7 +78,7 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 			}, 50, 782, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
 			
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"It's been an honor, friend", "Good Luck!"
-			}, 30, 782, Utilities.levelSevenAtlas.findRegion("squirralMan"), false));
+			}, 30, 782, Utilities.levelSevenAtlas.findRegion("squirrelMan"), false));
 			
 			// jin's NPCs
 			// more NPCs?

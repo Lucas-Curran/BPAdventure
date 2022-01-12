@@ -51,6 +51,8 @@ public class Utilities {
 	public static TextureAtlas textureAtlas = new TextureAtlas("textures.txt");
 	
 	public static TextureRegion tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+	
+	public static TextureAtlas lvl89Atlas = new TextureAtlas("lvl8and9.txt");
 
 	public static TextureAtlas levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
 	public static TextureRegion rockMob = Utilities.levelTwoAtlas.findRegion("RockMobEnemy");
