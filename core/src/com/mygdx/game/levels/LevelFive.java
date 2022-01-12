@@ -1,6 +1,9 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
+/**
+ * Any textures not credited are either either public domain or custom made by the BPAdventure Team. 
+ * All textures used are free to use for any purpose including commercially 
+ */
 
 import java.util.ArrayList;
 
@@ -33,11 +36,13 @@ import com.mygdx.game.components.BulletComponent;
 public class LevelFive extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 
-		private TextureRegion unknownBeing;
+
 		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
+		private Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
 		float[] vertices;
 		
 		Body door;
+		Body[] blessings = new Body[25];
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 
@@ -50,14 +55,17 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 			super.createLevel(15, 400, 1, 100, 20, texture);
 			
 			db.createDoor(62, 382.5f, -35, 470, BodyFactory.STONE, "doorTo6", LevelDestination.LVL_6);
-		
 			
-			unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
+			blessings[0] = bodyFactory.makeBoxPolyBody(60, 382, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
+			blessings[0].setUserData("levelFiveBlessing");
+			
+			TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
+			TextureRegion soldier = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
 			      			
 			NPC npc = new NPC();
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"All my soldiers are gone...", "I don't know who you are but you're our last chance to make it out alive."}, -32, 382, tex, false));
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I can't go on...", "Go back while you still can, there's no end to this nightmare."}, 15, 382, tex, false));
-			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Honestly, that was impressive. Go on, don't worry this time it's actually a nice surpise."}, 60, 382, unknownBeing, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"All my soldiers are gone...", "I don't know who you are but you're our last chance to make it out alive."}, -32, 382, soldier, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I can't go on...", "Go back while you still can, there's no end to this nightmare."}, 15, 382, soldier, false));
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Honestly, that was impressive. Go on, don't worry this time it's actually a nice surpise."}, 58, 382, unknownBeing, false));
 
 			Map.getInstance().getEntityHandler().spawnLevelFive();
 			isCreated = true;

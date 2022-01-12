@@ -31,8 +31,17 @@ public class B2dContactListener implements ContactListener {
 	DoorBuilder db = DoorBuilder.getInstance();
 	
 	private TextureAtlas textureAtlas;
+	private TextureAtlas lootAtlas;
 
-	private boolean blessingOne = false;
+	private boolean blessingLevelTwo = false;
+	private boolean blessingLevelFour = false;
+	private boolean blessingLevelFive = false;
+	private boolean blessingLevelSix1 = false;
+	private boolean blessingLevelSix2 = false;
+	private boolean blessingLevelSix3 = false;
+
+
+
 	
 	public B2dContactListener(EntityHandler parent){ 
 		this.parent = parent;
@@ -180,12 +189,54 @@ public class B2dContactListener implements ContactListener {
 		 */
 	
 		textureAtlas = new TextureAtlas("atlas_levelTwo.txt");
-		if (fa.getBody().getUserData() == "levelTwoBlessing" && !blessingOne) {
-			InventoryItem worldKey = new InventoryItem(textureAtlas.findRegion("World Key"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS01);
+		lootAtlas = new TextureAtlas("otherTextures.txt");
+		
+		if (fa.getBody().getUserData() == "levelTwoBlessing" && !blessingLevelTwo) {
+			InventoryItem worldKey = new InventoryItem(textureAtlas.findRegion("World Key"), ItemAttribute.STACKABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.KEY1);
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(worldKey, "World Key");
-			blessingOne = true;
-			
-			
+			blessingLevelTwo = true;
+		}
+		
+		if (fa.getBody().getUserData() == "levelFourBlessing" && !blessingLevelFour) {
+			InventoryItem iceSword = new InventoryItem(lootAtlas.findRegion("iceSword"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.ICESWORD);
+			InventoryItem iceShield = new InventoryItem(lootAtlas.findRegion("iceShield"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.ICESHIELD);
+
+			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(iceSword, "Ice Sword");
+			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(iceShield, "Ice Shield");
+
+			blessingLevelFour = true;
+		}
+		
+		if (fa.getBody().getUserData() == "levelFiveBlessing" && !blessingLevelFive) {
+			InventoryItem desertShield = new InventoryItem(lootAtlas.findRegion("desertShield"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.DESERTSHIELD);
+
+			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(desertShield, "Desert Shield");
+
+			blessingLevelFive = true;
+		}
+		
+		if (fa.getBody().getUserData() == "levelSixBlessing1" && !blessingLevelSix1) {
+			InventoryItem jungleStaff = new InventoryItem(lootAtlas.findRegion("jungleStaff"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.JUNGLESTAFF);
+
+			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleStaff, "Jungle Staff");
+
+			blessingLevelSix1 = true;
+		}
+		
+		if (fa.getBody().getUserData() == "levelSixBlessing2" && !blessingLevelSix2) {
+			InventoryItem jungleHelmet = new InventoryItem(lootAtlas.findRegion("jungleHelmet"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.JUNGLEHELMET);
+
+			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleHelmet, "Jungle Helmet");
+
+			blessingLevelSix2 = true;
+		}
+		
+		if (fa.getBody().getUserData() == "levelSixBlessing3" && !blessingLevelSix3) {
+			InventoryItem jungleChest = new InventoryItem(lootAtlas.findRegion("jungleChest"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.JUNGLECHEST);
+
+			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleChest, "Jungle Chestplate");
+
+			blessingLevelSix3 = true;
 		}
 		
 		

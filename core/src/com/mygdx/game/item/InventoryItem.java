@@ -54,6 +54,13 @@ public class InventoryItem extends Image {
 		SHIELD01,
 		WEAPON01,
 		POTIONS01,
+		KEY1,
+		ICESWORD,
+		ICESHIELD,
+		DESERTSHIELD,
+		JUNGLESTAFF,
+		JUNGLEHELMET,
+		JUNGLECHEST,
 		NONE;
 	}
 	

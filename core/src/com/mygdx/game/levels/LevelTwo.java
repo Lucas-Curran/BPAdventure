@@ -33,6 +33,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	private DoorBuilder db = DoorBuilder.getInstance();
 	static boolean inLevelTwo;
 	Texture texture = new Texture(Gdx.files.internal("crackedPillar.png"));
+	private Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
 	
 	Body[] blessing = new Body[1];
 	@Override
@@ -42,6 +43,8 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		super.createLevel(15, 100, 1, 50, 10, texture);
 		inLevelTwo = true;
 		isCreated = true;        
+		//Creates door to Level 3
+		db.createDoor(37, 92.5f, 50, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
 		
 		//Creates Level One NPCs
 		Map.getInstance().getEntityHandler().spawnLevelTwo();
@@ -49,13 +52,12 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
 		TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I heard there's great treasure at the end of this cave..."}, 1, 92, normalMan, false));
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Take this and good luck...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92, unknownBeing, false));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Jump on top of that purple rock behind me to recieve your reward and exit through the door","...hopefully you'll make it farther than that last o-", "Why are you still here? Go, hurry up!"}, 35, 92, unknownBeing, false));
 
 		
-		blessing[0] = bodyFactory.makeBoxPolyBody(34, 92, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
+		blessing[0] = bodyFactory.makeBoxPolyBody(39, 92, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 		blessing[0].setUserData("levelTwoBlessing");
-		//Creates door to Level 3
-		db.createDoor(37, 92.5f, 50, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
+		
 	}
 
 	@Override
