@@ -72,7 +72,7 @@ public class B2dContactListener implements ContactListener {
 						
 						// depending on the parameter passed to the DoorBuilder, 
 						// a case here creates the appropriate level and destroys the previous
-						
+
 						switch(db.createdLevels.get(i)) {
 						case OVERWORLD:
 							
@@ -83,9 +83,9 @@ public class B2dContactListener implements ContactListener {
 								parent.getPooledEngine().removeEntity(enemy);
 							}
 							
-							System.out.println(parent.enemies.getLevelTwo().size());
-							if (parent.enemies.getLevelTwo().size() == 0) {
+							if (parent.enemies.getLevelEnemies().get(1).size() == 0) {
 				            parent.getLevels().getLevelTwo().create();
+				            System.out.println("created level");
 							}
 						
 							break;
@@ -142,7 +142,7 @@ public class B2dContactListener implements ContactListener {
 							break;
 
 						}
-						// end if
+						
 						
 					}
 				}
@@ -161,7 +161,7 @@ public class B2dContactListener implements ContactListener {
             }
         });
 		
-		// contact statements for other bodies in the game
+		// contact statements for other bodies in the game and the player
 
 		if (fa.getBody().getUserData() == "gravityPillar") {
 			System.out.println("Hit gravitySwitch");
@@ -197,10 +197,9 @@ public class B2dContactListener implements ContactListener {
 
 		}
 		
-		/**
-		 * Gives players items based on what blessing they activated
-		 */
-	
+		
+		// Gives players items based on what blessing they activated
+		
 		textureAtlas = new TextureAtlas("atlas_levelTwo.txt");
 		lootAtlas = new TextureAtlas("otherTextures.txt");
 		
@@ -269,6 +268,9 @@ public class B2dContactListener implements ContactListener {
 		
 	}
 	
+	/*
+	 * runs through the array of enemies for each level and removes their bodies from the level
+	 */
 	private void endAllLevels() {
 		Gdx.app.postRunnable(new Runnable() {
 

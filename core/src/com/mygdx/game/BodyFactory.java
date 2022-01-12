@@ -144,11 +144,11 @@ public class BodyFactory {
 	 * @param width - width
 	 * @param height - height
 	 * @param material - material used for body
-	 * @param texture - 
-	 * @param bodyType
-	 * @param fixedRotation
-	 * @param isSensor
-	 * @return
+	 * @param texture - what it looks like, its texture
+	 * @param bodyType - the type of body it is
+	 * @param fixedRotation - whether it can rotate or not
+	 * @param isSensor - whether it's being used a sensor or solid
+	 * @return - returns the box as a Body
 	 */
 	public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor, Texture texture){
 		// create a definition
@@ -170,6 +170,19 @@ public class BodyFactory {
 		return boxBody;
 	}
 	
+	
+	/**
+	 * Creates a box2d body of any polygon type
+	 * @param vertices - the vertices of the polygon
+	 * @param posx - x coordinate of the polygon
+	 * @param posy - y coordinate of the polygon
+	 * @param material - material used for the body
+	 * @param bodyType - the type of body it is
+	 * @param fixedRotation - whether it can freely rotate or not
+	 * @param isSensor - whether it's being used for sensing or solid
+	 * @param texture - what it looks like, its texture
+	 * @return - returns the completed polygon as a Body
+	 */
 	public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy, int material, BodyType bodyType, boolean fixedRotation, boolean isSensor, Texture texture){
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;

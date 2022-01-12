@@ -72,7 +72,7 @@ public class EntityHandler implements ApplicationListener {
 	public LevelDestination getCreatedLevel() {
 		return createdLevel;
 	}
-
+	
 	public void setCreatedLevel(LevelDestination createdLevel) {
 		this.createdLevel = createdLevel;
 	}
@@ -80,13 +80,22 @@ public class EntityHandler implements ApplicationListener {
 	private String[] currentNPCText;
 	private boolean hasOptions;
 	
+	/**
+	 * gets the x destination of a door teleport
+	 * @return the destination x coordinate
+	 */
 	public float getDestinationX() {
         return destinationX;
     }
-
+	
+	/**
+	 * sets the destination of player going through a door
+	 * @param destinationX - x coord of the destination
+	 */
     public void setDestinationX(float destinationX) {
         this.destinationX = destinationX;
     }
+    
 
     public float getDestinationY() {
         return destinationY;
@@ -225,8 +234,8 @@ public class EntityHandler implements ApplicationListener {
 		renderSpeechBubble();
 		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
 		teleportPlayer(destinationX, destinationY, destination);
-		killPlayer(17, 1.5f);
-//		killPlayer(-5, 95);
+//		killPlayer(17, 1.5f);
+		killPlayer(-5, 95);
 		setJumpScale();//call this
 	}
 	

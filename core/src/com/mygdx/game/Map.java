@@ -236,7 +236,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
-		
+		// flips the players gravity
 		
 		if (Input.Keys.SPACE == keycode && entityHandler.gravityZone == true && !inAction()) {
 			entityHandler.getPlayer().setGravityScale(-1);

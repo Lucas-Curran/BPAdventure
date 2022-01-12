@@ -25,7 +25,17 @@ public class Bullet extends EntityHandler {
 		
 		bullets = new ArrayList<Entity>();
 	}
-	
+	/**
+	 * 
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param xVel - x speed and direction
+	 * @param yVel - y speed and direction
+	 * @param range - how far it goes before it dies
+	 * @param owner
+	 * @param ownerEntity - the entity it comes from
+	 * @return - returns the bullet as an Entity
+	 */
 	public Entity createBullet(float x, float y, float xVel, float yVel, int range, Owner owner, Entity ownerEntity) {
 		Entity entity = pooledEngine.createEntity();
 		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
