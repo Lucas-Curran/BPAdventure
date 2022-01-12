@@ -24,6 +24,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
@@ -36,7 +37,7 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		
 		float[] vertices;
 		
-		Body door;
+		Body[] platforms = new Body[10];
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 		
@@ -50,7 +51,36 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		public void create() {	
 			super.createLevel(15, 800, 1, 100, 20, texture);
 			
-			db.createDoor(45, 782.5f, -35, 888, BodyFactory.STONE, "doorTo10", LevelDestination.LVL_10);
+			
+			
+			NPC npc = new NPC();
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I lied Ice Cream...", "Heh heh heh...HEH!", "More danger than you could possibly fathom awaits you now..." 
+					}, -32, 797, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
+			
+			platforms[0] = bodyFactory.makeBoxPolyBody(13, 796, 96, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			platforms[1] = bodyFactory.makeBoxPolyBody(17, 791, 96, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			platforms[2] = bodyFactory.makeBoxPolyBody(13, 786, 96, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Enjoy that little warm up?", "Don't worry, the rest is way worse." 
+			}, 40, 797, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
+			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Still alive?", "How curious-", "Maybe you will meet my master after all..."
+			}, -30, 792, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
+			
+			platforms[3] = bodyFactory.makeBoxPolyBody(20, 787, 2, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			platforms[4] = bodyFactory.makeBoxPolyBody(30, 787.9f, 2, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			platforms[5] = bodyFactory.makeBoxPolyBody(40, 788.2f, 2, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
+			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Made it through?", "Then it is time.", "My master awaits, Ice Cream.", "Say your goodbyes ahead"
+			}, 50, 782, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
+			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"It's been an honor, friend", "Good Luck!"
+			}, 30, 782, Utilities.levelSevenAtlas.findRegion("squirralMan"), false));
+			
+			// jin's NPCs
+			// more NPCs?
+			
+			db.createDoor(-33, 782.5f, -35, 888, BodyFactory.STONE, "doorTo10", LevelDestination.LVL_10);
 
 			Map.getInstance().getEntityHandler().spawnLevelNine();
 			

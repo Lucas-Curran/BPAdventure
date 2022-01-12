@@ -211,40 +211,48 @@ public class B2dContactListener implements ContactListener {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				
-			
-		
-		for (Entity enemy : parent.enemies.getLevelTwo()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelThree()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelFour()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelFive()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelSix()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelSeven()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelEight()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelNine()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-		for (Entity enemy : parent.enemies.getLevelTen()) {
-			parent.getPooledEngine().removeEntity(enemy);
-		}
-}
-			
+
+				for (Entity enemy : parent.enemies.getLevelTwo()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+					enemy.getComponent(B2dBodyComponent.class).isDead = true;
+					System.out.println(enemy.getComponent(B2dBodyComponent.class).isDead);
+				}
+				for (Entity enemy : parent.enemies.getLevelThree()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+				for (Entity enemy : parent.enemies.getLevelFour()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+				for (Entity enemy : parent.enemies.getLevelFive()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+				for (Entity enemy : parent.enemies.getLevelSix()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+				for (Entity enemy : parent.enemies.getLevelSeven()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+				for (Entity enemy : parent.enemies.getLevelEight()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+				for (Entity enemy : parent.enemies.getLevelNine()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+				for (Entity enemy : parent.enemies.getLevelTen()) {
+					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
+					parent.getPooledEngine().removeEntity(enemy);
+				}
+			}
+
 		});
-		
 		
 	}
  

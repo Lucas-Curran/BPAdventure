@@ -40,7 +40,7 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 		Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
-		Body[] pillars = new Body[20];
+		Body[] pillars = new Body[3];
 		Body[] platforms = new Body[20];
 		
 		public LevelEight(World world) {
@@ -51,7 +51,7 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 		public void create() {
 			super.createLevel(15, 700, 1, 100, 20, texture);
 			
-			db.createDoor(45, 682.5f, -35, 788, BodyFactory.STONE, "doorTo9", LevelDestination.LVL_9);
+			db.createDoor(63, 682.5f, -35, 800, BodyFactory.STONE, "doorTo9", LevelDestination.LVL_9);
 			
 			makeSaw(-20, 685f);
 			makeSaw(-12, 685f);
@@ -65,14 +65,24 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			platforms[3] = bodyFactory.makeBoxPolyBody(16, 689f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[4] = bodyFactory.makeBoxPolyBody(21, 691f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[5] = bodyFactory.makeBoxPolyBody(16, 693.3f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			pillars[2] = bodyFactory.makeBoxPolyBody(50, 682.5f, 1, 2, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			platforms[6] = bodyFactory.makeBoxPolyBody(50, 684f, 4, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false, texture);
+			
+	        RevoluteJointDef revoluteJointDef3 = new RevoluteJointDef();
+	        revoluteJointDef3.initialize(platforms[6], pillars[2], platforms[6].getWorldCenter());
+
+	        world.createJoint(revoluteJointDef3);
 			
 	        			
 			NPC npc = new NPC();
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Thank the Cave Lords... another soul!", 
 					"We haven't seen anyone for decades.", "There's bits of Jack everywhere...but he's doing alright, I think.", 
 					"This land is the most dangerous thus far Ice Cream...tread carefully."}, -32, 682, Utilities.levelSevenAtlas.findRegion("squirrelMan"), false));
-
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Hurry you're almost there!" 
+					}, 58, 682, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
 			Map.getInstance().getEntityHandler().spawnLevelEight();
+			
+			
 			
 			isCreated = true;
 		}

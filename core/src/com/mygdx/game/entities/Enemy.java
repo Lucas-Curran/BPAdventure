@@ -26,6 +26,7 @@ public class Enemy extends EntityHandler {
 	TextureRegion spikyRockMob = Utilities.levelTwoAtlas.findRegion("SpikyRockEnemy");
 	TextureRegion spikySlime = Utilities.levelSevenAtlas.findRegion("spikySlime");
 	TextureRegion slimyMob = Utilities.levelSevenAtlas.findRegion("slimyMob");
+	public B2dBodyComponent b2dbody;
 	
 	public Enemy() {
 		enemies = new ArrayList<Entity>();
@@ -36,7 +37,7 @@ public class Enemy extends EntityHandler {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
-		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
+		b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
 		TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
 		TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
 		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
@@ -90,7 +91,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
-		B2dBodyComponent b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
+		b2dbody = pooledEngine.createComponent(B2dBodyComponent.class);
 		TransformComponent position = pooledEngine.createComponent(TransformComponent.class);
 		TextureComponent texture = pooledEngine.createComponent(TextureComponent.class);
 		TypeComponent type = pooledEngine.createComponent(TypeComponent.class);
@@ -222,16 +223,51 @@ public ArrayList<Entity> getOverworld() {
 		createEnemy(-24, 686, EnemyState.STEERING, 1, 1.3f, slimyMob);
 		createEnemy(0, 686, EnemyState.VERTICAL, 3, 2f, slimyMob);
 		createEnemyShooter(7, 686, 1, 2f, -2, 5, 8, 4, spikySlime, true);
-//		System.out.println(enemy.randomBulletDirection);
-//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		createEnemy(24, 686, EnemyState.STEERING, 3, 1, spikySlime);
+		createEnemy(28, 686, EnemyState.BOUNCE, 5, 2, slimyMob);
+		createEnemy(35, 686, EnemyState.BOSS, 10, 2, spikySlime);
 		return enemies;
 	}
+	// shooting parameters - x, y, range, radius, bulletX, bulletY, bulletRange, time, texture, random?
+	// regular parameters - x, y, state, range, size, texture
 	
 	public ArrayList<Entity> getLevelNine() {	
 		enemies.clear();
-//		createEnemy(15, 92, EnemyState.PATROL, 1, 1f);
-//		createEnemy(25, 92, EnemyState.PATROL, 1, 1.3f);
-//		createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f);
+		createEnemyShooter(-20, 797, 1, 1, -2, 0, 10, 8, spikySlime, false);
+		createEnemy(-10, 797, EnemyState.PATROL, 5, 1, slimyMob);
+		createEnemy(-10, 798, EnemyState.PATROL, 5, 1, slimyMob);
+		createEnemy(0, 797, EnemyState.STEERING, 3, 1, slimyMob);
+		createEnemy(0, 798, EnemyState.STEERING, 3, 1, slimyMob);
+		createEnemy(5, 797, EnemyState.VERTICAL, 1, 1, slimyMob);
+		createEnemyShooter(20, 797, 1, 1, -2, 0, 15, 8, spikySlime, false);
+		createEnemy(25, 797, EnemyState.JUMP, 1, 1, slimyMob);
+		createEnemy(30, 797, EnemyState.JUMP, 1, 1, slimyMob);
+		
+		createEnemy(50, 792, EnemyState.BOUNCE, 5, 1, slimyMob);
+		createEnemy(40, 792, EnemyState.BOUNCE, 5, 1, slimyMob);
+		createEnemyShooter(65, 792, 1, 1, -3, 0, 5, 8, spikySlime, true);
+		createEnemyShooter(55, 792, 1, 1, -3, 0, 5, 8, spikySlime, true);
+		createEnemy(45, 793, EnemyState.PATROL, 5, 1, slimyMob);
+		createEnemy(40, 792, EnemyState.PATROL, 5, 1, slimyMob);
+		createEnemy(35, 792, EnemyState.STEERING, 3, 1, slimyMob);
+		createEnemy(30, 792, EnemyState.JUMP, 1, 1, slimyMob);
+		createEnemy(25, 792, EnemyState.VERTICAL, 2, 2, slimyMob);
+		createEnemy(10, 792, EnemyState.BOSS, 20, 2, slimyMob);
+		createEnemy(0, 792, EnemyState.BOSS, 20, 2, slimyMob);
+		createEnemy(-10, 792, EnemyState.JUMP, 1, 2, slimyMob);
+		
+		
+		createEnemyShooter(-30, 787, 1, 1, -3, 0, 5, 8, spikySlime, true);
+		createEnemyShooter(-20, 787, 1, 1, -3, 0, 5, 8, spikySlime, true);
+		createEnemyShooter(-10, 787, 1, 1, -3, 0, 5, 8, spikySlime, true);
+		createEnemyShooter(0, 787, 1, 1, -3, 0, 5, 8, spikySlime, false);
+		createEnemyShooter(10, 788, 1, 1, -3, 0, 5, 8, spikySlime, false);
+		createEnemyShooter(20, 788, 1, 1, -3, 0, 5, 8, spikySlime, false);
+		createEnemyShooter(30, 789, 1, 1, -3, 0, 5, 8, spikySlime, true);
+		createEnemyShooter(40, 789, 1, 1, -3, 0, 5, 8, spikySlime, true);
+		createEnemy(50, 787, EnemyState.PATROL, 10, 1, slimyMob);
+		
+		
 		return enemies;
 	}
 	

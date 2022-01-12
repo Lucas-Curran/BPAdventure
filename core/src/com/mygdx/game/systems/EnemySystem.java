@@ -266,8 +266,8 @@ public class EnemySystem extends IteratingSystem {
 		} else if (move <= 20) {
 			//Spawn a steering type enemy
 			Enemy e = new Enemy();
-			textureAtlas = new TextureAtlas("textures.txt");
-			tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+			
+			tex = Utilities.levelSevenAtlas.findRegion("bullet(left)");
 			//getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
 			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f,tex));
 		}

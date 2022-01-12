@@ -236,7 +236,8 @@ public class EntityHandler implements ApplicationListener {
 		renderSpeechBubble();
 		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
 		teleportPlayer(destinationX, destinationY, destination);
-		killPlayer(17, 1.5f);
+//		killPlayer(17, 1.5f);
+		killPlayer(-5, 95);
 		setJumpScale();//call this
 	}
 	

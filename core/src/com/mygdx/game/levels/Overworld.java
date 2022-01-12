@@ -34,6 +34,7 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 	float[] vertices;
 	private ShopWindow shopWindow;
 	
+	
 	private DoorBuilder db = DoorBuilder.getInstance();
 	
 	@Override
@@ -41,9 +42,10 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 		super.createLevel(15, 9, 1, 100, 10, texture);
 		inOverworld = true;
 		
+		
 //		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
 		
-		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
+		db.createDoor(15, 1.5f, -35, 790, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_9);
 		
 		NPC npc = new NPC();
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Would you like to take a look at my wares?"}, 13, 1, tex, true));
