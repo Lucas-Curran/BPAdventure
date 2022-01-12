@@ -16,6 +16,9 @@ public class HealthBar extends Actor {
 	
 	private float hpVal = 1;
 	
+	/**
+	 * Health bar constructor
+	 */
 	public HealthBar() {
 		skinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.txt"));
 		NinePatch healthBarBackgroundPatch = new NinePatch(skinAtlas.findRegion("default-round"), 5, 5, 4, 4);
@@ -29,6 +32,7 @@ public class HealthBar extends Actor {
        
 	}
 	
+
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		healthBarBackground.draw(batch, getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
@@ -37,12 +41,20 @@ public class HealthBar extends Actor {
 		}
 	}
 	
-	public float getHP() {
-		return hpVal * 100;
+	/**
+	 * Gets HP of player
+	 * @return - HP
+	 */
+	public int getHP() {
+		return (int) (hpVal * 100);
 	}
 	
-	public void setHP(float hpVal) {
-		this.hpVal = hpVal / 100;
+	/**
+	 * Sets hp of player
+	 * @param hpVal - HP
+	 */
+	public void setHP(int hpVal) {
+		this.hpVal = (float) hpVal / 100;
 	}
 	
 }

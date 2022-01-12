@@ -62,7 +62,6 @@ public class PlayerHUD extends Window {
 		stage.draw();
 
 		if (statusUI.getHealthBar().getHP() <= 0) {
-			System.out.println("dead");
 			Map.getInstance().death = true;
 		}
 	}

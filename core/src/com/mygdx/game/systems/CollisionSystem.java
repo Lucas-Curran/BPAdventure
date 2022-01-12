@@ -1,6 +1,7 @@
 package com.mygdx.game.systems;
 
 import com.mygdx.game.Map;
+import com.mygdx.game.SqliteManager;
 import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
@@ -19,6 +20,7 @@ public class CollisionSystem  extends IteratingSystem {
 	 ComponentMapper<PlayerComponent> pm;
 	 ComponentMapper<BulletComponent> bc;
 	 HealthBar hb;
+	 SqliteManager sm = new SqliteManager();
  
 	public CollisionSystem() {
 		// only need to worry about player collisions
@@ -46,6 +48,7 @@ public class CollisionSystem  extends IteratingSystem {
 						//do player hit enemy thing
 						
 						hb.setHP(hb.getHP() - 25);
+					
 						System.out.println("player hit enemy");
 						break;
 					case TypeComponent.SCENERY:
