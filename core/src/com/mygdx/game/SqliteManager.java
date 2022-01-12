@@ -15,7 +15,7 @@ public class SqliteManager {
 	public SqliteManager() {
 		connect();
 		createTable();
-		defaultInfo();
+//		defaultInfo();
 	}
 	
 	
@@ -61,7 +61,7 @@ public class SqliteManager {
 					+ "Tier INTEGER"
 					+ ");";
 			
-			System.out.println("Conection to SQLite has been established.");
+//			System.out.println("Conection to SQLite has been established.");
 			Statement playerStatement = connect().createStatement();
 //			Statement inventoryStatement = connect().createStatement();
 			playerStatement.execute(playerSQL);
@@ -77,7 +77,7 @@ public class SqliteManager {
 				System.out.println(ex.getMessage());
 			}
 		}
-		System.out.println("Table created");
+//		System.out.println("Table created");
 	}
 
 	
