@@ -29,15 +29,15 @@ public class InventoryItem extends Image {
 	public enum ItemUseType {
 		
 		ITEM_RESTORE_HEALTH(1),
-	    ITEM_RESTORE_MP(2),
-	    ITEM_DAMAGE(4),
-	    WEAPON_ONEHAND(1),
-	    WEAPON_TWOHAND(16),
-	    ARMOR_SHIELD(32),
-	    ARMOR_HELMET(64),
-	    ARMOR_CHEST(128),
-	    ARMOR_FEET(256),
-		ARMOR_LEGS(512);
+	    ITEM_RESTORE_MP    (2),
+	    ITEM_DAMAGE        (4),
+	    WEAPON_ONEHAND     (1),
+	    WEAPON_TWOHAND    (16),
+	    ARMOR_SHIELD      (32),
+	    ARMOR_HELMET      (64),
+	    ARMOR_CHEST      (128),
+	    ARMOR_FEET       (256),
+		ARMOR_LEGS       (512);
 	
 		private int itemUseType;
 		
@@ -79,6 +79,11 @@ public class InventoryItem extends Image {
 		JUNGLESTAFF,
 		JUNGLEHELMET,
 		JUNGLECHEST,
+		KEYCARD01,
+		KEYCARD02,
+		KEYCARD03,
+		KEYCARD04,
+		KEYCARD05,
 		NONE;
 	}
 	
@@ -173,6 +178,16 @@ public class InventoryItem extends Image {
 			break;
 		case WEAPON03:
 			damage = 4;
+			break;
+		case KEYCARD01:
+			break;
+		case KEYCARD02:
+			break;
+		case KEYCARD03:
+			break;
+		case KEYCARD04:
+			break;
+		case KEYCARD05:
 			break;
 		default:
 			break;
