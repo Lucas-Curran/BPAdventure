@@ -36,7 +36,7 @@ public class Enemy extends EntityHandler {
 	private TextureRegion patrolMob = Utilities.lvl89Atlas.findRegion("patrol_mob");
 	private TextureRegion spikeBouncer = Utilities.lvl89Atlas.findRegion("spikeBouncer");
 	private TextureRegion steeringMob = Utilities.lvl89Atlas.findRegion("steeringMob");
-	ArrayList<ArrayList> levelEnemies = new ArrayList<>();
+	
 	
 	private ArrayList<Entity> levelTwoEnemies;
 	private ArrayList<Entity> levelThreeEnemies;
@@ -72,7 +72,7 @@ public class Enemy extends EntityHandler {
 	 * @param entityTexture - what it looks like
 	 * @return - completed enemy as an Entity
 	 */
-	public Entity createEnemy(int posx, int posy, EnemyState enemyType, int range, float radius, TextureRegion entityTexture, int i) {
+	public Entity createEnemy(int posx, int posy, EnemyState enemyType, int range, float radius, TextureRegion entityTexture, int hp) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -139,7 +139,7 @@ public class Enemy extends EntityHandler {
  * @param random - whether the bullet shots will be in random directions or not
  * @return - the completed enemy shooter as an Entity
  */
-public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture, boolean random, int i) {
+public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture, boolean random, int hp) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();
@@ -281,14 +281,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelSevenEnemies.add(createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime, false, 5));
 		levelSevenEnemies.add(createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob, 3));
 		
-		
-//		createEnemyShooter(52, 595.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
-		
-//		createEnemyShooter(52, 589.5f, 1, 1f, -2, 0, 7, 10, spikySlime);
-//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
-//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
-//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
-//		createEnemyShooter(2, 593, 1, 1f, -2, 0, 7, 10, spikySlime);
+		createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime, false, 5);
 
 	}
 	
