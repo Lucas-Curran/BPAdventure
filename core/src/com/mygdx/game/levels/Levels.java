@@ -65,7 +65,8 @@ public class Levels {
 		LVL_7  	   ("purpleCave_bg.png"),
 		LVL_8	   ("nearTheEnd_bg.png"),
 		LVL_9	     ("goldCave_bg.png"),
-		LVL_10			  ("sky_bg.png");
+		LVL_10			  ("sky_bg.png"),
+		INTERNAL					("");
 		
 		private final String value;
 		

@@ -25,12 +25,12 @@ import com.mygdx.game.levels.DoorBuilder;
 import com.mygdx.game.levels.Levels;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.ui.Money;
- 
+
 public class B2dContactListener implements ContactListener {
-	
+
 	private EntityHandler parent;
 	DoorBuilder db = DoorBuilder.getInstance();
-	
+
 	private TextureAtlas textureAtlas;
 	private TextureAtlas lootAtlas;
 
@@ -41,10 +41,7 @@ public class B2dContactListener implements ContactListener {
 	private boolean blessingLevelSix2 = false;
 	private boolean blessingLevelSix3 = false;
 
-
-
-	
-	public B2dContactListener(EntityHandler parent){ 
+	public B2dContactListener(EntityHandler parent) {
 		this.parent = parent;
 	}
 
@@ -52,263 +49,247 @@ public class B2dContactListener implements ContactListener {
 	public void beginContact(Contact contact) {
 		final Fixture fa = contact.getFixtureA();
 		final Fixture fb = contact.getFixtureB();
-		
+
 		// invokes a new Runnable in a separate thread to edit the world
 		Gdx.app.postRunnable(new Runnable() {
 
-            @Override
-            public void run () {
-            	// runs through all the doors and finds the one the user went through
-		for (int i = 0; i < db.doors.size(); i++) {
-			
-			if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
-				if (fb.getBody().getUserData() instanceof Entity) {
-					Entity entB = (Entity) fb.getBody().getUserData();
-					if (entB.getComponent(PlayerComponent.class) != null) {
-						parent.loadingZone = true;
-						parent.setDestinationX(db.destinationsX.get(i));
-						parent.setDestinationY(db.destinationsY.get(i));
-						parent.setDestination(db.destinations.get(i));
-						parent.setCreatedLevel(db.createdLevels.get(i));
-						
-						// depending on the parameter passed to the DoorBuilder, 
-						// a case here creates the appropriate level and destroys the previous
+			@Override
+			public void run() {
+				// runs through all the doors and finds the one the user went through
+				for (int i = 0; i < db.doors.size(); i++) {
 
-						switch(db.createdLevels.get(i)) {
-						case OVERWORLD:
-							parent.getLevels().getOverworld().create();
-							break;
-						case LVL_2:
-							parent.spawnLevelTwo();
-							if (!parent.getLevels().getLevelTwo().isCreated()) {
-								parent.getLevels().getLevelTwo().create();	
-							}
-							break;
-						case LVL_3:
-							parent.removeLevelTwo();
-							parent.spawnLevelThree();
-							if (!parent.getLevels().getLevelThree().isCreated()) {
-								parent.getLevels().getLevelThree().create();	
-							}
-							break;
-						case LVL_4:
-							parent.removeLevelThree();
-							parent.spawnLevelFour();
-							if (!parent.getLevels().getLevelFour().isCreated()) {
-								parent.getLevels().getLevelFour().create();	
-							}
-							break;
-						case LVL_5:
-							parent.removeLevelFour();
-							parent.spawnLevelFive();
-							if (!parent.getLevels().getLevelFive().isCreated()) {
-								parent.getLevels().getLevelFive().create();	
-							}
-							break;
-						case LVL_6:
-							parent.removeLevelFive();
-							parent.spawnLevelSix();
-							if (!parent.getLevels().getLevelSix().isCreated()) {
-								parent.getLevels().getLevelSix().create();	
-							}
-							break;
-						case LVL_7:
-							parent.removeLevelSix();
-							parent.spawnLevelSeven();
-							if (!parent.getLevels().getLevelSeven().isCreated()) {
-								parent.getLevels().getLevelSeven().create();	
-							}
-							break;
-						case LVL_8:
-							parent.removeLevelSeven();
-							parent.spawnLevelEight();
-							if (!parent.getLevels().getLevelEight().isCreated()) {
-								parent.getLevels().getLevelEight().create();	
-							}
-							break;
-						case LVL_9:
-							parent.removeLevelEight();
-							parent.spawnLevelNine();
-							if (!parent.getLevels().getLevelNine().isCreated()) {
-								parent.getLevels().getLevelNine().create();	
-							}
-							break;
-						case LVL_10:
-							parent.removeLevelNine();
-							parent.spawnLevelTen();
-							if (!parent.getLevels().getLevelTen().isCreated()) {
-								parent.getLevels().getLevelTen().create();	
-							}
-							break;
-						default:
-							
-							break;
+					if (fa.getBody().getUserData() == db.doors.get(i).getUserData()) {
+						if (fb.getBody().getUserData() instanceof Entity) {
+							Entity entB = (Entity) fb.getBody().getUserData();
+							if (entB.getComponent(PlayerComponent.class) != null) {
+								parent.loadingZone = true;
+								parent.setDestinationX(db.destinationsX.get(i));
+								parent.setDestinationY(db.destinationsY.get(i));
+								parent.setDestination(db.destinations.get(i));
+								parent.setCreatedLevel(db.createdLevels.get(i));
 
+								// depending on the parameter passed to the DoorBuilder,
+								// a case here creates the appropriate level and destroys the previous
+								if (!db.isTouched.get(i)) {
+									System.out.println(db.createdLevels.get(i));
+									switch (db.createdLevels.get(i)) {
+									
+									case OVERWORLD:
+										parent.getLevels().getOverworld().create();
+										break;
+									case LVL_2:
+										parent.spawnLevelTwo();
+										if (!parent.getLevels().getLevelTwo().isCreated()) {
+											parent.getLevels().getLevelTwo().create();
+										}
+										break;
+									case LVL_3:
+										parent.removeLevelTwo();
+										parent.spawnLevelThree();
+										if (!parent.getLevels().getLevelThree().isCreated()) {
+											parent.getLevels().getLevelThree().create();
+										}
+										break;
+									case LVL_4:
+										parent.removeLevelThree();
+										parent.spawnLevelFour();
+										if (!parent.getLevels().getLevelFour().isCreated()) {
+											parent.getLevels().getLevelFour().create();
+										}
+										break;
+									case LVL_5:
+										parent.removeLevelFour();
+										parent.spawnLevelFive();
+										if (!parent.getLevels().getLevelFive().isCreated()) {
+											parent.getLevels().getLevelFive().create();
+										}
+										break;
+									case LVL_6:
+										parent.removeLevelFive();
+										parent.spawnLevelSix();
+										if (!parent.getLevels().getLevelSix().isCreated()) {
+											parent.getLevels().getLevelSix().create();
+										}
+										break;
+									case LVL_7:
+										parent.removeLevelSix();
+										parent.spawnLevelSeven();
+										if (!parent.getLevels().getLevelSeven().isCreated()) {
+											parent.getLevels().getLevelSeven().create();
+										}
+										break;
+									case LVL_8:
+										parent.removeLevelSeven();
+										parent.spawnLevelEight();
+										if (!parent.getLevels().getLevelEight().isCreated()) {
+											parent.getLevels().getLevelEight().create();
+										}
+										break;
+									case LVL_9:
+										parent.removeLevelEight();
+										parent.spawnLevelNine();
+										if (!parent.getLevels().getLevelNine().isCreated()) {
+											parent.getLevels().getLevelNine().create();
+										}
+										break;
+									case LVL_10:
+										parent.removeLevelNine();
+										parent.spawnLevelTen();
+										if (!parent.getLevels().getLevelTen().isCreated()) {
+											parent.getLevels().getLevelTen().create();
+										}
+										break;
+									case INTERNAL:
+										break;
+									default:
+										System.out.println("no enum sent");
+										break;
+
+									}
+
+									db.isTouched.set(i, true);
+								}
+
+							}
 						}
-						
-						
-					}
-				}
-			} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {
-				if (fa.getBody().getUserData() instanceof Entity) {
-					Entity entA = (Entity) fa.getBody().getUserData();
-					if (entA.getComponent(PlayerComponent.class) != null) {
-						parent.loadingZone = true;
-						parent.setDestinationX(db.destinationsX.get(i));
-						parent.setDestinationY(db.destinationsY.get(i));
-						parent.setDestination(db.destinations.get(i));
+					} else if (fb.getBody().getUserData() == db.doors.get(i).getUserData()) {
+						if (fa.getBody().getUserData() instanceof Entity) {
+							Entity entA = (Entity) fa.getBody().getUserData();
+							if (entA.getComponent(PlayerComponent.class) != null) {
+								parent.loadingZone = true;
+								parent.setDestinationX(db.destinationsX.get(i));
+								parent.setDestinationY(db.destinationsY.get(i));
+								parent.setDestination(db.destinations.get(i));
+							}
+						}
 					}
 				}
 			}
-		}
-            }
-        });
-		
+		});
+
 		// contact statements for other bodies in the game and the player
 
 		if (fa.getBody().getUserData() == "gravityPillar") {
 			System.out.println("Hit gravitySwitch");
 			parent.gravityZone = true;
-			
+
 		} else if (fb.getBody().getUserData() == "gravityPillar") {
 			System.out.println("Hit gravitySwitch");
 			parent.gravityZone = true;
 
 		}
-		
+
 		if (fa.getBody().getUserData() == "gravityPillar2") {
 			System.out.println("Hit gravitySwitch");
 			parent.gravityZone = false;
-			
+
 		} else if (fb.getBody().getUserData() == "gravityPillar2") {
 			System.out.println("Hit gravitySwitch");
 			parent.gravityZone = false;
 
 		}
-		
-		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
+
+		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling"
+				|| fa.getBody().getUserData() == "lavaCeiling2") {
 			System.out.println("Hit lava");
 			parent.killZone = true;
-			//endAllLevels();
+			// endAllLevels();
 			parent.gravityZone = false;
-			
-		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
+
+		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling"
+				|| fb.getBody().getUserData() == "lavaCeiling2") {
 			System.out.println("Hit lava");
 			parent.killZone = true;
-			//endAllLevels();
+			// endAllLevels();
 			parent.gravityZone = false;
 
 		}
-		
-		
+
 		// Gives players items based on what blessing they activated
-		
+
 		textureAtlas = new TextureAtlas("atlas_levelTwo.txt");
 		lootAtlas = new TextureAtlas("otherTextures.txt");
-		
+
 		if (fa.getBody().getUserData() == "levelTwoBlessing" && !blessingLevelTwo) {
-			InventoryItem worldKey = new InventoryItem(textureAtlas.findRegion("World Key"), ItemAttribute.STACKABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.KEY1);
+			InventoryItem worldKey = new InventoryItem(textureAtlas.findRegion("World Key"),
+					ItemAttribute.STACKABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.KEY1);
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(worldKey, "World Key");
 			blessingLevelTwo = true;
 		}
-		
+
 		if (fa.getBody().getUserData() == "levelFourBlessing" && !blessingLevelFour) {
-			InventoryItem iceSword = new InventoryItem(lootAtlas.findRegion("iceSword"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.ICESWORD);
-			InventoryItem iceShield = new InventoryItem(lootAtlas.findRegion("iceShield"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.ICESHIELD);
+			InventoryItem iceSword = new InventoryItem(lootAtlas.findRegion("iceSword"),
+					ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.ICESWORD);
+			InventoryItem iceShield = new InventoryItem(lootAtlas.findRegion("iceShield"),
+					ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.ICESHIELD);
 
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(iceSword, "Ice Sword");
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(iceShield, "Ice Shield");
 
 			blessingLevelFour = true;
 		}
-		
+
 		if (fa.getBody().getUserData() == "levelFiveBlessing" && !blessingLevelFive) {
-			InventoryItem desertShield = new InventoryItem(lootAtlas.findRegion("desertShield"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.DESERTSHIELD);
+			InventoryItem desertShield = new InventoryItem(lootAtlas.findRegion("desertShield"),
+					ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.DESERTSHIELD);
 
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(desertShield, "Desert Shield");
 
 			blessingLevelFive = true;
 		}
-		
+
 		if (fa.getBody().getUserData() == "levelSixBlessing1" && !blessingLevelSix1) {
-			InventoryItem jungleStaff = new InventoryItem(lootAtlas.findRegion("jungleStaff"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.JUNGLESTAFF);
+			InventoryItem jungleStaff = new InventoryItem(lootAtlas.findRegion("jungleStaff"),
+					ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.JUNGLESTAFF);
 
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleStaff, "Jungle Staff");
 
 			blessingLevelSix1 = true;
 		}
-		
+
 		if (fa.getBody().getUserData() == "levelSixBlessing2" && !blessingLevelSix2) {
-			InventoryItem jungleHelmet = new InventoryItem(lootAtlas.findRegion("jungleHelmet"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.JUNGLEHELMET);
+			InventoryItem jungleHelmet = new InventoryItem(lootAtlas.findRegion("jungleHelmet"),
+					ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.JUNGLEHELMET);
 
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleHelmet, "Jungle Helmet");
 
 			blessingLevelSix2 = true;
 		}
-		
+
 		if (fa.getBody().getUserData() == "levelSixBlessing3" && !blessingLevelSix3) {
-			InventoryItem jungleChest = new InventoryItem(lootAtlas.findRegion("jungleChest"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.JUNGLECHEST);
+			InventoryItem jungleChest = new InventoryItem(lootAtlas.findRegion("jungleChest"),
+					ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.JUNGLECHEST);
 
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleChest, "Jungle Chestplate");
 
 			blessingLevelSix3 = true;
 		}
-		
-		
-		if (fa.getBody().getUserData() instanceof Entity){
+
+		if (fa.getBody().getUserData() instanceof Entity) {
 			Entity ent = (Entity) fa.getBody().getUserData();
-			entityCollision(ent,fb);
+			entityCollision(ent, fb);
 			return;
-		} else if(fb.getBody().getUserData() instanceof Entity){
+		} else if (fb.getBody().getUserData() instanceof Entity) {
 			Entity ent = (Entity) fb.getBody().getUserData();
-			entityCollision(ent,fa);
+			entityCollision(ent, fa);
 			return;
 		}
-		
-		
-		
-		
 
-		
 	}
-	
-	//You dont need this method
-	
-	/*
-	 * runs through the array of enemies for each level and removes their bodies from the level
-	 */
-//	private void endAllLevels() {
-//		Gdx.app.postRunnable(new Runnable() {
-//			@Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//
-//				parent.removeLevelTwo();
-//				parent.removeLevelThree();
-//				parent.removeLevelFour();
-//				parent.removeLevelFive();
-//				parent.removeLevelSix();
-//				parent.removeLevelSeven();
-//				parent.removeLevelEight();
-//				parent.removeLevelNine();
-//				parent.removeLevelTen();			
-//			}
-//		});		
-//	}
- 
+
 	/**
 	 * Detects whether an entity has collided with a box2d fixture
 	 * @param ent - entity
-	 * @param fb - fixture body
+	 * @param fb  - fixture body
 	 */
 	private void entityCollision(Entity ent, Fixture fb) {
-		if(fb.getBody().getUserData() instanceof Entity){
+		if (fb.getBody().getUserData() instanceof Entity) {
 			Entity colEnt = (Entity) fb.getBody().getUserData();
-			
+
 			CollisionComponent col = ent.getComponent(CollisionComponent.class);
 			CollisionComponent colb = colEnt.getComponent(CollisionComponent.class);
 			if (ent.getComponent(TypeComponent.class) != null && colEnt.getComponent(TypeComponent.class) != null) {
-				if(col != null){
+				if (col != null) {
 					col.collisionEntity = colEnt;
 					if (colEnt.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
 						parent.npcX = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().x;
@@ -317,7 +298,7 @@ public class B2dContactListener implements ContactListener {
 						parent.setCurrentNPCText(colEnt.getComponent(NPCComponent.class).text);
 						parent.setHasOptions(colEnt.getComponent(NPCComponent.class).hasOptions);
 					}
-				}else if(colb != null){
+				} else if (colb != null) {
 					colb.collisionEntity = ent;
 					if (ent.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
 						parent.npcX = ent.getComponent(B2dBodyComponent.class).body.getPosition().x;
@@ -330,7 +311,7 @@ public class B2dContactListener implements ContactListener {
 			}
 		}
 	}
- 
+
 	@Override
 	public void endContact(Contact contact) {
 		Fixture fa = contact.getFixtureA();
@@ -353,26 +334,30 @@ public class B2dContactListener implements ContactListener {
 				}
 			}
 		}
-		
-		if(fa.getBody().getUserData() instanceof Entity && fb.getBody().getUserData() instanceof Entity){
+
+		if (fa.getBody().getUserData() instanceof Entity && fb.getBody().getUserData() instanceof Entity) {
 			Entity entA = (Entity) fa.getBody().getUserData();
 			Entity entB = (Entity) fb.getBody().getUserData();
 			if (entA.getComponent(TypeComponent.class) != null && entB.getComponent(TypeComponent.class) != null) {
-				if (entA.getComponent(TypeComponent.class).type == TypeComponent.NPC && entB.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
+				if (entA.getComponent(TypeComponent.class).type == TypeComponent.NPC
+						&& entB.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
 					parent.talkingZone = false;
-				} else if (entB.getComponent(TypeComponent.class).type == TypeComponent.NPC && entA.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
+				} else if (entB.getComponent(TypeComponent.class).type == TypeComponent.NPC
+						&& entA.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
 					parent.talkingZone = false;
 				}
 			}
 		}
-		
-		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
+
+		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling"
+				|| fa.getBody().getUserData() == "lavaCeiling2") {
 			parent.killZone = false;
-			
-		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
+
+		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling"
+				|| fb.getBody().getUserData() == "lavaCeiling2") {
 			parent.killZone = false;
 		}
-		
+
 		if (fa.getBody().getUserData() == "Sword") {
 			if (fb.getBody().getUserData() instanceof Entity) {
 				Entity ent = (Entity) fb.getBody().getUserData();
@@ -383,11 +368,13 @@ public class B2dContactListener implements ContactListener {
 			}
 		}
 	}
+
 	@Override
-	public void preSolve(Contact contact, Manifold oldManifold) {		
+	public void preSolve(Contact contact, Manifold oldManifold) {
 	}
+
 	@Override
-	public void postSolve(Contact contact, ContactImpulse impulse) {		
+	public void postSolve(Contact contact, ContactImpulse impulse) {
 	}
- 
+
 }

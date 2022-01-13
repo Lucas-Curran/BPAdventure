@@ -264,7 +264,7 @@ public class EnemySystem extends IteratingSystem {
 			//Spawn a steering type enemy
 			Enemy e = new Enemy();
 			
-			tex = Utilities.levelSevenAtlas.findRegion("bullet(left)");
+			tex = Utilities.rightTextures.findRegion("rocketMob");
 			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f,tex, 1));
 			
 		}

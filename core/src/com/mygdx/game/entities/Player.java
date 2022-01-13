@@ -117,7 +117,9 @@ public class Player extends EntityHandler {
 	        if (alpha >= 1) {
 	            
 	            setPosition(x, y);
+	            if (!level.equals("")) {
 	            Map.getInstance().mapBackground = new Texture(Gdx.files.internal(level));
+	            }
 	            fadeDirection =! fadeDirection;
 	        }
 	        //speed of fade

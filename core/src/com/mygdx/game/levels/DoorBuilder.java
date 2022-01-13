@@ -22,6 +22,7 @@ public class DoorBuilder {
 	public ArrayList<Float> destinationsY = new ArrayList<>();
 	public ArrayList<String> destinations = new ArrayList<>();
 	public ArrayList<LevelDestination> createdLevels = new ArrayList<>();
+	public ArrayList<Boolean> isTouched = new ArrayList<>();
 	
 	BodyFactory bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
 	Texture texture = new Texture(Gdx.files.internal("blackDoor.png"));
@@ -34,17 +35,19 @@ public class DoorBuilder {
 		destinationsY.add(desY);
 		destinations.add(level.getValue());
 		createdLevels.add(level);
+		isTouched.add(false);
 		return door;
 	}
 	
-	public Body createInternalDoor(float posx, float posy, float desX, float desY, int material, String name) {
-		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true, texture);
-		door.setUserData(name);
-		doors.add(door);
-		destinationsX.add(desX);	
-		destinationsY.add(desY);
-		return door;
-	}
+//	public Body createInternalDoor(float posx, float posy, float desX, float desY, int material, String name) {
+//		Body door = bodyFactory.makeBoxPolyBody(posx, posy, 1.5f, 2.3f, material, BodyType.StaticBody, false, true, texture);
+//		door.setUserData(name);
+//		doors.add(door);
+//		destinationsX.add(desX);	
+//		destinationsY.add(desY);
+//		createdLevels.add(null);
+//		return door;
+//	}
 	
 	public void destroy(Body door) {
 		(new GameWorld().getInstance()).destroyBody(door);

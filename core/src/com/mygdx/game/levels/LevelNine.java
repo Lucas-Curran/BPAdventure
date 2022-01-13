@@ -69,17 +69,17 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 			}, 40, 797, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
 			
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Still alive?", "How curious-", "Maybe you will meet my master after all..."
-			}, -30, 792, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
+			}, -30, 792, Utilities.rightTextures.findRegion("oldMan"), false));
 			
 			platforms[3] = bodyFactory.makeBoxPolyBody(20, 787, 2, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			platforms[4] = bodyFactory.makeBoxPolyBody(30, 787.9f, 2, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			platforms[5] = bodyFactory.makeBoxPolyBody(40, 788.2f, 2, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Made it through?", "Then it is time.", "My master awaits, Ice Cream.", "Say your goodbyes ahead"
-			}, 50, 782, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
+			}, 50, 782, Utilities.rightTextures.findRegion("oldMan"), false));
 			
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"It's been an honor, friend", "Good Luck!"
-			}, 30, 782, Utilities.levelSevenAtlas.findRegion("squirrelMan"), false));
+			}, 30, 782, Utilities.rightTextures.findRegion("squirrelMan"), false));
 			
 			// jin's NPCs
 			// more NPCs?
