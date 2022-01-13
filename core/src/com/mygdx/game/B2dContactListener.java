@@ -84,15 +84,14 @@ public class B2dContactListener implements ContactListener {
 								parent.getPooledEngine().removeEntity(enemy);
 							}
 							
-							if (parent.enemies.getLevelEnemies().get(1).size() == 0) {
 				            parent.getLevels().getLevelTwo().create();
 				            System.out.println("created level");
-							}
-						
+							
 							break;
 						case LVL_3:
 							for (Entity enemy : parent.enemies.getLevelTwo()) {
 								parent.getPooledEngine().removeEntity(enemy);
+								enemy.getComponent(EnemyComponent.class).isDead = true;
 							}
 							parent.getLevels().getLevelThree().create();
 							break;

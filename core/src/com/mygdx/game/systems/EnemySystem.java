@@ -58,7 +58,6 @@ public class EnemySystem extends IteratingSystem {
 		player = super.getEngine().getEntities().first();
 		playerCom = bodm.get(player);
 		
-		
 		//Choose movement type based on ai type specified
 		switch (enemyState) {
 			case PATROL: 
@@ -91,8 +90,7 @@ public class EnemySystem extends IteratingSystem {
 		//Check if health is less than 0 and set enemy to dead
 		if (enemyCom.health <= 0) {
 			bodyCom.isDead = true;
-		}
-		
+		} 
 		
 	}
 	
@@ -146,7 +144,6 @@ public class EnemySystem extends IteratingSystem {
 		
 		getEngine().addEntity(bullet.createBullet(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, aim.x, aim.y,
 				enemyCom.bulletRange, BulletComponent.Owner.ENEMY, enemy));
-		
 		
 	}
 
@@ -268,9 +265,8 @@ public class EnemySystem extends IteratingSystem {
 			Enemy e = new Enemy();
 			
 			tex = Utilities.levelSevenAtlas.findRegion("bullet(left)");
-			//getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f));
-			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f,tex, 0));
 			getEngine().addEntity(e.createEnemy((int) bodyCom.body.getWorldCenter().x, (int) bodyCom.body.getWorldCenter().y + 2, EnemyState.STEERING, 0, 1f,tex, 1));
+			
 		}
 		
 		
