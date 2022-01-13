@@ -55,19 +55,33 @@ public class Utilities {
 	
 	public static TextureAtlas lvl89Atlas = new TextureAtlas("lvl8and9.txt");
 	public static TextureAtlas rightTextures = new TextureAtlas("moreExtraSprites.txt");
-
+	public static TextureAtlas levelSevenAtlas = new TextureAtlas("moreSprites.txt");
 	public static TextureAtlas levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+	
 	public static TextureRegion rockMob = Utilities.levelTwoAtlas.findRegion("RockMobEnemy");
 	public static TextureRegion spikyRockMob = Utilities.levelTwoAtlas.findRegion("SpikyRockEnemy");
 	public static TextureAtlas otherTexturesAtlas = new TextureAtlas("otherTextures.txt");
-	public static TextureRegion eyeBoss = Utilities.otherTexturesAtlas.findRegion("eyeBoss");
-	public static TextureRegion flyingEye = Utilities.otherTexturesAtlas.findRegion("flyingEye");
-	public static TextureRegion iceBird = Utilities.otherTexturesAtlas.findRegion("iceBird");
-	public static TextureRegion iceMonster = Utilities.otherTexturesAtlas.findRegion("iceMonster");
-	public static TextureRegion jungleDragon = Utilities.otherTexturesAtlas.findRegion("jungleDragon");
-	public static TextureRegion mummyEnemy = Utilities.otherTexturesAtlas.findRegion("mummyEnemy");
-	public static TextureRegion slimeKing = Utilities.otherTexturesAtlas.findRegion("slimeKing");
-	public static TextureRegion soldierKnight = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
+	public static TextureRegion eyeBoss = otherTexturesAtlas.findRegion("eyeBoss");
+	public static TextureRegion flyingEye = otherTexturesAtlas.findRegion("flyingEye");
+	public static TextureRegion iceBird = otherTexturesAtlas.findRegion("iceBird");
+	public static TextureRegion iceMonster = otherTexturesAtlas.findRegion("iceMonster");
+	public static TextureRegion jungleDragon = otherTexturesAtlas.findRegion("jungleDragon");
+	public static TextureRegion mummyEnemy = otherTexturesAtlas.findRegion("mummyEnemy");
+	public static TextureRegion slimeKing = otherTexturesAtlas.findRegion("slimeKing");
+	public static TextureRegion soldierKnight = otherTexturesAtlas.findRegion("soldierKnight");
+	
+	public static TextureRegion spikySlime = levelSevenAtlas.findRegion("spikySlime");
+	public static TextureRegion slimyMob = levelSevenAtlas.findRegion("slimyMob");
+	public static TextureRegion boss_8 = lvl89Atlas.findRegion("7_boss");
+	public static TextureRegion rocketMob = lvl89Atlas.findRegion("rocketMob");
+	public static TextureRegion spiderMob = lvl89Atlas.findRegion("spider");
+	public static TextureRegion jumpingMob = lvl89Atlas.findRegion("vertical");
+	
+	public static TextureRegion boss_9 = lvl89Atlas.findRegion("boss_enemy");
+	public static TextureRegion vertical_9 = lvl89Atlas.findRegion("jumpingMob");
+	public static TextureRegion patrolMob = lvl89Atlas.findRegion("patrol_mob");
+	public static TextureRegion spikeBouncer = lvl89Atlas.findRegion("spikeBouncer");
+	public static TextureRegion steeringMob = lvl89Atlas.findRegion("steeringMob");
 	
 	/**
 	 * Attributions:
@@ -75,8 +89,19 @@ public class Utilities {
 	 * Mummy Enemy by Svetlana Kushnariova licensed CC-BY 4.0: https://opengameart.org/content/mummies 
 	 * Slime King by khairul169 licensed CC-BY 3.0: https://opengameart.org/content/slime-character
 	 * Soldier Knight by Segel licensed CC-BY 3.0: https://opengameart.org/content/2d-knight-chibi
+	 * Rocket Mob by Bevouliin.com licensed CC0: https://opengameart.org/content/missile-enemy-game-character
+	 * Spider Mob by Bevouliin.com licensed CC0: https://opengameart.org/content/enemy-game-character-cute-spider
+	 * Slime Mob by leeor_net licensed CC0: https://opengameart.org/content/green-tooth-beast
+	 * Spiky Bouncer by Bevouliin.com licensed CC0: https://opengameart.org/content/bevouliin-free-ingame-items-spike-monsters
+	 * Patrol Mob by BlackSwordo licensed CC-BY 4.0: https://opengameart.org/content/firecreature
+	 * Spiky Slime by Bevouliin.com licensed CC0: https://opengameart.org/content/free-game-obstacles-spiky-monster-bevouliin-game-asset
+	 * Level 9 Bosses by AntumDeluge licensed CC-BY 4.0: https://opengameart.org/content/minotaur-2
+	 * Level 9 Vertical Enemy by Sean Noonan licensed CC0: https://opengameart.org/content/top-down-tentacle-creature
+	 * Level 8 Boss by Redshrike licensed CC-BY 3.0: https://opengameart.org/content/3-form-rpg-boss-harlequin-epicycle
+	 * Level 9 Alternate Vertical enemy by Blackswordo licensed CC-BY 4.0: https://opengameart.org/content/monstah
+	 * Steering Mob by GoblinGameWerx licensed CC0: https://opengameart.org/content/water-dwelling-race-head
 	 */
-	public static TextureAtlas levelSevenAtlas = new TextureAtlas("moreSprites.txt");
+	
 
 	
 	public static Skin UISKIN = new Skin(atlas);
