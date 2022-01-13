@@ -22,6 +22,7 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.entities.Player;
@@ -54,7 +55,6 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		db.createDoor(39, 92.5f, -35, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
 		
 		//Creates Level One NPCs
-		Map.getInstance().getEntityHandler().spawnLevelTwo();
 		NPC npc = new NPC();
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
 		TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
@@ -64,7 +64,7 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		
 		blessing[0] = bodyFactory.makeBoxPolyBody(36, 92, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 		blessing[0].setUserData("levelTwoBlessing");
-		
+	
 	}
 
 	@Override

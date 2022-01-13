@@ -31,6 +31,7 @@ import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
 public class LevelNine extends LevelFactory implements ApplicationListener {
@@ -84,12 +85,9 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 			// more NPCs?
 			
 			db.createDoor(-33, 782.5f, -35, 888, BodyFactory.STONE, "doorTo10", LevelDestination.LVL_10);
-
-			Map.getInstance().getEntityHandler().spawnLevelNine();
-			
+		
 			isCreated = true;
 		}
-		
 
 		@Override
 		public void resize(int width, int height) {

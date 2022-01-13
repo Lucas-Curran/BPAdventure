@@ -76,67 +76,61 @@ public class B2dContactListener implements ContactListener {
 
 						switch(db.createdLevels.get(i)) {
 						case OVERWORLD:
-							
 							parent.getLevels().getOverworld().create();
 							break;
 						case LVL_2:
-							for (Entity enemy : parent.enemies.getOverworld()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.spawnLevelTwo();
+							if (!parent.getLevels().getLevelTwo().isCreated()) {
+								parent.getLevels().getLevelTwo().create();	
 							}
-							
-							if (parent.enemies.getLevelEnemies().get(1).size() == 0) {
-				            parent.getLevels().getLevelTwo().create();
-				            System.out.println("created level");
-							}
-						
 							break;
 						case LVL_3:
-							for (Entity enemy : parent.enemies.getLevelTwo()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelTwo();
+							if (!parent.getLevels().getLevelThree().isCreated()) {
+								parent.getLevels().getLevelThree().create();	
 							}
-							parent.getLevels().getLevelThree().create();
 							break;
 						case LVL_4:
-							for (Entity enemy : parent.enemies.getLevelThree()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelThree();
+							if (!parent.getLevels().getLevelFour().isCreated()) {
+								parent.getLevels().getLevelFour().create();	
 							}
-							parent.getLevels().getLevelFour().create();
 							break;
 						case LVL_5:
-							for (Entity enemy : parent.enemies.getLevelFour()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelFour();
+							if (!parent.getLevels().getLevelFive().isCreated()) {
+								parent.getLevels().getLevelFive().create();	
 							}
-							parent.getLevels().getLevelFive().create();
 							break;
 						case LVL_6:
-							for (Entity enemy : parent.enemies.getLevelFive()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelFive();
+							if (!parent.getLevels().getLevelSix().isCreated()) {
+								parent.getLevels().getLevelSix().create();	
 							}
-							parent.getLevels().getLevelSix().create();
 							break;
 						case LVL_7:
-							for (Entity enemy : parent.enemies.getLevelSix()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelSix();
+							if (!parent.getLevels().getLevelSeven().isCreated()) {
+								parent.getLevels().getLevelSeven().create();	
 							}
-							parent.getLevels().getLevelSeven().create();
 							break;
 						case LVL_8:
-							for (Entity enemy : parent.enemies.getLevelSeven()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelSeven();
+							if (!parent.getLevels().getLevelEight().isCreated()) {
+								parent.getLevels().getLevelEight().create();	
 							}
-							parent.getLevels().getLevelEight().create();
 							break;
 						case LVL_9:
-							for (Entity enemy : parent.enemies.getLevelEight()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelEight();
+							if (!parent.getLevels().getLevelNine().isCreated()) {
+								parent.getLevels().getLevelNine().create();	
 							}
-							parent.getLevels().getLevelNine().create();
 							break;
 						case LVL_10:
-							for (Entity enemy : parent.enemies.getLevelNine()) {
-								parent.getPooledEngine().removeEntity(enemy);
+							parent.removeLevelNine();
+							if (!parent.getLevels().getLevelTen().isCreated()) {
+								parent.getLevels().getLevelTen().create();	
 							}
-							parent.getLevels().getLevelTen().create();
 							break;
 						default:
 							
@@ -187,13 +181,13 @@ public class B2dContactListener implements ContactListener {
 		if (fa.getBody().getUserData() == "lavaFloor" || fa.getBody().getUserData() == "lavaCeiling" || fa.getBody().getUserData() == "lavaCeiling2") {
 			System.out.println("Hit lava");
 			parent.killZone = true;
-			endAllLevels();
+			//endAllLevels();
 			parent.gravityZone = false;
 			
 		} else if (fb.getBody().getUserData() == "lavaFloor" || fb.getBody().getUserData() == "lavaCeiling" || fb.getBody().getUserData() == "lavaCeiling2") {
 			System.out.println("Hit lava");
 			parent.killZone = true;
-			endAllLevels();
+			//endAllLevels();
 			parent.gravityZone = false;
 
 		}
@@ -270,59 +264,29 @@ public class B2dContactListener implements ContactListener {
 		
 	}
 	
+	//You dont need this method
+	
 	/*
 	 * runs through the array of enemies for each level and removes their bodies from the level
 	 */
-	private void endAllLevels() {
-		Gdx.app.postRunnable(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-
-				for (Entity enemy : parent.enemies.getLevelTwo()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-					enemy.getComponent(B2dBodyComponent.class).isDead = true;
-					System.out.println(enemy.getComponent(B2dBodyComponent.class).isDead);
-				}
-				for (Entity enemy : parent.enemies.getLevelThree()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-				for (Entity enemy : parent.enemies.getLevelFour()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-				for (Entity enemy : parent.enemies.getLevelFive()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-				for (Entity enemy : parent.enemies.getLevelSix()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-				for (Entity enemy : parent.enemies.getLevelSeven()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-				for (Entity enemy : parent.enemies.getLevelEight()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-				for (Entity enemy : parent.enemies.getLevelNine()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-				for (Entity enemy : parent.enemies.getLevelTen()) {
-					parent.getWorld().destroyBody(enemy.getComponent(B2dBodyComponent.class).body);
-					parent.getPooledEngine().removeEntity(enemy);
-				}
-			}
-
-		});
-		
-	}
+//	private void endAllLevels() {
+//		Gdx.app.postRunnable(new Runnable() {
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//
+//				parent.removeLevelTwo();
+//				parent.removeLevelThree();
+//				parent.removeLevelFour();
+//				parent.removeLevelFive();
+//				parent.removeLevelSix();
+//				parent.removeLevelSeven();
+//				parent.removeLevelEight();
+//				parent.removeLevelNine();
+//				parent.removeLevelTen();			
+//			}
+//		});		
+//	}
  
 	/**
 	 * Detects whether an entity has collided with a box2d fixture
@@ -335,24 +299,25 @@ public class B2dContactListener implements ContactListener {
 			
 			CollisionComponent col = ent.getComponent(CollisionComponent.class);
 			CollisionComponent colb = colEnt.getComponent(CollisionComponent.class);
-			
-			if(col != null){
-				col.collisionEntity = colEnt;
-				if (colEnt.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
-					parent.npcX = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().x;
-					parent.npcY = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().y;
-					parent.talkingZone = true;
-					parent.setCurrentNPCText(colEnt.getComponent(NPCComponent.class).text);
-					parent.setHasOptions(colEnt.getComponent(NPCComponent.class).hasOptions);
-				}
-			}else if(colb != null){
-				colb.collisionEntity = ent;
-				if (ent.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
-					parent.npcX = ent.getComponent(B2dBodyComponent.class).body.getPosition().x;
-					parent.npcY = ent.getComponent(B2dBodyComponent.class).body.getPosition().y;
-					parent.talkingZone = true;
-					parent.setCurrentNPCText(ent.getComponent(NPCComponent.class).text);
-					parent.setHasOptions(ent.getComponent(NPCComponent.class).hasOptions);
+			if (ent.getComponent(TypeComponent.class) != null && colEnt.getComponent(TypeComponent.class) != null) {
+				if(col != null){
+					col.collisionEntity = colEnt;
+					if (colEnt.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+						parent.npcX = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().x;
+						parent.npcY = colEnt.getComponent(B2dBodyComponent.class).body.getPosition().y;
+						parent.talkingZone = true;
+						parent.setCurrentNPCText(colEnt.getComponent(NPCComponent.class).text);
+						parent.setHasOptions(colEnt.getComponent(NPCComponent.class).hasOptions);
+					}
+				}else if(colb != null){
+					colb.collisionEntity = ent;
+					if (ent.getComponent(TypeComponent.class).type == TypeComponent.NPC) {
+						parent.npcX = ent.getComponent(B2dBodyComponent.class).body.getPosition().x;
+						parent.npcY = ent.getComponent(B2dBodyComponent.class).body.getPosition().y;
+						parent.talkingZone = true;
+						parent.setCurrentNPCText(ent.getComponent(NPCComponent.class).text);
+						parent.setHasOptions(ent.getComponent(NPCComponent.class).hasOptions);
+					}
 				}
 			}
 		}
@@ -384,10 +349,12 @@ public class B2dContactListener implements ContactListener {
 		if(fa.getBody().getUserData() instanceof Entity && fb.getBody().getUserData() instanceof Entity){
 			Entity entA = (Entity) fa.getBody().getUserData();
 			Entity entB = (Entity) fb.getBody().getUserData();
-			if (entA.getComponent(TypeComponent.class).type == TypeComponent.NPC && entB.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
-				parent.talkingZone = false;
-			} else if (entB.getComponent(TypeComponent.class).type == TypeComponent.NPC && entA.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
-				parent.talkingZone = false;
+			if (entA.getComponent(TypeComponent.class) != null && entB.getComponent(TypeComponent.class) != null) {
+				if (entA.getComponent(TypeComponent.class).type == TypeComponent.NPC && entB.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
+					parent.talkingZone = false;
+				} else if (entB.getComponent(TypeComponent.class).type == TypeComponent.NPC && entA.getComponent(TypeComponent.class).type == TypeComponent.PLAYER) {
+					parent.talkingZone = false;
+				}
 			}
 		}
 		

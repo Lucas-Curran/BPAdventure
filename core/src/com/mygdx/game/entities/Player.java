@@ -172,6 +172,7 @@ public class Player extends EntityHandler {
                 entity.getComponent(B2dBodyComponent.class).body.setAwake(true);
                 setGravityScale(1);
                 Map.getInstance().setGravitySwitch(false);
+                Map.getInstance().getLevels().getLevelTwo();
                 Map.getInstance().death = false;
                 Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().setHP(100);
 

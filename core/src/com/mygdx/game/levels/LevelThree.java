@@ -31,6 +31,7 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
@@ -151,7 +152,6 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		isCreated = true;
 	}
 	
-
 	@Override
 	public void resize(int width, int height) {
 		

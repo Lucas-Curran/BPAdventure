@@ -32,6 +32,7 @@ import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
 public class LevelEight extends LevelFactory implements ApplicationListener {
@@ -85,13 +86,9 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 					"This land is the most dangerous thus far Ice Cream...tread carefully."}, -32, 682, Utilities.levelSevenAtlas.findRegion("squirrelMan"), false));
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Hurry you're almost there!" 
 					}, 58, 682, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
-			Map.getInstance().getEntityHandler().spawnLevelEight();
-			
-			
-			
+						
 			isCreated = true;
 		}
-		
 
 		@Override
 		public void resize(int width, int height) {

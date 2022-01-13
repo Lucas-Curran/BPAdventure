@@ -32,6 +32,7 @@ import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
 public class LevelSeven extends LevelFactory implements ApplicationListener {
@@ -127,12 +128,8 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"}, -32, 582, squirrelMan, false));
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Boo! Watch out for the projectiles!"}, -3, 593, oldMan, false));
 			
-
-			Map.getInstance().getEntityHandler().spawnLevelSeven();
-			
 			isCreated = true;
 		}
-		
 
 		@Override
 		public void resize(int width, int height) {

@@ -154,9 +154,6 @@ public class Map implements Screen, InputProcessor {
 			}
 		}
 
-		System.out.println("Damage: " + entityHandler.getPlayer().getDamage());
-		System.out.println("Defense: " + entityHandler.getPlayer().getDefense());
-		
 		levels.getOverworld().render();
 		textBox.renderTextBox(delta);
 		if (playerHUD.isShowing()) {

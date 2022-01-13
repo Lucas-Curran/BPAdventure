@@ -234,9 +234,12 @@ public class EntityHandler implements ApplicationListener {
 		renderSpeechBubble();
 		Utilities.renderAllTextures(cam, polygonSpriteBatch, bodyFactory.getBodies());
 		teleportPlayer(destinationX, destinationY, destination);
-//		killPlayer(17, 1.5f);
-		killPlayer(-5, 95);
+		killPlayer(17, 1.5f);
+		//killPlayer(-5, 95);
 		setJumpScale();//call this
+		
+		System.out.println(pooledEngine.getEntities().size());
+		
 	}
 	
 	@Override
@@ -271,63 +274,171 @@ public class EntityHandler implements ApplicationListener {
 	
 	private void updateEntities() {
 		for (Entity entity : pooledEngine.getEntities()) {
+			if (entity.getComponent(TransformComponent.class) != null) {
 			entity.getComponent(TransformComponent.class).position.set(
 					entity.getComponent(B2dBodyComponent.class).body.getPosition().x - cam.getCamera().position.x, 
 					entity.getComponent(B2dBodyComponent.class).body.getPosition().y - cam.getCamera().position.y,
 					0);
 		}
+		}
 	}		
 
 	public void spawnLevelTwo() {
-		for (Entity enemy : enemies.getLevelTwo()) {
+		enemies.addLevelTwoEnemies();
+		for (Entity enemy : enemies.getLevelTwoEnemies()) {	
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
 			pooledEngine.addEntity(enemy);
 		}
+	}
+	
+	public void removeLevelTwo() {
+		for (Entity enemy : enemies.getLevelTwoEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelTwoEnemies().clear();
 	}
 	
 	public void spawnLevelThree() {
-		for (Entity enemy : enemies.getLevelThree()) {
+		enemies.addLevelThreeEnemies();
+		for (Entity enemy : enemies.getLevelThreeEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
 			pooledEngine.addEntity(enemy);
 		}
 	}
+	
+	public void removeLevelThree() {
+		for (Entity enemy : enemies.getLevelThreeEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelThreeEnemies().clear();
+	}
+	
 	public void spawnLevelFour() {
-		for (Entity enemy : enemies.getLevelFour()) {
+		enemies.addLevelFourEnemies();
+		for (Entity enemy : enemies.getLevelFourEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
 			pooledEngine.addEntity(enemy);
 		}
 	}
+	
+	public void removeLevelFour() {
+		for (Entity enemy : enemies.getLevelFourEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelFourEnemies().clear();
+	}
+	
 	public void spawnLevelFive() {
-		for (Entity enemy : enemies.getLevelFive()) {
+		enemies.addLevelFiveEnemies();
+		for (Entity enemy : enemies.getLevelFiveEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
 			pooledEngine.addEntity(enemy);
 		}
 	}
+	
+	public void removeLevelFive() {
+		for (Entity enemy : enemies.getLevelFiveEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelFiveEnemies().clear();
+	}
+	
 	public void spawnLevelSix() {
-		for (Entity enemy : enemies.getLevelSix()) {
+		enemies.addLevelSixEnemies();
+		for (Entity enemy : enemies.getLevelSixEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
 			pooledEngine.addEntity(enemy);
 		}
+	}
+	
+	public void removeLevelSix() {
+		for (Entity enemy : enemies.getLevelSixEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelSixEnemies().clear();
 	}
 	
 	public void spawnLevelSeven() {
-		for (Entity enemy : enemies.getLevelSeven()) {
-			pooledEngine.addEntity(enemy);
-		}
-	}
-	public void spawnLevelEight() {
-		for (Entity enemy : enemies.getLevelEight()) {
-			pooledEngine.addEntity(enemy);
-		}
-	}
-	public void spawnLevelNine() {
-		for (Entity enemy : enemies.getLevelNine()) {
-			pooledEngine.addEntity(enemy);
-		}
-	}
-	public void spawnLevelTen() {
-		for (Entity enemy : enemies.getLevelTen()) {
+		enemies.addLevelSevenEnemies();
+		for (Entity enemy : enemies.getLevelSevenEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
 			pooledEngine.addEntity(enemy);
 		}
 	}
 	
+	public void removeLevelSeven() {
+		for (Entity enemy : enemies.getLevelSevenEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelSevenEnemies().clear();
+	}
+	
+	public void spawnLevelEight() {
+		enemies.addLevelEightEnemies();
+		for (Entity enemy : enemies.getLevelEightEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void removeLevelEight() {
+		for (Entity enemy : enemies.getLevelEightEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelEightEnemies().clear();
+	}
+	
+	public void spawnLevelNine() {
+		enemies.addLevelNineEnemies();
+		for (Entity enemy : enemies.getLevelNineEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void removeLevelNine() {
+		for (Entity enemy : enemies.getLevelNineEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelNineEnemies().clear();
+	}
+	
+	public void spawnLevelTen() {
+		enemies.addLevelTenEnemies();
+		for (Entity enemy : enemies.getLevelTenEnemies()) {
+			enemy.getComponent(B2dBodyComponent.class).isDead = false;
+			pooledEngine.addEntity(enemy);
+		}
+	}
+	
+	public void removeLevelTen() {
+		for (Entity enemy : enemies.getLevelTenEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getLevelTenEnemies().clear();
+	}
+	
 	public void spawnIceDungeon() {
-		for (Entity enemy : enemies.getIceDungeon()) {
+		enemies.addIceDungeon();
+		for (Entity enemy : enemies.getLevelThreeEnemies()) {
 			pooledEngine.addEntity(enemy);
 		}
 	}
@@ -392,6 +503,10 @@ public class EntityHandler implements ApplicationListener {
 	
 	public Levels getLevels() {
 		return levels;
+	}
+	
+	public Enemy getEnemies() {
+		return enemies;
 	}
 	
 	public void setCurrentNPCText(String[] currentNPCText) {

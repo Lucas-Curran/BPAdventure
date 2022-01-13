@@ -17,6 +17,7 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
@@ -78,10 +79,8 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		TextureRegion soldier = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Having fun?", "Well I hope you like climbing because you'll need to make it to the top to get out!"}, -28, 252, normalMan, false));
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Brrr...who are you?", "Go back down before it's too late kid, you'll never get past the guardian", "I should have never entered that cursed cave..."}, 2, 275, soldier, false));
-		Map.getInstance().getEntityHandler().spawnLevelFour();
-		
 	}
-    
+	
 	@Override
 	public void render() {	
 	

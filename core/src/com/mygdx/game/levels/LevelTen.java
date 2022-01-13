@@ -30,6 +30,7 @@ import com.mygdx.game.Map;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
 public class LevelTen extends LevelFactory implements ApplicationListener {
@@ -58,11 +59,8 @@ public class LevelTen extends LevelFactory implements ApplicationListener {
 	        			
 			NPC npc = new NPC();
 
-			Map.getInstance().getEntityHandler().spawnLevelTen();
-
 			isCreated = true;
 		}
-		
 
 		@Override
 		public void resize(int width, int height) {

@@ -31,6 +31,7 @@ import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
 public class LevelSix extends LevelFactory implements ApplicationListener {
@@ -90,12 +91,9 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 			NPC npc = new NPC();
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Bow before the king and recieve your reward."}, 3, 458, slime, false));
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Continue on to the next level or head up to take on the Jungle Challenges."}, 18, 458, slime, false));
-
-			Map.getInstance().getEntityHandler().spawnLevelSix();
-
+			
 			isCreated = true;
 		}
-		
 
 		@Override
 		public void resize(int width, int height) {

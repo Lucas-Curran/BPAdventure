@@ -31,6 +31,7 @@ import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
+import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
 public class LevelFive extends LevelFactory implements ApplicationListener {
@@ -67,10 +68,8 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I can't go on...", "Go back while you still can, there's no end to this nightmare."}, 15, 382, soldier, false));
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"So you're alive!", "Honestly, that was impressive. Go on, don't worry this time it's actually a nice surpise."}, 58, 382, unknownBeing, false));
 
-			Map.getInstance().getEntityHandler().spawnLevelFive();
 			isCreated = true;
-		}
-		
+		}	
 
 		@Override
 		public void resize(int width, int height) {
