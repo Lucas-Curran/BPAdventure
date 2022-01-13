@@ -136,8 +136,6 @@ public class EntityHandler implements ApplicationListener {
 		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 
 		levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
-//		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
-//		unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
 
 		levelSevenAtlas = new TextureAtlas("moreSprites.txt");
 		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
@@ -201,8 +199,6 @@ public class EntityHandler implements ApplicationListener {
 		// killPlayer(-5, 95);
 		setJumpScale();
 
-//		System.out.println(pooledEngine.getEntities().size());
-
 	}
 
 	@Override
@@ -246,6 +242,10 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 
+	/**
+	 * spawns the level and adds the entities
+	 * all ensuing methods of this type do the same thing
+	 */
 	public void spawnLevelTwo() {
 		enemies.addLevelTwoEnemies();
 		for (Entity enemy : enemies.getLevelTwoEnemies()) {
@@ -258,6 +258,10 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 
+	/**
+	 * kills all the enemies in the level and clears the array
+	 * all ensuing methods of this type do the same thing
+	 */
 	public void removeLevelTwo() {
 		for (Entity enemy : enemies.getLevelTwoEnemies()) {
 			if (enemy.getComponent(B2dBodyComponent.class) != null) {
@@ -455,18 +459,30 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 
+	/**
+	 * checks the teleporting boolean and calls the real teleport method
+	 * @param x - x coordinate to be teleported to
+	 * @param y - y coordinate to be teleported to
+	 * @param destination - the Level it is being teleported to
+	 */
 	public void teleportPlayer(float x, float y, String destination) {
 		if (Map.getInstance().teleporting == true) {
 			player.fadePlayer(x, y, destination);
 		}
 	}
-
+/**
+ * checks the death boolean and calls a different teleporting method
+ * @param x - x coordinate of overworld
+ * @param y - y coordinate of overworld
+ */
 	public void killPlayer(float x, float y) {
 		if (Map.getInstance().death == true) {
 			player.fadePlayerToBeginning(x, y);
 		}
 	}
-
+/**
+ * depending on the gravitySwitch field, reverses the player's gravity
+ */
 	public void setJumpScale() {
 		if (Map.getInstance().gravitySwitch == true) {
 			pooledEngine.getSystem(PlayerControlSystem.class).setJumpScale(-40);
@@ -493,20 +509,10 @@ public class EntityHandler implements ApplicationListener {
 		this.createdLevel = createdLevel;
 	}
 	
-	/**
-	 * gets the x destination of a door teleport
-	 * 
-	 * @return the destination x coordinate
-	 */
 	public float getDestinationX() {
 		return destinationX;
 	}
 
-	/**
-	 * sets the destination of player going through a door
-	 * 
-	 * @param destinationX - x coord of the destination
-	 */
 	public void setDestinationX(float destinationX) {
 		this.destinationX = destinationX;
 	}
@@ -544,7 +550,6 @@ public class EntityHandler implements ApplicationListener {
 	}
 
 	public World getWorld() {
-		// TODO Auto-generated method stub
 		return gameWorld.getInstance();
 	}
 

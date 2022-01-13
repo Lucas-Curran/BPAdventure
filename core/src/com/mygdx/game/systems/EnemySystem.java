@@ -119,7 +119,9 @@ public class EnemySystem extends IteratingSystem {
 		bodyCom.body.setTransform(bodyCom.body.getPosition().x + speed, bodyCom.body.getPosition().y, bodyCom.body.getAngle());
 
 	}
-	
+	/**
+	 * special type of enemy where it shoots
+	 */
 	private void aiBullet() {
 		timerReset = Math.max(timerReset, enemyCom.timer);
 		if (enemyCom.timer > 0) {
@@ -273,7 +275,7 @@ public class EnemySystem extends IteratingSystem {
 	}
 	
 	/**
-	 * 
+	 * creates a bullet, adds it to the engine, and shoots it from the boss type enemy
 	 */
 	private void shoot(float offset) {
 		Bullet bullet = new Bullet();

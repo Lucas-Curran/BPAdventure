@@ -42,9 +42,9 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 		inOverworld = true;
 		
 		
-//		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
+		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
 		
-		db.createDoor(15, 1.5f, 28, 593, BodyFactory.ICE, "DoorToLevel37897", LevelDestination.LVL_7);
+//		db.createDoor(15, 1.5f, 28, 593, BodyFactory.ICE, "DoorToLevel37897", LevelDestination.LVL_7);
 		
 		NPC npc = new NPC();
 		

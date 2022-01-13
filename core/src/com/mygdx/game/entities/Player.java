@@ -99,7 +99,12 @@ public class Player extends EntityHandler {
 	public void setGravityScale(float scale) {
         entity.getComponent(B2dBodyComponent.class).body.setGravityScale(scale);
     }
-	
+	/**
+	 * teleports the player and begins the fading animation
+	 * @param x - x coordinate of the teleport
+	 * @param y - y coordinate of the teleport
+	 * @param level - which level its going to
+	 */
 	public void fadePlayer(float x, float y, String level) {
 
 	    if (alpha >= 0) {
@@ -111,8 +116,6 @@ public class Player extends EntityHandler {
 	        shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	        shapeRenderer.end();
 	        Gdx.gl.glDisable(GL20.GL_BLEND);
-
-//	        System.out.println(alpha);
 
 	        if (alpha >= 1) {
 	            
@@ -136,7 +139,11 @@ public class Player extends EntityHandler {
 
 	        }
 	    }
-	
+	/**
+	 * "kills" the player and teleports them back to the beginning
+	 * @param x - x coordinate of overworld
+	 * @param y - y coordinate of overworld
+	 */
 	public void fadePlayerToBeginning(float x, float y) {
 
         Map.getInstance().death = false;
@@ -149,14 +156,8 @@ public class Player extends EntityHandler {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             shapeRenderer.end();
-//            font = new BitmapFont();
-//            batch.setProjectionMatrix(cam.getCombined());
-//            batch.begin();
-//            font.draw(batch, "you died", 50,50);
-//            batch.end();
-            Gdx.gl.glDisable(GL20.GL_BLEND);
 
-//            System.out.println(alpha);
+            Gdx.gl.glDisable(GL20.GL_BLEND);
 
             if (alpha >= 1) {
                 setPosition(x, y);

@@ -33,7 +33,11 @@ import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
-
+/**
+ * the father of all enemy levels, essentially a lot of bullets, and the last level before the big Boss
+ * @author 00011598
+ *
+ */
 public class LevelNine extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 		
@@ -46,11 +50,16 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		World world;
 		
 		Texture texture = new Texture(Gdx.files.internal("ground_9.png"));
-		
+		/**
+		 * 
+		 * @param world - sends the level the GameWorld
+		 */
 		public LevelNine(World world) {
 			this.world = world;
 		}
-		
+		/**
+		 * creates the environment of the level and spawns the NPCs
+		 */
 		@Override
 		public void create() {	
 			super.createLevel(15, 800, 1, 100, 20, texture);

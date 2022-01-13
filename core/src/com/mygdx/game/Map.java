@@ -229,6 +229,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
+		// sets teleporting true so other classes know the player is ready to teleport
 		if (Input.Keys.R == keycode && entityHandler.loadingZone == true && !inAction()) {
 			teleporting = true;
 			createLevel = true;
@@ -242,6 +243,8 @@ public class Map implements Screen, InputProcessor {
 			gravitySwitch = true;
 			return true;
 		}
+		
+		// lets other classes know the player is ready to be killed
 		
 		if(entityHandler.killZone == true && !inAction()) {
 			death = true;
@@ -318,7 +321,6 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 
-		
 		if (textBox.isVisible()) {
 			return true;
 		}
@@ -346,7 +348,10 @@ public class Map implements Screen, InputProcessor {
 	public TextBox getTextBox() {
 		return textBox;
 	}
-	
+	/**
+	 * gets the EntityHandler
+	 * @return the one true instance of the EntityHandler
+	 */
 	public EntityHandler getEntityHandler() {
 		return entityHandler;
 	}
@@ -362,7 +367,10 @@ public class Map implements Screen, InputProcessor {
 	public PlayerHUD getPlayerHUD() {
 		return playerHUD;
 	}
-	
+	/**
+	 * gets the levels class instance
+	 * @return the levels instance
+	 */
 	public Levels getLevels() {
 		return levels;
 	}

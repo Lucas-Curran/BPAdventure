@@ -34,7 +34,10 @@ import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
-
+/*
+ * the daughter of parkour and enemy levels
+ * also includes some inventory collection
+ */
 public class LevelSeven extends LevelFactory implements ApplicationListener {
 	
 		boolean isCreated;
@@ -56,7 +59,10 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 		public LevelSeven(World world) {
 			this.world = world;
 		}
-		
+		/**
+		 * creates the level and the environment
+		 * spawns the NPCs
+		 */
 		@Override
 		public void create() {
 			super.createLevel(15, 600, 1, 100, 20, texture);
@@ -76,7 +82,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			papers[1] = bodyFactory.makeBoxPolyBody(-21, 599f, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture2);
 			platforms[8] = bodyFactory.makeBoxPolyBody(-12, 590f, 4f, 0.1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			
-			
+			// creates vertices for the triangle polygons to be made
 			Vector2 vertex1 = new Vector2(3, 0);
 			Vector2 vertex2 = new Vector2(6, -2);
 			Vector2 vertex3 = new Vector2(1, 5);
@@ -94,9 +100,7 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			platforms[14] = bodyFactory.makeBoxPolyBody(25.3f, 592f, 8f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			
 			db.createDoor(28.5f, 593.5f, 43, 599, BodyFactory.RUBBER, "doorLvl7Teleportfffsdf", LevelDestination.INTERNAL);
-			
-//			db.createInternalDoor(26.5f, 593.5f, 0, 0, BodyFactory.RUBBER, "()");
-			
+						
 			platforms[15] = bodyFactory.makeBoxPolyBody(43f, 597f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 			platforms[16] = bodyFactory.makeBoxPolyBody(43f, 594f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[17] = bodyFactory.makeBoxPolyBody(43f, 591f, 5f, 1f, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);

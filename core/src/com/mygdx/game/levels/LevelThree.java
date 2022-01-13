@@ -34,7 +34,12 @@ import com.mygdx.game.Map;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.levels.Levels.LevelDestination;
-
+/**
+ * the mother of all parkour levels
+ * includes a neat gravity switch feature
+ * @author 00011598
+ *
+ */
 public class LevelThree extends LevelFactory implements ApplicationListener{
 	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
 	boolean isCreated;
@@ -61,7 +66,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		
 		Texture texture = new Texture(Gdx.files.internal("crackedPillar.png"));
 		Texture texture2 = new Texture(Gdx.files.internal("lava.png"));
-		// author FunwithPixels	
+		// Cracked Pillar by FunwithPixels licensed CC-BY 4.0 https://opengameart.org/content/cracked-pillar
 		
 		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 		pillars[2] = bodyFactory.makeBoxPolyBody(-30, 188f, 1, 3, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
@@ -84,13 +89,11 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
 		lavaCeiling.setUserData("lavaCeiling");
 		lavaCeiling2 = bodyFactory.makeBoxPolyBody(50, 199.9f, 30, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
-		lavaCeiling2.setUserData("lavaCeiling2");
-		
-//		rotator = bodyFactory.makeBoxPolyBody(-22, 104f, 1, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false);
-		
+		lavaCeiling2.setUserData("lavaCeiling2");		
 		
 		sawCenter = bodyFactory.makeCirclePolyBody(-20, 190f, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);
 		
+		// creates vertices for the triangle polygons
 		Vector2 vertex1 = new Vector2(1, 3);
 		Vector2 vertex2 = new Vector2(3, 4);
 		Vector2 vertex3 = new Vector2(1, 5);
@@ -120,6 +123,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		blade1.setGravityScale(0);
 		blade2.setGravityScale(0);
 		
+		// defines new revolute joints for each part of the spinning saws
 		RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
         revoluteJointDef.initialize(sawCenter, blade1, sawCenter.getWorldCenter());
         revoluteJointDef.enableMotor = true;
@@ -134,20 +138,11 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
         
         RevoluteJointDef revoluteJointDef3 = new RevoluteJointDef();
         revoluteJointDef3.initialize(pillars[8], pillars[9], pillars[9].getWorldCenter());
-//        revoluteJointDef2.enableMotor = false;
-//        revoluteJointDef2.motorSpeed = -3;
-//        revoluteJointDef2.maxMotorTorque = 3000;
-        
-//        WeldJointDef weldJointDef = new WeldJointDef();
-//        weldJointDef.initialize(sawCenter, blade1, sawCenter.getWorldCenter());
-//        WeldJointDef weldJointDef2 = new WeldJointDef();
-//        weldJointDef2.initialize(sawCenter, blade2, sawCenter.getWorldCenter());
 
+        // adds the joints to the world
         world.createJoint(revoluteJointDef);
         world.createJoint(revoluteJointDef2);
         world.createJoint(revoluteJointDef3);
-//        world.createJoint(weldJointDef);
-//        world.createJoint(weldJointDef2);
 
 		isCreated = true;
 	}

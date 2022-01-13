@@ -34,25 +34,31 @@ import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
-
+/**
+ * the son of parkour and enemy levels
+ * tests the player 
+ * @author 00011598
+ *
+ */
 public class LevelEight extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
-
 		float[] vertices;
-		
-		
-		
 		
 		DoorBuilder db = DoorBuilder.getInstance();
 		World world;
 		Texture texture = new Texture(Gdx.files.internal("ground_8.png"));
 		Body[] pillars = new Body[3];
 		Body[] platforms = new Body[20];
-		
+		/**
+		 * 
+		 * @param world - sends the instance of the world here
+		 */
 		public LevelEight(World world) {
 			this.world = world;
 		}
-		
+		/**
+		 * creates the level, environment and some NPCs
+		 */
 		@Override
 		public void create() {
 			super.createLevel(15, 700, 1, 100, 20, texture);
@@ -63,6 +69,7 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			makeSaw(-12, 685f);
 			makeSaw(-4, 685f);
 			
+			// create the majority of the environment in the level
 			pillars[0] = bodyFactory.makeBoxPolyBody(15, 692, 1, 15, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			pillars[1] = bodyFactory.makeBoxPolyBody(22, 687.5f, 1, 13, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[0] = bodyFactory.makeBoxPolyBody(21, 683.8f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
@@ -74,12 +81,13 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			pillars[2] = bodyFactory.makeBoxPolyBody(50, 682.5f, 1, 2, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[6] = bodyFactory.makeBoxPolyBody(50, 684f, 4, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false, texture);
 			
+			// defines a revolution joint for spinning
 	        RevoluteJointDef revoluteJointDef3 = new RevoluteJointDef();
 	        revoluteJointDef3.initialize(platforms[6], pillars[2], platforms[6].getWorldCenter());
 
 	        world.createJoint(revoluteJointDef3);
 			
-	        			
+	        // creates the NPCs for the level and what they say			
 			NPC npc = new NPC();
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Thank the Cave Lords... another soul!", 
 					"We haven't seen anyone for decades.", "There's bits of Jack everywhere...but he's doing alright, I think.", 
@@ -117,6 +125,11 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			
 		}
 		
+		/**
+		 * creates spinning saw bodies
+		 * @param x - x coordinate of the saw
+		 * @param y - y coordinate of the saw
+		 */
 		public void makeSaw(float x, float y) {
 			Body sawCenter, blade1, blade2;
 			sawCenter = bodyFactory.makeCirclePolyBody(x, y, 2, BodyFactory.RUBBER, BodyType.StaticBody, false, false);

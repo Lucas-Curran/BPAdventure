@@ -34,7 +34,10 @@ public class Levels {
 	public void setWorld(World world) {
 		this.world = world;
 	}
-
+/**
+ * initializes all the worlds and puts them in an array
+ * @param world - sends the GameWorld
+ */
 	public void createAllLevels(World world) {
 
 		overworld = new Overworld();
@@ -53,7 +56,12 @@ public class Levels {
 			
 	}
 	
-
+/**
+ * dictates the different locations doors can go to 
+ * also holds the PNGs for the backgrounds
+ * @author 00011598
+ *
+ */
 	public static enum LevelDestination {
 		 
 		OVERWORLD 	("overworld_bg.png"),
@@ -84,6 +92,10 @@ public class Levels {
 	 * Snow Background by greggman licensed CC-BY 3.0: https://opengameart.org/content/backgrounds-for-2d-platformers
 	 * Jungle Background by greggman licensed CC-BY 3.0: https://opengameart.org/content/backgrounds-for-2d-platformers
 	 * Sky Background by TAD licensed CC-BY 3.0: https://opengameart.org/content/sky-backgrounds
+	 * Fire Cave Background by CreativeGameAssets.com licensed CC-BY-SA 4.0 https://opengameart.org/content/2d-backgrounds-for-platformer-game-dungeons-and-cave-parallax-vector-illustration
+	 * Purple Cave Background by CreativeGameAssets.com licensed CC-BY-SA 4.0 https://opengameart.org/content/2d-backgrounds-for-platformer-game-dungeons-and-cave-parallax-vector-illustration
+	 * Orange and Yellow Cave Background by CreativeGameAssets.com licensed CC-BY-SA 4.0 https://opengameart.org/content/2d-backgrounds-for-platformer-game-dungeons-and-cave-parallax-vector-illustration
+	 * Black and Gold Cave Background by CreativeGameAssets.com licensed CC-BY-SA 4.0 https://opengameart.org/content/2d-backgrounds-for-platformer-game-dungeons-and-cave-parallax-vector-illustration
 	 */
 	
 	public Overworld getOverworld() {
@@ -129,7 +141,10 @@ public class Levels {
 	public IceDungeon getIceDungeon() {
 		return iceDungeon;
 	}
-	
+	/**
+	 * disposes the given level
+	 * @param level - LevelDestination enum corresponds to a number according to the switch
+	 */
 	public void dispose(LevelDestination level) {
 		int levelNumber = 0;
 		switch(level) {
@@ -165,22 +180,11 @@ public class Levels {
 			break;
 
 		}
-		
-//		if (levelNumber != 0) {
-//			for (int i = 0; i < levelNumber; i++) {
-//				levels[i].dispose();
-//			}
-//		}
-//
-//		if (levelNumber != 9) {
-//			for (int i = (levelNumber + 1); i <= 9; i++) {
-//				levels[i].dispose();
-//			}
-//		}
-		
 
 	}
-	
+	/**
+	 * disposes all levels
+	 */
 	public void disposeAll() {
 		overworld.dispose();
 		levelTwo.dispose();
