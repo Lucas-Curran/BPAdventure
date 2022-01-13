@@ -2,12 +2,12 @@ package com.mygdx.game.item;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.ui.ShopItem;
 
 public class InventoryItem extends Image {
 	
 	private int damage;
 	private int defense;
+	private int hpRestored;
 	
 	public enum ItemAttribute {
 		CONSUMABLE(1),
@@ -57,21 +57,18 @@ public class InventoryItem extends Image {
 		LEGS01,
 		SHIELD01,
 		WEAPON01,
-		POTIONS01,
 		BODYARMOR02,
 		BOOTS02,
 		HELMET02,
 		LEGS02,
 		SHIELD02,
 		WEAPON02,
-		POTIONS02,
 		BODYARMOR03,
 		BOOTS03,
 		HELMET03,
 		LEGS03,
 		SHIELD03,
 		WEAPON03,
-		POTIONS03,
 		KEY1,
 		ICESWORD,
 		ICESHIELD,
@@ -84,7 +81,10 @@ public class InventoryItem extends Image {
 		KEYCARD03,
 		KEYCARD04,
 		KEYCARD05,
-		NONE;
+		APPLE,
+		CAKE,
+		BURGER,
+		DONUT,
 	}
 	
 	private int itemAttributes;
@@ -142,8 +142,6 @@ public class InventoryItem extends Image {
 			break;
 		case JUNGLESTAFF:
 			break;
-		case KEY1:
-			break;
 		case LEGS01:
 			defense = 1;
 			break;
@@ -152,14 +150,6 @@ public class InventoryItem extends Image {
 			break;
 		case LEGS03:
 			defense = 3;
-			break;
-		case NONE:
-			break;
-		case POTIONS01:
-			break;
-		case POTIONS02:
-			break;
-		case POTIONS03:
 			break;
 		case SHIELD01:
 			defense = 1;
@@ -189,6 +179,18 @@ public class InventoryItem extends Image {
 			break;
 		case KEYCARD05:
 			break;
+		case APPLE:
+			hpRestored = 25;
+			break;
+		case DONUT:
+			hpRestored = 50;
+			break;
+		case CAKE:
+			hpRestored = 75;
+			break;
+		case BURGER:
+			hpRestored = 100;
+			break;
 		default:
 			break;
 		}
@@ -210,6 +212,7 @@ public class InventoryItem extends Image {
         this.itemUseType = shopItem.getItemUseType();
         this.damage = shopItem.getDamage();
         this.defense = shopItem.getDefense();
+        this.hpRestored = shopItem.getHpRestored();
     }
 	
 	public InventoryItem() {
@@ -247,6 +250,12 @@ public class InventoryItem extends Image {
 		return false;
 	}
 	
+	
+	
+	public int getHpRestored() {
+		return hpRestored;
+	}
+
 	public int getItemUseType() {
 		return itemUseType;
 	}

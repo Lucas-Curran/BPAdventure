@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mygdx.game.ui.ShopItem;
+import com.mygdx.game.item.ShopItem;
 
 public class NPCComponent implements Component {
 	public String name = null;

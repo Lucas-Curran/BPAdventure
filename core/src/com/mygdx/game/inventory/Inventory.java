@@ -33,8 +33,10 @@ import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.ShopItem;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
-import com.mygdx.game.ui.ShopItem;
+import com.mygdx.game.ui.HealthBar;
+import com.mygdx.game.ui.PauseBar;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
 public class Inventory extends Window {
@@ -63,8 +65,12 @@ public class Inventory extends Window {
 	
 	private Array<Cell> sourceCells;
 
+	private PauseBar pauseBar;
+	
 	public Inventory() {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
+		
+		pauseBar = new PauseBar();
 		
 		dragAndDrop = new DragAndDrop();
 		dragAndDrop.setKeepWithinStage(false);
@@ -127,6 +133,9 @@ public class Inventory extends Window {
 						if (slot.hasItem()) {
 							InventoryItem item = slot.getTopInventoryItem();
 							if (item.isConsumable()) {
+								HealthBar health = Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar();
+								health.setHP(health.getHP() + item.getHpRestored());
+								System.out.println(health.getHP());
 								slot.removeActor(item);
 								slot.remove(item);
 							}

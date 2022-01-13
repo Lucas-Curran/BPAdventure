@@ -24,7 +24,7 @@ public class HealthBar extends Actor {
 		skinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.txt"));
 		NinePatch healthBarBackgroundPatch = new NinePatch(skinAtlas.findRegion("default-round"), 5, 5, 4, 4);
 		NinePatch healthBarPatch = new NinePatch(skinAtlas.findRegion("default-round-down"), 5, 5, 4, 4);
-		
+
 		setWidth(200);
 		setHeight(10);
 		
@@ -55,8 +55,12 @@ public class HealthBar extends Actor {
 	 * Sets hp of player
 	 * @param hpVal - HP
 	 */
-	public void setHP(int hpVal) {
+	public void setHP(int hpVal) {		
 		this.hpVal = (float) hpVal / 100;
+		if (this.hpVal > 1) {
+			this.hpVal = 1;
+			hpVal = 100;
+		}
 		sm.updateHealth(hpVal);
 	}
 	

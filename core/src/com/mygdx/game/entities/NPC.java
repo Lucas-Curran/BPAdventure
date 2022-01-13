@@ -22,10 +22,10 @@ import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.ShopItem;
 import com.mygdx.game.item.InventoryItem.ItemAttribute;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
-import com.mygdx.game.ui.ShopItem;
 import com.mygdx.game.ui.ShopWindow;
 
 public class NPC extends EntityHandler {
@@ -85,7 +85,10 @@ public class NPC extends EntityHandler {
 		ShopItem weapon01 =  new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("sword01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON01), 3);
 		ShopItem weapon02 =  new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("sword02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON02), 6);		
 		ShopItem weapon03 =  new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("sword03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON03), 9);
-		
+		ShopItem apple = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.APPLE), 1);
+		ShopItem donut = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.DONUT), 2);
+		ShopItem cake = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.CAKE), 3);
+		ShopItem burger = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.BURGER), 4);
 		
 		Label label1 = new Label("Beginner Helmet", Utilities.ACTUAL_UI_SKIN);
 		Label label2 = new Label("Helmet of the Forgotten Adventurer", Utilities.ACTUAL_UI_SKIN);
@@ -105,6 +108,11 @@ public class NPC extends EntityHandler {
 		Label label16 = new Label("Beginner Sword", Utilities.ACTUAL_UI_SKIN);
 		Label label17 = new Label("Great Sword", Utilities.ACTUAL_UI_SKIN);
 		Label label18 = new Label("Legend's Sword", Utilities.ACTUAL_UI_SKIN);
+		Label label19 = new Label("Apple", Utilities.ACTUAL_UI_SKIN);
+		Label label20 = new Label("Donut", Utilities.ACTUAL_UI_SKIN);
+		Label label21 = new Label("Cake", Utilities.ACTUAL_UI_SKIN);
+		Label label22 = new Label("Burger", Utilities.ACTUAL_UI_SKIN);
+
 
 		
 		testMap.put(label1, helmet01);
@@ -125,6 +133,10 @@ public class NPC extends EntityHandler {
 		testMap.put(label16, weapon01);	
 		testMap.put(label17, weapon02);	
 		testMap.put(label18, weapon03);	
+		testMap.put(label19, apple);
+		testMap.put(label20, donut);
+		testMap.put(label21, cake);
+		testMap.put(label22, burger);
 		
 		return testMap;
 	}

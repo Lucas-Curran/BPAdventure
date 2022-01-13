@@ -1,9 +1,8 @@
-package com.mygdx.game.ui;
+package com.mygdx.game.item;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
 public class ShopItem extends Image {
@@ -14,6 +13,7 @@ public class ShopItem extends Image {
 	private int defense;
 	private int damage;
 	private int cost;
+	private int hpRestored;
 	
 	public ShopItem(InventoryItem item, int cost) {
 		super(item.getDrawable());
@@ -22,7 +22,12 @@ public class ShopItem extends Image {
 		itemTypeID = item.getItemTypeID();
 		defense = item.getDefense();
 		damage = item.getDamage();
+		hpRestored = item.getHpRestored();
 		this.cost = cost;
+	}
+	
+	public int getHpRestored() {
+		return hpRestored;
 	}
 	
 	public int getDefense() {
@@ -72,6 +77,8 @@ public class ShopItem extends Image {
 	public void setItemTypeID(ItemTypeID itemTypeID) {
 		this.itemTypeID = itemTypeID;
 	}
+	
+	
 		
 	
 }

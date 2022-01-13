@@ -35,6 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.ShopItem;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 
@@ -262,7 +263,9 @@ public class ShopWindow extends Window implements InputProcessor  {
 					System.out.println("Bought item " + selectedBuyItem.getName());
 					com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(tempItem, selectedBuyItem.getName());
 					money.setMoney(money.getMoney() - selectedBuyItem.getCost());
-					buyList.remove(itemToRemove.getChild(0));	
+					if (!tempItem.isConsumable()) {
+						buyList.remove(itemToRemove.getChild(0));
+					}
 				} else {			
 					infoLabel.setText("Not enough money!");
 				}
