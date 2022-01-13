@@ -86,48 +86,56 @@ public class B2dContactListener implements ContactListener {
 							break;
 						case LVL_3:
 							parent.removeLevelTwo();
+							parent.spawnLevelThree();
 							if (!parent.getLevels().getLevelThree().isCreated()) {
 								parent.getLevels().getLevelThree().create();	
 							}
 							break;
 						case LVL_4:
 							parent.removeLevelThree();
+							parent.spawnLevelFour();
 							if (!parent.getLevels().getLevelFour().isCreated()) {
 								parent.getLevels().getLevelFour().create();	
 							}
 							break;
 						case LVL_5:
 							parent.removeLevelFour();
+							parent.spawnLevelFive();
 							if (!parent.getLevels().getLevelFive().isCreated()) {
 								parent.getLevels().getLevelFive().create();	
 							}
 							break;
 						case LVL_6:
 							parent.removeLevelFive();
+							parent.spawnLevelSix();
 							if (!parent.getLevels().getLevelSix().isCreated()) {
 								parent.getLevels().getLevelSix().create();	
 							}
 							break;
 						case LVL_7:
 							parent.removeLevelSix();
+							parent.spawnLevelSeven();
 							if (!parent.getLevels().getLevelSeven().isCreated()) {
 								parent.getLevels().getLevelSeven().create();	
 							}
 							break;
 						case LVL_8:
 							parent.removeLevelSeven();
+							parent.spawnLevelEight();
 							if (!parent.getLevels().getLevelEight().isCreated()) {
 								parent.getLevels().getLevelEight().create();	
 							}
 							break;
 						case LVL_9:
 							parent.removeLevelEight();
+							parent.spawnLevelNine();
 							if (!parent.getLevels().getLevelNine().isCreated()) {
 								parent.getLevels().getLevelNine().create();	
 							}
 							break;
 						case LVL_10:
 							parent.removeLevelNine();
+							parent.spawnLevelTen();
 							if (!parent.getLevels().getLevelTen().isCreated()) {
 								parent.getLevels().getLevelTen().create();	
 							}
