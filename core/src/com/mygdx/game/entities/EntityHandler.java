@@ -288,9 +288,7 @@ public class EntityHandler implements ApplicationListener {
 		for (Entity enemy : enemies.getLevelTwoEnemies()) {	
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
 			if (!pooledEngine.getEntities().contains(enemy, true)) {
-				if (enemies.getLevelTwoEnemies().isEmpty()) {
-					pooledEngine.addEntity(enemy);
-				}
+				pooledEngine.addEntity(enemy);
 			}
 		}
 	}
@@ -308,7 +306,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelThreeEnemies();
 		for (Entity enemy : enemies.getLevelThreeEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				pooledEngine.addEntity(enemy);
+			}
 		}
 	}
 	
@@ -325,7 +325,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelFourEnemies();
 		for (Entity enemy : enemies.getLevelFourEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				pooledEngine.addEntity(enemy);
+			}
 		}
 	}
 	
@@ -342,7 +344,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelFiveEnemies();
 		for (Entity enemy : enemies.getLevelFiveEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				pooledEngine.addEntity(enemy);
+			}
 		}
 	}
 	
@@ -359,7 +363,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelSixEnemies();
 		for (Entity enemy : enemies.getLevelSixEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				pooledEngine.addEntity(enemy);
+			}
 		}
 	}
 	
@@ -376,7 +382,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelSevenEnemies();
 		for (Entity enemy : enemies.getLevelSevenEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				pooledEngine.addEntity(enemy);
+			}
 		}
 	}
 	
@@ -393,7 +401,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelEightEnemies();
 		for (Entity enemy : enemies.getLevelEightEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				pooledEngine.addEntity(enemy);
+			}
 		}
 	}
 	
@@ -410,7 +420,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelNineEnemies();
 		for (Entity enemy : enemies.getLevelNineEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
 			pooledEngine.addEntity(enemy);
+				}
 		}
 	}
 	
@@ -427,7 +439,9 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelTenEnemies();
 		for (Entity enemy : enemies.getLevelTenEnemies()) {
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				pooledEngine.addEntity(enemy);
+			}
 		}
 	}
 	
