@@ -4,18 +4,15 @@ import java.sql.*;
 
 public class SqliteManager {
 	
-	private static String playerURL = "jdbc:sqlite:Progress.db";
-//	private static String inventoryURL = "jdbc:sqlite:Inventory.db";
+	private static final String URL = "jdbc:sqlite:Progress.db";
 	private static Connection conn = null;
-	private static boolean defaultTable = true;
+
 	
 	/**
-	 * Creates and connects to databases
+	 * Creates databases if they do not exist
 	 */
 	public SqliteManager() {
-		connect();
 		createTable();
-//		defaultInfo();
 	}
 	
 	
@@ -26,11 +23,7 @@ public class SqliteManager {
 	public static Connection connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-//			if (db.equals("Player")) {
-				conn = DriverManager.getConnection(playerURL);
-//			} else if (db.equals("Inventory")) {
-//				conn = DriverManager.getConnection(inventoryURL);
-//			}
+			conn = DriverManager.getConnection(URL);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());		
 		} catch (Exception ex) {
@@ -58,10 +51,11 @@ public class SqliteManager {
 					+ ");";
 			
 //			System.out.println("Conection to SQLite has been established.");
-			Statement playerStatement = connect().createStatement();
-//			Statement inventoryStatement = connect().createStatement();
-			playerStatement.execute(playerSQL);
-			playerStatement.execute(inventorySQL);
+			//Creates statment to execute
+			Statement statement = connect().createStatement();
+			//Executes specific statments
+			statement.execute(playerSQL);
+			statement.execute(inventorySQL);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -77,25 +71,17 @@ public class SqliteManager {
 	}
 
 	
+	/**
+	 * Inserts default values in progress
+	 * Used when starting a new game
+	 */
 	public static void defaultInfo() {
 		String sql = "INSERT INTO Progress(Stage,Currency,Health,Volume) Values(0,0,100,50)";
 		try {
-			if (defaultTable) {
-				conn = DriverManager.getConnection(playerURL);
-				PreparedStatement input = connect().prepareStatement(sql);
-				input.executeUpdate();
-				conn.close();
-				defaultTable = false;
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	public void updateVolume(int volume) {
-		String sql = "UPDATE Progress SET Volume = " + volume + " WHERE id = 1";
-		try {
+			//Connects to progress table
+			conn = DriverManager.getConnection(URL);
 			PreparedStatement input = connect().prepareStatement(sql);
+			//executes statment and closes connection
 			input.executeUpdate();
 			conn.close();
 		} catch (SQLException e) {
@@ -103,12 +89,35 @@ public class SqliteManager {
 		}
 	}
 	
+	/**
+	 * Updates volume in the progress table
+	 * @param volume
+	 */
+	public void updateVolume(int volume) {
+		String sql = "UPDATE Progress SET Volume = " + volume + " WHERE id = 1";
+		try {
+			// creates statment to execute
+			PreparedStatement input = connect().prepareStatement(sql);
+			// executes statment
+			input.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Gets volume value from progress table
+	 * @return - Integer value of volume
+	 */
 	public int getVolume() {
 		String sql = "SELECT Volume FROM Progress WHERE id = 1";
 		int volumeData = 50;
 		try {
-			conn = DriverManager.getConnection(playerURL);
+			//Connects to progress table
+			conn = DriverManager.getConnection(URL);
 			Statement stmt = connect().createStatement();
+			//Executes statment and gets volume
 			ResultSet rs = stmt.executeQuery(sql);
 			volumeData = rs.getInt("volume");
 			conn.close();
@@ -118,10 +127,16 @@ public class SqliteManager {
 		return volumeData;
 	}
 	
+	/**
+	 * Updates health in progress table
+	 * @param hp - Integer value of health
+	 */
 	public void updateHealth(int hp) {
 		String sql = "UPDATE Progress SET Health = " + hp + " WHERE id = 1";
 		try {
+			//Connects to progress table
 			PreparedStatement input = connect().prepareStatement(sql);
+			//executes update
 			input.executeUpdate();
 			conn.close();
 		} catch (SQLException e) {
@@ -129,12 +144,18 @@ public class SqliteManager {
 		}
 	}
 	
+	/**
+	 * Gets hp stored in progress table
+	 * @return - Integer value of health
+	 */
 	public int getHealth() {
 		String sql = "SELECT Health FROM Progress WHERE id = 1";
 		int health = 100;
 		try {
-			conn = DriverManager.getConnection(playerURL);
+			//connect to progress table
+			conn = DriverManager.getConnection(URL);
 			Statement stmt = connect().createStatement();
+			//execute select statment
 			ResultSet rs = stmt.executeQuery(sql);
 			health = rs.getInt("health");
 			conn.close();
@@ -142,6 +163,31 @@ public class SqliteManager {
 			System.out.println(e.getMessage());
 		}
 		return health;
+	}
+	
+	/**
+	 * Clears out both tables in database
+	 */
+	public void clearTable(boolean volumeChanged) {
+		 String sql = "DELETE FROM Progress";
+		 String sql2 = "DELETE FROM Inventory";
+		 String volChangedSQL = "UPDATE Progress SET Stage = 0, Currency = 0, Health = 100 WHERE id = 1";
+	        try {
+	        	//Creates sql statments to execute
+	        	PreparedStatment pstmt;
+	        	if (volumeChanged) {
+	        		pstmt = connect().prepareStatment(volChangedSQL);
+	        	} else {
+	        		pstmt = connect().prepareStatement(sql);
+	        	}
+	            PreparedStatement pstmt2 = connect().prepareStatement(sql2);
+	            // execute the delete statement
+	            pstmt.executeUpdate();
+	            pstmt2.executeUpdate();
+	            conn.close();
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
 	}
 	
 }
