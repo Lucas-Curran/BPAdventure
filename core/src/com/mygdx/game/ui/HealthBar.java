@@ -15,7 +15,7 @@ public class HealthBar extends Actor {
 	private NinePatchDrawable healthBar;
 	private TextureAtlas skinAtlas;
 	SqliteManager sm = new SqliteManager();
-	private float hpVal = sm.getHealth() / 100;
+	private float hpVal = 1;
 	
 	/**
 	 * Health bar constructor
@@ -30,6 +30,7 @@ public class HealthBar extends Actor {
 		
         healthBar = new NinePatchDrawable(healthBarPatch);
         healthBarBackground = new NinePatchDrawable(healthBarBackgroundPatch);
+        hpVal = ((float) sm.getHealth()) / 100;
        
 	}
 	
