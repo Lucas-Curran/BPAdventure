@@ -122,7 +122,7 @@ public class SqliteManager {
 		return volumeData;
 	}
 	
-	public void updateHealth(float hp) {
+	public void updateHealth(int hp) {
 		String sql = "UPDATE Progress SET Health = " + hp + " WHERE id = 1";
 		try {
 			PreparedStatement input = connect().prepareStatement(sql);
@@ -134,18 +134,18 @@ public class SqliteManager {
 	}
 	
 	public int getHealth() {
-		String sql = "SELECT Volume FROM Progress WHERE id = 1";
-		int volumeData = 50;
+		String sql = "SELECT Health FROM Progress WHERE id = 1";
+		int health = 100;
 		try {
 			conn = DriverManager.getConnection(playerURL);
 			Statement stmt = connect().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			volumeData = rs.getInt("volume");
+			health = rs.getInt("health");
 			conn.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		return volumeData;
+		return health;
 	}
 	
 }
