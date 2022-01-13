@@ -136,7 +136,8 @@ public class Player extends EntityHandler {
 	            entity.getComponent(B2dBodyComponent.class).body.setAwake(true);
 
 	            Map.getInstance().teleporting = false;
-
+	            Map.getInstance().getAudioManager().stopAll();
+	            Map.getInstance().getAudioManager().playCave();
 	        }
 	    }
 	/**
@@ -178,7 +179,8 @@ public class Player extends EntityHandler {
                 Map.getInstance().getLevels().getLevelTwo();
                 Map.getInstance().death = false;
                 Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().setHP(100);
-
+                Map.getInstance().getAudioManager().stopAll();
+                Map.getInstance().getAudioManager().playOverworld();;
 
             }
         }

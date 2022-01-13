@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.AudioManager;
 import com.mygdx.game.B2dContactListener;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
@@ -68,7 +69,6 @@ public class EntityHandler implements ApplicationListener {
 	float destinationX, destinationY;
 	String destination;
 	LevelDestination createdLevel;
-
 	
 
 	private String[] currentNPCText;
@@ -175,7 +175,7 @@ public class EntityHandler implements ApplicationListener {
 		npc = new NPC();
 		bullets = new Bullet();
 		pooledEngine.addSystem(new CollisionSystem());
-
+		Map.getInstance().getAudioManager().playOverworld();
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 
 		setCreatedLevel(LevelDestination.OVERWORLD);

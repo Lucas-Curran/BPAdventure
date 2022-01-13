@@ -245,7 +245,8 @@ public class ShopWindow extends Window implements InputProcessor  {
 			}
 			
 			infoLabel.setText("");
-			
+			com.mygdx.game.Map.getInstance().getAudioManager().stopAll();
+			com.mygdx.game.Map.getInstance().getAudioManager().playOverworld();
 		}
 		
 		if (confirmButton.isPressed()) {
