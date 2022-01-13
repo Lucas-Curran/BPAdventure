@@ -287,7 +287,11 @@ public class EntityHandler implements ApplicationListener {
 		enemies.addLevelTwoEnemies();
 		for (Entity enemy : enemies.getLevelTwoEnemies()) {	
 			enemy.getComponent(B2dBodyComponent.class).isDead = false;
-			pooledEngine.addEntity(enemy);
+			if (!pooledEngine.getEntities().contains(enemy, true)) {
+				if (enemies.getLevelTwoEnemies().isEmpty()) {
+					pooledEngine.addEntity(enemy);
+				}
+			}
 		}
 	}
 	
