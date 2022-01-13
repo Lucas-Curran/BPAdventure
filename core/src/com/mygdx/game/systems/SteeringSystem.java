@@ -9,9 +9,14 @@ import com.mygdx.game.components.SteeringComponent;
 
 public class SteeringSystem extends IteratingSystem {
 
+	// Code adapted from GameDevelopment.blog
+	
 	private ComponentMapper<SteeringComponent> sc;
 	SteeringComponent sCom;
 	
+	/**
+	 * System for steering
+	 */
 	@SuppressWarnings("unchecked")
 	public SteeringSystem() {
 		super(Family.all(SteeringComponent.class).get());

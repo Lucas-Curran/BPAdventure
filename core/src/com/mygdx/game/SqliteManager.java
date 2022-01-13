@@ -54,11 +54,7 @@ public class SqliteManager {
 			
 			String inventorySQL = "CREATE TABLE IF NOT EXISTS Inventory (\n"
 					+ "id INTEGER PRIMARY KEY AUTOINCREMENT, \n"
-					+ "Row INTEGER, \n"
-					+ "Column INTEGER, \n"
-					+ "Item INTEGER, \n"
-					+ "Amount INTEGER, \n"
-					+ "Tier INTEGER"
+					+ "Item INTEGER"
 					+ ");";
 			
 //			System.out.println("Conection to SQLite has been established.");

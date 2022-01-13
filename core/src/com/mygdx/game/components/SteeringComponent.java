@@ -10,8 +10,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.mygdx.game.Utilities;
 
+// Code adapted from GameDevelopment.blog
 
-//Credits to Game Development blog
 public class SteeringComponent implements Steerable<Vector2>, Component, Poolable {
 	public static enum SteeringState {WANDER,SEEK,FLEE,ARRIVE,NONE} 	// a list of possible behaviours 
 	public SteeringState currentMode = SteeringState.WANDER; 	// stores which state the entity is currently in

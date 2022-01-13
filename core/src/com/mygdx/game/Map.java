@@ -375,4 +375,8 @@ public class Map implements Screen, InputProcessor {
 		return levels;
 	}
 	
+	public AudioManager getAudioManager() {
+		return am;
+	}
+	
 }
