@@ -24,6 +24,7 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 /**
  * Level Four in the game
  * Content includes scaling the mountain while fighting enemy NPCs and a mini boss at the end
+ * Level Four also includes an exclusive challenge dungeon
  *
  */
 public class LevelFour extends LevelFactory implements ApplicationListener {

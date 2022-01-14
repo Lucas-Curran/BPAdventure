@@ -175,7 +175,6 @@ public class EntityHandler implements ApplicationListener {
 		npc = new NPC();
 		bullets = new Bullet();
 		pooledEngine.addSystem(new CollisionSystem());
-		Map.getInstance().getAudioManager().playOverworld();
 		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 
 		setCreatedLevel(LevelDestination.OVERWORLD);

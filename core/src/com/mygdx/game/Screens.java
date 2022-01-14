@@ -30,6 +30,7 @@ public class Screens {
 	}
 	
 	public static void toMap() {
+		Map.getInstance().getAudioManager().playOverworld();
 		game.setScreen(Map.getInstance());
 	}
 	

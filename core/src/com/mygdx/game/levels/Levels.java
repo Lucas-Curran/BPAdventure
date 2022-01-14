@@ -24,6 +24,7 @@ public class Levels {
 	private LevelNine levelNine;
 	private LevelTen levelTen;
 	private IceDungeon iceDungeon;
+	private VictoryScreen victoryLevel;
 	LevelFactory[] levels;
 	World world;
 	
@@ -51,6 +52,7 @@ public class Levels {
 		levelNine = new LevelNine(world);
 		levelTen = new LevelTen(world);
 		iceDungeon = new IceDungeon(world);
+		victoryLevel = new VictoryScreen(world);
 		
 		levels = new LevelFactory[] {overworld, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, levelTen};
 			
@@ -141,6 +143,10 @@ public class Levels {
 	public IceDungeon getIceDungeon() {
 		return iceDungeon;
 	}
+	
+	public VictoryScreen getVictoryLevel() {
+		return victoryLevel;
+	}
 	/**
 	 * disposes the given level
 	 * @param level - LevelDestination enum corresponds to a number according to the switch
@@ -197,6 +203,7 @@ public class Levels {
 		levelNine.dispose();
 		levelTen.dispose();
 		iceDungeon.dispose();
+		victoryLevel.dispose();
 	}
 	
 }

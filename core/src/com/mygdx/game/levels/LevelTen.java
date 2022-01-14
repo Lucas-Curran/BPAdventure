@@ -27,6 +27,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
@@ -54,11 +55,12 @@ public class LevelTen extends LevelFactory implements ApplicationListener {
 					
 			Texture texture = new Texture(Gdx.files.internal("newGround.png"));
 			
-			db.createDoor(60, 887, 1.5f, 17, BodyFactory.WOOD, "doorToVictory", LevelDestination.LVL_10);
+			db.createDoor(60, 883, 683, 93, BodyFactory.WOOD, "doorToVictory", LevelDestination.INTERNAL);
 			
 	        			
 			NPC npc = new NPC();
-
+			
+			
 			isCreated = true;
 		}
 

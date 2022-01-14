@@ -1,6 +1,9 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
+/**
+ * Any textures not credited are either public domain or custom made by the BPAdventure Team.
+ * All textures used are free to use for any purpose including commercially
+ */
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -16,6 +19,12 @@ import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
 
+/**
+ * Ice Dungeon in the game
+ * Separate challenge area for the player to further test their combat abilities 
+ *
+ */
+
 public class IceDungeon extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
 
@@ -27,24 +36,24 @@ public class IceDungeon extends LevelFactory implements ApplicationListener {
 	Body door;
 	DoorBuilder db = DoorBuilder.getInstance();
 	World world;
-	Body[] loot = new Body[1];
 
 	public IceDungeon(World world) {
 		this.world = world;
 	}
 	
-	
+	/**
+	 * Creates the dungeon at (500,100) and sets width and height of level
+	 */
 	@Override
 	public void create() {	
 		super.createLevel(500, 100, 1, 50, 10, texture);
 		isCreated = true;
 		
 		db.createDoor(512, 92.5f, 26, 276, BodyFactory.STONE, "backTo4", LevelDestination.INTERNAL);
-		loot[0] = bodyFactory.makeBoxPolyBody(514, 93.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
 		NPC npc = new NPC();
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Welcome to the Ice Dungeon!", "Make it to the end for a great reward...or die trying."}, 485, 92, normalMan, false));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Welcome to the Ice Dungeon!", "Make it to the end...or die trying."}, 485, 92, normalMan, false));
 		Map.getInstance().getEntityHandler().spawnIceDungeon();
 		
 	}

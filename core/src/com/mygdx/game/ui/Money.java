@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.Map;
+import com.mygdx.game.SqliteManager;
 
 public class Money extends Actor {
 
@@ -12,11 +14,13 @@ public class Money extends Actor {
 	private Texture moneyTex;
 	private BitmapFont bitmapFont;
 	private float x, y;
+	private SqliteManager sm;
 	
 	public Money() {
+		sm = new SqliteManager();
 		moneyTex = new Texture(Gdx.files.internal("money.png"));
 		bitmapFont = new BitmapFont();
-		money = 100;
+		money = sm.getMoney();
 		x = 225;
 		y = 430;
 	}
@@ -44,7 +48,8 @@ public class Money extends Actor {
 	}
 	
 	public void setMoney(int money) {
-		this.money = money;
+		sm.updateMoney(money);
+		this.money = sm.getMoney();
 	}
 	
 }
