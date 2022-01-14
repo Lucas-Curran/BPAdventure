@@ -268,6 +268,7 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (Input.Keys.R == keycode && (entityHandler.talkingZone == true || textBox.isVisible()) && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
+			pauseBar.getTable().setVisible(false);
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
