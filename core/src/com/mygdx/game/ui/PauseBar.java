@@ -2,6 +2,7 @@ package com.mygdx.game.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -44,6 +45,8 @@ public class PauseBar {
 			Group tempParent = backButton.getParent();
 			backButton.remove();
 			tempParent.addActor(backButton);
+			Map.getInstance().getEntityHandler().getPlayer().setPosition(17, 1.5f);
+			Map.getInstance().mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
 			Map.getInstance().getPlayerHUD().getInventory().setVisible(false);
 			Map.getInstance().getAudioManager().stopAll();
 			Map.getInstance().getAudioManager().playMenu();
