@@ -32,7 +32,6 @@ public class PlayerHUD extends Window {
 	private Inventory inventory;
 	private StatusUI statusUI;
 	private Viewport viewport;
-	private PauseBar pauseBar;
 	
 	private static TextureRegion background = new TextureRegion(Utilities.UISKIN.getAtlas().findRegion("invBackground"));
 	
@@ -51,8 +50,6 @@ public class PlayerHUD extends Window {
 		statusUI = new StatusUI(money);
 		statusUI.setMovable(false);
 		statusUI.setKeepWithinStage(false);
-
-		pauseBar = new PauseBar();
 
 		stage.addActor(statusUI);
 		stage.addActor(inventory);

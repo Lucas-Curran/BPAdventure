@@ -64,8 +64,6 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		public void create() {
 			super.createLevel(15, 800, 1, 100, 20, texture);
 
-
-
 			NPC npc = new NPC();
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I lied Ice Cream...", "Heh heh heh...HEH!", "More danger than you could possibly fathom awaits you now..."
 					}, -32, 797, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
@@ -86,7 +84,7 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 
 			platforms[6] = bodyFactory.makeBoxPolyBody(-30, 782f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, Utilities.giftBlock);
 			platforms[6].setUserData("moneyBox9");
-			
+
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Made it through?", "Then it is time.", "My master awaits, Ice Cream.", "Say your goodbyes ahead"
 			}, 50, 782, Utilities.rightTextures.findRegion("oldMan"), false));
 
