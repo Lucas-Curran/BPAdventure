@@ -39,6 +39,7 @@ import com.mygdx.game.levels.LevelFactory;
 import com.mygdx.game.levels.Overworld;
 import com.mygdx.game.levels.Levels;
 import com.mygdx.game.ui.Money;
+import com.mygdx.game.ui.PauseBar;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
@@ -73,6 +74,8 @@ public class Map implements Screen, InputProcessor {
 	public boolean gravitySwitch;
 	public boolean createLevel;
 	
+	private PauseBar pauseBar;
+	
 	public void setGravitySwitch(boolean gravitySwitch) {
 		this.gravitySwitch = gravitySwitch;
 	}
@@ -85,6 +88,7 @@ public class Map implements Screen, InputProcessor {
 		textBox = new TextBox(font, stage, Color.WHITE);
 		
 		money = new Money();
+		pauseBar = new PauseBar();
 		playerHUD = new PlayerHUD(money);
 		
 		levels = new Levels();
@@ -98,6 +102,9 @@ public class Map implements Screen, InputProcessor {
 		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
 		weapon = new Weapon();
 		swing = false;
+		
+		stage.addActor(pauseBar.getTable());
+		
 	}
 	
 	static {
@@ -168,6 +175,12 @@ public class Map implements Screen, InputProcessor {
 		
 		if (entityHandler.killZone == true) {
 			death = true;
+		}
+		
+		if (playerHUD.getInventory().isVisible()) {
+			pauseBar.render();
+			stage.act(delta);
+			stage.draw();
 		}
 		
 		levels.dispose(entityHandler.getCreatedLevel());
