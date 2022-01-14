@@ -13,6 +13,9 @@ public class GameWorld {
 	
 	private World instance;
 	
+	/**
+	 * GameWorld instance to instance World for box2d
+	 */
 	public GameWorld() {
 		if (instance == null) {
 			instance = new World(new Vector2(0, -10f), true);	

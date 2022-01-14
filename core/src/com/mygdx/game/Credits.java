@@ -28,8 +28,7 @@ public class Credits implements Screen {
 	AudioManager am = Map.getInstance().getAudioManager();
 	
 	/**
-	 * Sets camera and game
-	 * @param game
+	 * Credits screen to allow switching to credits
 	 */
 	public Credits() {
 		cam = new Camera();

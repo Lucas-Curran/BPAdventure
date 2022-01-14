@@ -25,6 +25,9 @@ public class Camera implements ApplicationListener {
 	static final float textureWidth = Gdx.graphics.getWidth();
 	static final float textureHeight = Gdx.graphics.getHeight();
 	
+	/**
+	 * Instances the viewport and camera that sets an orthogonal view onto the screen
+	 */
 	public Camera() {
 		create();
 	}
@@ -41,6 +44,7 @@ public class Camera implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) { 
+		//Update the viewport 
 		viewport.update(width, height, false);	
 		Map.getInstance().getTextBox().resize(width, height);
 		if (Map.getInstance().getLevels().getOverworld().getShopWindow() != null) {
