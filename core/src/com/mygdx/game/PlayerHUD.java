@@ -56,7 +56,6 @@ public class PlayerHUD extends Window {
 
 		statusUI.validate();
 		inventory.validate();	
-		
 	}
 	
 	public void render(float delta) {		

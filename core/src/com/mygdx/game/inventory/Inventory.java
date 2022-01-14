@@ -63,6 +63,7 @@ public class Inventory extends Window {
 	private ArrayList<Image> inventoryImages = new ArrayList<Image>();
 	
 	private Array<Cell> sourceCells;
+	private Array<Cell> equipmentCells;
 
 	public Inventory() {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
@@ -168,7 +169,58 @@ public class Inventory extends Window {
 		this.getTitleTable().padTop(300).padLeft(178);
 		this.pack();
 		
+		
 		sourceCells = slotsTable.getCells(); 
+		equipmentCells = equipmentTable.getCells();
+	}
+	
+	public void equipEquippableItems() {
+		for (int i = 0; i < sourceCells.size; i++) {
+			InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+			if (inventorySlot.hasItem()) {
+				 InventoryItem tempItem = inventorySlot.getTopInventoryItem();
+				 if (tempItem.isInventoryItemDefensive()) {
+					 switch(tempItem.getItemUseType()) {
+					 //shield
+					 case 32:
+						 if (!rightArmSlot.hasItem()) {
+							 rightArmSlot.add(tempItem);
+						 }
+						 break;		
+					 //helmet
+					 case 64:
+						 if (!headSlot.hasItem()) {
+							 headSlot.add(tempItem);
+						 }
+						 break;					 
+					 //chest
+					 case 128:
+						 if (!chestSlot.hasItem()) {
+							 chestSlot.add(tempItem);
+						 }
+						 break;			 
+					 //feet
+					 case 256:
+						 if (!bootsSlot.hasItem()) {
+							 bootsSlot.add(tempItem);
+						 }
+						 break;				 
+					 //legs
+					 case 512:
+						 if (!legsSlot.hasItem()) {
+							 legsSlot.add(tempItem);
+						 }
+						 break;	 
+					default: 
+						 break;
+					 }
+				 } else if (tempItem.isInventoryItemWeapon()) {
+					 if (!leftArmSlot.hasItem()) {
+						 leftArmSlot.add(tempItem);
+					 }
+				 }
+			}
+		}
 	}
 	
 	 public void addItemToInventory(InventoryItem item, String itemName){
