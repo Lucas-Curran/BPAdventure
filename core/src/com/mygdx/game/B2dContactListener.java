@@ -111,6 +111,7 @@ public class B2dContactListener implements ContactListener {
 										if (!parent.getLevels().getLevelFour().isCreated()) {
 											parent.getLevels().getLevelFour().create();
 										}
+								
 										break;
 									case LVL_5:
 										parent.removeLevelFour();

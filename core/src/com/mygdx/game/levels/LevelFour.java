@@ -21,6 +21,11 @@ import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
+/**
+ * Level Four in the game
+ * Content includes scaling the mountain while fighting enemy NPCs and a mini boss at the end
+ *
+ */
 public class LevelFour extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
 	World world;
@@ -35,17 +40,19 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		this.world = world;
 	}
 	
-	
+	/**
+	 * Creates the level at (15,300) and sets width and height of level
+	 * Creates the platforms for characters to climb up on
+	 */
 	public void create() {
 		
-		//Creates level 
 		super.createLevel(15, 300, 1, 100, 50, texture);
 		
 		camera = new Camera(); 
 		
 
 		db.createDoor(-33, 287.5f, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
-		db.createDoor(27, 276f, 480, 95, BodyFactory.STONE, "doorToDungeon", LevelDestination.LVL_2);
+		db.createDoor(27, 276f, 480, 95, BodyFactory.STONE, "doorToDungeon", LevelDestination.INTERNAL);
 		
 	
 		platforms[0] = bodyFactory.makeBoxPolyBody(0, 254f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
@@ -71,13 +78,14 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		blessings[0] = bodyFactory.makeBoxPolyBody(-30, 287, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 		blessings[0].setUserData("levelFourBlessing");
 		
+		
+		//Creates NPC 
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
 		TextureRegion tex = Utilities.tex;
-		
-	
+			
 		NPC npc = new NPC();
 		TextureRegion soldier = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Having fun?", "Well I hope you like climbing because you'll need to make it to the top to get out!"}, -28, 252, normalMan, false));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Having fun?", "Well I hope you like climbing because you'll need to make it to the top to get out!", "Just a tip: you'll need to jump onto the sides and climb up so I hope you have good grip strength."}, -28, 252, normalMan, false));
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Brrr...who are you?", "Go back down before it's too late kid, you'll never get past the guardian", "I should have never entered that cursed cave..."}, 2, 275, soldier, false));
 	}
 	

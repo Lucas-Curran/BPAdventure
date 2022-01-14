@@ -30,7 +30,7 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 
 /**
  * Class creates Level Two of the game
- *
+ * Content includes some beginner enemies for players to get used to combat
  */
 public class LevelTwo extends LevelFactory implements ApplicationListener{
 	boolean isCreated;
@@ -44,14 +44,19 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 	private Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
 	
 	Body[] blessing = new Body[1];
+	
+	/**
+	 * Creates the level at (15, 100) and sets width and height of level
+	 * Creates "blessing" aka loot box for character at end of level
+	 */
+	
 	@Override
 	public void create() {
 		
-		//Creates level 
 		super.createLevel(15, 100, 1, 50, 10, texture);
 		inLevelTwo = true;
 		isCreated = true;        
-		//Creates door to Level 3
+
 //		db.createDoor(39, 92.5f, -35, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
 		db.createDoor(39, 92.5f, -35, 588, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_7);
 

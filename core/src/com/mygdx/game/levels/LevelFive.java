@@ -34,6 +34,11 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
+/**
+ * Level Five in the game and acts as the mid-game boss fight
+ * Content includes multiple unique enemies with loot at the end of the boss fight
+ *
+ */
 public class LevelFive extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 
@@ -51,6 +56,10 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 			this.world = world;
 		}
 		
+		/**
+		 * Creates the level at (15, 400) and sets width and height of level
+		 * Creates "blessing" aka loot box for character at end of level
+		 */
 		@Override
 		public void create() {	
 			super.createLevel(15, 400, 1, 100, 20, texture);
@@ -60,6 +69,8 @@ public class LevelFive extends LevelFactory implements ApplicationListener {
 			blessings[0] = bodyFactory.makeBoxPolyBody(60, 382, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 			blessings[0].setUserData("levelFiveBlessing");
 			
+			
+			//Creates NPC
 			TextureRegion unknownBeing = Utilities.levelTwoAtlas.findRegion("BPA Characters/UnknownBeing");
 			TextureRegion soldier = Utilities.otherTexturesAtlas.findRegion("soldierKnight");
 			      			

@@ -34,6 +34,12 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 
+/**
+ * Level Six in the game
+ * Content includes "rest stop" for player where they can receive extra rewards
+ * Challenge levels provides players with more opportunity to earn stronger gear
+ *
+ */
 public class LevelSix extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 
@@ -53,6 +59,11 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 			this.world = world;
 		}
 		
+		/**
+		 * Creates the level at (15, 500) and sets width and height of level
+		 * Creates platforms for characters and enemies 
+		 * Creates "blessings" aka loot box for characters at end of challenge levels and in front of Slime King
+		 */
 		@Override
 		public void create() {
 			super.createLevel(15, 500, 1, 100, 50, texture);
@@ -87,6 +98,7 @@ public class LevelSix extends LevelFactory implements ApplicationListener {
 			blessings[2] = bodyFactory.makeBoxPolyBody(8, 458f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 			blessings[2].setUserData("levelSixBlessing1");
 
+			//Creates NPC
 			TextureRegion slime = Utilities.slimeKing;
 			NPC npc = new NPC();
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Bow before the king and recieve your reward."}, 3, 458, slime, false));
