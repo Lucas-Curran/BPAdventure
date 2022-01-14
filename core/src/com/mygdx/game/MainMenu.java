@@ -40,6 +40,9 @@ public class MainMenu implements Screen, InputProcessor {
 	private SqliteManager sm;
 	private ReportBugWindow bugWindow;
 	
+	/**
+	 * Main Menu screen that is meant to be switched to on program start
+	 */
 	public MainMenu() {
 		try {
 			menuBackground = new Texture(Gdx.files.internal("menu_bg.png"));
@@ -64,6 +67,7 @@ public class MainMenu implements Screen, InputProcessor {
 			Utilities.buttonSettings(quitButton);
 			Utilities.buttonSettings(reportBugButton);
 
+			// Buttons created, configured, and added to table
 			table.left().bottom().padBottom(10);
 			table.add(startButton).width(180).height(70).pad(10);
 			table.row();
@@ -105,11 +109,13 @@ public class MainMenu implements Screen, InputProcessor {
 	@Override
 	public void render(float delta) {
 				
+		//Draws menu background 
 		spriteBatch.setProjectionMatrix(cam.getCombined());
 		spriteBatch.begin();
 		spriteBatch.draw(menuBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
 		spriteBatch.end();		
 		
+		//plays menu music
 		am.updateAll();
 		am.playMenu();
 		
@@ -117,6 +123,7 @@ public class MainMenu implements Screen, InputProcessor {
 		stage.draw();
 		
 		if (bugWindow.isBugWindowVisible()) {
+			//if the bug window is clicked, set to visible and render it
 			bugWindow.render(delta);
 		}
 	}
@@ -176,6 +183,7 @@ public class MainMenu implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		//start button clicked, set screen to map
 		if (startButton.isPressed()) {
 			 Group tempParent = startButton.getParent();
 			 startButton.remove();
@@ -188,6 +196,7 @@ public class MainMenu implements Screen, InputProcessor {
 				 Screens.toMap();
 				 return true;
 			 }
+			 //Continue button clicked, screen set to map with SQL data
 		 } else if (continueButton.isPressed()) {
 			 Group tempParent = continueButton.getParent();
 			 continueButton.remove();
@@ -197,16 +206,19 @@ public class MainMenu implements Screen, InputProcessor {
 			 logger.info("Continue button on menu pressed");
 			 Screens.toMap();
 			 return true;
+			 //Settings button clicked, screen set to settings
 		 } else if (settingsButton.isPressed()) {
 			 am.playButton();
 			 am.stopAll();
 			 logger.info("Settings button on menu pressed");
 			 Screens.toSettings(new Settings());
+			 //Quit button clicked, game exited
 		 } else if (quitButton.isPressed()) {
 			 am.playButton();
 			 dispose();
 			 logger.info("Quit button pressed, app exited.");
 			 Gdx.app.exit();
+			 //Report bug button clicked, bug window set to visible, will be rendered in render
 		 } else if (reportBugButton.isPressed()) {
 			 logger.info("Report Bug Button pressed.");
 			 am.playButton();

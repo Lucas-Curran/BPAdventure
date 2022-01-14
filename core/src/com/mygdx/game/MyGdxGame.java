@@ -18,6 +18,7 @@ public class MyGdxGame extends Game {
 	
 	@Override
 	public void create() {
+		//Desktop launchers start class that sends screen to main menu
 		logger.info("Game started");
 		cam = new Camera();
 		screens = new Screens(this);
