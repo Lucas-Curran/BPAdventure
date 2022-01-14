@@ -33,16 +33,16 @@ public class VictoryScreen extends LevelFactory implements ApplicationListener {
 	
 	@Override
 	public void create() {	
-		super.createLevel(500, 100, 1, 50, 10, texture);
-		isCreated = true;
-		
-		db.createDoor(512, 92.5f, 26, 276, BodyFactory.STONE, "backTo4", LevelDestination.INTERNAL);
-		
-
-		
-		NPC npc = new NPC();
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] { false));
-		
+//		super.createLevel(500, 100, 1, 50, 10, texture);
+//		isCreated = true;
+//		
+//		db.createDoor(512, 92.5f, 26, 276, BodyFactory.STONE, "backTo4", LevelDestination.INTERNAL);
+//		
+//
+//		
+//		NPC npc = new NPC();
+//		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] { false));
+//		
 		
 	}
 	

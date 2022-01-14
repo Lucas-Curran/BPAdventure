@@ -42,6 +42,8 @@ public class PauseBar {
 			backButton.remove();
 			tempParent.addActor(backButton);
 			Map.getInstance().getPlayerHUD().getInventory().setVisible(false);
+			Map.getInstance().getAudioManager().stopAll();
+			Map.getInstance().getAudioManager().playMenu();
 			Screens.toMenu(Screens.getMenu());		
 		} else if (saveButton.isPressed()) {
 			Group tempParent = saveButton.getParent();

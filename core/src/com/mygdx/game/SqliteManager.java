@@ -267,25 +267,17 @@ public class SqliteManager {
 	/**
 	 * Clears out both tables in database
 	 */
-	public boolean clearTable(boolean volumeChanged) {
-		 String sql = "DELETE FROM Progress";
+	public boolean clearTable(int volume) {
 		 String sql2 = "DELETE FROM Inventory";
-		 String volChangedSQL = "UPDATE Progress SET Stage = 0, Currency = 0, Health = 100 WHERE id = 1";
+		 String sql = "UPDATE Progress SET Stage = 0, Currency = 0, Health = 100, Volume = " + volume + " WHERE id = 1";
 	        try {
 	        	//Creates sql statments to execute
-	        	PreparedStatement pstmt;
-	        	if (volumeChanged) {
-	        		pstmt = connect().prepareStatement(volChangedSQL);
-		            pstmt.executeUpdate();
-	        	} else {
-	        		pstmt = connect().prepareStatement(sql);
-		            pstmt.executeUpdate();
-		            defaultInfo();
-	        	}
-	        	
+	        	PreparedStatement pstmt = connect().prepareStatement(sql);
 	            PreparedStatement pstmt2 = connect().prepareStatement(sql2);
 	            // execute the delete statement
 	            pstmt2.executeUpdate();
+	            pstmt.executeUpdate();
+		        defaultInfo();
 	            conn.close();
 	            return true;
 	        } catch (SQLException e) {

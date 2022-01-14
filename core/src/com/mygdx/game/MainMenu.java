@@ -164,8 +164,7 @@ public class MainMenu implements Screen, InputProcessor {
 			 startButton.remove();
 			 tempParent.addActor(startButton);
 			 am.stopAll();
-			 boolean volChanged = sm.getVolume() != 50;
-			 if (sm.clearTable(volChanged)) {
+			 if (sm.clearTable(sm.getVolume())) {
 				 Screens.toMap();
 				 return true;
 			 }
