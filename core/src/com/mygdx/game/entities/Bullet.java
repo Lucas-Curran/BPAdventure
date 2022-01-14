@@ -25,8 +25,9 @@ public class Bullet extends EntityHandler {
 		
 		bullets = new ArrayList<Entity>();
 	}
+	
 	/**
-	 * 
+	 * Creates bullet
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param xVel - x speed and direction

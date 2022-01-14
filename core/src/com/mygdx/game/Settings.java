@@ -58,11 +58,13 @@ public class Settings implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		
+		// creates slider and container for the slider
 		volumeSlider = new Slider(0, 100, 1, false, Utilities.sliderStyles());
 		container = new Container<Slider>(volumeSlider);
 		container.setTransform(true);
 		container.setScale(3f);
 		
+		// sets labels and font scales
 		sliderValue = sm.getVolume();
 		font = new BitmapFont();
 		sliderLabel = new Label(String.valueOf(sliderValue), new Label.LabelStyle(font, Color.ROYAL));
@@ -71,6 +73,7 @@ public class Settings implements Screen {
 		sliderLabel.setFontScale(2.5f);
 		volumeSlider.setValue(sliderValue);
 		
+		// creates buttons
 		creditsBtn = new TextButton("Credits", Utilities.buttonStyles("default-rect", "default-rect-down"));
 		returnBtn = new TextButton("Return", Utilities.buttonStyles("default-rect", "default-rect-down"));
 		creditsBtn.getLabel().setAlignment(Align.left);
@@ -84,6 +87,7 @@ public class Settings implements Screen {
 		returnBtn.setTransform(true);
 		returnBtn.scaleBy(1);
 		
+		// adds slider and buttons to table
 		table.left().bottom().pad(80);
 		table.add(volumeLabel).colspan(2).padBottom(50).right().padRight(43);
 		table.row();
@@ -94,8 +98,10 @@ public class Settings implements Screen {
 		table.add(returnBtn).width(110);
 		table.add(creditsBtn).padLeft(150).width(110);
 		table.setFillParent(true);
+
+		//		table.debug();
 		
-//		table.debug();
+		//adds table to stage
 		stage.addActor(table);
 	
 		
@@ -120,12 +126,14 @@ public class Settings implements Screen {
 		
 		// shows the credits screen
 		if (creditsBtn.isPressed()) {
+			am.playButton();
 			dispose();
 			Screens.toCredits(new Credits());
 		}
 		
 		//Desposes settings screen and returns to menu screen
 		if (returnBtn.isPressed()) {
+			am.playButton();
 			sm.updateVolume(sliderValue);
 			dispose();
 			Screens.toMenu(Screens.getMenu());
@@ -164,9 +172,6 @@ public class Settings implements Screen {
 		
 	}
 	
-	/**
-	 * Disposes the screen
-	 */
 	@Override
 	public void dispose() {
 		am.stopAll();

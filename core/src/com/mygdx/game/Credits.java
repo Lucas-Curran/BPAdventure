@@ -34,14 +34,12 @@ public class Credits implements Screen {
 
 	}
 
-	/**
-	 * Creates stage and buttons
-	 */
 	@Override
 	public void show() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
+		// creates button
 		returnBtn = new TextButton("Return", Utilities.buttonStyles("default-rect", "default-rect-down"));
 		returnBtn.getLabel().setFontScale(1f,1f);
 		returnBtn.setPosition(20, 20);
@@ -52,32 +50,30 @@ public class Credits implements Screen {
 		returnBtn.setScale(2);
 		returnBtn.setWidth(125);
 		returnBtn.setHeight(40);
-
+		
+		// adds button to stage
 		stage.addActor(returnBtn);
 		am.playMenu();
 	}
 
-	/**
-	 * Renders background and button inputs
-	 */
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		
-
 
 		try {
+			// sets camera
 			spriteBatch.setProjectionMatrix(cam.getCombined());
 			spriteBatch.begin();
 			spriteBatch.draw(background, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
-			spriteBatch.end();		
-		if (returnBtn.isPressed()) {
-//			audioManager.playClick();
-			dispose();
-			Screens.toSettings(new Settings());
-		}
+			spriteBatch.end();
+			
+			// checks if return button is clicked
+			if (returnBtn.isPressed()) {
+				am.playButton();
+				dispose();
+				Screens.toSettings(new Settings());
+			}
 
 		stage.act(delta);
 		stage.draw();

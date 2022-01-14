@@ -148,6 +148,8 @@ public class Player extends EntityHandler {
 	 */
 	public void fadePlayerToBeginning(float x, float y) {
 
+		Map.getInstance().getAudioManager().playPlayerDeath();
+		
         Map.getInstance().death = false;
 
         if (alpha >= 0) {

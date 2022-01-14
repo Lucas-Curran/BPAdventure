@@ -163,6 +163,7 @@ public class MainMenu implements Screen, InputProcessor {
 			 Group tempParent = startButton.getParent();
 			 startButton.remove();
 			 tempParent.addActor(startButton);
+			 am.playButton();
 			 am.stopAll();
 			 if (sm.clearTable(sm.getVolume())) {
 				 Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().setHP(sm.getHealth());
@@ -173,16 +174,20 @@ public class MainMenu implements Screen, InputProcessor {
 			 Group tempParent = continueButton.getParent();
 			 continueButton.remove();
 			 tempParent.addActor(continueButton); 
+			 am.playButton();
 			 am.stopAll();
 			 Screens.toMap();
 			 return true;
 		 } else if (settingsButton.isPressed()) {
-				 am.stopAll();
-				 Screens.toSettings(new Settings());
+			 am.playButton();
+			 am.stopAll();
+			 Screens.toSettings(new Settings());
 		 } else if (quitButton.isPressed()) {
+			 am.playButton();
 			 dispose();
 			 Gdx.app.exit();
 		 } else if (reportBugButton.isPressed()) {
+			 am.playButton();
 			 bugWindow.setBugWindowVisible(true);
 		 }
 		return false;

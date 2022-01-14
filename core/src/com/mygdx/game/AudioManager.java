@@ -4,11 +4,14 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 public class AudioManager {
 		
 		private static HashMap<String, Music> music;
+		private static HashMap<String, Sound> sound;
 		Music caveMusic, menuMusic, overworldMusic, shopMusic;
+		Sound buttonPress, enemyDeath, playerDeath, swordJab;
 		SqliteManager sm;
 		float volume;
 			
@@ -17,6 +20,7 @@ public class AudioManager {
 	 */
 	public AudioManager() {
 		music = new HashMap<String,Music>();
+		sound = new HashMap<String, Sound>();
 		sm = new SqliteManager();
 		
 		caveMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/cave_track.wav"));
@@ -28,6 +32,17 @@ public class AudioManager {
 		music.put("shop", shopMusic);
 		music.put("menu", menuMusic);
 		music.put("overworld", overworldMusic);
+		
+		buttonPress = Gdx.audio.newSound(Gdx.files.internal("sfx/button_click.mp3"));
+		enemyDeath = Gdx.audio.newSound(Gdx.files.internal("sfx/enemy_death.mp3"));
+		playerDeath = Gdx.audio.newSound(Gdx.files.internal("sfx/player_death.mp3"));
+		swordJab = Gdx.audio.newSound(Gdx.files.internal("sfx/sword_jab.mp3"));
+		
+		sound.put("button", buttonPress);
+		sound.put("enemy", enemyDeath);
+		sound.put("player", playerDeath);
+		sound.put("sword", swordJab);
+		
 		volume = sm.getVolume();
 		
 	}
@@ -58,9 +73,6 @@ public class AudioManager {
 			volume = sm.getVolume();
 			set.getValue().setVolume(volume / 100);
 		}
-		
-//		music.get("menu").setVolume(volume);
-
 	}
 	
 	/**
@@ -73,6 +85,14 @@ public class AudioManager {
 			music.get(song).setLooping(true);
 			music.get(song).play();
 		}
+	}
+	
+	/**
+	 * Play a certain sound effect
+	 * @param sfx - Sound played
+	 */
+	public void playSFX(String sfx) {
+		sound.get(sfx).play(volume / 100);
 	}
 	
 	/**
@@ -102,5 +122,34 @@ public class AudioManager {
 	public void playOverworld() {
 		playSong("overworld");
 	}
+	
+	
+	/**
+	 * Play button click
+	 */
+	public void playButton() {
+		playSFX("button");
+	}
+	
+	/**
+	 * Play enemy death sound
+	 */
+	public void playEnemyDeath() {
+		playSFX("enemy");
+	}
+	
+	/**
+	 * Play player death sound
+	 */
+	public void playPlayerDeath() {
+		playSFX("player");
+	}
 
+	
+	/**
+	 * Play sword jab sound
+	 */
+	public void playSwordJab() {
+		playSFX("sword");
+	}
 }

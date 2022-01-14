@@ -41,6 +41,7 @@ public class EnemySystem extends IteratingSystem {
     float timerReset = 0;
 	
 	public EnemySystem() {
+		//gets components for enemies
 		super(Family.all(EnemyComponent.class).get());
 		ec = ComponentMapper.getFor(EnemyComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
@@ -223,6 +224,7 @@ public class EnemySystem extends IteratingSystem {
 	private void aiSteering() {
 		float distance = playerCom.body.getPosition().dst(bodyCom.body.getPosition());
 		SteeringComponent playerSteering = steering.get(player);
+		// deploys different types of steering based on distance from player
 		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
 			sCom.steeringBehavior = SteeringPresets.getFlee(sCom, playerSteering);
 			sCom.currentMode = SteeringComponent.SteeringState.FLEE;

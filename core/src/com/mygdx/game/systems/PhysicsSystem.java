@@ -1,5 +1,6 @@
 package com.mygdx.game.systems;
 
+import com.mygdx.game.Map;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.TransformComponent;
 
@@ -49,6 +50,7 @@ public class PhysicsSystem extends IteratingSystem {
                 tfm.position.y = position.y;
                 tfm.rotation = bodyComp.body.getAngle() * MathUtils.radiansToDegrees;
                 if (bodyComp.isDead) {
+                	Map.getInstance().getAudioManager().playEnemyDeath();
                 	world.destroyBody(bodyComp.body);
                 	this.getEngine().removeEntity(entity);
                 }
