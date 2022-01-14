@@ -132,6 +132,8 @@ public class ReportBugWindow {
 		final String username = "bpagame54@gmail.com";
 		final String password = "SuperPassword5";
 		
+		//Most of following code is from https://www.tutorialspoint.com/javamail_api/javamail_api_gmail_smtp_server.htm
+		
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 	      props.put("mail.smtp.starttls.enable", "true");

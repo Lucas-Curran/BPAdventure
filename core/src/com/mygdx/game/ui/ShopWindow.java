@@ -315,7 +315,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 					buyTable.row();
 				}
 				
-				for (Map.Entry<Label, ShopItem> set : com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().getAllItems().entrySet()) {
+				for (Map.Entry<Label, ShopItem> set : com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().getItemsToSell().entrySet()) {
 					set.getKey().setWrap(true);
 					final Group tempGroup = new Group();
 					
