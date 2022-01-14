@@ -275,7 +275,20 @@ public class Inventory extends Window {
 				 if (inventorySlot.getTopInventoryItem().getName().equals(item.getName())) {
 					 logger.info(item.getName() + " removed to inventory.");
 					 inventorySlot.getTopInventoryItem().remove();
+					 break;
 				 }
+			 }
+		 }
+	 }
+	 
+	 public void removeAllItemsFromInventory() {
+		 for (int i = 0; i < sourceCells.size; i++) {
+			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+			 if (inventorySlot == null) {
+				 continue;
+			 }
+			 if (inventorySlot.hasItem()) {
+				 inventorySlot.getTopInventoryItem().remove();
 			 }
 		 }
 	 }
