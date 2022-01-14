@@ -119,9 +119,22 @@ public class SqliteManager {
 		}
 	}
 	
+	/**
+	 * Gets all items in inventory
+	 * @return - Arraylist of all items
+	 */
 	public ArrayList<Integer> getAllItems() {
 		ArrayList<Integer> items = new ArrayList<>();
-		
+		String sql = "SELECT Item FROM Inventory";
+		try {
+			Statement stmt = connect().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				items.add(rs.getInt("item"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return items;
 	}
 	
