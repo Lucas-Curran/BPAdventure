@@ -51,40 +51,50 @@ public class InventoryItem extends Image {
 	}
 	
 	public enum ItemTypeID {		
-		BODYARMOR01,
-		BOOTS01,
-		HELMET01,
-		LEGS01,
-		SHIELD01,
-		WEAPON01,
-		BODYARMOR02,
-		BOOTS02,
-		HELMET02,
-		LEGS02,
-		SHIELD02,
-		WEAPON02,
-		BODYARMOR03,
-		BOOTS03,
-		HELMET03,
-		LEGS03,
-		SHIELD03,
-		WEAPON03,
-		KEY1,
-		ICESWORD,
-		ICESHIELD,
-		DESERTSHIELD,
-		JUNGLESTAFF,
-		JUNGLEHELMET,
-		JUNGLECHEST,
-		KEYCARD01,
-		KEYCARD02,
-		KEYCARD03,
-		KEYCARD04,
-		KEYCARD05,
-		APPLE,
-		CAKE,
-		BURGER,
-		DONUT,
+		BODYARMOR01(1),
+		BOOTS01(2),
+		HELMET01(3),
+		LEGS01(4),
+		SHIELD01(5),
+		WEAPON01(6),
+		BODYARMOR02(7),
+		BOOTS02(8),
+		HELMET02(9),
+		LEGS02(10),
+		SHIELD02(11),
+		WEAPON02(12),
+		BODYARMOR03(13),
+		BOOTS03(14),
+		HELMET03(15),
+		LEGS03(16),
+		SHIELD03(17),
+		WEAPON03(18),
+		KEY1(19),
+		ICESWORD(20),
+		ICESHIELD(21),
+		DESERTSHIELD(22),
+		JUNGLESTAFF(23),
+		JUNGLEHELMET(24),
+		JUNGLECHEST(25),
+		KEYCARD01(26),
+		KEYCARD02(27),
+		KEYCARD03(28),
+		KEYCARD04(29),
+		KEYCARD05(30),
+		APPLE(31),
+		CAKE(32),
+		BURGER(33),
+		DONUT(34);
+		
+		private int itemTypeID;
+		
+		ItemTypeID(int itemTypeID) {
+			this.itemTypeID = itemTypeID;
+		}
+		
+		public int getValue() {
+			return itemTypeID;
+		}
 	}
 	
 	private int itemAttributes;

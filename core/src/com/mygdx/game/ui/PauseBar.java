@@ -37,11 +37,16 @@ public class PauseBar {
 	}
 	
 	public void render() {
+		if (!optionsTable.isVisible())  {
+			optionsTable.setVisible(true);
+		}
 		if (backButton.isPressed()) {
 			Group tempParent = backButton.getParent();
 			backButton.remove();
 			tempParent.addActor(backButton);
 			Map.getInstance().getPlayerHUD().getInventory().setVisible(false);
+			Map.getInstance().getAudioManager().stopAll();
+			Map.getInstance().getAudioManager().playMenu();
 			Screens.toMenu(Screens.getMenu());		
 		} else if (saveButton.isPressed()) {
 			Group tempParent = saveButton.getParent();

@@ -68,6 +68,7 @@ public class Map implements Screen, InputProcessor {
 	private Money money;
 	
 	private AudioManager am;
+	private SqliteManager sm;
 	private Weapon weapon;
 	private boolean swing;
 	
@@ -96,6 +97,7 @@ public class Map implements Screen, InputProcessor {
 		levels.createAllLevels(entityHandler.getWorld());
 		
 		am = new AudioManager();
+		sm = new SqliteManager();
 	
 		textureAtlas = new TextureAtlas("bpaatlas.txt");
 
@@ -268,6 +270,7 @@ public class Map implements Screen, InputProcessor {
 		}
 		
 		if (Input.Keys.R == keycode && (entityHandler.talkingZone == true || textBox.isVisible()) && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
+			pauseBar.getTable().setVisible(false);
 			if (textBox.isVisible()) {
 				if (textBox.getText().length-1 != textBox.getTextSequence()) {
 					textBox.setTextSequence(textBox.getTextSequence()+1);
@@ -393,6 +396,10 @@ public class Map implements Screen, InputProcessor {
 	
 	public AudioManager getAudioManager() {
 		return am;
+	}
+	
+	public SqliteManager getSqliteManager() {
+		return sm;
 	}
 	
 }
