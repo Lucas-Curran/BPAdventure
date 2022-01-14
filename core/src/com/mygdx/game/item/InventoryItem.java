@@ -14,7 +14,8 @@ public class InventoryItem extends Image {
 	private int damage;
 	private int defense;
 	private int hpRestored;
-	
+
+	//Enum for deciding whether its consumable, equippable, or stackable
 	public enum ItemAttribute {
 		CONSUMABLE(1),
 		EQUIPPABLE(2),
@@ -32,6 +33,7 @@ public class InventoryItem extends Image {
 		
 	}
 	
+	//enum for deciding how the item is used
 	public enum ItemUseType {
 		
 		ITEM_RESTORE_HEALTH(1),
@@ -56,6 +58,7 @@ public class InventoryItem extends Image {
 		}
 	}
 	
+	//enum to assign the item id
 	public enum ItemTypeID {		
 		BODYARMOR01(1),
 		BOOTS01(2),
@@ -116,6 +119,13 @@ public class InventoryItem extends Image {
 	private int itemUseType;
 	private ItemTypeID itemTypeID;
 
+	/**
+	 * Inventory item is created with given texture, attributes, item use type, and id, and then assigned damage/defense given certain IDs 
+	 * @param textureRegion - texture to give item
+	 * @param itemAttributes - attributes to give item
+	 * @param itemUseType - item use type to give item
+	 * @param itemTypeID - id to give item
+	 */
 	public InventoryItem(TextureRegion textureRegion, int itemAttributes, int itemUseType, ItemTypeID itemTypeID) {
 		super(textureRegion);
 		this.itemTypeID = itemTypeID;
@@ -223,6 +233,10 @@ public class InventoryItem extends Image {
 		logger.info("Inventory item created \n\tItemTypeID: " + itemTypeID);		
 	}
 	
+	/**
+	 * Copy constructor to create replicate item
+	 * @param inventoryItem - item to replicate
+	 */
 	public InventoryItem(InventoryItem inventoryItem){
         super();
         this.itemTypeID = inventoryItem.getItemTypeID();
@@ -233,6 +247,10 @@ public class InventoryItem extends Image {
         logger.info("Inventory item created \n\tItemTypeID: " + itemTypeID);
     }
 	
+	/**
+	 * Transfer shop item to inventory item
+	 * @param shopItem - shop item to turn into inventory item
+	 */
 	public InventoryItem(ShopItem shopItem) {
         super(shopItem.getDrawable());
         this.itemTypeID = shopItem.getItemTypeID();
@@ -243,22 +261,42 @@ public class InventoryItem extends Image {
         this.hpRestored = shopItem.getHpRestored();
     }
 	
+	/**
+	 * placeholder constructor
+	 */
 	public InventoryItem() {
 		super();
 	}
 	
+	/**
+	 * Gets if the item is stackable
+	 * @return stackable boolean
+	 */
 	public boolean isStackable() {
 		return ((itemAttributes & ItemAttribute.STACKABLE.getValue()) == ItemAttribute.STACKABLE.getValue());
 	}
 	
+	/**
+	 * Gets if the item is consumable
+	 * @return consumable boolean
+	 */
 	public boolean isConsumable() {
 		return ((itemAttributes & ItemAttribute.CONSUMABLE.getValue()) == ItemAttribute.CONSUMABLE.getValue());
 	}
 	
+	/**
+	 * Checks whether the inventory item provided is the same as this items id
+	 * @param inventoryItem - item to check with this one
+	 * @return same type boolean
+	 */
 	public boolean isSameItemType(InventoryItem inventoryItem) {
 		return itemTypeID == inventoryItem.getItemTypeID();
 	}
 	
+	/**
+	 * Checks whether item is a weapon
+	 * @return is weapon boolean
+	 */
 	public boolean isInventoryItemWeapon() {
 		if ((itemUseType & ItemUseType.WEAPON_ONEHAND.getValue()) == ItemUseType.WEAPON_ONEHAND.getValue() ||
 			 (itemUseType & ItemUseType.WEAPON_TWOHAND.getValue()) == ItemUseType.WEAPON_ONEHAND.getValue()) {
@@ -267,6 +305,10 @@ public class InventoryItem extends Image {
 		return false;
 	}
 	
+	/**
+	 * Checks whether item is defensive
+	 * @return is defensive boolean
+	 */
 	public boolean isInventoryItemDefensive() {
 		if ((itemUseType & ItemUseType.ARMOR_CHEST.getValue()) == ItemUseType.ARMOR_CHEST.getValue() ||
                 (itemUseType & ItemUseType.ARMOR_HELMET.getValue()) == ItemUseType.ARMOR_HELMET.getValue() ||

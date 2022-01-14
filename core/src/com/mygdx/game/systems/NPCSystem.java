@@ -10,6 +10,8 @@ public class NPCSystem extends IteratingSystem {
 
 	ComponentMapper<NPCComponent> nm;
 	
+	//Unused system, NPC AI unimplemented
+	
 	public NPCSystem(Family family) {
 		super(Family.all(NPCComponent.class).get());
 		nm = ComponentMapper.getFor(NPCComponent.class);

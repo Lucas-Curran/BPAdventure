@@ -8,6 +8,9 @@ import java.util.Comparator;
 public class ZComparator implements Comparator<Entity> {
     private ComponentMapper<TransformComponent> cmTrans;
  
+    /**
+     * Checks which entities are behind other entities
+     */
     public ZComparator(){
         cmTrans= ComponentMapper.getFor(TransformComponent.class);
     }

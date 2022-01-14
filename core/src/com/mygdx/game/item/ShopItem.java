@@ -21,6 +21,11 @@ public class ShopItem extends Image {
 	private int cost;
 	private int hpRestored;
 	
+	/**
+	 * Creates a shop item to buy or sell given an inventory item and cost
+	 * @param item - inventory item to turn into shop item
+	 * @param cost - cost of shop item that determines both buy and sell cost
+	 */
 	public ShopItem(InventoryItem item, int cost) {
 		super(item.getDrawable());
 		itemAttributes = item.getItemAttributes();

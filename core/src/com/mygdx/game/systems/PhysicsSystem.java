@@ -23,6 +23,10 @@ public class PhysicsSystem extends IteratingSystem {
     private ComponentMapper<B2dBodyComponent> bm = ComponentMapper.getFor(B2dBodyComponent.class);
     private ComponentMapper<TransformComponent> tm = ComponentMapper.getFor(TransformComponent.class);
  
+    /**
+     * Physics system to step the world 30 times a frame to calculate physics of boxes
+     * @param world - world containing boxes
+     */
     public PhysicsSystem(World world) {
         super(Family.all(B2dBodyComponent.class, TransformComponent.class).get());
         this.world = world;
@@ -38,7 +42,7 @@ public class PhysicsSystem extends IteratingSystem {
             world.step(MAX_STEP_TIME, 10, 10);
             accumulator -= MAX_STEP_TIME;
  
-            //Entity Queue
+            //Entity Queue that sets new position of boxes, checks whether their dead, and calculates their rotation
             for (Entity entity : bodiesQueue) {
                 TransformComponent tfm = tm.get(entity);
                 B2dBodyComponent bodyComp = bm.get(entity);

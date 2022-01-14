@@ -61,12 +61,19 @@ public class ShopWindow extends Window implements InputProcessor  {
 	private ArrayList<Label> labels;
 	private Label infoLabel;
 
+	/**
+	 * Instaniates shop window with given buy list and sell list
+	 * @param buyList - items to buy
+	 * @param sellList - items to sell, gotten from inventory
+	 * @param money
+	 */
 	public ShopWindow(HashMap<Label, ShopItem> buyList, HashMap<Label, ShopItem> sellList, Money money) {
 		super("Shop", new WindowStyle(new BitmapFont(), Color.RED, windowBg));
 		
 		this.buyList = buyList;
 		this.sellList = sellList;
 		try {
+			
 			// sellList = current inventory items
 
 			labels = new ArrayList<Label>();
@@ -84,6 +91,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 
 			buyTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
 
+			//Buy list is looped through and added to the buy table
 			for (Map.Entry<Label, ShopItem> set : buyList.entrySet()) {	
 				set.getKey().setWrap(true);
 				final Group tempGroup = new Group();
@@ -107,8 +115,9 @@ public class ShopWindow extends Window implements InputProcessor  {
 
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+						
 						for (int i = 0; i < labels.size(); i++) {
+							//reset all labels back to white color
 							labels.get(i).setColor(Color.WHITE);
 						}
 
@@ -119,6 +128,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 						selectedBuyItem.setName(tempLabel.getText().toString());
 						itemToRemove = tempGroup;
 						tempLabel.setColor(Color.YELLOW);
+						//set touched label to yellow color and set selected buy item
 						return true;
 					}			
 
@@ -128,6 +138,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 
 			sellTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
 
+			//Loop through sell list to add items to sell table
 			for (Map.Entry<Label, ShopItem> set : sellList.entrySet()) {
 				set.getKey().setWrap(true);
 				final Group tempGroup = new Group();
@@ -163,6 +174,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 						itemToRemove = tempGroup;
 						tempGroup.addActor(borderImage);
 						tempLabel.setColor(Color.YELLOW);
+						//Same stuff as buy loop
 						return true;
 					}			
 
@@ -202,10 +214,12 @@ public class ShopWindow extends Window implements InputProcessor  {
 			ScrollPaneStyle paneStyle = new ScrollPaneStyle();
 			paneStyle.background = Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane");
 			paneStyle.vScrollKnob = Utilities.ACTUAL_UI_SKIN.getDrawable("default-scroll");
-
+			
 			scroll = new ScrollPane(shopTable, paneStyle);
 
 			container.add(scroll).width(600).height(400);
+			
+			//container adds scroll which contains shop table and is then added to the stage
 
 			container.padLeft(650);
 			container.padBottom(500);
@@ -245,6 +259,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 	
 	public void render(float delta) {
 		
+		//Leave button clicked, set all the buttons and labels back to default state, set visibility to false and play overworld music
 		if (leaveButton.isPressed()) {
 			setShopVisible(false);
 			Group tempParent = confirmButton.getParent();
@@ -266,6 +281,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 			logger.info("Shop window closed.");		
 		}
 		
+		//Confirm button pressed, check whether item is being sold or bought
 		if (confirmButton.isPressed()) {
 			
 			com.mygdx.game.Map.getInstance().getAudioManager().playButton();
@@ -276,6 +292,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 			
 			Money money = com.mygdx.game.Map.getInstance().getPlayerHUD().getStatusUI().getMoney();
 		
+			//if buy item is selected, check if they have enough money, if there is enough, buy the item, add it to inventory, and remove it from the buy list
 			if (selectedBuyItem != null) {		
 				if (money.getMoney() >= selectedBuyItem.getCost()) {
 					InventoryItem tempItem = new InventoryItem(selectedBuyItem);
@@ -290,6 +307,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 					infoLabel.setText("Not enough money!");
 				}
 			}
+			//if sell item isn't null, give the user half the money that the item costs and remove it from their inventory
 			if (selectedSellItem != null) {
 				money.setMoney(money.getMoney() + (selectedSellItem.getCost() / 2));
 				InventoryItem tempItem = new InventoryItem(selectedSellItem);
@@ -298,10 +316,13 @@ public class ShopWindow extends Window implements InputProcessor  {
 				com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().removeItemFromInventory(tempItem);
 			}
 			
+			//clear all the items in both sell and buy table
+			
 				sellTable.clearChildren();
 				buyTable.clearChildren();
 				labels.clear();
 				
+				//loop back through buy list to update what can be bought
 				for (Map.Entry<Label, ShopItem> set : buyList.entrySet()) {	
 					set.getKey().setWrap(true);
 					final Group tempGroup = new Group();
@@ -335,6 +356,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 					buyTable.row();
 				}
 				
+				//Loop back through sell list to recheck the players inventory for items to sell
 				for (Map.Entry<Label, ShopItem> set : com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().getItemsToSell().entrySet()) {
 					set.getKey().setWrap(true);
 					final Group tempGroup = new Group();
@@ -389,6 +411,11 @@ public class ShopWindow extends Window implements InputProcessor  {
 		stage.getViewport().update(width, height, false);
 	}
 	
+	/**
+	 * Resizes texture to be used as background
+	 * @param file - internal file texture
+	 * @return resized texture
+	 */
 	public static Texture createTexture(FileHandle file) {
         Pixmap pixmap = new Pixmap(file);
         Pixmap scalePixmap = new Pixmap(400, 300, pixmap.getFormat());

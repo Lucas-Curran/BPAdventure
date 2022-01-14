@@ -25,6 +25,9 @@ public class Money extends Actor {
 	private float x, y;
 	private SqliteManager sm;
 	
+	/**
+	 * Instance of money to use in statusUI
+	 */
 	public Money() {
 		try {
 			sm = new SqliteManager();
@@ -45,6 +48,10 @@ public class Money extends Actor {
 		}
 	}
 	
+	/**
+	 * Copy constructor of money
+	 * @param money - money to replicate
+	 */
 	public Money(Money money) {
 		this.money = money.money;
 		this.moneyTex = money.moneyTex;
@@ -67,6 +74,10 @@ public class Money extends Actor {
 		return money;
 	}
 	
+	/**
+	 * Sets the money and updates it in the database
+	 * @param money - new money value
+	 */
 	public void setMoney(int money) {
 		sm.updateMoney(money);
 		this.money = sm.getMoney();

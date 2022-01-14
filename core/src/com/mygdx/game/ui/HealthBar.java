@@ -27,7 +27,7 @@ public class HealthBar extends Actor {
 	private float hpVal = 1;
 	
 	/**
-	 * Health bar constructor
+	 * Health bar instance to use in statusUI
 	 */
 	public HealthBar() {
 		try {
@@ -56,6 +56,7 @@ public class HealthBar extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		//draws the health bars background at a constant width, but draws the actual hp with width multiplied by the value of hp on a 0 to 1 scale
 		healthBarBackground.draw(batch, getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
 		if (hpVal > 0) {
 			healthBar.draw(batch, getX(), getY(), hpVal * getWidth() * getScaleX(), getHeight() * getScaleY()); 

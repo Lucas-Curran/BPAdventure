@@ -14,6 +14,11 @@ public class PhysicsDebugSystem extends IteratingSystem {
     private World world;
     private OrthographicCamera camera;
  
+    /**
+     * Instantiates the box2d debug renderer for seeing outlines of boxes (hitboxes)
+     * @param world - world containing boxes
+     * @param camera - camera for combined matrix perspective
+     */
     public PhysicsDebugSystem(World world, OrthographicCamera camera){
         super(Family.all().get());
         debugRenderer = new Box2DDebugRenderer();

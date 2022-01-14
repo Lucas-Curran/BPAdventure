@@ -17,7 +17,10 @@ public class StatusUI extends Window {
 	
 	private Money money;
 	private HealthBar hpBar;
-	
+	/**
+	 * StatusUI window instance 
+	 * @param money - money to add to UI
+	 */
 	public StatusUI(Money money) {
 		super("Status", new WindowStyle(new BitmapFont(), Color.RED, null));
 		this.money = money;

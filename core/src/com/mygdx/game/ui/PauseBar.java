@@ -25,6 +25,9 @@ public class PauseBar {
 	private Table optionsTable;
 	private TextButton backButton, saveButton, quitButton;
 	
+	/**
+	 * Instance of pausebar to use on map stage
+	 */
 	public PauseBar() {
 		try {
 			optionsTable = new Table();
@@ -58,7 +61,9 @@ public class PauseBar {
 	public void render() {
 		if (!optionsTable.isVisible())  {
 			optionsTable.setVisible(true);
+			//sets the pause bars table visibility to true if not already visible
 		}
+		//When back button is clicked, send the user back to the overworld, switch the background, stop music, and go back to menu
 		if (backButton.isPressed()) {
 			Group tempParent = backButton.getParent();
 			backButton.remove();
@@ -69,12 +74,14 @@ public class PauseBar {
 			Map.getInstance().getAudioManager().stopAll();
 			Map.getInstance().getAudioManager().playMenu();
 			Screens.toMenu(Screens.getMenu());		
-		} else if (saveButton.isPressed()) {
+		} //Save values to database when save button is clicked
+		else if (saveButton.isPressed()) {
 			Group tempParent = saveButton.getParent();
 			saveButton.remove();
 			tempParent.addActor(saveButton);
 			//peter help
-		} else if (quitButton.isPressed()) {
+		} //exit program when quit button is pressed
+		else if (quitButton.isPressed()) {
 			Gdx.app.exit();
 		}
 	}

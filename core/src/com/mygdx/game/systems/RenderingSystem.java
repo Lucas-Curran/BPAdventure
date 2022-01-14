@@ -37,7 +37,10 @@ public class RenderingSystem extends SortedIteratingSystem {
     private ComponentMapper<TransformComponent> transformM;
 
     
-    
+    /**
+     * Renders the textures of entities onto their box2d bodies positions
+     * @param batch - sprite batch to draw textures
+     */
 	public RenderingSystem(SpriteBatch batch) {
 		
 		super(Family.all(TransformComponent.class, TextureComponent.class).get(), new ZComparator());
@@ -53,17 +56,30 @@ public class RenderingSystem extends SortedIteratingSystem {
 		cam = new Camera();
 	}
 	
+	/**
+	 * Calculates screen size in meters
+	 * @return meterDimensions
+	 */
 	public static Vector2 getScreenSizeInMeters() {
 		meterDimensions.set(Gdx.graphics.getWidth()*PIXELS_TO_METERS, 
 				Gdx.graphics.getHeight()*PIXELS_TO_METERS);
 		return meterDimensions;
 	}
 	
+	/**
+	 * Calculates screen size in pixels
+	 * @return pixelDimensions
+	 */
 	public static Vector2 getScreenSizeInPixels() {
 		pixelDimensions.set(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		return pixelDimensions;
 	}
 	
+	/**
+	 * Converts pixels to meters
+	 * @param pixelValue number of pixels to convert
+	 * @return meters calculated (32 pixels per meter)
+	 */
 	public static float PixelsToMeters(float pixelValue){
         return pixelValue * PIXELS_TO_METERS;
     }
@@ -93,6 +109,7 @@ public class RenderingSystem extends SortedIteratingSystem {
             float originX = width/2;
             float originY = height/2;
             
+            //Draws the texture region at body position + camera center
             batch.draw(tex.region,
                     t.position.x - originX + cam.getCamera().viewportWidth / 2,
                     t.position.y - originY + cam.getCamera().viewportHeight / 2,

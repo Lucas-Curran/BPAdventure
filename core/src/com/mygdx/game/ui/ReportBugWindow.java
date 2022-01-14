@@ -38,6 +38,9 @@ public class ReportBugWindow {
 	private TextArea messageField;
 	private Table confirmationTable;
 
+	/**
+	 * Instance of bug report window to use in main menu
+	 */
 	public ReportBugWindow() {	
 		try {
 			stage = new Stage();
@@ -56,6 +59,7 @@ public class ReportBugWindow {
 			Label titleLabel = new Label("Report Bug", Utilities.ACTUAL_UI_SKIN);
 			subjectField = new TextField("", Utilities.ACTUAL_UI_SKIN);
 			messageField = new TextArea("", Utilities.ACTUAL_UI_SKIN);
+			//text area is multi line text field
 			subjectField.setMessageText("Subject");
 			messageField.setMessageText("Describe your bug...");
 			messageField.setAlignment(Align.topLeft);
@@ -117,6 +121,7 @@ public class ReportBugWindow {
 	
 	public void render(float delta) {
 		
+		//When confirm button is clicked, if the message isnt empty, send an email to the provided address and show the confirmation table
 		if (confirmButton.isPressed()) {
 			if (!messageField.getText().equals("")) {
 				sendMail();
@@ -127,11 +132,13 @@ public class ReportBugWindow {
 			}
 		}
 		
+		//Leave button on report window pressed, set visibilit to false
 		if (leaveButton.isPressed()) {
 			logger.info("Left report bug window.");
 			setBugWindowVisible(false);
 		}
 		
+		//Ok button on confirmation windoe pressed, set visibility to false
 		if (okButton.isPressed()) {
 			logger.info("Confirm bug report window left.");
 			confirmationTable.setVisible(false);
@@ -149,6 +156,9 @@ public class ReportBugWindow {
 		stage.getViewport().update(width, height);
 	}
 	
+	/**
+	 * Sends an email to the given address given message text and subject text from users input
+	 */
 	public void sendMail() {
 		
 		//insecure email

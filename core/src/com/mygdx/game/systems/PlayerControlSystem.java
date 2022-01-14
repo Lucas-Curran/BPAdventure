@@ -23,6 +23,9 @@ public class PlayerControlSystem extends IteratingSystem {
 	ComponentMapper<StateComponent> sm;
 	Camera cam;
 
+	/**
+	 * Instaniates system for controling the players movements
+	 */
 	public PlayerControlSystem() {
 		super(Family.all(PlayerComponent.class).get());
 		pm = ComponentMapper.getFor(PlayerComponent.class);
@@ -33,6 +36,10 @@ public class PlayerControlSystem extends IteratingSystem {
 	
 	public float jumpScale = 40;
 
+	/**
+	 * Sets how high or low the player jumps
+	 * @param jumpScale - height of jump
+	 */
 	public void setJumpScale(float jumpScale) {
 		this.jumpScale = jumpScale;
 	}
@@ -44,13 +51,16 @@ public class PlayerControlSystem extends IteratingSystem {
 		StateComponent state = sm.get(entity);
 		PlayerComponent player = pm.get(entity);
 
+		//checks whether entity is a player before moving
 	if (entity.getComponent(PlayerComponent.class).player == true) {
 		float horizontalVel = 3.5f;
 
+		//if body has positive or negative y velocity, set state to falling
 		if(b2body.body.getLinearVelocity().y > 0 || b2body.body.getLinearVelocity().y < 0 ) {
 			state.set(StateComponent.STATE_FALLING);
 		}
 
+		//set state back to normal if state was falling and y velocity is 0, or set to moving if x velocity is greater than 0
 		if(b2body.body.getLinearVelocity().y == 0){
 			if(state.get() == StateComponent.STATE_FALLING){
 				state.set(StateComponent.STATE_NORMAL);
@@ -60,23 +70,27 @@ public class PlayerControlSystem extends IteratingSystem {
 			}
 		}
 
+		//runs movement code if map isnt in action
 		if (!Map.getInstance().inAction()) {
+			//if A is pressed, move left
 			if(Gdx.input.isKeyPressed(Input.Keys.A)){
 				player.direction = player.LEFT;
 				
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 			}
+			//if D is pressed, move right
 			if(Gdx.input.isKeyPressed(Input.Keys.D)){
 				player.direction = player.RIGHT;
 				
 				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, horizontalVel, 0.2f),b2body.body.getLinearVelocity().y);
 			}
 
-			if(!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
-				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
-				
-			}
+//			if(!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
+//				b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
+//				
+//			}
 
+			//If space is pressed and state is normal/moving, but not falling, then make the player jump and set to jumping
 			if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && 
 					(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
 				
@@ -85,7 +99,6 @@ public class PlayerControlSystem extends IteratingSystem {
 				state.set(StateComponent.STATE_JUMPING);
 			}
 		}
-		entity.getComponent(TransformComponent.class).position.set(new Vector3(cam.getCamera().position.x, cam.getCamera().position.y, 0));
 	} 
 	}
 }
