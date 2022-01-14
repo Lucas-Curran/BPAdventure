@@ -57,6 +57,7 @@ public class Utilities {
 	public static TextureAtlas rightTextures = new TextureAtlas("moreExtraSprites.txt");
 	public static TextureAtlas levelSevenAtlas = new TextureAtlas("moreSprites.txt");
 	public static TextureAtlas levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+	public static TextureAtlas oneItemAtlas = new TextureAtlas("mostUselessAtlasOfAllTime.txt");
 	
 	public static TextureRegion rockMob = Utilities.levelTwoAtlas.findRegion("RockMobEnemy");
 	public static TextureRegion spikyRockMob = Utilities.levelTwoAtlas.findRegion("SpikyRockEnemy");
@@ -83,6 +84,8 @@ public class Utilities {
 	public static TextureRegion spikeBouncer = lvl89Atlas.findRegion("spikeBouncer");
 	public static TextureRegion steeringMob = lvl89Atlas.findRegion("steeringMob");
 	
+	public static TextureRegion keyCard = oneItemAtlas.findRegion("keyCard");
+	
 	/**
 	 * Attributions:
 	 * Ice Bird by Bevouliin licensed CC-BY 4.0: https://opengameart.org/content/flappy-bird-sprite-icy-flying-character
@@ -100,9 +103,10 @@ public class Utilities {
 	 * Level 8 Boss by Redshrike licensed CC-BY 3.0: https://opengameart.org/content/3-form-rpg-boss-harlequin-epicycle
 	 * Level 9 Alternate Vertical enemy by Blackswordo licensed CC-BY 4.0: https://opengameart.org/content/monstah
 	 * Steering Mob by GoblinGameWerx licensed CC0: https://opengameart.org/content/water-dwelling-race-head
+	 * Key Card by benlamouche license CC-BY 4.0: https://opengameart.org/content/key-cards
 	 */
 	
-
+	public static Texture giftBlock = new Texture(Gdx.files.internal("purpleBlock.png"));
 	
 	public static Skin UISKIN = new Skin(atlas);
 	public static Skin ACTUAL_UI_SKIN = new Skin(Gdx.files.internal("uiskin.json"));

@@ -1,0 +1,12 @@
+mostUselessAtlasOfAllTime.png
+size: 32, 24
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+keyCard
+  rotate: false
+  xy: 0, 0
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
