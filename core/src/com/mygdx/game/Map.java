@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
 import java.util.HashMap;
+//import org.apache.logging.log4j.Logger;
 
-import org.xml.sax.helpers.ParserFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -44,6 +46,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class Map implements Screen, InputProcessor {
+
+	static Logger logger = LogManager.getLogger(Map.class.getName());
 
 	private TextBox textBox;
 
@@ -106,7 +110,8 @@ public class Map implements Screen, InputProcessor {
 		swing = false;
 		
 		stage.addActor(pauseBar.getTable());
-		
+
+		logger.info("Map Created.");
 	}
 	
 	static {
@@ -118,10 +123,7 @@ public class Map implements Screen, InputProcessor {
 	}
 	
 	@Override
-	public void show() {
-		
-		
-		
+	public void show() {	
 		inputMultiplexer = new InputMultiplexer();	
 		inputMultiplexer.addProcessor(this);
 		inputMultiplexer.addProcessor(playerHUD.getStage());
@@ -130,14 +132,17 @@ public class Map implements Screen, InputProcessor {
 
 		if (entityHandler.getPlayer() == null) {
 			entityHandler.create();
+			logger.info("Entity handler created");
 			weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
 		}
 		if (!levels.getOverworld().isCreated()) {
 			levels.getOverworld().create();
+			logger.info("Overworld created");
 		} 
 		
 		if (!levels.getIceDungeon().isCreated()) {
 			levels.getIceDungeon().create();
+			logger.info("Ice Dungeon created");
 		}
 		inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow());
 		inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow().getStage());

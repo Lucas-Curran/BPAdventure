@@ -243,7 +243,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 			
 			for (int i = 0; i < labels.size(); i++) {
 				labels.get(i).setColor(Color.WHITE);
-			}
+			}	
 			
 			infoLabel.setText("");
 			com.mygdx.game.Map.getInstance().getAudioManager().stopAll();
@@ -263,6 +263,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 					InventoryItem tempItem = new InventoryItem(selectedBuyItem);
 					System.out.println("Bought item " + selectedBuyItem.getName());
 					com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(tempItem, selectedBuyItem.getName());
+					com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().equipEquippableItems();		
 					money.setMoney(money.getMoney() - selectedBuyItem.getCost());
 					if (!tempItem.isConsumable()) {
 						buyList.remove(itemToRemove.getChild(0));
