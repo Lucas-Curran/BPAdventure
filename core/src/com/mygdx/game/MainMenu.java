@@ -165,6 +165,7 @@ public class MainMenu implements Screen, InputProcessor {
 			 tempParent.addActor(startButton);
 			 am.stopAll();
 			 if (sm.clearTable(sm.getVolume())) {
+				 Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().setHP(sm.getHealth());
 				 Screens.toMap();
 				 return true;
 			 }

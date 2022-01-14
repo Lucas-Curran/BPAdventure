@@ -147,9 +147,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
-		
-		//am.playCave();
-				
+						
 		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
 		entityHandler.getBatch().begin();
 		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
