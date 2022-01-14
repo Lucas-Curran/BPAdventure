@@ -266,6 +266,18 @@ public class Inventory extends Window {
 		return itemIDs;	 
 	 }
 	 
+	 public ArrayList<Integer> getAllEquippedItemIDs() {
+		 ArrayList<Integer> itemIDs = new ArrayList<Integer>();
+		 for (int i = 0; i < equipmentCells.size; i++) {
+			 InventorySlot inventorySlot = ((InventorySlot) equipmentCells.get(i).getActor());
+			 if (inventorySlot.hasItem()) {
+				 InventoryItem tempItem = inventorySlot.getTopInventoryItem();
+				 itemIDs.add(tempItem.getItemTypeID().getValue());
+			 }
+		 } 
+		return itemIDs;	 
+	 }
+	 
 	 public HashMap<Label, ShopItem> getItemsToSell() {
 		 HashMap<Label, ShopItem> items = new HashMap<Label, ShopItem>();
 		 for (int i = 0; i < sourceCells.size; i++) {
