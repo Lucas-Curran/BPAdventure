@@ -31,6 +31,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
+import com.mygdx.game.SqliteManager;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.ShopItem;
@@ -41,6 +42,8 @@ import com.mygdx.game.item.InventoryItem.ItemTypeID;
 public class Inventory extends Window {
 
 	private static TextureRegion background = new TextureRegion(Utilities.UISKIN.getAtlas().findRegion("invBackground"));
+	
+	private SqliteManager sm;
 	
 	private Table equipmentTable;
 	private Table slotsTable;
@@ -68,6 +71,8 @@ public class Inventory extends Window {
 	public Inventory() {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
 	
+		sm = Map.getInstance().getSqliteManager();
+		
 		dragAndDrop = new DragAndDrop();
 		dragAndDrop.setKeepWithinStage(false);
 		
@@ -224,7 +229,7 @@ public class Inventory extends Window {
 	}
 	
 	 public void addItemToInventory(InventoryItem item, String itemName){
-		 
+//		 	sm.insertItem(item.getItemTypeID().getValue());		 
             for (int i = 0; i < sourceCells.size; i++) {
 	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 	                if (inventorySlot == null)  {
@@ -241,6 +246,7 @@ public class Inventory extends Window {
 	    }
 	 
 	 public void removeItemFromInventory(InventoryItem item) {
+//		 sm.deleteItem(item.getItemTypeID().getValue());		
 		 for (int i = 0; i < sourceCells.size; i++) {
 			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 			 if (inventorySlot == null) {

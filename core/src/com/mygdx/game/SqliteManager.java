@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class SqliteManager {
 	
@@ -87,6 +88,41 @@ public class SqliteManager {
 		} catch (SQLException e) {
 //			System.out.println(e.getMessage());
 		}
+	}
+	
+	/**
+	 * Inserts an item into the inventory table
+	 * @param item - Integer value of item
+	 */
+	public void insertItem(int item) {
+		String sql = "INSERT INTO Inventory(Item) Values(?)";
+		try {
+			PreparedStatement input = connect().prepareStatement(sql);
+			input.setInt(1, item);
+			input.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Deletes item from inventory table
+	 * @param item - Integer value of item
+	 */
+	public void deleteItem(int item) {
+		String sql = "DELETE FROM Inventory WHERE Item = " + item;
+		try {
+			PreparedStatement pstmt = connect().prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Integer> getAllItems() {
+		ArrayList<Integer> items = new ArrayList<>();
+		
+		return items;
 	}
 	
 	/**
@@ -268,15 +304,18 @@ public class SqliteManager {
 	 * Clears out both tables in database
 	 */
 	public boolean clearTable(int volume) {
-		 String sql2 = "DELETE FROM Inventory";
 		 String sql = "UPDATE Progress SET Stage = 0, Currency = 0, Health = 100, Volume = " + volume + " WHERE id = 1";
+		 String sql2 = "DELETE FROM Inventory";
+		 String sql3 = "DELETE FROM sqlite_sequence WHERE name = 'Inventory'";
 	        try {
 	        	//Creates sql statments to execute
 	        	PreparedStatement pstmt = connect().prepareStatement(sql);
 	            PreparedStatement pstmt2 = connect().prepareStatement(sql2);
+	            PreparedStatement pstmt3 = connect().prepareStatement(sql3);
 	            // execute the delete statement
-	            pstmt2.executeUpdate();
 	            pstmt.executeUpdate();
+	            pstmt2.executeUpdate();
+	            pstmt3.executeUpdate();
 		        defaultInfo();
 	            conn.close();
 	            return true;

@@ -95,6 +95,15 @@ public class InventoryItem extends Image {
 		public int getValue() {
 			return itemTypeID;
 		}
+		
+		public ItemTypeID getItem(int value) {
+		    for (ItemTypeID e : values()) {
+		        if (e.itemTypeID == value) {
+		            return e;
+		        }
+		    }
+		    return null;
+		}
 	}
 	
 	private int itemAttributes;
