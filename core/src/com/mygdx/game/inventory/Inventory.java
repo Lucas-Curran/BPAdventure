@@ -31,6 +31,8 @@ import com.mygdx.game.SqliteManager;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.Enemy;
 import com.mygdx.game.item.InventoryItem;
+import com.mygdx.game.item.InventoryItem.ItemAttribute;
+import com.mygdx.game.item.InventoryItem.ItemTypeID;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.item.ShopItem;
 import com.mygdx.game.ui.HealthBar;
@@ -246,8 +248,128 @@ public class Inventory extends Window {
 		}
 	}
 	
+	public void addItemFromDatabase(ItemTypeID id) {
+		switch(id) {
+			case APPLE:
+				InventoryItem apple = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.APPLE);
+				addItemToInventory(apple, "Apple");
+				break;
+			case BODYARMOR01:
+				InventoryItem bodyArmor1 = new InventoryItem(Utilities.itemsAtlas.findRegion("armorchest01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.BODYARMOR01);
+				addItemToInventory(bodyArmor1, "Beginner Chestplate");
+				break;
+			case BODYARMOR02:
+				InventoryItem bodyArmor2 = new InventoryItem(Utilities.itemsAtlas.findRegion("chestarmor02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.BODYARMOR02);
+				addItemToInventory(bodyArmor2, "The Green Man's Chestplate");
+				break;
+			case BODYARMOR03:
+				InventoryItem bodyArmor3 = new InventoryItem(Utilities.itemsAtlas.findRegion("armorchest03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.BODYARMOR03);
+				addItemToInventory(bodyArmor3, "Shining Chestplate");
+				break;
+			case BOOTS01:
+				InventoryItem boots1 = new InventoryItem(Utilities.itemsAtlas.findRegion("boots01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS01);
+				addItemToInventory(boots1, "Beginner Boots");
+				break;
+			case BOOTS02:
+				InventoryItem boots2 = new InventoryItem(Utilities.itemsAtlas.findRegion("boots02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS02);
+				addItemToInventory(boots2, "Runner's Boots");
+				break;
+			case BOOTS03:
+				InventoryItem boots3 = new InventoryItem(Utilities.itemsAtlas.findRegion("boots03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS03);
+				addItemToInventory(boots3, "Herme's Great Boots");
+				break;
+			case BURGER:
+				InventoryItem burger = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.BURGER);
+				addItemToInventory(burger, "Burger");
+				break;
+			case CAKE:
+				InventoryItem cake = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.BURGER);
+				addItemToInventory(cake, "Cake");
+				break;
+			case DESERTSHIELD:
+				InventoryItem desertShield =  new InventoryItem(Utilities.otherTexturesAtlas.findRegion("desertShield"),ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.DESERTSHIELD);
+				addItemToInventory(desertShield, "Desert Shield");
+				break;
+			case DONUT:
+				InventoryItem donut = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.BURGER);
+				addItemToInventory(donut, "Donut");
+				break;
+			case HELMET01:
+				InventoryItem helmet1 = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.HELMET01);
+				addItemToInventory(helmet1, "Beginner Helmet");
+				break;
+			case HELMET02:
+				InventoryItem helmet2 = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.HELMET02);
+				addItemToInventory(helmet2, "Helmet of the Forgotten Adventurer");
+				break;
+			case HELMET03:
+				InventoryItem helmet3 = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.HELMET03);
+				addItemToInventory(helmet3, "Orc Warlord's Great Helm");
+				break;
+			case ICESHIELD:
+				InventoryItem iceShield = new InventoryItem(Utilities.otherTexturesAtlas.findRegion("iceShield"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.ICESHIELD);
+				addItemToInventory(iceShield, "Ice Shield");
+				break;
+			case ICESWORD:
+				InventoryItem iceSword = new InventoryItem(Utilities.otherTexturesAtlas.findRegion("iceSword"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.ICESWORD);
+				addItemToInventory(iceSword, "Ice Sword");
+				break;
+			case JUNGLECHEST:
+				InventoryItem jungleChest = new InventoryItem(Utilities.otherTexturesAtlas.findRegion("jungleChest"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.JUNGLECHEST);;
+				addItemToInventory(jungleChest, "Jungle Chestplate");
+				break;
+			case JUNGLEHELMET:
+				InventoryItem jungleHelmet = new InventoryItem(Utilities.otherTexturesAtlas.findRegion("jungleHelmet"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.JUNGLEHELMET);
+				addItemToInventory(jungleHelmet, "Jungle Helmet");
+				break;
+			case JUNGLESTAFF:
+				InventoryItem jungleStaff =  new InventoryItem(Utilities.otherTexturesAtlas.findRegion("jungleStaff"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.JUNGLESTAFF);
+				addItemToInventory(jungleStaff, "Jungle Staff");
+				break;
+			case LEGS01:
+				InventoryItem legs1 = new InventoryItem(Utilities.itemsAtlas.findRegion("legs01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_LEGS.getValue(), ItemTypeID.LEGS01);
+				addItemToInventory(legs1, "Beginner Legs");
+				break;
+			case LEGS02:
+				InventoryItem legs2 = new InventoryItem(Utilities.itemsAtlas.findRegion("legs02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_LEGS.getValue(), ItemTypeID.LEGS02);
+				addItemToInventory(legs2, "Sailer's Legs");
+				break;
+			case LEGS03:
+				InventoryItem legs3 = new InventoryItem(Utilities.itemsAtlas.findRegion("legs03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_LEGS.getValue(), ItemTypeID.LEGS03);
+				addItemToInventory(legs3, "Carnivorous Legs");
+				break;
+			case SHIELD01:
+				InventoryItem shield1 = new InventoryItem(Utilities.itemsAtlas.findRegion("shield01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.SHIELD01);
+				addItemToInventory(shield1, "Beginner Shield");
+				break;
+			case SHIELD02:
+				InventoryItem shield2 = new InventoryItem(Utilities.itemsAtlas.findRegion("shield02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.SHIELD02);
+				addItemToInventory(shield2, "Iron Shield");
+				break;
+			case SHIELD03:
+				InventoryItem shield3 = new InventoryItem(Utilities.itemsAtlas.findRegion("shield03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_SHIELD.getValue(), ItemTypeID.SHIELD03);
+				addItemToInventory(shield3, "Unpenetrable Shield");
+				break;
+			case WEAPON01:
+				InventoryItem weapon1 = new InventoryItem(Utilities.itemsAtlas.findRegion("sword01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON01);
+				addItemToInventory(weapon1, "Beginner Sword");
+				break;
+			case WEAPON02:
+				InventoryItem weapon2 = new InventoryItem(Utilities.itemsAtlas.findRegion("sword02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON02);
+				addItemToInventory(weapon2, "Great Sword");
+				break;
+			case WEAPON03:
+				InventoryItem weapon3 = new InventoryItem(Utilities.itemsAtlas.findRegion("sword03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON03);
+				addItemToInventory(weapon3, "Legend's Sword");
+				break;
+			default:
+				break;
+		}
+		equipEquippableItems();
+	} 
+	
 	 public void addItemToInventory(InventoryItem item, String itemName){
-//		 	sm.insertItem(item.getItemTypeID().getValue());		 
+		 	sm.insertItem(item.getItemTypeID().getValue());		 
             for (int i = 0; i < sourceCells.size; i++) {
 	                InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 	                if (inventorySlot == null)  {
@@ -265,7 +387,7 @@ public class Inventory extends Window {
 	    }
 	 
 	 public void removeItemFromInventory(InventoryItem item) {
-//		 sm.deleteItem(item.getItemTypeID().getValue());		
+		 sm.deleteItem(item.getItemTypeID().getValue());		
 		 for (int i = 0; i < sourceCells.size; i++) {
 			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 			 if (inventorySlot == null) {
