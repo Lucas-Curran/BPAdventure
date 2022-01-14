@@ -5,11 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.mygdx.game.components.PlayerComponent;
-import com.mygdx.game.entities.Player;
+
 
 public class Weapon {
 	
@@ -32,6 +30,11 @@ public class Weapon {
 		bodyFactory = BodyFactory.getInstance(new GameWorld().getInstance());
 	}
 	
+	/**
+	 * Creates sword
+	 * @param x - x position of sword
+	 * @param y - y position of sword
+	 */
 	public void createSword(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -42,6 +45,12 @@ public class Weapon {
 		logger.info("Sword created.");
 	}
 	
+	/**
+	 * Adjusts sword position
+	 * @param x - x position
+	 * @param y - y position 
+	 * @param direction - direction of player
+	 */
 	public void positionSword(float x, float y, int direction) {
 		this.direction = direction;
 		if (direction == LEFT) {
@@ -51,27 +60,20 @@ public class Weapon {
 		} 
 	}
 	
+	/**
+	 * Swings the sword (Stabbing motion)
+	 */
 	public void swingSword() {	
 		if (direction == LEFT) {
 			if (startSwing) {
-//				sword.applyAngularImpulse(0.4f, true);	
-//				if (sword.getAngularVelocity() >= 47) {
-//					startSwing =! startSwing;
-//				}
-				
 				sword.applyLinearImpulse(-1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				//retracts sword after reaching certain velocity
 				if (sword.getLinearVelocity().x <= -30) {
 					startSwing =! startSwing;
 				}
 			} else if (!startSwing) {
-//				sword.applyAngularImpulse(-0.4f, true);
-//				if (sword.getAngularVelocity() < 0) {
-//					sword.setAngularVelocity(0);
-//					swingFinished = true;	
-//					startSwing = true;
-//				}
-				
 				sword.applyLinearImpulse(1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				//stops sword and ends swing
 				if (sword.getLinearVelocity().x > 0) {
 					sword.setLinearVelocity(0, 0);
 					swingFinished = true;	
@@ -81,22 +83,14 @@ public class Weapon {
 			
 		} else {
 			if (startSwing) {
-//				sword.applyAngularImpulse(-0.4f, true);	
-//				if (sword.getAngularVelocity() <= -47) {
-//					startSwing =! startSwing;
-//				}
 				sword.applyLinearImpulse(1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				//retracts sword after reaching certain velocity
 				if (sword.getLinearVelocity().x >= 30) {
 					startSwing =! startSwing;
 				}
 			} else if (!startSwing) {
-//				sword.applyAngularImpulse(0.4f, true);
-//				if (sword.getAngularVelocity() > 0) {
-//					sword.setAngularVelocity(0);
-//					swingFinished = true;	
-//					startSwing = true;
-//				}
 				sword.applyLinearImpulse(-1.5f, 0, sword.getPosition().x, sword.getPosition().y, true);
+				//stops sword and ends swing
 				if (sword.getLinearVelocity().x < 0) {
 					sword.setLinearVelocity(0, 0);
 					swingFinished = true;	
@@ -107,10 +101,18 @@ public class Weapon {
 		}
 	}
 	
+	/**
+	 * Checks if swing is finished
+	 * @return - boolean if swing is finished
+	 */
 	public boolean isSwingFinished() {
 		return swingFinished;
 	}	
 	
+	/**
+	 * Sets if swing is finished
+	 * @param swingFinished - boolean for swing finish
+	 */
 	public void setSwingFinished(boolean swingFinished) {
 		this.swingFinished = swingFinished;
 	}

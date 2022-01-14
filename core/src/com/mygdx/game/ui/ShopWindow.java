@@ -9,40 +9,33 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.ShopItem;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 
 public class ShopWindow extends Window implements InputProcessor  {
@@ -266,6 +259,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 			}	
 			
 			infoLabel.setText("");
+			com.mygdx.game.Map.getInstance().getAudioManager().playButton();
 			com.mygdx.game.Map.getInstance().getAudioManager().stopAll();
 			com.mygdx.game.Map.getInstance().getAudioManager().playOverworld();
 			
@@ -273,6 +267,8 @@ public class ShopWindow extends Window implements InputProcessor  {
 		}
 		
 		if (confirmButton.isPressed()) {
+			
+			com.mygdx.game.Map.getInstance().getAudioManager().playButton();
 			
 			Group tempParent = confirmButton.getParent();
 			confirmButton.remove();

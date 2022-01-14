@@ -7,8 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Settings;
@@ -31,8 +29,9 @@ public class Bullet extends EntityHandler {
 		
 		bullets = new ArrayList<Entity>();
 	}
+	
 	/**
-	 * 
+	 * Creates bullet
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param xVel - x speed and direction

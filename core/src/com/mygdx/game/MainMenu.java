@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.ui.ReportBugWindow;
 
 public class MainMenu implements Screen, InputProcessor {
@@ -182,6 +180,7 @@ public class MainMenu implements Screen, InputProcessor {
 			 Group tempParent = startButton.getParent();
 			 startButton.remove();
 			 tempParent.addActor(startButton);
+			 am.playButton();
 			 am.stopAll();
 			 if (sm.clearTable(sm.getVolume())) {
 				 Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().setHP(sm.getHealth());
@@ -193,20 +192,24 @@ public class MainMenu implements Screen, InputProcessor {
 			 Group tempParent = continueButton.getParent();
 			 continueButton.remove();
 			 tempParent.addActor(continueButton); 
+			 am.playButton();
 			 am.stopAll();
 			 logger.info("Continue button on menu pressed");
 			 Screens.toMap();
 			 return true;
 		 } else if (settingsButton.isPressed()) {
-				 am.stopAll();
-				 logger.info("Settings button on menu pressed");
-				 Screens.toSettings(new Settings());
+			 am.playButton();
+			 am.stopAll();
+			 logger.info("Settings button on menu pressed");
+			 Screens.toSettings(new Settings());
 		 } else if (quitButton.isPressed()) {
+			 am.playButton();
 			 dispose();
 			 logger.info("Quit button pressed, app exited.");
 			 Gdx.app.exit();
 		 } else if (reportBugButton.isPressed()) {
 			 logger.info("Report Bug Button pressed.");
+			 am.playButton();
 			 bugWindow.setBugWindowVisible(true);
 		 }
 		return false;

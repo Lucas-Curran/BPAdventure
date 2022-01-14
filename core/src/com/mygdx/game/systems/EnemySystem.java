@@ -9,12 +9,13 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.EnemyComponent;
-import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.components.EnemyComponent.EnemyState;
+import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.Enemy;
 
@@ -41,6 +42,7 @@ public class EnemySystem extends IteratingSystem {
     float timerReset = 0;
 	
 	public EnemySystem() {
+		//gets components for enemies
 		super(Family.all(EnemyComponent.class).get());
 		ec = ComponentMapper.getFor(EnemyComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
@@ -89,6 +91,7 @@ public class EnemySystem extends IteratingSystem {
 		
 		//Check if health is less than 0 and set enemy to dead
 		if (enemyCom.health <= 0) {
+			Map.getInstance().getAudioManager().playEnemyDeath();
 			bodyCom.isDead = true;
 		} 
 		
@@ -223,6 +226,7 @@ public class EnemySystem extends IteratingSystem {
 	private void aiSteering() {
 		float distance = playerCom.body.getPosition().dst(bodyCom.body.getPosition());
 		SteeringComponent playerSteering = steering.get(player);
+		// deploys different types of steering based on distance from player
 		if(distance < 1 && sCom.currentMode != SteeringComponent.SteeringState.ARRIVE){
 			sCom.steeringBehavior = SteeringPresets.getFlee(sCom, playerSteering);
 			sCom.currentMode = SteeringComponent.SteeringState.FLEE;

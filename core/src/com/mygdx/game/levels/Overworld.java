@@ -1,27 +1,9 @@
 package com.mygdx.game.levels;
 
-//Any textures not credited are either either public domain or custom made by the BPAdventure Team.
-
-import java.util.ArrayList;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.PolygonRegion;
-import com.badlogic.gdx.graphics.g2d.PolygonSprite;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.EarClippingTriangulator;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.BodyFactory;
-import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.entities.NPC;

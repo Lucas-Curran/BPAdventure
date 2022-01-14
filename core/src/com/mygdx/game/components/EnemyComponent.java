@@ -16,7 +16,7 @@ public class EnemyComponent implements Component {
 	public int bulletRange;
 	public boolean random;
 
-
+	//Enum for enemy types
 	public static enum EnemyState {
 		PATROL		(0),
 		BOUNCE		(1),

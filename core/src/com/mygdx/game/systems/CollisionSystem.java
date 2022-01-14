@@ -1,5 +1,11 @@
 package com.mygdx.game.systems;
 
+import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.mygdx.game.Map;
 import com.mygdx.game.SqliteManager;
 import com.mygdx.game.components.BulletComponent;
@@ -7,13 +13,6 @@ import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.ui.HealthBar;
-import com.mygdx.game.ui.StatusUI;
-import com.badlogic.ashley.core.ComponentMapper;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 
 public class CollisionSystem  extends IteratingSystem {
 	 ComponentMapper<CollisionComponent> cm;

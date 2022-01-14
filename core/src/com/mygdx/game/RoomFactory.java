@@ -6,9 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class RoomFactory {
 	

@@ -120,21 +120,21 @@ public class Enemy extends EntityHandler {
 		return entity;
 	}
 	
-/**
- * creates enemies of the type Shooter in various levels
- * @param posx - x coordinate
- * @param posy - y coordinate
- * @param range - how far the enemy moves
- * @param radius - how big it is
- * @param bulletXDirection - the direction and speed of the bullet in x plane
- * @param bulletYDirection - direction and speed of the bullet in y plane
- * @param bulletRange - how far it goes before it dies
- * @param time - the time between bullet shots
- * @param entityTexture - what it looks like
- * @param random - whether the bullet shots will be in random directions or not
- * @return - the completed enemy shooter as an Entity
- */
-public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture, boolean random, int hp) {
+	/**
+	 * creates enemies of the type Shooter in various levels
+	 * @param posx - x coordinate
+	 * @param posy - y coordinate
+	 * @param range - how far the enemy moves
+	 * @param radius - how big it is
+	 * @param bulletXDirection - the direction and speed of the bullet in x plane
+	 * @param bulletYDirection - direction and speed of the bullet in y plane
+	 * @param bulletRange - how far it goes before it dies
+	 * @param time - the time between bullet shots
+	 * @param entityTexture - what it looks like
+	 * @param random - whether the bullet shots will be in random directions or not
+	 * @return - the completed enemy shooter as an Entity
+	 */
+	public Entity createEnemyShooter(float posx, float posy, int range, float radius, int bulletXDirection, int bulletYDirection, int bulletRange, int time, TextureRegion entityTexture, boolean random, int hp) {
 		
 		// Create the Entity and all the components that will go in the entity
 		Entity entity = pooledEngine.createEntity();

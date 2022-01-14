@@ -1,21 +1,20 @@
 package com.mygdx.game.systems;
 
 
-import com.mygdx.game.Camera;
-import com.mygdx.game.Map;
-import com.mygdx.game.TextBox;
-import com.mygdx.game.components.*;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Keys;
-
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.Camera;
+import com.mygdx.game.Map;
+import com.mygdx.game.components.B2dBodyComponent;
+import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.components.StateComponent;
+import com.mygdx.game.components.TransformComponent;
 
 public class PlayerControlSystem extends IteratingSystem {
 

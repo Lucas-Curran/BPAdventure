@@ -4,8 +4,6 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.mygdx.game.components.NPCComponent;
 
 public class NPCSystem extends IteratingSystem {
