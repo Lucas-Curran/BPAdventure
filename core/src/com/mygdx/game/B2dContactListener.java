@@ -108,12 +108,17 @@ public class B2dContactListener implements ContactListener {
 									case LVL_4:
 										parent.removeLevelThree();
 										parent.spawnLevelFour();
+										
+										
 										if (!parent.getLevels().getLevelFour().isCreated()) {
 											parent.getLevels().getLevelFour().create();
 										}
+										
+										
 										break;
 									case LVL_5:
 										parent.removeLevelFour();
+										parent.removeIceDungeon();
 										parent.spawnLevelFive();
 										if (!parent.getLevels().getLevelFive().isCreated()) {
 											parent.getLevels().getLevelFive().create();

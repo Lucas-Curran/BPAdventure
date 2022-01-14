@@ -64,8 +64,6 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 		public void create() {	
 			super.createLevel(15, 800, 1, 100, 20, texture);
 			
-			
-			
 			NPC npc = new NPC();
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I lied Ice Cream...", "Heh heh heh...HEH!", "More danger than you could possibly fathom awaits you now..." 
 					}, -32, 797, Utilities.levelSevenAtlas.findRegion("oldMan"), false));

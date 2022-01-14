@@ -304,6 +304,8 @@ public class EntityHandler implements ApplicationListener {
 			}
 		}
 	}
+	
+	
 
 	public void removeLevelFour() {
 		for (Entity enemy : enemies.getLevelFourEnemies()) {
@@ -312,6 +314,28 @@ public class EntityHandler implements ApplicationListener {
 			}
 		}
 		enemies.getLevelFourEnemies().clear();
+	}
+	
+	public void spawnIceDungeon() {
+		enemies.addIceDungeonEnemies();
+		for (Entity enemy : enemies.getIceDungeonEnemies()) {
+
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = false;
+				if (!pooledEngine.getEntities().contains(enemy, true)) {
+					pooledEngine.addEntity(enemy);
+				}
+			}
+		}
+	}
+	
+	public void removeIceDungeon() {
+		for (Entity enemy : enemies.getIceDungeonEnemies()) {
+			if (enemy.getComponent(B2dBodyComponent.class) != null) {
+				enemy.getComponent(B2dBodyComponent.class).isDead = true;
+			}
+		}
+		enemies.getIceDungeonEnemies().clear();
 	}
 
 	public void spawnLevelFive() {
@@ -444,13 +468,6 @@ public class EntityHandler implements ApplicationListener {
 			}
 		}
 		enemies.getLevelTenEnemies().clear();
-	}
-
-	public void spawnIceDungeon() {
-		enemies.addIceDungeon();
-		for (Entity enemy : enemies.getLevelThreeEnemies()) {
-			pooledEngine.addEntity(enemy);
-		}
 	}
 
 	public void spawnBullets() {

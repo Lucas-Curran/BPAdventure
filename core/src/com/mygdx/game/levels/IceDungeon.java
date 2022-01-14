@@ -39,7 +39,7 @@ public class IceDungeon extends LevelFactory implements ApplicationListener {
 		super.createLevel(500, 100, 1, 50, 10, texture);
 		isCreated = true;
 		
-		db.createDoor(512, 93, 26, 276, BodyFactory.STONE, "backTo4", LevelDestination.LVL_4);
+		db.createDoor(512, 92.5f, 26, 276, BodyFactory.STONE, "backTo4", LevelDestination.INTERNAL);
 		loot[0] = bodyFactory.makeBoxPolyBody(514, 93.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
 
 		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");

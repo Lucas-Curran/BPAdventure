@@ -45,7 +45,7 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 		
 
 		db.createDoor(-33, 287.5f, -35, 388, BodyFactory.STONE, "doorTo5", LevelDestination.LVL_5);
-		db.createDoor(27, 276f, 480, 95, BodyFactory.STONE, "doorToDungeon", LevelDestination.LVL_2);
+		db.createDoor(27, 275.5f, 480, 95, BodyFactory.STONE, "doorToDungeon", LevelDestination.INTERNAL);
 		
 	
 		platforms[0] = bodyFactory.makeBoxPolyBody(0, 254f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
