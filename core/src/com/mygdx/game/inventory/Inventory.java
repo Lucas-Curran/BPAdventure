@@ -202,17 +202,16 @@ public class Inventory extends Window {
 		 }
 	 }
 	 
-	 public ArrayList<InventoryItem> getAllItems() {
-		 
+	 public ArrayList<Integer> getAllItemIDs() {
+		 ArrayList<Integer> itemIDs = new ArrayList<Integer>();
 		 for (int i = 0; i < sourceCells.size; i++) {
 			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 			 if (inventorySlot.hasItem()) {
 				 InventoryItem tempItem = inventorySlot.getTopInventoryItem();
-				 //tempItem.getItemTypeID()
+				 itemIDs.add(tempItem.getItemTypeID().getValue());
 			 }
-		 }
-		 
-		return null;	 
+		 } 
+		return itemIDs;	 
 	 }
 	 
 	 public HashMap<Label, ShopItem> getItemsToSell() {

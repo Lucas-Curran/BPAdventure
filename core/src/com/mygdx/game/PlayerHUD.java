@@ -88,7 +88,7 @@ public class PlayerHUD extends Window {
 	
 	public void popUpInventory() {
 		if (inventory.isVisible()) {
-			inventory.setVisible(false);
+			inventory.setVisible(false);		
 		} else {
 			inventory.toFront();
 			inventory.setVisible(true);

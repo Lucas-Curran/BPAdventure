@@ -37,6 +37,9 @@ public class PauseBar {
 	}
 	
 	public void render() {
+		if (!optionsTable.isVisible())  {
+			optionsTable.setVisible(true);
+		}
 		if (backButton.isPressed()) {
 			Group tempParent = backButton.getParent();
 			backButton.remove();
