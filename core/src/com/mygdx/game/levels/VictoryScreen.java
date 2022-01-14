@@ -46,7 +46,7 @@ public class VictoryScreen extends LevelFactory implements ApplicationListener {
 		super.createLevel(700, 100, 1, 50, 10, texture);
 		isCreated = true;
 
-		db.createDoor(698, 97, 17, 1.5f, BodyFactory.STONE, "backToHome", LevelDestination.OVERWORLD);
+		db.createDoor(698, 96.5f, 17, 1.5f, BodyFactory.STONE, "backToHome", LevelDestination.OVERWORLD);
 
 		platforms[0] = bodyFactory.makeBoxPolyBody(694, 93, 2, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
 		platforms[1] = bodyFactory.makeBoxPolyBody(698, 95, 3, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, texture);
@@ -54,7 +54,7 @@ public class VictoryScreen extends LevelFactory implements ApplicationListener {
 		//Creates NPCs
 		NPC npc = new NPC();
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Congratulations! You are the first person to ever clear The Cave", "Thanks to you I am no longer trapped here, I never had any doubt in you my friend."
-		}, 685, 92, Utilities.rightTextures.findRegion("squirrelMan"), false));
+		}, 685, 92, Utilities.levelSevenAtlas.findRegion("squirrelMan"), false));
 
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Thanks to you, the Slime Kingdom has been saved and we can now return to our homeland.", "Let us leave together, after you my frie-", "No...my Hero."
 		}, 689, 92, Utilities.otherTexturesAtlas.findRegion("slimeKing"), false));
