@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class SqliteManager {
 	
-	private static final String URL = "jdbc:sqlite:Progress.db";
+	private static final String URL = "jdbc:sqlite::resource:Progress.db";
 	private static Connection conn = null;
 
 	

@@ -71,7 +71,7 @@ public class Inventory extends Window {
 	public Inventory() {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
 	
-		sm = Map.getInstance().getSqliteManager();
+		sm = new SqliteManager();
 		
 		dragAndDrop = new DragAndDrop();
 		dragAndDrop.setKeepWithinStage(false);
