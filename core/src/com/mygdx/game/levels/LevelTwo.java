@@ -52,8 +52,8 @@ public class LevelTwo extends LevelFactory implements ApplicationListener{
 		inLevelTwo = true;
 		isCreated = true;        
 		//Creates door to Level 3
-//		db.createDoor(39, 92.5f, -35, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
-		db.createDoor(39, 92.5f, -35, 588, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_7);
+		db.createDoor(39, 92.5f, -35, 188, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_3);
+//		db.createDoor(39, 92.5f, -35, 588, BodyFactory.ICE, "DoorToLevel3", LevelDestination.LVL_7);
 
 		
 		//Creates Level One NPCs
