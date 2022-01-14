@@ -414,6 +414,15 @@ public class Inventory extends Window {
 				 inventorySlot.getTopInventoryItem().remove();
 			 }
 		 }
+		 for (int i = 0; i < equipmentCells.size; i++) {
+			 InventorySlot inventorySlot = ((InventorySlot) equipmentCells.get(i).getActor());
+			 if (inventorySlot == null) {
+				 continue;
+			 }
+			 if (inventorySlot.hasItem()) {
+				 inventorySlot.getTopInventoryItem().remove();
+			 }
+		 }
 	 }
 	 
 	 public ArrayList<Integer> getAllItemIDs() {
