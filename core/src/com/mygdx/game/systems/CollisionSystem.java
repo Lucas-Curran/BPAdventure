@@ -20,7 +20,7 @@ public class CollisionSystem  extends IteratingSystem {
 	 ComponentMapper<PlayerComponent> pm;
 	 ComponentMapper<BulletComponent> bc;
 	 HealthBar hb;
-	 SqliteManager sm = new SqliteManager();
+	 SqliteManager sm = Map.getInstance().getSqliteManager();
  
 	public CollisionSystem() {
 		// only need to worry about player collisions

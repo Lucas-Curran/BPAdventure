@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.mygdx.game.BpaAssetManager;
+import com.mygdx.game.Map;
 import com.mygdx.game.SqliteManager;
 
 public class HealthBar extends Actor {

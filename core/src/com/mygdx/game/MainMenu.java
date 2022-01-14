@@ -31,6 +31,7 @@ public class MainMenu implements Screen, InputProcessor {
 	private BitmapFont font;
 	private InputMultiplexer inputMultiplexer;
 	private AudioManager am;
+	private SqliteManager sm;
 	private ReportBugWindow bugWindow;
 	
 	public MainMenu() {
@@ -67,7 +68,8 @@ public class MainMenu implements Screen, InputProcessor {
 		table.add(reportBugButton).width(180).height(70).padLeft(250);
 		stage.addActor(table);
 		
-		am = new AudioManager();
+		am = Map.getInstance().getAudioManager();
+		sm = Map.getInstance().getSqliteManager();
 	}
 	
 	@Override
@@ -158,10 +160,15 @@ public class MainMenu implements Screen, InputProcessor {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (startButton.isPressed()) {
 			 am.stopAll();
+			 boolean volChanged = sm.getVolume() != 50;
+			 if (sm.clearTable(volChanged)) {
+				 Screens.toMap();
+				 return true;
+			 }
+		 } else if (continueButton.isPressed()) {
+			 am.stopAll();
 			 Screens.toMap();
 			 return true;
-		 } else if (continueButton.isPressed()) {
-			 
 		 } else if (settingsButton.isPressed()) {
 				 am.stopAll();
 				 Screens.toSettings(new Settings());

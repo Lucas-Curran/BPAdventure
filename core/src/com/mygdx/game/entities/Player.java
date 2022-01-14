@@ -137,6 +137,7 @@ public class Player extends EntityHandler {
 
 	            Map.getInstance().teleporting = false;
 	            Map.getInstance().getAudioManager().stopAll();
+	            Map.getInstance().getAudioManager().updateAll();
 	            Map.getInstance().getAudioManager().playCave();
 	        }
 	    }

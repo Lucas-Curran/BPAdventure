@@ -30,7 +30,7 @@ public class Settings implements Screen {
 	Table table;
 	Skin skin;
 	
-	AudioManager am = new AudioManager();
+	AudioManager am = Map.getInstance().getAudioManager();
 
 	private SpriteBatch spriteBatch;
 	private Camera cam;
@@ -48,7 +48,7 @@ public class Settings implements Screen {
 		cam = new Camera();
 		stage = new Stage();
 		table = new Table();
-		sm = new SqliteManager();
+		sm = Map.getInstance().getSqliteManager();
 	}
 	
 	/**

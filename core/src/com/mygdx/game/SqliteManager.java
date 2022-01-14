@@ -38,7 +38,7 @@ public class SqliteManager {
 	public static void createTable() {
 		try {
 			String playerSQL = "CREATE TABLE IF NOT EXISTS Progress (\n"
-					+ "id INTEGER PRIMARY KEY AUTOINCREMENT, \n"
+					+ "id INTEGER PRIMARY KEY, \n"
 					+ "Stage INTEGER, \n"
 					+ "Currency INTEGER, \n"
 					+ "Health INTEGER, \n"
@@ -76,7 +76,7 @@ public class SqliteManager {
 	 * Used when starting a new game
 	 */
 	public static void defaultInfo() {
-		String sql = "INSERT INTO Progress(Stage,Currency,Health,Volume) Values(0,0,100,50)";
+		String sql = "INSERT INTO Progress(id,Stage,Currency,Health,Volume) Values(1,0,0,100,50)";
 		try {
 			//Connects to progress table
 			conn = DriverManager.getConnection(URL);
@@ -122,7 +122,7 @@ public class SqliteManager {
 			volumeData = rs.getInt("volume");
 			conn.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		}
 		return volumeData;
 	}
@@ -166,27 +166,131 @@ public class SqliteManager {
 	}
 	
 	/**
+	 * Updates currency in progress table
+	 * @param money - Integer value of money
+	 */
+	public void updateMoney(int money) {
+		String sql = "UPDATE Progress SET Currency = " + money + " WHERE id = 1";
+		try {
+			//Connects to progress table
+			PreparedStatement input = connect().prepareStatement(sql);
+			//executes update
+			input.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Gets hp stored in progress table
+	 * @return - Integer value of health
+	 */
+	public int getMoney() {
+		String sql = "SELECT Currency FROM Progress WHERE id = 1";
+		int money =  0;
+		try {
+			//connect to progress table
+			conn = DriverManager.getConnection(URL);
+			Statement stmt = connect().createStatement();
+			//execute select statment
+			ResultSet rs = stmt.executeQuery(sql);
+			money = rs.getInt("currency");
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return money;
+	}
+	
+	/**
+	 * Updates stage in progress table
+	 * @param stage - Stage number
+	 */
+	public void updateStage(int stage) {
+		String sql = "UPDATE Progress SET Stage = " + stage + " WHERE id = 1";
+		try {
+			//Connects to progress table
+			PreparedStatement input = connect().prepareStatement(sql);
+			//executes update
+			input.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Gets stage number stored in progress table
+	 * @return - Stage number
+	 */
+	public int getStage() {
+		String sql = "SELECT Stage FROM Progress WHERE id = 1";
+		int stage =  0;
+		try {
+			//connect to progress table
+			conn = DriverManager.getConnection(URL);
+			Statement stmt = connect().createStatement();
+			//execute select statment
+			ResultSet rs = stmt.executeQuery(sql);
+			stage = rs.getInt("currency");
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return stage;
+	}
+	
+	/**
+	 * Updates all values in progress table excluding volume
+	 * @param stage - Stage number
+	 * @param health - Health value
+	 * @param currency - Amount of coins
+	 */
+	public void updateAll(int stage, int health, int currency) {
+		String sql = "UPDATE Progress SET"
+				+ "Stage = " + stage + ","
+				+ "Health = " + health + ","
+				+ "Currency = " + currency
+				+ "WHERE id = 1";
+		try {
+			//Connects to progress table
+			PreparedStatement input = connect().prepareStatement(sql);
+			//executes update
+			input.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/**
 	 * Clears out both tables in database
 	 */
-	public void clearTable(boolean volumeChanged) {
+	public boolean clearTable(boolean volumeChanged) {
 		 String sql = "DELETE FROM Progress";
 		 String sql2 = "DELETE FROM Inventory";
 		 String volChangedSQL = "UPDATE Progress SET Stage = 0, Currency = 0, Health = 100 WHERE id = 1";
 	        try {
 	        	//Creates sql statments to execute
-	        	PreparedStatment pstmt;
+	        	PreparedStatement pstmt;
 	        	if (volumeChanged) {
-	        		pstmt = connect().prepareStatment(volChangedSQL);
+	        		pstmt = connect().prepareStatement(volChangedSQL);
+		            pstmt.executeUpdate();
 	        	} else {
 	        		pstmt = connect().prepareStatement(sql);
+		            pstmt.executeUpdate();
+		            defaultInfo();
 	        	}
+	        	
 	            PreparedStatement pstmt2 = connect().prepareStatement(sql2);
 	            // execute the delete statement
-	            pstmt.executeUpdate();
 	            pstmt2.executeUpdate();
 	            conn.close();
+	            return true;
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
+	            return false;
 	        }
 	}
 	
