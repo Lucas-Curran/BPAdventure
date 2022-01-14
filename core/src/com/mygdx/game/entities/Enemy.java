@@ -329,7 +329,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		iceDungeonEnemies.add(createEnemy(495, 92, EnemyState.PATROL, 1, 1f, Utilities.spikyRockMob, 3));
 		iceDungeonEnemies.add(createEnemy(494, 93, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3));
 		iceDungeonEnemies.add(createEnemy(496, 92, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3));
-		iceDungeonEnemies.add(createEnemy(505, 93, EnemyState.PATROL, 1, 3f, Utilities.iceMonster, 3));
+		iceDungeonEnemies.add(createEnemy(505, 93, EnemyState.PATROL, 1, 2f, Utilities.iceMonster, 3));
 		
 	}
 
