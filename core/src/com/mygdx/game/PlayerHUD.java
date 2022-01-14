@@ -31,6 +31,10 @@ public class PlayerHUD extends Window {
 	
 	private static TextureRegion background = new TextureRegion(Utilities.UISKIN.getAtlas().findRegion("invBackground"));
 	
+	/**
+	 * Instances the playerHUD with a new stage and inventory/statusUI tables
+	 * @param money - the money instance to give to statusUI
+	 */
 	public PlayerHUD(Money money) {
 		super("HUD", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
 
@@ -60,6 +64,7 @@ public class PlayerHUD extends Window {
 		stage.act(delta);
 		stage.draw();
 
+		//if hp is less than or equal to 0, set death to true
 		if (statusUI.getHealthBar().getHP() <= 0) {
 			Map.getInstance().death = true;
 		}
@@ -82,6 +87,10 @@ public class PlayerHUD extends Window {
 		return this.isVisible();
 	}
 	
+	/**
+	 * If inventory is visible, set to invisible, 
+	 * if inventory is invisible, set to visible
+	 */
 	public void popUpInventory() {
 		if (inventory.isVisible()) {
 			logger.info("Inventory closed.");

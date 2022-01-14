@@ -11,6 +11,9 @@ public class Engine {
 	
 	private PooledEngine instance;
 	
+	/**
+	 * Engine instance for using Ashley Entity Component System
+	 */
 	public Engine() {
 		if (instance == null) {
 			instance = new PooledEngine();

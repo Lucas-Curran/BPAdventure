@@ -66,6 +66,9 @@ public class Map implements Screen, InputProcessor {
 	}
 
 
+	/**
+	 * Private constructor not instanced by any other class, keeps one instance to Map
+	 */
 	private Map() {
 		try {
 			cam = new Camera();
@@ -105,6 +108,7 @@ public class Map implements Screen, InputProcessor {
 	}
 	
 	static {
+		//only one instance is created
 		instance = new Map();
 	}
 	
@@ -115,6 +119,7 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public void show() {	
 		try {
+			//input processors added to multiplexer, all stages link to map screen
 			inputMultiplexer = new InputMultiplexer();	
 			inputMultiplexer.addProcessor(this);
 			inputMultiplexer.addProcessor(playerHUD.getStage());
@@ -153,6 +158,7 @@ public class Map implements Screen, InputProcessor {
 	public void render(float delta) {
 						
 		try {
+			//map background is rendered, it is changed in player class based on the level that's being teleported to
 			entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
 			entityHandler.getBatch().begin();
 			entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
@@ -234,6 +240,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		// When space is pressed while text box is writing, set writing speed of textbox to be higher
 		if (Input.Keys.SPACE == keycode && textBox.isWriting()) {
 			textBox.setWritingSpeed(0.01f);
 			return true;
@@ -244,6 +251,7 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 
+		// either show or hide inventory
 		if (Input.Keys.ESCAPE == keycode && (!inAction() || playerHUD.getInventory().isVisible())) {
 			playerHUD.popUpInventory();
 			return true;
@@ -271,6 +279,7 @@ public class Map implements Screen, InputProcessor {
 			return true;
 		}
 		
+		// textbox pops up or hides based on text sequence, and shows the text of the npc that's being hovered over
 		if (Input.Keys.R == keycode && (entityHandler.talkingZone == true || textBox.isVisible()) && !textBox.isWriting() && !teleporting && !playerHUD.getInventory().isVisible()) {
 			pauseBar.getTable().setVisible(false);
 			if (textBox.isVisible()) {
@@ -301,6 +310,7 @@ public class Map implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// swings the sword that is being rendered in main
 		if (button == Input.Buttons.LEFT && !inAction()) {
 			am.playSwordJab();
 			swing = true;
@@ -333,6 +343,10 @@ public class Map implements Screen, InputProcessor {
 		return false;
 	}
 	
+	/**
+	 * Checks if the player is currently in action, and if they are, will not run many of the inputs
+	 * @return whether the player is in action
+	 */
 	public boolean inAction() {
 		
 		if (teleporting) {
