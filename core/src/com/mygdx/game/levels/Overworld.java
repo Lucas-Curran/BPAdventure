@@ -40,14 +40,14 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 	public void create() {
 		super.createLevel(15, 9, 1, 100, 10, texture);
 		inOverworld = true;
-		
-		
+
+
 //		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
-		
-		db.createDoor(15, 1.5f, -35, 783, BodyFactory.ICE, "DoorToLevel37897", LevelDestination.LVL_9);
-		
+
+		db.createDoor(15, 1.5f, 27, 278, BodyFactory.ICE, "DoorToLevel37897", LevelDestination.LVL_4);
+
 		NPC npc = new NPC();
-		
+
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Would you like to take a look at my wares?"}, 13, 1, Utilities.rightTextures.findRegion("popsicle"), true));
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getPlayerHUD().getInventory().getItemsToSell(), Map.getInstance().getMoney());
 

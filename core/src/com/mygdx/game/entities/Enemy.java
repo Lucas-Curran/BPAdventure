@@ -22,17 +22,10 @@ public class Enemy extends EntityHandler {
 	
 	private static ArrayList<Entity> enemies;
 	
-	
-	
-	/**
-	 * Attributions
-
-	 */
-	
-	
 	private ArrayList<Entity> levelTwoEnemies;
 	private ArrayList<Entity> levelThreeEnemies;
 	private ArrayList<Entity> levelFourEnemies;
+	private ArrayList<Entity> iceDungeonEnemies;
 	private ArrayList<Entity> levelFiveEnemies;
 	private ArrayList<Entity> levelSixEnemies;
 	private ArrayList<Entity> levelSevenEnemies;
@@ -46,6 +39,7 @@ public class Enemy extends EntityHandler {
 		levelTwoEnemies = new ArrayList<Entity>();
 		levelThreeEnemies = new ArrayList<Entity>();
 		levelFourEnemies = new ArrayList<Entity>();
+		iceDungeonEnemies = new ArrayList<Entity>();
 		levelFiveEnemies = new ArrayList<Entity>();
 		levelSixEnemies = new ArrayList<Entity>();
 		levelSevenEnemies = new ArrayList<Entity>();
@@ -257,7 +251,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelSevenEnemies.add(createEnemy(-32, 590, EnemyState.PATROL, 2, 1f, slimyMob, 3));
 		levelSevenEnemies.add(createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob, 3));
 		
-		createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime, false, 5);
+		levelSevenEnemies.add(createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime, false, 5));
 
 	}
 	
@@ -291,7 +285,6 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelNineEnemies.add(createEnemy(0, 797, EnemyState.STEERING, 3, 1, Utilities.steeringMob, 1));
 		levelNineEnemies.add(createEnemy(0, 798, EnemyState.STEERING, 3, 1, Utilities.steeringMob, 1));
 		levelNineEnemies.add(createEnemy(5, 797, EnemyState.VERTICAL, 1, 1, Utilities.jumpingMob, 3));
-//		createEnemyShooter(20, 797, 1, 1, -2, 0, 15, 8, spikySlime, false);
 		levelNineEnemies.add(createEnemy(25, 797, EnemyState.JUMP, 1, 1, slimyMob, 3));
 		levelNineEnemies.add(createEnemy(30, 797, EnemyState.JUMP, 1, 1, slimyMob, 3));
 		
@@ -331,12 +324,12 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	 * gets the enemies of the ice dungeon
 	 * @return an ArrayList of all the ice dungeon enemies
 	 */
-	public void addIceDungeon() {
+	public void addIceDungeonEnemies() {
 		
-//		createEnemy(495, 92, EnemyState.PATROL, 1, 1f, Utilities.spikyRockMob, 3);
-//		createEnemy(494, 93, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3);
-//		createEnemy(496, 92, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3);
-//		createEnemy(505, 93, EnemyState.PATROL, 1, 3f, Utilities.iceMonster, 3);
+		iceDungeonEnemies.add(createEnemy(495, 92, EnemyState.PATROL, 1, 1f, Utilities.spikyRockMob, 3));
+		iceDungeonEnemies.add(createEnemy(494, 93, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3));
+		iceDungeonEnemies.add(createEnemy(496, 92, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3));
+		iceDungeonEnemies.add(createEnemy(505, 93, EnemyState.PATROL, 1, 3f, Utilities.iceMonster, 3));
 		
 	}
 
@@ -351,6 +344,10 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 
 	public ArrayList<Entity> getLevelFourEnemies() {
 		return levelFourEnemies;
+	}
+	
+	public ArrayList<Entity> getIceDungeonEnemies() {
+		return iceDungeonEnemies;
 	}
 
 	public ArrayList<Entity> getLevelFiveEnemies() {

@@ -16,20 +16,17 @@ import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
 
-public class IceDungeon extends LevelFactory implements ApplicationListener {
+public class VictoryScreen extends LevelFactory implements ApplicationListener {
 	boolean isCreated;
 
-	Texture texture = new Texture(Gdx.files.internal("terracotta_ground.png"));	
-	private Texture lootTexture = new Texture(Gdx.files.internal("purpleBlock.png"));	
 	
-	float[] vertices;
 	
 	Body door;
 	DoorBuilder db = DoorBuilder.getInstance();
 	World world;
-	Body[] loot = new Body[1];
+	
 
-	public IceDungeon(World world) {
+	public VictoryScreen(World world) {
 		this.world = world;
 	}
 	
@@ -40,12 +37,12 @@ public class IceDungeon extends LevelFactory implements ApplicationListener {
 		isCreated = true;
 		
 		db.createDoor(512, 92.5f, 26, 276, BodyFactory.STONE, "backTo4", LevelDestination.INTERNAL);
-		loot[0] = bodyFactory.makeBoxPolyBody(514, 93.5f, 1, 1, BodyFactory.ICE, BodyType.StaticBody, false, false, lootTexture);
+		
 
-		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
+		
 		NPC npc = new NPC();
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Welcome to the Ice Dungeon!", "Make it to the end for a great reward...or die trying."}, 485, 92, normalMan, false));
-		Map.getInstance().getEntityHandler().spawnIceDungeon();
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] { false));
+		
 		
 	}
 	

@@ -41,18 +41,18 @@ public class B2dContactListener implements ContactListener {
 	private boolean blessingLevelSix1 = false;
 	private boolean blessingLevelSix2 = false;
 	private boolean blessingLevelSix3 = false;
-	
+
 	private boolean keycard01 = false;
 	private boolean keycard02 = false;
 	private boolean keycard03 = false;
 	private boolean keycard04 = false;
 	private boolean keycard05 = false;
-	
+
 	private boolean monieLevelThree = false;
 	private boolean monieLevelSeven = false;
 	private boolean monieLevelEight = false;
 	private boolean monieLevelNine = false;
-	
+
 
 
 	public B2dContactListener(EntityHandler parent) {
@@ -88,7 +88,7 @@ public class B2dContactListener implements ContactListener {
 								if (!db.isTouched.get(i)) {
 									System.out.println(db.createdLevels.get(i));
 									switch (db.createdLevels.get(i)) {
-									
+
 									case OVERWORLD:
 										parent.getLevels().getOverworld().create();
 										break;
@@ -108,12 +108,17 @@ public class B2dContactListener implements ContactListener {
 									case LVL_4:
 										parent.removeLevelThree();
 										parent.spawnLevelFour();
+
+
 										if (!parent.getLevels().getLevelFour().isCreated()) {
 											parent.getLevels().getLevelFour().create();
 										}
+
+
 										break;
 									case LVL_5:
 										parent.removeLevelFour();
+										parent.removeIceDungeon();
 										parent.spawnLevelFive();
 										if (!parent.getLevels().getLevelFive().isCreated()) {
 											parent.getLevels().getLevelFive().create();
@@ -262,7 +267,7 @@ public class B2dContactListener implements ContactListener {
 
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleStaff, "Jungle Staff");
 			Map.getInstance().getMoney().setMoney(Map.getInstance().getMoney().getMoney() + 2);
-			
+
 			blessingLevelSix1 = true;
 		}
 
@@ -280,43 +285,43 @@ public class B2dContactListener implements ContactListener {
 					ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.JUNGLECHEST);
 
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(jungleChest, "Jungle Chestplate");
-			
+
 
 			blessingLevelSix3 = true;
 		}
-		
+
 		// gives players money based on their completion of a parkour level
-		
+
 				if (fa.getBody().getUserData() == "moneyBox3" && !monieLevelThree) {
 					Map.getInstance().getMoney().setMoney(Map.getInstance().getMoney().getMoney() + 5);
 					monieLevelThree = true;
 				}
-				
+
 				if (fa.getBody().getUserData() == "moneyBox7" && !monieLevelSeven) {
 					Map.getInstance().getMoney().setMoney(Map.getInstance().getMoney().getMoney() + 3);
 					monieLevelSeven = true;
 				}
-				
+
 				if (fa.getBody().getUserData() == "moneyBox8" && !monieLevelEight) {
 					Map.getInstance().getMoney().setMoney(Map.getInstance().getMoney().getMoney() + 5);
 					monieLevelEight = true;
 				}
-				
+
 				if (fa.getBody().getUserData() == "moneyBox9" && !monieLevelNine) {
 					Map.getInstance().getMoney().setMoney(Map.getInstance().getMoney().getMoney() + 15);
 					monieLevelNine = true;
 				}
-		
+
 		// gives players keycards after they collect them in level 7
-		
-		
+
+
 		if (fa.getBody().getUserData() == "keycard1" && !keycard01) {
 			InventoryItem keycard1 = new InventoryItem(Utilities.keyCard,
 					ItemAttribute.STACKABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.KEYCARD01);
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(keycard1, "Keycard 1");
 			keycard01 = true;
 			System.out.println(parent.getWorld().isLocked());
-			
+
 		}
 		if (fa.getBody().getUserData() == "keycard2" && !keycard02) {
 			InventoryItem keycard2 = new InventoryItem(Utilities.keyCard,
@@ -342,8 +347,8 @@ public class B2dContactListener implements ContactListener {
 			Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(keycard5, "Keycard 5");
 			keycard05 = true;
 		}
-		
-		
+
+
 
 		if (fa.getBody().getUserData() instanceof Entity) {
 			Entity ent = (Entity) fa.getBody().getUserData();
