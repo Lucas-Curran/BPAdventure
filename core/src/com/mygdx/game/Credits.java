@@ -21,7 +21,7 @@ public class Credits implements Screen {
 	TextButton returnBtn;
 	private SpriteBatch spriteBatch;
 
-	AudioManager am = new AudioManager();
+	AudioManager am = Map.getInstance().getAudioManager();
 	
 	/**
 	 * Sets camera and game

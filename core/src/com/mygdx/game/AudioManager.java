@@ -9,7 +9,7 @@ public class AudioManager {
 		
 		private static HashMap<String, Music> music;
 		Music caveMusic, menuMusic, overworldMusic, shopMusic;
-		SqliteManager sm = new SqliteManager();
+		SqliteManager sm;
 		float volume;
 			
 	/**
@@ -17,6 +17,7 @@ public class AudioManager {
 	 */
 	public AudioManager() {
 		music = new HashMap<String,Music>();
+		sm = new SqliteManager();
 		
 		caveMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/cave_track.wav"));
 		shopMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/shop_track.wav"));
@@ -28,6 +29,7 @@ public class AudioManager {
 		music.put("menu", menuMusic);
 		music.put("overworld", overworldMusic);
 		volume = sm.getVolume();
+		
 	}
 		
 	/**
