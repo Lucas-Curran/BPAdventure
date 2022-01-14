@@ -57,7 +57,7 @@ public class VictoryScreen extends LevelFactory implements ApplicationListener {
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Congratulations! You are the first person to ever clear The Cave", "Thanks to you I am no longer trapped here, I never had any doubt in you my friend."
 		}, 685, 92, Utilities.rightTextures.findRegion("squirrelMan"), false));
 
-		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Thanks to you, the Slime Kingdom has been saved and we can now return to our homeland", "Let us leave together, after you my frie-", "No...my Hero."
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Thanks to you, the Slime Kingdom has been saved and we can now return to our homeland.", "Let us leave together, after you my frie-", "No...my Hero."
 		}, 689, 92, Utilities.otherTexturesAtlas.findRegion("slimeKing"), false));
 
 
