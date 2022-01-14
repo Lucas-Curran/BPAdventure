@@ -3,41 +3,26 @@ package com.mygdx.game.inventory;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.SnapshotArray;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Camera;
 import com.mygdx.game.Map;
 import com.mygdx.game.SqliteManager;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.item.InventoryItem;
-import com.mygdx.game.item.ShopItem;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
+import com.mygdx.game.item.ShopItem;
 import com.mygdx.game.ui.HealthBar;
-import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
 public class Inventory extends Window {
 

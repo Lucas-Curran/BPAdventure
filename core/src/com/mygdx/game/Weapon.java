@@ -2,11 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.mygdx.game.components.PlayerComponent;
-import com.mygdx.game.entities.Player;
+
 
 public class Weapon {
 	

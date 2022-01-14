@@ -4,8 +4,6 @@ package com.mygdx.game.entities;
 import java.util.ArrayList;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Utilities;

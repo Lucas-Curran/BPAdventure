@@ -1,6 +1,5 @@
 package com.mygdx.game.entities;
 
-import java.util.ArrayList;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.AudioManager;
 import com.mygdx.game.B2dContactListener;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
@@ -21,7 +19,6 @@ import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.*;
-import com.mygdx.game.components.BulletComponent.Owner;
 import com.mygdx.game.levels.Levels;
 import com.mygdx.game.levels.Levels.LevelDestination;
 import com.mygdx.game.systems.*;

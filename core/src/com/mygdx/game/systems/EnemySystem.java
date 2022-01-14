@@ -9,12 +9,13 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Map;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
 import com.mygdx.game.components.EnemyComponent;
-import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.components.EnemyComponent.EnemyState;
+import com.mygdx.game.components.SteeringComponent;
 import com.mygdx.game.entities.Bullet;
 import com.mygdx.game.entities.Enemy;
 
@@ -90,6 +91,7 @@ public class EnemySystem extends IteratingSystem {
 		
 		//Check if health is less than 0 and set enemy to dead
 		if (enemyCom.health <= 0) {
+			Map.getInstance().getAudioManager().playEnemyDeath();
 			bodyCom.isDead = true;
 		} 
 		

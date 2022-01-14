@@ -1,18 +1,15 @@
 package com.mygdx.game.systems;
 
-import com.mygdx.game.Map;
-import com.mygdx.game.components.B2dBodyComponent;
-import com.mygdx.game.components.TransformComponent;
-
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.components.B2dBodyComponent;
+import com.mygdx.game.components.TransformComponent;
  
  
 public class PhysicsSystem extends IteratingSystem {
@@ -50,7 +47,6 @@ public class PhysicsSystem extends IteratingSystem {
                 tfm.position.y = position.y;
                 tfm.rotation = bodyComp.body.getAngle() * MathUtils.radiansToDegrees;
                 if (bodyComp.isDead) {
-                	Map.getInstance().getAudioManager().playEnemyDeath();
                 	world.destroyBody(bodyComp.body);
                 	this.getEngine().removeEntity(entity);
                 }

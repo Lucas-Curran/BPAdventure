@@ -6,8 +6,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
-import com.mygdx.game.components.EnemyComponent;
-import com.mygdx.game.entities.Enemy;
  
 public class BulletSystem extends IteratingSystem{
 	

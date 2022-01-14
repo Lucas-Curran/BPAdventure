@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Map;
@@ -147,8 +146,6 @@ public class Player extends EntityHandler {
 	 * @param y - y coordinate of overworld
 	 */
 	public void fadePlayerToBeginning(float x, float y) {
-
-		Map.getInstance().getAudioManager().playPlayerDeath();
 		
         Map.getInstance().death = false;
 
@@ -183,7 +180,8 @@ public class Player extends EntityHandler {
                 Map.getInstance().death = false;
                 Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().setHP(100);
                 Map.getInstance().getAudioManager().stopAll();
-                Map.getInstance().getAudioManager().playOverworld();;
+                Map.getInstance().getAudioManager().playOverworld();
+                Map.getInstance().getAudioManager().playPlayerDeath();
 
             }
         }

@@ -3,21 +3,14 @@ package com.mygdx.game.entities;
 import java.util.HashMap;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.NPCComponent;
-import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
@@ -26,7 +19,6 @@ import com.mygdx.game.item.ShopItem;
 import com.mygdx.game.item.InventoryItem.ItemAttribute;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
-import com.mygdx.game.ui.ShopWindow;
 
 public class NPC extends EntityHandler {
 	

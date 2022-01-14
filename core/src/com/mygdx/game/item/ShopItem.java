@@ -1,7 +1,5 @@
 package com.mygdx.game.item;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 

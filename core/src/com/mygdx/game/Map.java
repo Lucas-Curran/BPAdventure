@@ -1,12 +1,10 @@
 package com.mygdx.game;
 
-import java.util.HashMap;
 //import org.apache.logging.log4j.Logger;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -15,35 +13,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.entities.EntityHandler;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.InventoryItem.ItemAttribute;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
-import com.mygdx.game.levels.LevelFactory;
-import com.mygdx.game.levels.Overworld;
 import com.mygdx.game.levels.Levels;
 import com.mygdx.game.ui.Money;
 import com.mygdx.game.ui.PauseBar;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.mygdx.game.levels.Levels.LevelDestination;
+
 
 public class Map implements Screen, InputProcessor {
 

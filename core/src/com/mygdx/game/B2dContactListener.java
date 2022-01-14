@@ -13,18 +13,13 @@ import com.mygdx.game.components.CollisionComponent;
 import com.mygdx.game.components.EnemyComponent;
 import com.mygdx.game.components.NPCComponent;
 import com.mygdx.game.components.PlayerComponent;
-import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.entities.EntityHandler;
-import com.mygdx.game.entities.Player;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.InventoryItem.ItemAttribute;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.levels.DoorBuilder;
-import com.mygdx.game.levels.Levels;
-import com.mygdx.game.levels.Levels.LevelDestination;
-import com.mygdx.game.ui.Money;
 
 public class B2dContactListener implements ContactListener {
 
