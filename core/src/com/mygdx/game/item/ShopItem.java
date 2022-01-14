@@ -30,7 +30,7 @@ public class ShopItem extends Image {
 		damage = item.getDamage();
 		hpRestored = item.getHpRestored();
 		this.cost = cost;
-		logger.info("Inventory item created \n\tItemTypeID: " + itemTypeID + "\n\tCost: " + cost);
+		logger.info("Shop item created \n\tItemTypeID: " + itemTypeID + "\n\tCost: " + cost);
 	}
 	
 	public int getHpRestored() {
