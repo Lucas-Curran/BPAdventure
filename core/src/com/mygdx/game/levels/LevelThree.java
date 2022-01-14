@@ -31,6 +31,7 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
+import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.levels.Levels.LevelDestination;
@@ -66,6 +67,7 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		
 		Texture texture = new Texture(Gdx.files.internal("crackedPillar.png"));
 		Texture texture2 = new Texture(Gdx.files.internal("lava.png"));
+		
 		// Cracked Pillar by FunwithPixels licensed CC-BY 4.0 https://opengameart.org/content/cracked-pillar
 		
 		pillars[1] = bodyFactory.makeBoxPolyBody(-33, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
@@ -83,7 +85,9 @@ public class LevelThree extends LevelFactory implements ApplicationListener{
 		pillars[12] = bodyFactory.makeBoxPolyBody(18, 196f, 1, 7, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		pillars[13] = bodyFactory.makeBoxPolyBody(40, 196f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture);
 		pillars[13].setUserData("gravityPillar2");
-		db.createDoor(45, 187.5f, -35, 258, BodyFactory.STEEL, "DoorTo4", LevelDestination.LVL_4);
+		pillars[16] = bodyFactory.makeBoxPolyBody(45, 187f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, Utilities.giftBlock);
+		pillars[16].setUserData("moneyBox3");
+		db.createDoor(50, 187.5f, -35, 258, BodyFactory.STEEL, "DoorTo4", LevelDestination.LVL_4);
 		lavaFloor = bodyFactory.makeBoxPolyBody(5, 186.1f, 77, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);
 		lavaFloor.setUserData("lavaFloor");
 		lavaCeiling = bodyFactory.makeBoxPolyBody(-5, 199.9f, 60, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, texture2);

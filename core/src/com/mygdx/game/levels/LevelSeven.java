@@ -124,7 +124,16 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			
 			papers[4] = bodyFactory.makeBoxPolyBody(53, 582, 0.25f, 0.5f, BodyFactory.STEEL, BodyType.StaticBody,  false, true, texture2);
 			
-			db.createDoor(55, 582.5f, -35, 688, BodyFactory.STONE, "doorTo8", LevelDestination.LVL_8);
+			papers[0].setUserData("keycard1");
+			papers[1].setUserData("keycard2");
+			papers[2].setUserData("keycard3");
+			papers[3].setUserData("keycard4");
+			papers[4].setUserData("keycard5");
+			
+			platforms[24] = bodyFactory.makeBoxPolyBody(58, 582, 1, 1, BodyFactory.STONE, BodyType.StaticBody, false, false, Utilities.giftBlock);
+			platforms[24].setUserData("moneyBox7");
+			
+			db.createDoor(62, 582.5f, -35, 688, BodyFactory.STONE, "doorTo8", LevelDestination.LVL_8);
 			
 	        			
 			NPC npc = new NPC();
@@ -133,7 +142,8 @@ public class LevelSeven extends LevelFactory implements ApplicationListener {
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Heya Ice Cream! Tryna continue?", "Well you better watch out! There's enemies 'round these parts...", 
 					"Find and collect the key cards and you'll unlock the next phase!", "Good Luck!"}, -32, 582, squirrelMan, false));
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Boo! Watch out for the projectiles!"}, -3, 593, oldMan, false));
-			
+			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"I see you have all the key cards...great work!", "Go through the door to get to the next level!" 
+					}, 55, 582, squirrelMan, false));
 			isCreated = true;
 		}
 

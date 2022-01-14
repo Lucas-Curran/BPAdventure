@@ -86,6 +86,7 @@ public class Map implements Screen, InputProcessor {
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 		textBox = new TextBox(font, stage, Color.WHITE);
+		
 		money = new Money();
 		pauseBar = new PauseBar();
 		playerHUD = new PlayerHUD(money);
@@ -116,6 +117,8 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {
+		
+		
 		
 		inputMultiplexer = new InputMultiplexer();	
 		inputMultiplexer.addProcessor(this);

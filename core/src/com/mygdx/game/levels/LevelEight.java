@@ -81,6 +81,8 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 			pillars[2] = bodyFactory.makeBoxPolyBody(50, 682.5f, 1, 2, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			platforms[6] = bodyFactory.makeBoxPolyBody(50, 684f, 4, 1, BodyFactory.STEEL, BodyType.DynamicBody, false, false, texture);
 			
+			platforms[7] = bodyFactory.makeBoxPolyBody(60, 682, 1, 1, BodyFactory.STONE, BodyType.StaticBody, false, false, Utilities.giftBlock);
+			platforms[7].setUserData("moneyBox8");
 			// defines a revolution joint for spinning
 	        RevoluteJointDef revoluteJointDef3 = new RevoluteJointDef();
 	        revoluteJointDef3.initialize(platforms[6], pillars[2], platforms[6].getWorldCenter());
@@ -93,7 +95,7 @@ public class LevelEight extends LevelFactory implements ApplicationListener {
 					"We haven't seen anyone for decades.", "There's bits of Jack everywhere...but he's doing alright, I think.", 
 					"This land is the most dangerous thus far Ice Cream...tread carefully."}, -32, 682, Utilities.levelSevenAtlas.findRegion("squirrelMan"), false));
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Hurry you're almost there!" 
-					}, 58, 682, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
+					}, 56, 682, Utilities.levelSevenAtlas.findRegion("oldMan"), false));
 						
 			isCreated = true;
 		}

@@ -90,6 +90,9 @@ public class LevelNine extends LevelFactory implements ApplicationListener {
 			Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"It's been an honor, friend", "Good Luck!"
 			}, 30, 782, Utilities.rightTextures.findRegion("squirrelMan"), false));
 			
+			platforms[6] = bodyFactory.makeBoxPolyBody(-30, 782f, 1, 1, BodyFactory.STEEL, BodyType.StaticBody,  false, false, Utilities.giftBlock);
+			platforms[6].setUserData("moneyBox9");
+			
 			// jin's NPCs
 			// more NPCs?
 			

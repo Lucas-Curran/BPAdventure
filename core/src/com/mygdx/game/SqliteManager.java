@@ -32,9 +32,9 @@ public class SqliteManager {
 //				conn = DriverManager.getConnection(inventoryURL);
 //			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());		
+//			System.out.println(e.getMessage());		
 		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
+//			System.out.println(ex.getMessage());
 		} 
 		return conn;
 	}
@@ -63,14 +63,14 @@ public class SqliteManager {
 			playerStatement.execute(playerSQL);
 			playerStatement.execute(inventorySQL);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		} finally {
 			try {
 				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException ex) {
-				System.out.println(ex.getMessage());
+//				System.out.println(ex.getMessage());
 			}
 		}
 //		System.out.println("Table created");
@@ -88,7 +88,7 @@ public class SqliteManager {
 				defaultTable = false;
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class SqliteManager {
 			input.executeUpdate();
 			conn.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -113,7 +113,7 @@ public class SqliteManager {
 			volumeData = rs.getInt("volume");
 			conn.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		}
 		return volumeData;
 	}
@@ -125,7 +125,7 @@ public class SqliteManager {
 			input.executeUpdate();
 			conn.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -139,7 +139,7 @@ public class SqliteManager {
 			health = rs.getInt("health");
 			conn.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		}
 		return health;
 	}
