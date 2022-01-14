@@ -1,6 +1,9 @@
 package com.mygdx.game;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Camera implements ApplicationListener {
+	
+	static Logger logger = LogManager.getLogger(Camera.class.getName());
 	
 	OrthographicCamera cam;
 	Viewport viewport;
@@ -35,6 +40,7 @@ public class Camera implements ApplicationListener {
 			cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 			cam.setToOrtho(false, cam.viewportWidth, cam.viewportHeight);
 			viewport = new FitViewport(cam.viewportWidth, cam.viewportHeight, cam);	
+			logger.info("Camera and viewport created.");
 		}
 	}
 

@@ -1,9 +1,15 @@
 package com.mygdx.game.item;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.game.entities.EntityHandler;
 
 public class InventoryItem extends Image {
+	
+	static Logger logger = LogManager.getLogger(InventoryItem.class.getName());
 	
 	private int damage;
 	private int defense;
@@ -213,6 +219,8 @@ public class InventoryItem extends Image {
 		default:
 			break;
 		}
+		
+		logger.info("Inventory item created \n\tItemTypeID: " + itemTypeID);		
 	}
 	
 	public InventoryItem(InventoryItem inventoryItem){
@@ -222,6 +230,7 @@ public class InventoryItem extends Image {
         this.itemUseType = inventoryItem.getItemUseType();
         this.defense = inventoryItem.getDefense();
         this.damage = inventoryItem.getDamage();
+        logger.info("Inventory item created \n\tItemTypeID: " + itemTypeID);
     }
 	
 	public InventoryItem(ShopItem shopItem) {

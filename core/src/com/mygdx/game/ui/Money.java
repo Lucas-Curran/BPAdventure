@@ -1,15 +1,24 @@
 package com.mygdx.game.ui;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Map;
 import com.mygdx.game.SqliteManager;
+import com.mygdx.game.entities.EntityHandler;
 
 public class Money extends Actor {
 
+	static Logger logger = LogManager.getLogger(EntityHandler.class.getName());
+	
 	int money;
 	private Texture moneyTex;
 	private BitmapFont bitmapFont;
@@ -17,12 +26,23 @@ public class Money extends Actor {
 	private SqliteManager sm;
 	
 	public Money() {
-		sm = new SqliteManager();
-		moneyTex = new Texture(Gdx.files.internal("money.png"));
-		bitmapFont = new BitmapFont();
-		money = sm.getMoney();
-		x = 225;
-		y = 430;
+		try {
+			sm = new SqliteManager();
+			moneyTex = new Texture(Gdx.files.internal("money.png"));
+			bitmapFont = new BitmapFont();
+			money = sm.getMoney();
+			x = 225;
+			y = 430;
+			logger.info("Money instanced.");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 	
 	public Money(Money money) {

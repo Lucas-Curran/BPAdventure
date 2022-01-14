@@ -1,9 +1,15 @@
 package com.mygdx.game;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class SqliteManager {
+	
+	static Logger logger = LogManager.getLogger(SqliteManager.class.getName());
 	
 	private static final String URL = "jdbc:sqlite::resource:Progress.db";
 	private static Connection conn = null;
@@ -25,9 +31,24 @@ public class SqliteManager {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection(URL);
+			//logger.debug("Connection created with SQL database.");
 		} catch (SQLException e) {
+				logger.error(e.getMessage());
+				try {
+					CrashWriter cw = new CrashWriter(e);
+					cw.writeCrash();
+				} catch (IOException e1) {
+					logger.error(e1.getMessage());
+				}
 //			System.out.println(e.getMessage());		
 		} catch (Exception ex) {
+				logger.error(ex.getMessage());
+				try {
+					CrashWriter cw = new CrashWriter(ex);
+					cw.writeCrash();
+				} catch (IOException e1) {
+					logger.error(e1.getMessage());
+				}		
 //			System.out.println(ex.getMessage());
 		} 
 		return conn;
@@ -57,14 +78,29 @@ public class SqliteManager {
 			//Executes specific statments
 			statement.execute(playerSQL);
 			statement.execute(inventorySQL);
+			logger.debug("SQL Connection established and tables created if non-existent.");
 		} catch (SQLException e) {
 //			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		} finally {
 			try {
 				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException ex) {
+				logger.error(ex.getMessage());
+				try {
+					CrashWriter cw = new CrashWriter(ex);
+					cw.writeCrash();
+				} catch (IOException e1) {
+					logger.error(e1.getMessage());
+				}
 //				System.out.println(ex.getMessage());
 			}
 		}
@@ -85,7 +121,15 @@ public class SqliteManager {
 			//executes statment and closes connection
 			input.executeUpdate();
 			conn.close();
+			logger.debug("SQL insert default info into table.");
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 //			System.out.println(e.getMessage());
 		}
 	}
@@ -100,8 +144,15 @@ public class SqliteManager {
 			PreparedStatement input = connect().prepareStatement(sql);
 			input.setInt(1, item);
 			input.executeUpdate();
+			logger.debug("Item inserted into SQL table.");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		}
 	}
 	
@@ -114,8 +165,16 @@ public class SqliteManager {
 		try {
 			PreparedStatement pstmt = connect().prepareStatement(sql);
 			pstmt.executeUpdate();
+			logger.debug("Item deleted from SQL table.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		}
 	}
 	
@@ -132,8 +191,16 @@ public class SqliteManager {
 			while (rs.next()) {
 				items.add(rs.getInt("item"));
 			}
+			logger.debug("All items retrieved from SQL table.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		}
 		return items;
 	}
@@ -151,6 +218,13 @@ public class SqliteManager {
 			input.executeUpdate();
 			conn.close();
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 //			System.out.println(e.getMessage());
 		}
 	}
@@ -171,6 +245,13 @@ public class SqliteManager {
 			volumeData = rs.getInt("volume");
 			conn.close();
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 //			System.out.println(e.getMessage());
 		}
 		return volumeData;
@@ -189,6 +270,13 @@ public class SqliteManager {
 			input.executeUpdate();
 			conn.close();
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 //			System.out.println(e.getMessage());
 		}
 	}
@@ -209,6 +297,13 @@ public class SqliteManager {
 			health = rs.getInt("health");
 			conn.close();
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 //			System.out.println(e.getMessage());
 		}
 		return health;
@@ -226,7 +321,15 @@ public class SqliteManager {
 			//executes update
 			input.executeUpdate();
 			conn.close();
+			logger.debug("Money updated into SQL table.");
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 			System.out.println(e.getMessage());
 		}
 	}
@@ -247,6 +350,13 @@ public class SqliteManager {
 			money = rs.getInt("currency");
 			conn.close();
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 			System.out.println(e.getMessage());
 		}
 		return money;
@@ -264,7 +374,15 @@ public class SqliteManager {
 			//executes update
 			input.executeUpdate();
 			conn.close();
+			logger.debug("Current stage updated into SQL table.");
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 			System.out.println(e.getMessage());
 		}
 	}
@@ -284,7 +402,15 @@ public class SqliteManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			stage = rs.getInt("currency");
 			conn.close();
+			logger.debug("Current stage retrieved from SQL table.");
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 			System.out.println(e.getMessage());
 		}
 		return stage;
@@ -308,7 +434,15 @@ public class SqliteManager {
 			//executes update
 			input.executeUpdate();
 			conn.close();
+			logger.debug("All values updated into SQL table.");
 		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 			System.out.println(e.getMessage());
 		}
 	}
@@ -331,8 +465,16 @@ public class SqliteManager {
 	            pstmt3.executeUpdate();
 		        defaultInfo();
 	            conn.close();
+	            logger.debug("SQL tables cleared.");
 	            return true;
 	        } catch (SQLException e) {
+	        	logger.error(e.getMessage());
+				try {
+					CrashWriter cw = new CrashWriter(e);
+					cw.writeCrash();
+				} catch (IOException e1) {
+					logger.error(e1.getMessage());
+				}
 	            System.out.println(e.getMessage());
 	            return false;
 	        }

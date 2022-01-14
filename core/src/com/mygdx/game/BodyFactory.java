@@ -2,6 +2,9 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -29,6 +32,8 @@ import com.mygdx.game.levels.Levels.LevelDestination;
  */
 public class BodyFactory {
 	
+	static Logger logger = LogManager.getLogger(BodyFactory.class.getName());
+	
 	private World world;
 	private static BodyFactory thisInstance;
 	private ArrayList<Object[]> bodies;
@@ -55,6 +60,7 @@ public class BodyFactory {
 	public static BodyFactory getInstance(World world) {
 		if(thisInstance == null){
 			thisInstance = new BodyFactory(world);
+			logger.info("Body factory instanced.");
 		}
 		return thisInstance;
 	}
@@ -132,7 +138,7 @@ public class BodyFactory {
 		boxBody.createFixture(makeFixture(material,circleShape, isSensor));
 		circleShape.dispose();
 		
-		
+		logger.debug("Circle poly body made.");
 		
 		return boxBody;
 	}
@@ -167,6 +173,8 @@ public class BodyFactory {
 	
 		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
 		
+		logger.debug("Box poly body made.");
+		
 		return boxBody;
 	}
 	
@@ -197,6 +205,8 @@ public class BodyFactory {
 		
 		bodies.add(Utilities.addPolygonTexture(texture, boxBody));
 			
+		logger.debug("Polygon shape body made.");
+		
 		return boxBody;
 	}
 

@@ -3,11 +3,15 @@ package com.mygdx.game.entities;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
+import com.mygdx.game.Settings;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.BulletComponent;
@@ -20,6 +24,8 @@ import com.mygdx.game.components.BulletComponent.Owner;
 public class Bullet extends EntityHandler {
 	
 	private ArrayList<Entity> bullets;
+	
+	static Logger logger = LogManager.getLogger(Bullet.class.getName());
 	
 	public Bullet() {
 		
@@ -65,6 +71,8 @@ public class Bullet extends EntityHandler {
 		entity.add(position);
 		entity.add(texture);
 		entity.add(type);	
+		
+		logger.debug("Bullet created.");
 		
 		return entity;
 	}

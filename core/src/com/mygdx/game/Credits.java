@@ -2,6 +2,9 @@ package com.mygdx.game;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,6 +17,7 @@ import com.badlogic.gdx.utils.Align;
 
 public class Credits implements Screen {
 
+	static Logger logger = LogManager.getLogger(Credits.class.getName());
 	
 	Camera cam;
 	Texture background;
@@ -31,7 +35,7 @@ public class Credits implements Screen {
 		cam = new Camera();
 		spriteBatch = new SpriteBatch();
 		background = new Texture("credits.png");
-
+		logger.info("Credits instanced.");
 	}
 
 	/**
@@ -64,9 +68,6 @@ public class Credits implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		
-
 
 		try {
 			spriteBatch.setProjectionMatrix(cam.getCombined());
@@ -75,6 +76,7 @@ public class Credits implements Screen {
 			spriteBatch.end();		
 		if (returnBtn.isPressed()) {
 //			audioManager.playClick();
+			logger.info("Credits return to settings button clicked.");
 			dispose();
 			Screens.toSettings(new Settings());
 		}
@@ -83,7 +85,13 @@ public class Credits implements Screen {
 		stage.draw();
 		
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		}
 	}
 

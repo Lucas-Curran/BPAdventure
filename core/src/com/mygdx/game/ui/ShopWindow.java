@@ -1,8 +1,12 @@
 package com.mygdx.game.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -33,13 +37,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Utilities;
+import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.ShopItem;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 
 public class ShopWindow extends Window implements InputProcessor  {
+	
+	static Logger logger = LogManager.getLogger(ShopWindow.class.getName());
 	
 	private Table buyTable;
 	private Table sellTable;
@@ -65,161 +73,173 @@ public class ShopWindow extends Window implements InputProcessor  {
 		
 		this.buyList = buyList;
 		this.sellList = sellList;
+		try {
+			// sellList = current inventory items
 
-		// sellList = current inventory items
+			labels = new ArrayList<Label>();
 
-		labels = new ArrayList<Label>();
-		
-		container = new Table();
+			container = new Table();
 
-		borderTexture = new Texture(Gdx.files.internal("border.png"));
-		borderTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		borderImage = new Image(borderTexture);
+			borderTexture = new Texture(Gdx.files.internal("border.png"));
+			borderTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+			borderImage = new Image(borderTexture);
 
-		getTitleTable().padBottom(15);
-		
-		stage = new Stage();	
-		//stage.setDebugAll(true);
+			getTitleTable().padBottom(15);
 
-		buyTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
-		
-		for (Map.Entry<Label, ShopItem> set : buyList.entrySet()) {	
-			set.getKey().setWrap(true);
-			final Group tempGroup = new Group();
-			
-			labels.add(set.getKey());
-			
-			set.getKey().setWidth(150);
-			set.getKey().setHeight(32);
-			
-			set.getValue().setWidth(32);
-			set.getValue().setHeight(32);
-			
-			set.getValue().setBounds(set.getValue().getX() + set.getKey().getWidth(), set.getValue().getY(), 32, 32);
-			
-			tempGroup.addActor(set.getKey());
-			tempGroup.addActor(set.getValue());
-			
-			buyTable.add(tempGroup).width(182).height(32).padTop(10);
-			
-			tempGroup.addListener(new ClickListener() {
+			stage = new Stage();	
+			//stage.setDebugAll(true);
 
-				@Override
-				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-					
-					for (int i = 0; i < labels.size(); i++) {
-						labels.get(i).setColor(Color.WHITE);
-					}
-					
-					selectedBuyItem = null;
-					selectedSellItem = null;
-					selectedBuyItem = (ShopItem) tempGroup.getChild(1);
-					Label tempLabel = (Label) tempGroup.getChild(0);
-					selectedBuyItem.setName(tempLabel.getText().toString());
-					itemToRemove = tempGroup;
-					tempLabel.setColor(Color.YELLOW);
-					return true;
-				}			
-	  					
-			});
-			buyTable.row();
+			buyTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
+
+			for (Map.Entry<Label, ShopItem> set : buyList.entrySet()) {	
+				set.getKey().setWrap(true);
+				final Group tempGroup = new Group();
+
+				labels.add(set.getKey());
+
+				set.getKey().setWidth(150);
+				set.getKey().setHeight(32);
+
+				set.getValue().setWidth(32);
+				set.getValue().setHeight(32);
+
+				set.getValue().setBounds(set.getValue().getX() + set.getKey().getWidth(), set.getValue().getY(), 32, 32);
+
+				tempGroup.addActor(set.getKey());
+				tempGroup.addActor(set.getValue());
+
+				buyTable.add(tempGroup).width(182).height(32).padTop(10);
+
+				tempGroup.addListener(new ClickListener() {
+
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+						for (int i = 0; i < labels.size(); i++) {
+							labels.get(i).setColor(Color.WHITE);
+						}
+
+						selectedBuyItem = null;
+						selectedSellItem = null;
+						selectedBuyItem = (ShopItem) tempGroup.getChild(1);
+						Label tempLabel = (Label) tempGroup.getChild(0);
+						selectedBuyItem.setName(tempLabel.getText().toString());
+						itemToRemove = tempGroup;
+						tempLabel.setColor(Color.YELLOW);
+						return true;
+					}			
+
+				});
+				buyTable.row();
+			}
+
+			sellTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
+
+			for (Map.Entry<Label, ShopItem> set : sellList.entrySet()) {
+				set.getKey().setWrap(true);
+				final Group tempGroup = new Group();
+
+				labels.add(set.getKey());
+
+				set.getKey().setWidth(150);
+				set.getKey().setHeight(32);
+
+				set.getValue().setWidth(32);
+				set.getValue().setHeight(32);
+
+				set.getValue().setBounds(set.getValue().getX() + set.getKey().getWidth(), set.getValue().getY(), 32, 32);
+
+				tempGroup.addActor(set.getKey());
+				tempGroup.addActor(set.getValue());
+
+				sellTable.add(tempGroup).width(182).height(32).padTop(10);
+
+				tempGroup.addListener(new ClickListener() {
+
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+						for (int i = 0; i < labels.size(); i++) {
+							labels.get(i).setColor(Color.WHITE);
+						}
+
+						selectedBuyItem = null;
+						selectedSellItem = null;
+						selectedSellItem = (ShopItem) tempGroup.getChild(1);
+						Label tempLabel = (Label) tempGroup.getChild(0);
+						itemToRemove = tempGroup;
+						tempGroup.addActor(borderImage);
+						tempLabel.setColor(Color.YELLOW);
+						return true;
+					}			
+
+				});
+				sellTable.row();
+			}
+
+
+			confirmButton = new TextButton("Confirm", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			leaveButton = new TextButton("Leave", Utilities.buttonStyles("default-rect", "default-rect-down"));
+
+			infoTable = new Table();
+
+			infoTable.add(leaveButton).width(91);
+			infoTable.add(confirmButton).width(91);
+
+
+			Label buyLabel = new Label("Buy", Utilities.ACTUAL_UI_SKIN);
+			Label sellLabel = new Label("Sell", Utilities.ACTUAL_UI_SKIN);
+			infoLabel = new Label("", Utilities.ACTUAL_UI_SKIN);
+			infoLabel.setScale(0.7f);
+
+			buyLabel.setAlignment(Align.center, Align.center);
+			sellLabel.setAlignment(Align.center, Align.center);
+
+			shopTable = new Table();
+			shopTable.add(buyLabel).width(182);
+			shopTable.add(sellLabel).width(182);
+			shopTable.row();
+			shopTable.add(buyTable);
+			shopTable.add(sellTable);
+			shopTable.row();
+			shopTable.add(infoLabel).padTop(20);
+			shopTable.add(infoTable).padTop(20);
+			shopTable.pad(30);
+
+			ScrollPaneStyle paneStyle = new ScrollPaneStyle();
+			paneStyle.background = Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane");
+			paneStyle.vScrollKnob = Utilities.ACTUAL_UI_SKIN.getDrawable("default-scroll");
+
+			scroll = new ScrollPane(shopTable, paneStyle);
+
+			container.add(scroll).width(600).height(400);
+
+			container.padLeft(650);
+			container.padBottom(500);
+
+			stage.addActor(container);
+			stage.addActor(this);
+
+			pack();
+
+			toBack();
+			setResizable(true);
+			setVisible(false);
+			setShopVisible(false);
+
+			stage.setScrollFocus(scroll);
+
+			logger.info("Shop Window instanced.");
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		}
-
-		sellTable = new Table(new Skin(Gdx.files.internal("uiskin.json")));
-
-		for (Map.Entry<Label, ShopItem> set : sellList.entrySet()) {
-			set.getKey().setWrap(true);
-			final Group tempGroup = new Group();
-			
-			labels.add(set.getKey());
-			
-			set.getKey().setWidth(150);
-			set.getKey().setHeight(32);
-			
-			set.getValue().setWidth(32);
-			set.getValue().setHeight(32);
-			
-			set.getValue().setBounds(set.getValue().getX() + set.getKey().getWidth(), set.getValue().getY(), 32, 32);
-			
-			tempGroup.addActor(set.getKey());
-			tempGroup.addActor(set.getValue());
-			
-			sellTable.add(tempGroup).width(182).height(32).padTop(10);
-			
-			tempGroup.addListener(new ClickListener() {
-
-				@Override
-				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-					
-					for (int i = 0; i < labels.size(); i++) {
-						labels.get(i).setColor(Color.WHITE);
-					}
-					
-					selectedBuyItem = null;
-					selectedSellItem = null;
-					selectedSellItem = (ShopItem) tempGroup.getChild(1);
-					Label tempLabel = (Label) tempGroup.getChild(0);
-					itemToRemove = tempGroup;
-					tempGroup.addActor(borderImage);
-					tempLabel.setColor(Color.YELLOW);
-					return true;
-				}			
-	  					
-			});
-			sellTable.row();
-		}
-		
-		
-		confirmButton = new TextButton("Confirm", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		leaveButton = new TextButton("Leave", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		
-		infoTable = new Table();
-		
-		infoTable.add(leaveButton).width(91);
-		infoTable.add(confirmButton).width(91);
-		
-		
-		Label buyLabel = new Label("Buy", Utilities.ACTUAL_UI_SKIN);
-		Label sellLabel = new Label("Sell", Utilities.ACTUAL_UI_SKIN);
-		infoLabel = new Label("", Utilities.ACTUAL_UI_SKIN);
-		infoLabel.setScale(0.7f);
-		
-		buyLabel.setAlignment(Align.center, Align.center);
-		sellLabel.setAlignment(Align.center, Align.center);
-
-		shopTable = new Table();
-		shopTable.add(buyLabel).width(182);
-		shopTable.add(sellLabel).width(182);
-		shopTable.row();
-		shopTable.add(buyTable);
-		shopTable.add(sellTable);
-		shopTable.row();
-		shopTable.add(infoLabel).padTop(20);
-		shopTable.add(infoTable).padTop(20);
-		shopTable.pad(30);
-
-		ScrollPaneStyle paneStyle = new ScrollPaneStyle();
-		paneStyle.background = Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane");
-		paneStyle.vScrollKnob = Utilities.ACTUAL_UI_SKIN.getDrawable("default-scroll");
-		
-		scroll = new ScrollPane(shopTable, paneStyle);
-		
-		container.add(scroll).width(600).height(400);
-		
-		container.padLeft(650);
-		container.padBottom(500);
-		
-		stage.addActor(container);
-		stage.addActor(this);
-
-		pack();
-		
-		toBack();
-		setResizable(true);
-		setVisible(false);
-		setShopVisible(false);
-
-		stage.setScrollFocus(scroll);
 	}
 	
 	public void setShopVisible(boolean isVisible) {
@@ -248,6 +268,8 @@ public class ShopWindow extends Window implements InputProcessor  {
 			infoLabel.setText("");
 			com.mygdx.game.Map.getInstance().getAudioManager().stopAll();
 			com.mygdx.game.Map.getInstance().getAudioManager().playOverworld();
+			
+			logger.info("Shop window closed.");		
 		}
 		
 		if (confirmButton.isPressed()) {
@@ -261,10 +283,10 @@ public class ShopWindow extends Window implements InputProcessor  {
 			if (selectedBuyItem != null) {		
 				if (money.getMoney() >= selectedBuyItem.getCost()) {
 					InventoryItem tempItem = new InventoryItem(selectedBuyItem);
-					System.out.println("Bought item " + selectedBuyItem.getName());
 					com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().addItemToInventory(tempItem, selectedBuyItem.getName());
 					com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().equipEquippableItems();		
 					money.setMoney(money.getMoney() - selectedBuyItem.getCost());
+					logger.info("Bought " + selectedBuyItem.getName() + " from shop.");
 					if (!tempItem.isConsumable()) {
 						buyList.remove(itemToRemove.getChild(0));
 					}
@@ -276,6 +298,7 @@ public class ShopWindow extends Window implements InputProcessor  {
 				money.setMoney(money.getMoney() + (selectedSellItem.getCost() / 2));
 				InventoryItem tempItem = new InventoryItem(selectedSellItem);
 				tempItem.setName(selectedSellItem.getName());
+				logger.info("Sold " + tempItem.getName() + " to shop.");
 				com.mygdx.game.Map.getInstance().getPlayerHUD().getInventory().removeItemFromInventory(tempItem);
 			}
 			

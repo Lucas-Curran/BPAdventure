@@ -2,6 +2,9 @@ package com.mygdx.game.levels;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.GameWorld;
+import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
 /**
@@ -17,6 +21,8 @@ import com.mygdx.game.levels.Levels.LevelDestination;
  *
  */
 public class DoorBuilder {
+	
+	static Logger logger = LogManager.getLogger(DoorBuilder.class.getName());
 	
 	private static DoorBuilder instance;
 	
@@ -54,6 +60,7 @@ public class DoorBuilder {
 		destinations.add(level.getValue());
 		createdLevels.add(level);
 		isTouched.add(false);
+		logger.info("Door created with name: " + name);
 		return door;
 	}
 	
@@ -62,6 +69,7 @@ public class DoorBuilder {
 	 */
 	public void destroy(Body door) {
 		(new GameWorld().getInstance()).destroyBody(door);
+		logger.info("Door destroyed with name: " + door.getUserData());
 	}
 	
 	static {

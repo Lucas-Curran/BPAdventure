@@ -1,7 +1,11 @@
 package com.mygdx.game.inventory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -30,9 +34,11 @@ import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Camera;
+import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Map;
 import com.mygdx.game.SqliteManager;
 import com.mygdx.game.Utilities;
+import com.mygdx.game.entities.Enemy;
 import com.mygdx.game.item.InventoryItem;
 import com.mygdx.game.item.ShopItem;
 import com.mygdx.game.item.InventoryItem.ItemUseType;
@@ -40,6 +46,8 @@ import com.mygdx.game.ui.HealthBar;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
 public class Inventory extends Window {
+	
+	static Logger logger = LogManager.getLogger(Inventory.class.getName());
 
 	private static TextureRegion background = new TextureRegion(Utilities.UISKIN.getAtlas().findRegion("invBackground"));
 	
@@ -71,112 +79,126 @@ public class Inventory extends Window {
 	public Inventory() {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
 	
-		sm = new SqliteManager();
-		
-		dragAndDrop = new DragAndDrop();
-		dragAndDrop.setKeepWithinStage(false);
-		
-		inventoryActors = new Array<Actor>();
-		
-		slotsTable = new Table();
-		slotsTable.setName("Slots_Table");
+		try {
+			sm = new SqliteManager();
 
-		equipmentTable = new Table();
-		equipmentTable.setName("Equipment_Table");
-		equipmentTable.defaults().space(10);
-		
-		headSlot = new InventorySlot(
-				ItemUseType.ARMOR_HELMET.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderHelmet")), true);
-		
-		leftArmSlot = new InventorySlot(
-				ItemUseType.WEAPON_ONEHAND.getValue() |
-				ItemUseType.WEAPON_TWOHAND.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderSword")), true);
-		
-		rightArmSlot = new InventorySlot(
-				ItemUseType.ARMOR_SHIELD.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderShield")), true);
-		
-		chestSlot = new InventorySlot(
-				ItemUseType.ARMOR_CHEST.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderChest")), true);
-		
-		legsSlot = new InventorySlot(
-				ItemUseType.ARMOR_LEGS.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderLegs")), true);
-		
-		bootsSlot = new InventorySlot(
-				ItemUseType.ARMOR_FEET.getValue(),
-				new Image(Utilities.UISKIN.getRegion("holderBoots")), true);
-		
-		dragAndDrop.addTarget(new InventorySlotTarget(headSlot));
-		dragAndDrop.addTarget(new InventorySlotTarget(leftArmSlot));
-		dragAndDrop.addTarget(new InventorySlotTarget(rightArmSlot));
-		dragAndDrop.addTarget(new InventorySlotTarget(chestSlot));
-		dragAndDrop.addTarget(new InventorySlotTarget(legsSlot));
-		dragAndDrop.addTarget(new InventorySlotTarget(bootsSlot));
-		
-		slotsTable.setBackground(new Image(Utilities.UISKIN.getRegion("itemsBackground")).getDrawable());
-				
-		for (int i = 1; i <= INVENTORY_SPACE; i++) {
-			InventorySlot inventorySlot = new InventorySlot();
-			dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
-			slotsTable.add(inventorySlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-			inventorySlot.addListener(new ClickListener() {
-				
-				@Override
-				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-					super.touchUp(event, x, y, pointer, button);
-					if (getTapCount() == 2) {
-						setTapCount(0);
-						InventorySlot slot = (InventorySlot) event.getListenerActor();
-						if (slot.hasItem()) {
-							InventoryItem item = slot.getTopInventoryItem();
-							if (item.isConsumable()) {
-								HealthBar health = Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar();
-								health.setHP(health.getHP() + item.getHpRestored());
-								System.out.println(health.getHP());
-								slot.removeActor(item);
-								slot.remove(item);
+			dragAndDrop = new DragAndDrop();
+			dragAndDrop.setKeepWithinStage(false);
+
+			inventoryActors = new Array<Actor>();
+
+			slotsTable = new Table();
+			slotsTable.setName("Slots_Table");
+
+			equipmentTable = new Table();
+			equipmentTable.setName("Equipment_Table");
+			equipmentTable.defaults().space(10);
+
+			headSlot = new InventorySlot(
+					ItemUseType.ARMOR_HELMET.getValue(),
+					new Image(Utilities.UISKIN.getRegion("holderHelmet")), true);
+
+			leftArmSlot = new InventorySlot(
+					ItemUseType.WEAPON_ONEHAND.getValue() |
+					ItemUseType.WEAPON_TWOHAND.getValue(),
+					new Image(Utilities.UISKIN.getRegion("holderSword")), true);
+
+			rightArmSlot = new InventorySlot(
+					ItemUseType.ARMOR_SHIELD.getValue(),
+					new Image(Utilities.UISKIN.getRegion("holderShield")), true);
+
+			chestSlot = new InventorySlot(
+					ItemUseType.ARMOR_CHEST.getValue(),
+					new Image(Utilities.UISKIN.getRegion("holderChest")), true);
+
+			legsSlot = new InventorySlot(
+					ItemUseType.ARMOR_LEGS.getValue(),
+					new Image(Utilities.UISKIN.getRegion("holderLegs")), true);
+
+			bootsSlot = new InventorySlot(
+					ItemUseType.ARMOR_FEET.getValue(),
+					new Image(Utilities.UISKIN.getRegion("holderBoots")), true);
+
+			dragAndDrop.addTarget(new InventorySlotTarget(headSlot));
+			dragAndDrop.addTarget(new InventorySlotTarget(leftArmSlot));
+			dragAndDrop.addTarget(new InventorySlotTarget(rightArmSlot));
+			dragAndDrop.addTarget(new InventorySlotTarget(chestSlot));
+			dragAndDrop.addTarget(new InventorySlotTarget(legsSlot));
+			dragAndDrop.addTarget(new InventorySlotTarget(bootsSlot));
+
+			slotsTable.setBackground(new Image(Utilities.UISKIN.getRegion("itemsBackground")).getDrawable());
+
+			for (int i = 1; i <= INVENTORY_SPACE; i++) {
+				InventorySlot inventorySlot = new InventorySlot();
+				dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
+				slotsTable.add(inventorySlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+				inventorySlot.addListener(new ClickListener() {
+
+					@Override
+					public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+						super.touchUp(event, x, y, pointer, button);
+						if (getTapCount() == 2) {
+							setTapCount(0);
+							InventorySlot slot = (InventorySlot) event.getListenerActor();
+							if (slot.hasItem()) {
+								InventoryItem item = slot.getTopInventoryItem();
+								if (item.isConsumable()) {
+									HealthBar health = Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar();
+									health.setHP(health.getHP() + item.getHpRestored());
+									System.out.println(health.getHP());
+									slot.removeActor(item);
+									slot.remove(item);
+								}
 							}
 						}
 					}
-				}
-				
-			});
-			if (i % NUM_COLUMNS == 0) {
-				slotsTable.row();
-			}
-		}	
 
-		equipmentTable.padLeft(10);
-		
-		equipmentTable.add();
-		equipmentTable.add(headSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-		equipmentTable.row();
-		
-		equipmentTable.add(leftArmSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-		equipmentTable.add(chestSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-		equipmentTable.add(rightArmSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-		equipmentTable.row();
-		
-		equipmentTable.add();
-		equipmentTable.right().add(legsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-		equipmentTable.row();
-		
-		equipmentTable.add();
-		equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
-		
-		this.setFillParent(true);
-		this.add(equipmentTable);
-		this.add(slotsTable);
-		this.getTitleTable().padTop(300).padLeft(178);
-		this.pack();
-		
-		
-		sourceCells = slotsTable.getCells(); 
-		equipmentCells = equipmentTable.getCells();
+				});
+				if (i % NUM_COLUMNS == 0) {
+					slotsTable.row();
+				}
+			}	
+			
+			logger.info("Inventory slots created.");
+
+			equipmentTable.padLeft(10);
+
+			equipmentTable.add();
+			equipmentTable.add(headSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+			equipmentTable.row();
+
+			equipmentTable.add(leftArmSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+			equipmentTable.add(chestSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+			equipmentTable.add(rightArmSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+			equipmentTable.row();
+
+			equipmentTable.add();
+			equipmentTable.right().add(legsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+			equipmentTable.row();
+
+			equipmentTable.add();
+			equipmentTable.add(bootsSlot).size(SLOT_WIDTH, SLOT_HEIGHT);
+
+			this.setFillParent(true);
+			this.add(equipmentTable);
+			this.add(slotsTable);
+			this.getTitleTable().padTop(300).padLeft(178);
+			this.pack();
+
+			logger.info("Inventory layout finished.");
+
+			sourceCells = slotsTable.getCells(); 
+			equipmentCells = equipmentTable.getCells();
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 	
 	public void equipEquippableItems() {
@@ -189,30 +211,35 @@ public class Inventory extends Window {
 					 //shield
 					 case 32:
 						 if (!rightArmSlot.hasItem()) {
+							 logger.info("Shield automatically equipped.");
 							 rightArmSlot.add(tempItem);
 						 }
 						 break;		
 					 //helmet
 					 case 64:
 						 if (!headSlot.hasItem()) {
+							 logger.info("Helmet automatically equipped.");
 							 headSlot.add(tempItem);
 						 }
 						 break;					 
 					 //chest
 					 case 128:
 						 if (!chestSlot.hasItem()) {
+							 logger.info("Chest armor automatically equipped.");
 							 chestSlot.add(tempItem);
 						 }
 						 break;			 
 					 //feet
 					 case 256:
 						 if (!bootsSlot.hasItem()) {
+							 logger.info("Boots automatically equipped.");
 							 bootsSlot.add(tempItem);
 						 }
 						 break;				 
 					 //legs
 					 case 512:
 						 if (!legsSlot.hasItem()) {
+							 logger.info("Legs automatically equipped.");
 							 legsSlot.add(tempItem);
 						 }
 						 break;	 
@@ -221,6 +248,7 @@ public class Inventory extends Window {
 					 }
 				 } else if (tempItem.isInventoryItemWeapon()) {
 					 if (!leftArmSlot.hasItem()) {
+						 logger.info("Weapon automatically equipped.");
 						 leftArmSlot.add(tempItem);
 					 }
 				 }
@@ -238,6 +266,7 @@ public class Inventory extends Window {
 	                int numItems = inventorySlot.getNumItems();
 	                if (numItems == 0) {
 	                    item.setName(itemName);
+	                    logger.info(item.getName() + " added to inventory.");
 	                    inventorySlot.add(item);
 	                    dragAndDrop.addSource(new InventorySlotSource(inventorySlot, dragAndDrop));           
 	                    break;
@@ -254,6 +283,7 @@ public class Inventory extends Window {
 			 }
 			 if (inventorySlot.hasItem()) {
 				 if (inventorySlot.getTopInventoryItem().getName().equals(item.getName())) {
+					 logger.info(item.getName() + " removed to inventory.");
 					 inventorySlot.getTopInventoryItem().remove();
 				 }
 			 }
@@ -269,6 +299,7 @@ public class Inventory extends Window {
 				 itemIDs.add(tempItem.getItemTypeID().getValue());
 			 }
 		 } 
+		 logger.info("All item ID's in inventory retrieved.");
 		return itemIDs;	 
 	 }
 	 
@@ -281,6 +312,7 @@ public class Inventory extends Window {
 				 itemIDs.add(tempItem.getItemTypeID().getValue());
 			 }
 		 } 
+		 logger.info("All item ID's of equipped gear retrieved.");
 		return itemIDs;	 
 	 }
 	 
@@ -294,6 +326,7 @@ public class Inventory extends Window {
 				 
 			 }
 		 }
+		 logger.info("Items to sell retrieved.");
 		return items;
 	 }
 	 
@@ -324,23 +357,6 @@ public class Inventory extends Window {
 		 }
 		 return damage;
 	 }
-	 
-	
-	public ArrayList<Cell> getHotbarItems() {
-		ArrayList<Cell> hotbarItems = new ArrayList<Cell>();
-		for (int i = 0; i < HOTBAR_LENGTH; i++) {
-			hotbarItems.add(i, cells.get(i));
-		}
-		return hotbarItems;
-	}
-	
-	public ArrayList<Image> getHotbarImages() {
-		return inventoryImages;
-	}
-	
-	public Array<Actor> getInventoryActors() {
-		return inventoryActors;
-	}
 
 	public Table getSlotsTable() {
 		return slotsTable;

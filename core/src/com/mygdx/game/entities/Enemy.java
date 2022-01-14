@@ -2,10 +2,14 @@ package com.mygdx.game.entities;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.BodyFactory;
+import com.mygdx.game.Settings;
 import com.mygdx.game.Utilities;
 import com.mygdx.game.components.B2dBodyComponent;
 import com.mygdx.game.components.CollisionComponent;
@@ -19,6 +23,8 @@ import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.systems.SteeringPresets;
 
 public class Enemy extends EntityHandler {
+	
+	static Logger logger = LogManager.getLogger(Enemy.class.getName());
 	
 	private static ArrayList<Entity> enemies;
 	
@@ -46,6 +52,7 @@ public class Enemy extends EntityHandler {
 		levelEightEnemies = new ArrayList<Entity>();
 		levelNineEnemies = new ArrayList<Entity>();
 		levelTenEnemies = new ArrayList<Entity>();
+		logger.info("Enemies instanced.");
 	}
 	
 	/**
@@ -108,6 +115,8 @@ public class Enemy extends EntityHandler {
 		entity.add(enemy);
 		entity.add(colComp);
 
+		logger.info("Enemy created.");
+		
 		return entity;
 	}
 	
@@ -168,6 +177,8 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		entity.add(texture);
 		entity.add(enemy);
 		entity.add(colComp);
+		
+		logger.info("Enemy shooter created.");
 	
 		return entity;
 	}
@@ -182,6 +193,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelTwoEnemies.add(createEnemy(25, 93, EnemyState.PATROL, 1, 2f, spikyRockMob, 1));
 		levelTwoEnemies.add(createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f, rockMob, 1));
 		levelTwoEnemies.add(createEnemy(15, 92, EnemyState.PATROL, 1, 1f, rockMob, 3));
+		logger.info("Level two enemies added.");
 	}
 	
 	/**
@@ -189,7 +201,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	 * @return an ArrayList of all the level three enemies
 	 */
 	public void addLevelThreeEnemies() {	
-		
+		logger.info("Level three enemies added.");
 	}
 	
 	/**
@@ -205,6 +217,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelFourEnemies.add(createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, Utilities.iceBird, 3));
 		
 		levelFourEnemies.add(createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.iceMonster,false, 5));
+		logger.info("Level four enemies added.");
 	}
 	
 	/**
@@ -220,7 +233,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelFiveEnemies.add(createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye, 1));
 		levelFiveEnemies.add(createEnemy(40, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye, 1));
 		levelFiveEnemies.add(createEnemyShooter(42, 382, 1, 2f, -2, 0, 7, 7, Utilities.eyeBoss, false, 5));
-
+		logger.info("Level five enemies added.");
 	}
 	
 	/**
@@ -238,7 +251,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelSixEnemies.add(createEnemy(36, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon, 1));
 		levelSixEnemies.add(createEnemy(34, 477, EnemyState.STEERING, 1, 1f, Utilities.jungleDragon, 1));
 		levelSixEnemies.add(createEnemy(34, 479, EnemyState.BOUNCE, 1, 3f, Utilities.slimeKing, 7));
-	
+		logger.info("Level six enemies added.");
 	}
 	
 	/**
@@ -252,7 +265,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelSevenEnemies.add(createEnemy(11, 595, EnemyState.PATROL, 5, 1f, slimyMob, 3));
 		
 		levelSevenEnemies.add(createEnemyShooter(1, 593, 1, 1f, -2, 0, 7, 10, spikySlime, false, 5));
-
+		logger.info("Level seven enemies added.");
 	}
 	
 	/**
@@ -268,6 +281,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelEightEnemies.add(createEnemy(24, 686, EnemyState.STEERING, 3, 1, Utilities.steeringMob, 1));
 		levelEightEnemies.add(createEnemy(28, 686, EnemyState.BOUNCE, 5, 2, Utilities.spikeBouncer, 3));
 		levelEightEnemies.add(createEnemy(35, 686, EnemyState.BOSS, 10, 2, Utilities.boss_8, 10));
+		logger.info("Level eight enemies added.");
 	}
 	
 	// shooting parameters - x, y, range, radius, bulletX, bulletY, bulletRange, time, texture, random?
@@ -310,6 +324,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		levelNineEnemies.add(createEnemyShooter(30, 789, 1, 1, -3, 0, 5, 8, spikySlime, true, 5));
 		levelNineEnemies.add(createEnemyShooter(40, 789, 1, 1, -3, 0, 5, 8, spikySlime, true, 5));
 		levelNineEnemies.add(createEnemy(50, 787, EnemyState.PATROL, 10, 2, Utilities.jumpingMob, 3));
+		logger.info("Level nine enemies added.");
 	}
 	
 	/**
@@ -317,7 +332,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 	 * @return an ArrayList of all the level ten enemies
 	 */
 	public void addLevelTenEnemies() {	
-
+		logger.info("Level ten enemies added.");
 	}
 	
 	/**
@@ -330,7 +345,7 @@ public Entity createEnemyShooter(float posx, float posy, int range, float radius
 		iceDungeonEnemies.add(createEnemy(494, 93, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3));
 		iceDungeonEnemies.add(createEnemy(496, 92, EnemyState.BOUNCE, 1, 1f, Utilities.rockMob, 3));
 		iceDungeonEnemies.add(createEnemy(505, 93, EnemyState.PATROL, 1, 2f, Utilities.iceMonster, 3));
-		
+		logger.info("Ice dungeon enemies added.");
 	}
 
 	

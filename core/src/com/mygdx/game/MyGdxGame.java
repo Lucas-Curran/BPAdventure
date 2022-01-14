@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -7,9 +12,13 @@ public class MyGdxGame extends Game {
 	
 	private Camera cam;
 	public Screens screens;
+	private CrashWriter crashWriter;
+	
+	static Logger logger = LogManager.getLogger(MyGdxGame.class.getName());
 	
 	@Override
 	public void create() {
+		logger.info("Game started");
 		cam = new Camera();
 		screens = new Screens(this);
 		Screens.toMenu(new MainMenu());

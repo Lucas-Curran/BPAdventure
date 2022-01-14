@@ -1,17 +1,25 @@
 package com.mygdx.game.ui;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.mygdx.game.BpaAssetManager;
+import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Map;
 import com.mygdx.game.SqliteManager;
+import com.mygdx.game.entities.EntityHandler;
 
 public class HealthBar extends Actor {
 
+	static Logger logger = LogManager.getLogger(HealthBar.class.getName());
+	
 	private NinePatchDrawable healthBarBackground;
 	private NinePatchDrawable healthBar;
 	private TextureAtlas skinAtlas;
@@ -22,17 +30,27 @@ public class HealthBar extends Actor {
 	 * Health bar constructor
 	 */
 	public HealthBar() {
-		skinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.txt"));
-		NinePatch healthBarBackgroundPatch = new NinePatch(skinAtlas.findRegion("default-round"), 5, 5, 4, 4);
-		NinePatch healthBarPatch = new NinePatch(skinAtlas.findRegion("default-round-down"), 5, 5, 4, 4);
+		try {
+			skinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.txt"));
+			NinePatch healthBarBackgroundPatch = new NinePatch(skinAtlas.findRegion("default-round"), 5, 5, 4, 4);
+			NinePatch healthBarPatch = new NinePatch(skinAtlas.findRegion("default-round-down"), 5, 5, 4, 4);
 
-		setWidth(200);
-		setHeight(10);
-		
-        healthBar = new NinePatchDrawable(healthBarPatch);
-        healthBarBackground = new NinePatchDrawable(healthBarBackgroundPatch);
-        hpVal = ((float) sm.getHealth()) / 100;
-       
+			setWidth(200);
+			setHeight(10);
+
+			healthBar = new NinePatchDrawable(healthBarPatch);
+			healthBarBackground = new NinePatchDrawable(healthBarBackgroundPatch);
+			hpVal = ((float) sm.getHealth()) / 100;
+			logger.info("Health Bar instanced.");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}    
 	}
 	
 

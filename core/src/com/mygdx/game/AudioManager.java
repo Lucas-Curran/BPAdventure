@@ -1,12 +1,18 @@
 package com.mygdx.game;
 
+import java.io.IOException;
 import java.util.HashMap;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
 public class AudioManager {
 		
+		static Logger logger = LogManager.getLogger(AudioManager.class.getName());
+	
 		private static HashMap<String, Music> music;
 		Music caveMusic, menuMusic, overworldMusic, shopMusic;
 		SqliteManager sm;
@@ -16,19 +22,30 @@ public class AudioManager {
 	 * Creates hashmap of music objects
 	 */
 	public AudioManager() {
-		music = new HashMap<String,Music>();
-		sm = new SqliteManager();
-		
-		caveMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/cave_track.wav"));
-		shopMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/shop_track.wav"));
-		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/menu_track.wav"));
-		overworldMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/overworld_track.wav"));
-		
-		music.put("cave", caveMusic);
-		music.put("shop", shopMusic);
-		music.put("menu", menuMusic);
-		music.put("overworld", overworldMusic);
+		try {
+			music = new HashMap<String,Music>();
+			sm = new SqliteManager();
+
+			caveMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/cave_track.wav"));
+			shopMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/shop_track.wav"));
+			menuMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/menu_track.wav"));
+			overworldMusic = Gdx.audio.newMusic(Gdx.files.internal("tracks/overworld_track.wav"));
+
+			music.put("cave", caveMusic);
+			music.put("shop", shopMusic);
+			music.put("menu", menuMusic);
+			music.put("overworld", overworldMusic);
 		volume = sm.getVolume();
+		logger.info("Audio Manager created.");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 		
 	}
 		
@@ -72,6 +89,7 @@ public class AudioManager {
 			music.get(song).setVolume(volume / 100);
 			music.get(song).setLooping(true);
 			music.get(song).play();
+			logger.info("Playing " + song + " track.");
 		}
 	}
 	

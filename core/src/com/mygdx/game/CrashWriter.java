@@ -10,10 +10,10 @@ public class CrashWriter {
 	
 	private FileWriter fw;
 	private PrintWriter pw;
-	Exception error;
+	static Exception error;
 	
 	public CrashWriter(Exception error) throws IOException {
-		this.error = error;
+		CrashWriter.error = error;
 		fw = new FileWriter("CrashReport.txt", true);
 		pw = new PrintWriter(fw);
 	}

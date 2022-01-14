@@ -2,6 +2,9 @@ package com.mygdx.game.entities;
 
 import java.util.HashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +32,8 @@ import com.mygdx.game.item.InventoryItem.ItemUseType;
 import com.mygdx.game.ui.ShopWindow;
 
 public class NPC extends EntityHandler {
+	
+	static Logger logger = LogManager.getLogger(NPC.class.getName());
 	
 	public Entity spawnNPC(String[] text, int posx, int posy, TextureRegion npcTexture, boolean hasOptions) {
 		
@@ -60,12 +65,14 @@ public class NPC extends EntityHandler {
 				entity.add(texture);
 				entity.add(npcComp);
 				
+				logger.info("NPC created.");
+				
 				return entity;
 	}
 	
 	public HashMap<Label, ShopItem> getShopWares() {
 		
-		HashMap<Label, ShopItem> testMap = new HashMap<Label, ShopItem>();
+		HashMap<Label, ShopItem> shopItems = new HashMap<Label, ShopItem>();
 		
 		ShopItem helmet01 = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.HELMET01), 3);
 		ShopItem helmet02 = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_HELMET.getValue(), ItemTypeID.HELMET02), 6);
@@ -112,33 +119,33 @@ public class NPC extends EntityHandler {
 		Label label20 = new Label("Donut", Utilities.ACTUAL_UI_SKIN);
 		Label label21 = new Label("Cake", Utilities.ACTUAL_UI_SKIN);
 		Label label22 = new Label("Burger", Utilities.ACTUAL_UI_SKIN);
-
-
 		
-		testMap.put(label1, helmet01);
-		testMap.put(label2, helmet02);
-		testMap.put(label3, helmet03);
-		testMap.put(label4, armorchest01);
-		testMap.put(label5, armorchest02);
-		testMap.put(label6, armorchest03);
-		testMap.put(label7, legs01);
-		testMap.put(label8, legs02);
-		testMap.put(label9, legs03);
-		testMap.put(label10, boots01);
-		testMap.put(label11, boots02);
-		testMap.put(label12, boots03);
-		testMap.put(label13, shield01);
-		testMap.put(label14, shield02);
-		testMap.put(label15, shield03);	
-		testMap.put(label16, weapon01);	
-		testMap.put(label17, weapon02);	
-		testMap.put(label18, weapon03);	
-		testMap.put(label19, apple);
-		testMap.put(label20, donut);
-		testMap.put(label21, cake);
-		testMap.put(label22, burger);
+		shopItems.put(label1, helmet01);
+		shopItems.put(label2, helmet02);
+		shopItems.put(label3, helmet03);
+		shopItems.put(label4, armorchest01);
+		shopItems.put(label5, armorchest02);
+		shopItems.put(label6, armorchest03);
+		shopItems.put(label7, legs01);
+		shopItems.put(label8, legs02);
+		shopItems.put(label9, legs03);
+		shopItems.put(label10, boots01);
+		shopItems.put(label11, boots02);
+		shopItems.put(label12, boots03);
+		shopItems.put(label13, shield01);
+		shopItems.put(label14, shield02);
+		shopItems.put(label15, shield03);	
+		shopItems.put(label16, weapon01);	
+		shopItems.put(label17, weapon02);	
+		shopItems.put(label18, weapon03);	
+		shopItems.put(label19, apple);
+		shopItems.put(label20, donut);
+		shopItems.put(label21, cake);
+		shopItems.put(label22, burger);
 		
-		return testMap;
+		logger.info("Shop items created.");
+		
+		return shopItems;
 	}
 	
 }

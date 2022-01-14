@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
@@ -35,6 +40,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class TextBox implements InputProcessor {
 	
+	static Logger logger = LogManager.getLogger(TextBox.class.getName());
+	
 	private Stage stage;
 	private Table table;
 	private Label label;
@@ -62,74 +69,84 @@ public class TextBox implements InputProcessor {
 	public TextBox(BitmapFont font, Stage stage, Color color) {
 		this.stage = stage;
 		this.color = color;
+		
+		try {
+			table = new Table();
+			group = new Group();
 
-		table = new Table();
-		group = new Group();
-		
-		timePerCharacter = 0.045f;
-		numChars = 0;
-		ctimePerCharacter = 0f;
-		
-		widthOffset = 60;
-		heightOffset = 15;
-		
-		textureAtlas = new TextureAtlas("textures.txt");
-		tex = new TextureRegion(textureAtlas.findRegion("textbox2"));
-		img = new Image(tex);
-		
-		yesButton = new TextButton("Yes", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		noButton = new TextButton("No", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		
-		Utilities.buttonSettings(yesButton);
-		Utilities.buttonSettings(noButton);
-		
-		yesButton.getLabel().setStyle(new LabelStyle(font, null));
-		noButton.getLabel().setStyle(new LabelStyle(font, null));
-		
-		yesButton.getLabel().setFontScale(0.7f);
-		noButton.getLabel().setFontScale(0.7f);
-		
-		yesButton.setVisible(false);
-		noButton.setVisible(false);
-		
-		textAni = new TextureRegion(textureAtlas.findRegion("arrowAni"));
-		label = new Label("", new Label.LabelStyle(font, null));
-		label.setWrap(true);
-		label.setWidth(img.getWidth() - widthOffset);
-		label.setAlignment(Align.topLeft);
-		
-		batch = new SpriteBatch();
-		anim = new Animation<TextureRegion>(.25f, Utilities.spriteSheetToFrames(textAni, 10, 1));
-		
-		writing = false;
-		
-		stage.addActor(table);
-		
-		group.addActor(img);
-		group.addActor(label);
-		group.addActor(yesButton);
-		group.addActor(noButton);
-		
-		group.setScale(.5f);
-		
-		table.setPosition(0, 0);
-		table.add(group).bottom().padBottom(20).padLeft(35);
+			timePerCharacter = 0.045f;
+			numChars = 0;
+			ctimePerCharacter = 0f;
 
-		label.setPosition(img.getX() + widthOffset / 2, img.getY() + img.getHeight() - heightOffset);
-		img.setPosition(0, 0);
-		
-		yesButton.setPosition(70, 20);
-		noButton.setPosition(200, 20);
-		
-		yesButton.setHeight(40);
-		noButton.setHeight(40);
-		
-		yesButton.setWidth(120);
-		noButton.setWidth(120);
-		
-		textSequence = 0;
-		
-		table.setVisible(false);
+			widthOffset = 60;
+			heightOffset = 15;
+
+			textureAtlas = new TextureAtlas("textures.txt");
+			tex = new TextureRegion(textureAtlas.findRegion("textbox2"));
+			img = new Image(tex);
+
+			yesButton = new TextButton("Yes", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			noButton = new TextButton("No", Utilities.buttonStyles("default-rect", "default-rect-down"));
+
+			Utilities.buttonSettings(yesButton);
+			Utilities.buttonSettings(noButton);
+
+			yesButton.getLabel().setStyle(new LabelStyle(font, null));
+			noButton.getLabel().setStyle(new LabelStyle(font, null));
+
+			yesButton.getLabel().setFontScale(0.7f);
+			noButton.getLabel().setFontScale(0.7f);
+
+			yesButton.setVisible(false);
+			noButton.setVisible(false);
+
+			textAni = new TextureRegion(textureAtlas.findRegion("arrowAni"));
+			label = new Label("", new Label.LabelStyle(font, null));
+			label.setWrap(true);
+			label.setWidth(img.getWidth() - widthOffset);
+			label.setAlignment(Align.topLeft);
+
+			batch = new SpriteBatch();
+			anim = new Animation<TextureRegion>(.25f, Utilities.spriteSheetToFrames(textAni, 10, 1));
+
+			writing = false;
+
+			stage.addActor(table);
+
+			group.addActor(img);
+			group.addActor(label);
+			group.addActor(yesButton);
+			group.addActor(noButton);
+
+			group.setScale(.5f);
+
+			table.setPosition(0, 0);
+			table.add(group).bottom().padBottom(20).padLeft(35);
+
+			label.setPosition(img.getX() + widthOffset / 2, img.getY() + img.getHeight() - heightOffset);
+			img.setPosition(0, 0);
+
+			yesButton.setPosition(70, 20);
+			noButton.setPosition(200, 20);
+
+			yesButton.setHeight(40);
+			noButton.setHeight(40);
+
+			yesButton.setWidth(120);
+			noButton.setWidth(120);
+
+			textSequence = 0;
+
+			table.setVisible(false);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 	
 	public void renderTextBox(float delta) {

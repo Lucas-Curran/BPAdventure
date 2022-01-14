@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
@@ -9,6 +12,8 @@ import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.entities.Player;
 
 public class Weapon {
+	
+	static Logger logger = LogManager.getLogger(Weapon.class.getName());
 	
 	private BodyFactory bodyFactory;
 	private Body sword;
@@ -34,6 +39,7 @@ public class Weapon {
 		sword = bodyFactory.makeBoxPolyBody(x, y, 1.3f, 0.3f, BodyFactory.STEEL, BodyType.DynamicBody, false, true, texture);
 		sword.setGravityScale(0);
 		sword.setUserData("Sword");		
+		logger.info("Sword created.");
 	}
 	
 	public void positionSword(float x, float y, int direction) {

@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +12,8 @@ import com.mygdx.game.levels.Levels.LevelDestination;
 
 public class RoomFactory {
 	
+	static Logger logger = LogManager.getLogger(RoomFactory.class.getName());
+	
 	BodyFactory bodyFactory;
 	GameWorld world;
 	Texture texture;
@@ -16,7 +21,7 @@ public class RoomFactory {
 	public RoomFactory() {
 		world = new GameWorld();
 		bodyFactory = BodyFactory.getInstance(world.getInstance());
-		
+		logger.info("Room factory instanced.");
 	}
 	/**
 	 * makes a room in the world that is a square
@@ -32,6 +37,7 @@ public class RoomFactory {
 			bodyFactory.makeBoxPolyBody(posx - (width / 2) - (height/2), posy + height * ((width / height) / 2 - 0.5f), height, width, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			bodyFactory.makeBoxPolyBody(posx, posy + width - (height), width, height, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 			bodyFactory.makeBoxPolyBody(posx + (width / 2) + (height/2), posy + height * ((width / height) / 2 - 0.5f), height, width, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
+			logger.info("Square room created.");
 			} 
 	}
 	/**
@@ -48,7 +54,7 @@ public class RoomFactory {
 		bodyFactory.makeBoxPolyBody(posx - (width / 2) - (height/2), posy + height2 * ((width / height2) / 2 - 0.5f), width, height2, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 		bodyFactory.makeBoxPolyBody(posx, posy + width - (height2), height, width, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
 		bodyFactory.makeBoxPolyBody(posx + (width / 2) + (height/2), posy + height2 * ((width / height2) / 2 - 0.5f), width, height2, BodyFactory.STEEL, BodyType.StaticBody, false, false, texture);
-		
+		logger.info("Rectangular room created.");
 	}
 	
 	

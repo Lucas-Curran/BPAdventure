@@ -1,6 +1,11 @@
 package com.mygdx.game.entities;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
@@ -16,6 +21,7 @@ import com.mygdx.game.AudioManager;
 import com.mygdx.game.B2dContactListener;
 import com.mygdx.game.BodyFactory;
 import com.mygdx.game.Camera;
+import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Engine;
 import com.mygdx.game.GameWorld;
 import com.mygdx.game.Map;
@@ -28,6 +34,8 @@ import com.mygdx.game.systems.*;
 
 public class EntityHandler implements ApplicationListener {
 
+	static Logger logger = LogManager.getLogger(EntityHandler.class.getName());
+	
 	Engine engine;
 	protected PooledEngine pooledEngine;
 	BodyFactory bodyFactory;
@@ -77,107 +85,139 @@ public class EntityHandler implements ApplicationListener {
 	
 
 	public EntityHandler(Levels levels) {
-		engine = new Engine();
-		gameWorld = new GameWorld();
-		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
-		pooledEngine = engine.getInstance();
-		cam = new Camera();
-		this.levels = levels;
+		try {
+			engine = new Engine();
+			gameWorld = new GameWorld();
+			bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
+			pooledEngine = engine.getInstance();
+			cam = new Camera();
+			this.levels = levels;
 
-		textureAtlas = new TextureAtlas("textures.txt");
-		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+			textureAtlas = new TextureAtlas("textures.txt");
+			tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 
-		levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
-		rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
-		spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
-		normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
-		unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
+			levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+			rockMob = new TextureRegion(levelTwoAtlas.findRegion("RockMobEnemy"));
+			spikyRockMob = new TextureRegion(levelTwoAtlas.findRegion("SpikyRockEnemy"));
+			normalMan = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/normalMan"));
+			unknownBeing = new TextureRegion(levelTwoAtlas.findRegion("BPA Characters/UnknownBeing"));
 
-		levelSevenAtlas = new TextureAtlas("moreSprites.txt");
-		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
-		spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
-		slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
-		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
+			levelSevenAtlas = new TextureAtlas("moreSprites.txt");
+			bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
+			spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
+			slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
+			talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
 
-		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
+			gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 
-		batch = new SpriteBatch();
+			batch = new SpriteBatch();
 
-		renderingSystem = new RenderingSystem(batch);
+			renderingSystem = new RenderingSystem(batch);
 
-		batch.setProjectionMatrix(cam.getCombined());
+			batch.setProjectionMatrix(cam.getCombined());
 
-		pooledEngine.addSystem(renderingSystem);
-		pooledEngine.addSystem(new AnimationSystem());
-		pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
-		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
-		pooledEngine.addSystem(new PlayerControlSystem());
-		pooledEngine.addSystem(new EnemySystem());
-		pooledEngine.addSystem(new SteeringSystem());
-		pooledEngine.addSystem(new BulletSystem());
+			pooledEngine.addSystem(renderingSystem);
+			pooledEngine.addSystem(new AnimationSystem());
+			pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
+			pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
+			pooledEngine.addSystem(new PlayerControlSystem());
+			pooledEngine.addSystem(new EnemySystem());
+			pooledEngine.addSystem(new SteeringSystem());
+			pooledEngine.addSystem(new BulletSystem());
 
-		loadingZone = false;
-		talkingZone = false;
-		gravityZone = false;
+			loadingZone = false;
+			talkingZone = false;
+			gravityZone = false;
 
-		polygonSpriteBatch = new PolygonSpriteBatch();
-		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
+			polygonSpriteBatch = new PolygonSpriteBatch();
+			polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
+			logger.info("Entity handler instanced.");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 
 	}
 
 	public EntityHandler() {
-		engine = new Engine();
-		gameWorld = new GameWorld();
-		bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
-		pooledEngine = engine.getInstance();
-		cam = new Camera();
+		try {
+			engine = new Engine();
+			gameWorld = new GameWorld();
+			bodyFactory = BodyFactory.getInstance(gameWorld.getInstance());
+			pooledEngine = engine.getInstance();
+			cam = new Camera();
 
-		textureAtlas = new TextureAtlas("textures.txt");
-		tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
+			textureAtlas = new TextureAtlas("textures.txt");
+			tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 
-		levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+			levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
 
-		levelSevenAtlas = new TextureAtlas("moreSprites.txt");
-		bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
-		spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
-		slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
+			levelSevenAtlas = new TextureAtlas("moreSprites.txt");
+			bulletLeft = new TextureRegion(levelSevenAtlas.findRegion("bullet(left)"));
+			spikySlime = new TextureRegion(levelSevenAtlas.findRegion("spikySlime"));
+			slimyMob = new TextureRegion(levelSevenAtlas.findRegion("slimyMob"));
 
-		gameWorld.getInstance().setContactListener(new B2dContactListener(this));
+			gameWorld.getInstance().setContactListener(new B2dContactListener(this));
 
-		batch = new SpriteBatch();
+			batch = new SpriteBatch();
 
-		renderingSystem = new RenderingSystem(batch);
+			renderingSystem = new RenderingSystem(batch);
 
-		batch.setProjectionMatrix(cam.getCombined());
+			batch.setProjectionMatrix(cam.getCombined());
 
-		pooledEngine.addSystem(renderingSystem);
-		pooledEngine.addSystem(new AnimationSystem());
-		pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
-		pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
-		pooledEngine.addSystem(new PlayerControlSystem());
-		pooledEngine.addSystem(new EnemySystem());
-		pooledEngine.addSystem(new SteeringSystem());
-		pooledEngine.addSystem(new BulletSystem());
+			pooledEngine.addSystem(renderingSystem);
+			pooledEngine.addSystem(new AnimationSystem());
+			pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
+			pooledEngine.addSystem(new PhysicsDebugSystem(gameWorld.getInstance(), cam.getCamera()));
+			pooledEngine.addSystem(new PlayerControlSystem());
+			pooledEngine.addSystem(new EnemySystem());
+			pooledEngine.addSystem(new SteeringSystem());
+			pooledEngine.addSystem(new BulletSystem());
 
-		loadingZone = false;
-		talkingZone = false;
-		gravityZone = false;
+			loadingZone = false;
+			talkingZone = false;
+			gravityZone = false;
 
-		polygonSpriteBatch = new PolygonSpriteBatch();
-		polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
+			polygonSpriteBatch = new PolygonSpriteBatch();
+			polygonSpriteBatch.setProjectionMatrix(cam.getCombined());
+			logger.info("Entity handler instanced.");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 
 	@Override
 	public void create() {
-		talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
-		player = new Player();
-		enemies = new Enemy();
-		npc = new NPC();
-		bullets = new Bullet();
-		pooledEngine.addSystem(new CollisionSystem());
-		pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
+		try {
+			talkTexture = new Texture(Gdx.files.internal("thinkBubble.png"));
+			player = new Player();
+			enemies = new Enemy();
+			npc = new NPC();
+			bullets = new Bullet();
+			pooledEngine.addSystem(new CollisionSystem());
+			pooledEngine.addEntity(player.createPlayer(cam.getCamera().position.x, cam.getCamera().position.y));
 
-		setCreatedLevel(LevelDestination.OVERWORLD);
+			setCreatedLevel(LevelDestination.OVERWORLD);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 
 	}
 

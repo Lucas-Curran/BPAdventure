@@ -1,13 +1,19 @@
 package com.mygdx.game.inventory;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.item.InventoryItem;
 
 public class InventorySlot extends Stack {
+	
+	static Logger logger = LogManager.getLogger(InventorySlot.class.getName());
 	
 	//Custom background in case needed
 	private Image slotBackground;
@@ -31,7 +37,6 @@ public class InventorySlot extends Stack {
 		slotStack.setName("stack");
 		
 		this.add(slotStack);
-		
 	}
 	
 	public InventorySlot(int filterItemType, Image slotBackground, boolean forEquippables) {
@@ -82,7 +87,7 @@ public class InventorySlot extends Stack {
 		tempArray.add(dragActor);
 		inventorySlotSource.add(inventorySlotTarget.getAllInventoryItems());
         inventorySlotTarget.add(tempArray);
-
+        logger.info("Items in inventory swapped.");
 	}
 	
 	public void decrementItemCount() {

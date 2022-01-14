@@ -1,5 +1,10 @@
 package com.mygdx.game.ui;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,32 +14,47 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
+import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Map;
 import com.mygdx.game.Screens;
 import com.mygdx.game.Utilities;
+import com.mygdx.game.entities.EntityHandler;
 
 public class PauseBar {
 
+	static Logger logger = LogManager.getLogger(PauseBar.class.getName());
+	
 	private Table optionsTable;
 	private TextButton backButton, saveButton, quitButton;
 	
 	public PauseBar() {
-		optionsTable = new Table();
-		
-		optionsTable.background(Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane"));
-		
-		backButton = new TextButton("Back to Menu", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		saveButton = new TextButton("Save", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		quitButton = new TextButton("Quit", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		
-		optionsTable.add(backButton).width(150).height(50);
-		optionsTable.add(saveButton).width(150).height(50);
-		optionsTable.add(quitButton).width(150).height(50);
-		
-		optionsTable.setPosition(80, 0);
-		
-		optionsTable.setWidth(480);
-		optionsTable.setHeight(80);
+		try {
+			optionsTable = new Table();
+
+			optionsTable.background(Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane"));
+
+			backButton = new TextButton("Back to Menu", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			saveButton = new TextButton("Save", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			quitButton = new TextButton("Quit", Utilities.buttonStyles("default-rect", "default-rect-down"));
+
+			optionsTable.add(backButton).width(150).height(50);
+			optionsTable.add(saveButton).width(150).height(50);
+			optionsTable.add(quitButton).width(150).height(50);
+
+			optionsTable.setPosition(80, 0);
+
+			optionsTable.setWidth(480);
+			optionsTable.setHeight(80);
+			logger.info("Pause Bar instanced.");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 	
 	public void render() {

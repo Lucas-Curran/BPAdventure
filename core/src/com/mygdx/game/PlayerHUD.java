@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -27,6 +30,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class PlayerHUD extends Window {
+	
+	static Logger logger = LogManager.getLogger(PlayerHUD.class.getName());
 	
 	private Stage stage;
 	private Inventory inventory;
@@ -56,6 +61,8 @@ public class PlayerHUD extends Window {
 
 		statusUI.validate();
 		inventory.validate();	
+		
+		logger.info("PlayerHUD instanced.");
 	}
 	
 	public void render(float delta) {		
@@ -80,16 +87,17 @@ public class PlayerHUD extends Window {
 		this.setVisible(true);
 	}
 	
-	
 	public boolean isShowing() {
 		return this.isVisible();
 	}
 	
 	public void popUpInventory() {
 		if (inventory.isVisible()) {
+			logger.info("Inventory closed.");
 			inventory.setVisible(false);		
 		} else {
 			inventory.toFront();
+			logger.info("Inventory opened.");
 			inventory.setVisible(true);
 		}
 	}

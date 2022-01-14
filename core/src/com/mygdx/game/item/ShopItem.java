@@ -1,11 +1,17 @@
 package com.mygdx.game.item;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.game.entities.EntityHandler;
 import com.mygdx.game.item.InventoryItem.ItemTypeID;
 
 public class ShopItem extends Image {
+	
+	static Logger logger = LogManager.getLogger(ShopItem.class.getName());
 	
 	private int itemAttributes;
 	private int itemUseType;
@@ -24,6 +30,7 @@ public class ShopItem extends Image {
 		damage = item.getDamage();
 		hpRestored = item.getHpRestored();
 		this.cost = cost;
+		logger.info("Inventory item created \n\tItemTypeID: " + itemTypeID + "\n\tCost: " + cost);
 	}
 	
 	public int getHpRestored() {

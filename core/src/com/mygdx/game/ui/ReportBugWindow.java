@@ -1,5 +1,6 @@
 package com.mygdx.game.ui;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -11,6 +12,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -18,9 +22,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.CrashWriter;
 import com.mygdx.game.Utilities;
+import com.mygdx.game.entities.EntityHandler;
 
 public class ReportBugWindow {
+	
+	static Logger logger = LogManager.getLogger(ReportBugWindow.class.getName());
 	
 	private Table inputTable;
 	private Stage stage;
@@ -31,58 +39,71 @@ public class ReportBugWindow {
 	private Table confirmationTable;
 
 	public ReportBugWindow() {	
-		stage = new Stage();
-		
-		inputTable = new Table();
-		bottomTable = new Table();
-		confirmationTable = new Table();
-		
-		inputTable.setWidth(400);
-		inputTable.setHeight(400);
-		
-		inputTable.setPosition(200, 50);
-		bottomTable.setPosition(350, 100);
-		
-		inputTable.background(Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane"));
-		Label titleLabel = new Label("Report Bug", Utilities.ACTUAL_UI_SKIN);
-		subjectField = new TextField("", Utilities.ACTUAL_UI_SKIN);
-		messageField = new TextArea("", Utilities.ACTUAL_UI_SKIN);
-		subjectField.setMessageText("Subject");
-		messageField.setMessageText("Describe your bug...");
-		messageField.setAlignment(Align.topLeft);
+		try {
+			stage = new Stage();
 
-		titleLabel.setFontScale(2);
-		
-		confirmButton = new TextButton("Confirm", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		leaveButton = new TextButton("Leave", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		okButton = new TextButton("OK", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		
-		inputTable.add(titleLabel).top();
-		inputTable.row();
-		inputTable.add(subjectField);
-		inputTable.row();
-		inputTable.add(messageField).width(300).height(200);
+			inputTable = new Table();
+			bottomTable = new Table();
+			confirmationTable = new Table();
 
-		bottomTable.add(confirmButton).width(100);
-		bottomTable.add(leaveButton).width(100);
-		
-		Label doneLabel = new Label("Your bug report was sent!", Utilities.ACTUAL_UI_SKIN);
-		
-		confirmationTable.background(Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane"));
-		confirmationTable.setWidth(200);
-		confirmationTable.setHeight(150);
-		confirmationTable.add(doneLabel);
-		confirmationTable.row();
-		confirmationTable.add(okButton).width(100);
-		confirmationTable.setPosition(300, 200);
-		confirmationTable.setVisible(false);
+			inputTable.setWidth(400);
+			inputTable.setHeight(400);
 
-		
-		stage.addActor(inputTable);
-		stage.addActor(bottomTable);
-		stage.addActor(confirmationTable);
+			inputTable.setPosition(200, 50);
+			bottomTable.setPosition(350, 100);
 
-		setBugWindowVisible(false);
+			inputTable.background(Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane"));
+			Label titleLabel = new Label("Report Bug", Utilities.ACTUAL_UI_SKIN);
+			subjectField = new TextField("", Utilities.ACTUAL_UI_SKIN);
+			messageField = new TextArea("", Utilities.ACTUAL_UI_SKIN);
+			subjectField.setMessageText("Subject");
+			messageField.setMessageText("Describe your bug...");
+			messageField.setAlignment(Align.topLeft);
+
+			titleLabel.setFontScale(2);
+
+			confirmButton = new TextButton("Confirm", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			leaveButton = new TextButton("Leave", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			okButton = new TextButton("OK", Utilities.buttonStyles("default-rect", "default-rect-down"));
+
+			inputTable.add(titleLabel).top();
+			inputTable.row();
+			inputTable.add(subjectField);
+			inputTable.row();
+			inputTable.add(messageField).width(300).height(200);
+
+			bottomTable.add(confirmButton).width(100);
+			bottomTable.add(leaveButton).width(100);
+
+			Label doneLabel = new Label("Your bug report was sent!", Utilities.ACTUAL_UI_SKIN);
+
+			confirmationTable.background(Utilities.ACTUAL_UI_SKIN.getDrawable("default-pane"));
+			confirmationTable.setWidth(200);
+			confirmationTable.setHeight(150);
+			confirmationTable.add(doneLabel);
+			confirmationTable.row();
+			confirmationTable.add(okButton).width(100);
+			confirmationTable.setPosition(300, 200);
+			confirmationTable.setVisible(false);
+
+
+			stage.addActor(inputTable);
+			stage.addActor(bottomTable);
+			stage.addActor(confirmationTable);
+
+			setBugWindowVisible(false);
+			
+			logger.info("Report Bug Window instanced.");
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 	
 	public void setBugWindowVisible(boolean isVisible) {
@@ -107,10 +128,12 @@ public class ReportBugWindow {
 		}
 		
 		if (leaveButton.isPressed()) {
+			logger.info("Left report bug window.");
 			setBugWindowVisible(false);
 		}
 		
 		if (okButton.isPressed()) {
+			logger.info("Confirm bug report window left.");
 			confirmationTable.setVisible(false);
 		}
 		
@@ -157,8 +180,17 @@ public class ReportBugWindow {
 	    	  
 	    	  Transport.send(message);
 	    	  
+	    	  logger.info("Bug report sent to email.");
+	    	  
 	      } catch (MessagingException e) {
-	    	  throw new RuntimeException(e);
+	  			logger.error(e.getMessage());
+	  			try {
+	  				CrashWriter cw = new CrashWriter(e);
+	  				cw.writeCrash();
+	  				throw new RuntimeException(e);
+	  			} catch (IOException e1) {
+	  				logger.error(e1.getMessage());
+	  			}	  			    	  
 	      }
 	}
 	

@@ -1,5 +1,8 @@
 package com.mygdx.game.entities;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,6 +25,8 @@ import com.mygdx.game.components.TypeComponent;
 import com.mygdx.game.levels.Levels;
 
 public class Player extends EntityHandler {
+	
+	static Logger logger = LogManager.getLogger(Player.class.getName());
 	
 	private Entity entity;
 	
@@ -71,6 +76,8 @@ public class Player extends EntityHandler {
 		entity.add(type);
 		entity.add(stateCom);
 		entity.add(steering);
+		
+		logger.info("Player created.");
 
 		return entity;		
 	}
@@ -94,6 +101,7 @@ public class Player extends EntityHandler {
 	public void setPosition(float x, float y) {
 		entity.getComponent(B2dBodyComponent.class).body.setTransform(new Vector2(x, y), 0);
 		entity.getComponent(B2dBodyComponent.class).body.setLinearVelocity(new Vector2(0, 0));
+		logger.info("Player position set to ("+x+","+y+").");
 	}
 	
 	public void setGravityScale(float scale) {

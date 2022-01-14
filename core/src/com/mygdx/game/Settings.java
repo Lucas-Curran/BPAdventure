@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
@@ -20,6 +25,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 
 public class Settings implements Screen {
+	
+	static Logger logger = LogManager.getLogger(Settings.class.getName());
+	
 	Texture settingsBackground;
 	TextButton creditsBtn, returnBtn;
 
@@ -43,12 +51,22 @@ public class Settings implements Screen {
 	 * @param game
 	 */
 	public Settings() {
-		settingsBackground = new Texture(Gdx.files.internal("SettingsMenu.png"));
-		spriteBatch = new SpriteBatch();
-		cam = new Camera();
-		stage = new Stage();
-		table = new Table();
-		sm = Map.getInstance().getSqliteManager();
+		try {
+			settingsBackground = new Texture(Gdx.files.internal("SettingsMenu.png"));
+			spriteBatch = new SpriteBatch();
+			cam = new Camera();
+			stage = new Stage();
+			table = new Table();
+			sm = Map.getInstance().getSqliteManager();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 	
 	/**
@@ -58,47 +76,56 @@ public class Settings implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		
-		volumeSlider = new Slider(0, 100, 1, false, Utilities.sliderStyles());
-		container = new Container<Slider>(volumeSlider);
-		container.setTransform(true);
-		container.setScale(3f);
-		
-		sliderValue = sm.getVolume();
-		font = new BitmapFont();
-		sliderLabel = new Label(String.valueOf(sliderValue), new Label.LabelStyle(font, Color.ROYAL));
-		volumeLabel = new Label("Volume", new Label.LabelStyle(font, Color.ROYAL));
-		volumeLabel.setFontScale(4f);
-		sliderLabel.setFontScale(2.5f);
-		volumeSlider.setValue(sliderValue);
-		
-		creditsBtn = new TextButton("Credits", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		returnBtn = new TextButton("Return", Utilities.buttonStyles("default-rect", "default-rect-down"));
-		creditsBtn.getLabel().setAlignment(Align.left);
-		creditsBtn.getLabelCell().padLeft(8);
-		creditsBtn.getLabel().setFontScale(2,2);
-		creditsBtn.setTransform(true);
-		creditsBtn.scaleBy(1);
-		returnBtn.getLabel().setAlignment(Align.left);
-		returnBtn.getLabelCell().padLeft(8);
-		returnBtn.getLabel().setFontScale(2,2);
-		returnBtn.setTransform(true);
-		returnBtn.scaleBy(1);
-		
-		table.left().bottom().pad(80);
-		table.add(volumeLabel).colspan(2).padBottom(50).right().padRight(43);
-		table.row();
-		table.add(container).colspan(2).left().padLeft(25);
-		table.row();
-		table.add(sliderLabel).colspan(2).center().padLeft(100);
-		table.row().padTop(80);
-		table.add(returnBtn).width(110);
-		table.add(creditsBtn).padLeft(150).width(110);
-		table.setFillParent(true);
-		
-//		table.debug();
-		stage.addActor(table);
-	
-		
+		try {
+			volumeSlider = new Slider(0, 100, 1, false, Utilities.sliderStyles());
+			container = new Container<Slider>(volumeSlider);
+			container.setTransform(true);
+			container.setScale(3f);
+
+			sliderValue = sm.getVolume();
+			font = new BitmapFont();
+			sliderLabel = new Label(String.valueOf(sliderValue), new Label.LabelStyle(font, Color.ROYAL));
+			volumeLabel = new Label("Volume", new Label.LabelStyle(font, Color.ROYAL));
+			volumeLabel.setFontScale(4f);
+			sliderLabel.setFontScale(2.5f);
+			volumeSlider.setValue(sliderValue);
+
+			creditsBtn = new TextButton("Credits", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			returnBtn = new TextButton("Return", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			creditsBtn.getLabel().setAlignment(Align.left);
+			creditsBtn.getLabelCell().padLeft(8);
+			creditsBtn.getLabel().setFontScale(2,2);
+			creditsBtn.setTransform(true);
+			creditsBtn.scaleBy(1);
+			returnBtn.getLabel().setAlignment(Align.left);
+			returnBtn.getLabelCell().padLeft(8);
+			returnBtn.getLabel().setFontScale(2,2);
+			returnBtn.setTransform(true);
+			returnBtn.scaleBy(1);
+
+			table.left().bottom().pad(80);
+			table.add(volumeLabel).colspan(2).padBottom(50).right().padRight(43);
+			table.row();
+			table.add(container).colspan(2).left().padLeft(25);
+			table.row();
+			table.add(sliderLabel).colspan(2).center().padLeft(100);
+			table.row().padTop(80);
+			table.add(returnBtn).width(110);
+			table.add(creditsBtn).padLeft(150).width(110);
+			table.setFillParent(true);
+
+			//		table.debug();
+			stage.addActor(table);
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 		
 	}
 	
@@ -121,6 +148,7 @@ public class Settings implements Screen {
 		// shows the credits screen
 		if (creditsBtn.isPressed()) {
 			dispose();
+			logger.info("Credits button pressed");
 			Screens.toCredits(new Credits());
 		}
 		
@@ -128,6 +156,7 @@ public class Settings implements Screen {
 		if (returnBtn.isPressed()) {
 			sm.updateVolume(sliderValue);
 			dispose();
+			logger.info("Return button pressed");
 			Screens.toMenu(Screens.getMenu());
 		}
 		
@@ -136,8 +165,7 @@ public class Settings implements Screen {
 			sliderValue = (int) volumeSlider.getValue();
 			sliderLabel.setText(sliderValue);
 			sm.updateVolume(sliderValue);
-			am.updateAll();
-			
+			am.updateAll();		
 		}
 		
 		stage.act(delta);

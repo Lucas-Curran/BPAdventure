@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import java.io.IOException;
 import java.util.HashMap;
 //import org.apache.logging.log4j.Logger;
 
@@ -64,8 +65,6 @@ public class Map implements Screen, InputProcessor {
 	
 	private TextureAtlas textureAtlas;
 
-	private Hotbar hotbar;
-	
 	public Texture mapBackground;
 	
 	private PlayerHUD playerHUD;
@@ -87,31 +86,41 @@ public class Map implements Screen, InputProcessor {
 
 
 	private Map() {
-		cam = new Camera();
-		stage = new Stage();
-		font = new BitmapFont(Gdx.files.internal("font.fnt"));
-		textBox = new TextBox(font, stage, Color.WHITE);
-		
-		money = new Money();
-		pauseBar = new PauseBar();
-		playerHUD = new PlayerHUD(money);
-		
-		levels = new Levels();
-		entityHandler = new EntityHandler(levels);
-		levels.createAllLevels(entityHandler.getWorld());
-		
-		am = new AudioManager();
-		sm = new SqliteManager();
-	
-		textureAtlas = new TextureAtlas("bpaatlas.txt");
+		try {
+			cam = new Camera();
+			stage = new Stage();
+			font = new BitmapFont(Gdx.files.internal("font.fnt"));
+			textBox = new TextBox(font, stage, Color.WHITE);
 
-		mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
-		weapon = new Weapon();
-		swing = false;
-		
-		stage.addActor(pauseBar.getTable());
+			money = new Money();
+			pauseBar = new PauseBar();
+			playerHUD = new PlayerHUD(money);
 
-		logger.info("Map Created.");
+			levels = new Levels();
+			entityHandler = new EntityHandler(levels);
+			levels.createAllLevels(entityHandler.getWorld());
+
+			am = new AudioManager();
+			sm = new SqliteManager();
+
+			textureAtlas = new TextureAtlas("bpaatlas.txt");
+
+			mapBackground = new Texture(Gdx.files.internal("overworld_bg.png"));
+			weapon = new Weapon();
+			swing = false;
+
+			stage.addActor(pauseBar.getTable());
+
+			logger.info("Map Created.");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+		}
 	}
 	
 	static {
@@ -124,71 +133,90 @@ public class Map implements Screen, InputProcessor {
 	
 	@Override
 	public void show() {	
-		inputMultiplexer = new InputMultiplexer();	
-		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(playerHUD.getStage());
-		inputMultiplexer.addProcessor(textBox.getInstance());
-		inputMultiplexer.addProcessor(textBox.getStage());
+		try {
+			inputMultiplexer = new InputMultiplexer();	
+			inputMultiplexer.addProcessor(this);
+			inputMultiplexer.addProcessor(playerHUD.getStage());
+			inputMultiplexer.addProcessor(textBox.getInstance());
+			inputMultiplexer.addProcessor(textBox.getStage());
 
-		if (entityHandler.getPlayer() == null) {
-			entityHandler.create();
-			logger.info("Entity handler created");
-			weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
+			if (entityHandler.getPlayer() == null) {
+				entityHandler.create();
+				logger.info("Entity handler created");
+				weapon.createSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY());
+			}
+			if (!levels.getOverworld().isCreated()) {
+				levels.getOverworld().create();
+			} 
+
+			if (!levels.getIceDungeon().isCreated()) {
+				levels.getIceDungeon().create();
+				logger.info("Ice Dungeon created");
+			}
+			inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow());
+			inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow().getStage());
+
+			Gdx.input.setInputProcessor(inputMultiplexer);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		}
-		if (!levels.getOverworld().isCreated()) {
-			levels.getOverworld().create();
-			logger.info("Overworld created");
-		} 
-		
-		if (!levels.getIceDungeon().isCreated()) {
-			levels.getIceDungeon().create();
-			logger.info("Ice Dungeon created");
-		}
-		inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow());
-		inputMultiplexer.addProcessor(levels.getOverworld().getShopWindow().getStage());
-		
-		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 
 	@Override
 	public void render(float delta) {
 						
-		entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
-		entityHandler.getBatch().begin();
-		entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
-		entityHandler.getBatch().end();
-		
-		entityHandler.render();
-		weapon.positionSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY(), entityHandler.getPlayer().getDirection());
-		
-		if (swing) {
-			weapon.swingSword();
-			if (weapon.isSwingFinished()) {
-				swing = false;
-				weapon.setSwingFinished(false);
-			}
-		}
+		try {
+			entityHandler.getBatch().setProjectionMatrix(cam.getCombined());
+			entityHandler.getBatch().begin();
+			entityHandler.getBatch().draw(mapBackground, 0, 0, cam.getViewport().getWorldWidth(), cam.getViewport().getWorldHeight());
+			entityHandler.getBatch().end();
 
-		levels.getOverworld().render();
-		textBox.renderTextBox(delta);
-		if (playerHUD.isShowing()) {
-			if (levels.getOverworld().getShopWindow().isShopVisible()) {
-				levels.getOverworld().getShopWindow().render(delta);
+			entityHandler.render();
+			weapon.positionSword(entityHandler.getPlayer().getX(), entityHandler.getPlayer().getY(), entityHandler.getPlayer().getDirection());
+
+			if (swing) {
+				weapon.swingSword();
+				if (weapon.isSwingFinished()) {
+					swing = false;
+					weapon.setSwingFinished(false);
+				}
 			}
-			playerHUD.render(delta);
+
+			levels.getOverworld().render();
+			textBox.renderTextBox(delta);
+			if (playerHUD.isShowing()) {
+				if (levels.getOverworld().getShopWindow().isShopVisible()) {
+					levels.getOverworld().getShopWindow().render(delta);
+				}
+				playerHUD.render(delta);
+			}
+
+			if (entityHandler.killZone == true) {
+				death = true;
+			}
+
+			if (playerHUD.getInventory().isVisible()) {
+				pauseBar.render();
+				stage.act(delta);
+				stage.draw();
+			}
+
+			levels.dispose(entityHandler.getCreatedLevel());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
 		}
-		
-		if (entityHandler.killZone == true) {
-			death = true;
-		}
-		
-		if (playerHUD.getInventory().isVisible()) {
-			pauseBar.render();
-			stage.act(delta);
-			stage.draw();
-		}
-		
-		levels.dispose(entityHandler.getCreatedLevel());
 	}
 
 	@Override
@@ -235,16 +263,6 @@ public class Map implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 
-		if (Input.Keys.T == keycode) {
-			InventoryItem apple = new InventoryItem(textureAtlas.findRegion("IceCharacter"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ARMOR_CHEST.getValue(), ItemTypeID.BODYARMOR01);
-			playerHUD.getInventory().addItemToInventory(apple, "Apple");
-		}
-		
-		if (Input.Keys.E == keycode) {
-			InventoryItem banana = new InventoryItem(textureAtlas.findRegion("arrowAni"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.ARMOR_FEET.getValue(), ItemTypeID.BOOTS01);
-			playerHUD.getInventory().addItemToInventory(banana, "Banana");
-		}
-		
 		if (Input.Keys.ESCAPE == keycode && (!inAction() || playerHUD.getInventory().isVisible())) {
 			playerHUD.popUpInventory();
 			return true;
@@ -380,10 +398,6 @@ public class Map implements Screen, InputProcessor {
 	
 	public InputMultiplexer getInputMultiplexer() {
 		return inputMultiplexer;
-	}
-	
-	public Hotbar getHotbar() {
-		return hotbar;
 	}
 	
 	public PlayerHUD getPlayerHUD() {
