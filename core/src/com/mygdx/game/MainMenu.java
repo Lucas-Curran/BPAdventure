@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -157,11 +158,16 @@ public class MainMenu implements Screen, InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (startButton.isPressed()) {
+			 Group tempParent = startButton.getParent();
+			 startButton.remove();
+			 tempParent.addActor(startButton);
 			 am.stopAll();
 			 Screens.toMap();
 			 return true;
 		 } else if (continueButton.isPressed()) {
-			 
+			 Group tempParent = continueButton.getParent();
+			 continueButton.remove();
+			 tempParent.addActor(continueButton);
 		 } else if (settingsButton.isPressed()) {
 				 am.stopAll();
 				 Screens.toSettings(new Settings());
