@@ -248,8 +248,9 @@ public class Inventory extends Window {
 		}
 	}
 	
-	public void addItemFromDatabase(ItemTypeID id) {
-		switch(id) {
+	public void addItemFromDatabase(int id) {
+		ItemTypeID item = ItemTypeID.getItem(id);
+		switch(item) {
 			case APPLE:
 				InventoryItem apple = new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.APPLE);
 				addItemToInventory(apple, "Apple");

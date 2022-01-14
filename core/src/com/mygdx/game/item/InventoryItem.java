@@ -102,7 +102,7 @@ public class InventoryItem extends Image {
 			return itemTypeID;
 		}
 		
-		public ItemTypeID getItem(int value) {
+		public static ItemTypeID getItem(int value) {
 		    for (ItemTypeID e : values()) {
 		        if (e.itemTypeID == value) {
 		            return e;
