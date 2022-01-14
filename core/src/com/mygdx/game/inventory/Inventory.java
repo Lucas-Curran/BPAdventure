@@ -202,7 +202,20 @@ public class Inventory extends Window {
 		 }
 	 }
 	 
-	 public HashMap<Label, ShopItem> getAllItems() {
+	 public ArrayList<InventoryItem> getAllItems() {
+		 
+		 for (int i = 0; i < sourceCells.size; i++) {
+			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
+			 if (inventorySlot.hasItem()) {
+				 InventoryItem tempItem = inventorySlot.getTopInventoryItem();
+				 //tempItem.getItemTypeID()
+			 }
+		 }
+		 
+		return null;	 
+	 }
+	 
+	 public HashMap<Label, ShopItem> getItemsToSell() {
 		 HashMap<Label, ShopItem> items = new HashMap<Label, ShopItem>();
 		 for (int i = 0; i < sourceCells.size; i++) {
 			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
