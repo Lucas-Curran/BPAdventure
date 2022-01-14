@@ -27,6 +27,15 @@ public class NPC extends EntityHandler {
 	
 	static Logger logger = LogManager.getLogger(NPC.class.getName());
 	
+	/**
+	 * Spawns an NPC
+	 * @param text - text that the NPC will write in the textbox
+	 * @param posx - x position of NPC
+	 * @param posy - y position of NPC
+	 * @param npcTexture - texture of NPC
+	 * @param hasOptions - decides whether the NPC will give options at end of dialog
+	 * @return NPC entity
+	 */
 	public Entity spawnNPC(String[] text, int posx, int posy, TextureRegion npcTexture, boolean hasOptions) {
 		
 				Entity entity = pooledEngine.createEntity();
@@ -62,6 +71,10 @@ public class NPC extends EntityHandler {
 				return entity;
 	}
 	
+	/**
+	 * Gets the hash map of shops items
+	 * @return HashMap of shop items given labels and shop items
+	 */
 	public HashMap<Label, ShopItem> getShopWares() {
 		
 		HashMap<Label, ShopItem> shopItems = new HashMap<Label, ShopItem>();

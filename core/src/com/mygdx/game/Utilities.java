@@ -31,6 +31,7 @@ import com.badlogic.gdx.utils.Align;
 
 public class Utilities {
 	
+	//Static instances of all texture atlases and some texture regions to be used in levels
 	private static TextureAtlas atlas = new TextureAtlas("bpaatlas.txt");
 	private static TextureAtlas uiAtlas = new TextureAtlas("uiskin.txt");
 	
@@ -103,6 +104,13 @@ public class Utilities {
 	private static TextureAtlas textureAtlasTest, textureAtlasUI;
 	private static BitmapFont font;
 
+	/**
+	 * Given a sprite sheet, will split up the sheet into regions for drawing to the screen
+	 * @param region - the sprite sheet
+	 * @param FRAME_COLS - how many columns the sprite sheet contains
+	 * @param FRAME_ROWS - how many rows the sprite sheet contains
+	 * @return array of texture regions to draw
+	 */
 	public static TextureRegion[] spriteSheetToFrames(TextureRegion region, int FRAME_COLS, int FRAME_ROWS){
 		// split texture region
 		TextureRegion[][] tmp = region.split(region.getRegionWidth() / FRAME_COLS,
@@ -120,6 +128,11 @@ public class Utilities {
 		return frames;
 	}
 	
+	/**
+	 * Configurations for buttons
+	 * @param button - the button to be configured
+	 * @return the same button, but now configured
+	 */
 	public static TextButton buttonSettings(TextButton button) {
 		button.getLabel().setAlignment(Align.left);
 		button.getLabelCell().padLeft(25);
@@ -127,6 +140,12 @@ public class Utilities {
 		return button;
 	}
 	
+	/**
+	 * Gives a button style that a button can use
+	 * @param upStyle - texture used when button is not hovered over
+	 * @param overStyle - texture used when button is hovered over
+	 * @return TextButtonStyle
+	 */
 	public static TextButtonStyle buttonStyles(String upStyle, String overStyle) {
 		font = new BitmapFont();
 		buttonSkin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -143,6 +162,10 @@ public class Utilities {
 		return textButtonStyle;
 	}	
 	
+	/**
+	 * Gives a slider style that a slider can use
+	 * @return SliderStyle
+	 */
 	public static SliderStyle sliderStyles() {
 		sliderSkin = new Skin(Gdx.files.internal("uiskin.json"));
 		textureAtlasUI = new TextureAtlas("uiskin.txt");
@@ -153,6 +176,12 @@ public class Utilities {
 		return sliderStyle;
 	}
 	
+	/**
+	 * Adds the given texture to a box2d body
+	 * @param texture - texture to use
+	 * @param body - body to texture
+	 * @return Object[] containing the body, shape of body, calculated triangles of body, texture region of texture
+	 */
 	public static Object[] addPolygonTexture(Texture texture, Body body) {
 
 		Fixture fixture = body.getFixtureList().get(0);
@@ -176,12 +205,20 @@ public class Utilities {
 		return values;
 	}
 	
+	/**
+	 * Loops through all the bodies created and draws the texture on them
+	 * @param camera - camera that is used for perspective purposes
+	 * @param polygonSpriteBatch - polygon sprite batch for drawing the sprite
+	 * @param bodies - the box2d bodies wanting to be rendered
+	 */
 	public static void renderAllTextures(Camera camera, PolygonSpriteBatch polygonSpriteBatch, ArrayList<Object[]> bodies) {
 		camera.getCamera().update();
 		polygonSpriteBatch.setProjectionMatrix(camera.getCombined());
 		polygonSpriteBatch.begin();
 		for (int i = 0; i < bodies.size(); i++) {
+			//vertices calculated using the shape and body
 			float[] vertices = calculateVertices((PolygonShape) bodies.get(i)[1], (Body) bodies.get(i)[0]);
+			//polygon region created using the texture region, calculated vertices, and calculated triangles
 			PolygonRegion newRegion = new PolygonRegion((TextureRegion) bodies.get(i)[3], vertices, (short[]) bodies.get(i)[2]);
 			PolygonSprite newSprite = new PolygonSprite(newRegion);
 			newSprite.draw(polygonSpriteBatch);
@@ -190,6 +227,12 @@ public class Utilities {
 		polygonSpriteBatch.end();
 	}
 	
+	/**
+	 * Algorithm for calculating the vertices of a box2d body
+	 * @param shape - shape of body
+	 * @param body - box2d body
+	 * @return float[] of vertices
+	 */
 	public static float[] calculateVertices(PolygonShape shape, Body body) {
 		Vector2 mTmp = new Vector2();
 		int vertexCount = shape.getVertexCount();
@@ -205,21 +248,35 @@ public class Utilities {
 		}		
 
 		return vertices;
-	}
+	}	
 	
-	
-	
-	
+	/**
+	 * Converts vector to angle
+	 * @param vector - vector2 wanting to be converted
+	 * @return angle
+	 */
 	public static float vectorToAngle(Vector2 vector) {
 		return (float)Math.atan2(-vector.x, vector.y);
 	}
 	
+	/**
+	 * Converts an angle to a vector given the vector wanting to be produced
+	 * @param outVector - vector wanting to be produced
+	 * @param angle - angle of vector
+	 * @return vector2
+	 */
 	public static Vector2 angleToVector (Vector2 outVector, float angle) {
 		outVector.x = -(float)Math.sin(angle);
 		outVector.y = (float)Math.cos(angle);
 		return outVector;
 	}
 	
+	/**
+	 * Position of shooter aims at position of target
+	 * @param shooter - position of shooter
+	 * @param target - position of target
+	 * @return vector2 to aim at
+	 */
 	public static Vector2 aimTo(Vector2 shooter, Vector2 target) {
 		Vector2 aim = new Vector2();
 		float velx = target.x - shooter.x; // get distance from shooter to target on x plain

@@ -41,6 +41,9 @@ public class Enemy extends EntityHandler {
 
 	public B2dBodyComponent b2dbody;
 	
+	/**
+	 * Instantiates the array lists of enemies in different levels
+	 */
 	public Enemy() {
 		levelTwoEnemies = new ArrayList<Entity>();
 		levelThreeEnemies = new ArrayList<Entity>();

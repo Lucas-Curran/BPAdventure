@@ -15,28 +15,47 @@ public class Screens {
 	private static MainMenu mMenu;
 	private static Settings settings;
 	
+	/**
+	 * Used for containing instances of screens, and allowing for switching between them statically
+	 * @param game instance of game
+	 */
 	public Screens(Game game) {
 		Screens.game = game;
 	}
 	
+	/**
+	 * Switches the screen to menu
+	 * @param menu instance of menu
+	 */
 	public static void toMenu(MainMenu menu) {
 		mMenu = menu;
 		logger.info("Screen set to menu.");
 		game.setScreen(menu);
 	}
 	
+	/**
+	 * Switches screen to settings
+	 * @param settings instance of settings
+	 */
 	public static void toSettings(Settings settings) {
 		Screens.settings = settings;
 		logger.info("Screen set to settings.");
 		game.setScreen(settings);
 	}
 	
+	/**
+	 * Switches screen to credits
+	 * @param credits instance of credits
+	 */
 	public static void toCredits(Credits credits) {
 		Screens.credits = credits;
 		logger.info("Screen set to credits.");
 		game.setScreen(credits);
 	}
 	
+	/**
+	 * Switches screen to map
+	 */
 	public static void toMap() {
 		Map.getInstance().getAudioManager().playOverworld();
 		logger.info("Screen set to map.");

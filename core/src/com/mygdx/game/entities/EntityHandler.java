@@ -80,8 +80,10 @@ public class EntityHandler implements ApplicationListener {
 	private String[] currentNPCText;
 	private boolean hasOptions;
 
-	
-
+	/**
+	 * EntityHandler instance creates engine and adds systems and used to move player through levels
+	 * @param levels - levels instance
+	 */
 	public EntityHandler(Levels levels) {
 		try {
 			engine = new Engine();
@@ -114,6 +116,7 @@ public class EntityHandler implements ApplicationListener {
 
 			batch.setProjectionMatrix(cam.getCombined());
 
+			//All systems in the engine run 20 times a second
 			pooledEngine.addSystem(renderingSystem);
 			pooledEngine.addSystem(new AnimationSystem());
 			pooledEngine.addSystem(new PhysicsSystem(gameWorld.getInstance()));
@@ -142,6 +145,9 @@ public class EntityHandler implements ApplicationListener {
 
 	}
 
+	/**
+	 * EntityHandler instance creates engine and adds systems
+	 */
 	public EntityHandler() {
 		try {
 			engine = new Engine();
@@ -256,6 +262,9 @@ public class EntityHandler implements ApplicationListener {
 		batch.dispose();
 	}
 
+	/**
+	 * Updates the position of the camera
+	 */
 	private void updateCamera() {
 		float minCameraX = cam.getCamera().viewportWidth / 2 - 36;
 		float maxCameraX = cam.getViewport().getWorldWidth() - minCameraX + 10;
@@ -268,6 +277,9 @@ public class EntityHandler implements ApplicationListener {
 		cam.getCamera().update();
 	}
 
+	/**
+	 * Updates the position of entities textures to be offset from camera origin
+	 */
 	private void updateEntities() {
 		for (Entity entity : pooledEngine.getEntities()) {
 			if (entity.getComponent(TransformComponent.class) != null) {
@@ -546,6 +558,9 @@ public class EntityHandler implements ApplicationListener {
 		}
 	}
 
+	/**
+	 * When hovering over an NPC, speech bubble texture is drawn to the screen
+	 */
 	public void renderSpeechBubble() {
 		if (talkingZone) {
 			batch.setProjectionMatrix(cam.getCombined());

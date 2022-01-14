@@ -68,6 +68,9 @@ public class Inventory extends Window {
 	private Array<Cell> sourceCells;
 	private Array<Cell> equipmentCells;
 
+	/**
+	 * Instance of the inventory
+	 */
 	public Inventory() {
 		super("Inventory", new WindowStyle(new BitmapFont(), Color.RED, null));
 	
@@ -117,15 +120,21 @@ public class Inventory extends Window {
 			dragAndDrop.addTarget(new InventorySlotTarget(chestSlot));
 			dragAndDrop.addTarget(new InventorySlotTarget(legsSlot));
 			dragAndDrop.addTarget(new InventorySlotTarget(bootsSlot));
-
+			
+			// armor slots are each manually created to provide them unique inventory slot textures
+			
+			
+			//sets the background of the slots table, creates a psuedo inventory layout
 			slotsTable.setBackground(new Image(Utilities.UISKIN.getRegion("itemsBackground")).getDrawable());
 
+			//loops through amount of inventory space (20) and adds an inventory slot to each one
 			for (int i = 1; i <= INVENTORY_SPACE; i++) {
 				InventorySlot inventorySlot = new InventorySlot();
 				dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
 				slotsTable.add(inventorySlot).size(SLOT_WIDTH, SLOT_HEIGHT);
 				inventorySlot.addListener(new ClickListener() {
 
+					//Touch up listener is for double tapping consumables to eat them
 					@Override
 					public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 						super.touchUp(event, x, y, pointer, button);
@@ -146,6 +155,7 @@ public class Inventory extends Window {
 					}
 
 				});
+				//every multiple of 5 creates a new row in the inventory
 				if (i % NUM_COLUMNS == 0) {
 					slotsTable.row();
 				}
@@ -193,6 +203,9 @@ public class Inventory extends Window {
 		}
 	}
 	
+	/**
+	 * Any items in the inventory that aren't equipped, but can be, are equipped
+	 */
 	public void equipEquippableItems() {
 		for (int i = 0; i < sourceCells.size; i++) {
 			InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
@@ -248,6 +261,10 @@ public class Inventory extends Window {
 		}
 	}
 	
+	/**
+	 * Any item id's sent into this method are automatically added to the inventory, meant to load id's from database
+	 * @param id - id of item from database
+	 */
 	public void addItemFromDatabase(int id) {
 		ItemTypeID item = ItemTypeID.getItem(id);
 		switch(item) {
@@ -369,6 +386,11 @@ public class Inventory extends Window {
 		equipEquippableItems();
 	} 
 	
+	/**
+	 * Provided inventory item is added to the inventory in the first available slot
+	 * @param item - inventory item to add
+	 * @param itemName - name of item
+	 */
 	 public void addItemToInventory(InventoryItem item, String itemName){
 		 	sm.insertItem(item.getItemTypeID().getValue());		 
             for (int i = 0; i < sourceCells.size; i++) {
@@ -387,6 +409,10 @@ public class Inventory extends Window {
 	            }
 	    }
 	 
+	 /**
+	  * Removes the given inventory item based off it's name and the first correlated name in the current inventory
+	  * @param item - item to remove
+	  */
 	 public void removeItemFromInventory(InventoryItem item) {
 		 sm.deleteItem(item.getItemTypeID().getValue());		
 		 for (int i = 0; i < sourceCells.size; i++) {
@@ -404,6 +430,9 @@ public class Inventory extends Window {
 		 }
 	 }
 	 
+	 /**
+	  * Loops through all items equipped and in inventory and removes them from the correlated slot
+	  */
 	 public void removeAllItemsFromInventory() {
 		 for (int i = 0; i < sourceCells.size; i++) {
 			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
@@ -425,6 +454,10 @@ public class Inventory extends Window {
 		 }
 	 }
 	 
+	 /**
+	  * Gets an array list of integers correlated to all the items in the current inventory
+	  * @return item ID integer arraylist
+	  */
 	 public ArrayList<Integer> getAllItemIDs() {
 		 ArrayList<Integer> itemIDs = new ArrayList<Integer>();
 		 for (int i = 0; i < sourceCells.size; i++) {
@@ -438,6 +471,10 @@ public class Inventory extends Window {
 		return itemIDs;	 
 	 }
 	 
+	 /**
+	  * Gets the IDs of all equipped items
+	  * @return equipped item ID integer arraylist
+	  */
 	 public ArrayList<Integer> getAllEquippedItemIDs() {
 		 ArrayList<Integer> itemIDs = new ArrayList<Integer>();
 		 for (int i = 0; i < equipmentCells.size; i++) {
@@ -451,11 +488,16 @@ public class Inventory extends Window {
 		return itemIDs;	 
 	 }
 	 
+	 /**
+	  * Gets all the items in the inventory, but as a Label,ShopItem hashmap that is sent to the shop
+	  * @return hashmap of labels and shopitems to sell
+	  */
 	 public HashMap<Label, ShopItem> getItemsToSell() {
 		 HashMap<Label, ShopItem> items = new HashMap<Label, ShopItem>();
 		 for (int i = 0; i < sourceCells.size; i++) {
 			 InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(i).getActor());
 			 if (inventorySlot.hasItem()) {
+				 //Label is the name of the inventory slot. It needs to be a label to use as an actor in the shop table
 				 items.put(new Label(inventorySlot.getTopInventoryItem().getName(), 
 						 Utilities.ACTUAL_UI_SKIN), new ShopItem(inventorySlot.getTopInventoryItem(), 10));
 				 
@@ -465,6 +507,10 @@ public class Inventory extends Window {
 		return items;
 	 }
 	 
+	 /**
+	  * Calculates the players defense based off its currently equipped armor
+	  * @return total player defense
+	  */
 	 public int getPlayerDefense() {
 		 int defense = 0;
 		 if (headSlot.hasItem()) {
@@ -485,6 +531,10 @@ public class Inventory extends Window {
 		 return defense;
 	 }
 	 
+	 /**
+	  * Calculates player damage based off equipped weapon
+	  * @return total player damage
+	  */
 	 public int getPlayerDamage() {
 		 int damage = 0;
 		 if (leftArmSlot.hasItem()) {

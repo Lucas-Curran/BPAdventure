@@ -10,6 +10,10 @@ public class InventorySlotTarget extends Target {
 	
 	InventorySlot targetSlot;
 	
+	/**
+	 * Attaches a target to the given inventory slot so that it can be dragged onto
+	 * @param actor - the inventory slot
+	 */
 	public InventorySlotTarget(InventorySlot actor) {
 		super(actor);
 		targetSlot = actor;
@@ -30,18 +34,21 @@ public class InventorySlotTarget extends Target {
 			return;
 		}
 		
+		//if the target slot doesnt accept the sources actor, send source actor back to source slot
 		if (!targetSlot.doesAcceptItemUseType(sourceActor.getItemUseType())) {
 			sourceSlot.remove(sourceActor);
 			sourceSlot.add(sourceActor);
 			return;
 		}
 		
+		//if source slot and target slot are the same, send source actor back to source slot
 		if (sourceSlot == targetSlot) {
 			sourceSlot.remove(sourceActor);
 			sourceSlot.add(sourceActor);
 			return;
 		}
 		
+		//if target slot doesn't have item, add it to target slot, and increase player defense/damage if it is equipped in the equipment table section
 		if (!targetSlot.hasItem()) {
 			targetSlot.add(sourceActor);
 			if (targetSlot.isForEquippables()) {
@@ -60,6 +67,7 @@ public class InventorySlotTarget extends Target {
 				}
 			}				
 		} else {
+			//if its stackable, add it on top, otherwise, attempt swapping the actors
 			if (sourceActor.isSameItemType(targetActor) && sourceActor.isStackable()) {
 				targetSlot.add(sourceActor);
 			} else {

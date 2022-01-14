@@ -26,6 +26,9 @@ public class InventorySlot extends Stack {
 	
 	private boolean forEquippables;
 	
+	/**
+	 * Inventory slot that holds the item with default settings
+	 */
 	public InventorySlot() {
 			
 		filterItemType = 0;
@@ -39,6 +42,12 @@ public class InventorySlot extends Stack {
 		this.add(slotStack);
 	}
 	
+	/**
+	 * Inventory slot that filters certain items and may have a unique background
+	 * @param filterItemType - items to filter
+	 * @param slotBackground - background of slot
+	 * @param forEquippables - is the slot used for equippable items
+	 */
 	public InventorySlot(int filterItemType, Image slotBackground, boolean forEquippables) {
 		this();
 		this.filterItemType = filterItemType;
@@ -56,7 +65,10 @@ public class InventorySlot extends Stack {
         }
     }
 
-	
+	/**
+	 * Add all the actors in the array to the inventory slot stack
+	 * @param array - array of actors to add
+	 */
 	public void add(Array<Actor> array) {
 		for (Actor actor : array) {
 			super.add(actor);
@@ -66,6 +78,10 @@ public class InventorySlot extends Stack {
 		}
 	}
 	
+	/**
+	 * Removes all the actors in the array from the inventory slot stack
+	 * @param array - array of actors to remove
+	 */
 	public void remove(Actor actor) {
 		super.removeActor(actor);
 		
@@ -74,6 +90,12 @@ public class InventorySlot extends Stack {
 		}
 	}
 	
+	/**
+	 * If the inventory slots both accept eachother's item types, swaps them from their inventory slots
+	 * @param inventorySlotSource - the slot that was dragged from first
+	 * @param inventorySlotTarget - the slot that is dragged to
+	 * @param dragActor - the actor that is being dragged
+	 */
 	static public void swapSlots(InventorySlot inventorySlotSource, InventorySlot inventorySlotTarget, InventoryItem dragActor) {
 		//do not swap
 		if (!inventorySlotTarget.doesAcceptItemUseType(dragActor.getItemUseType()) ||
@@ -90,6 +112,9 @@ public class InventorySlot extends Stack {
         logger.info("Items in inventory swapped.");
 	}
 	
+	/**
+	 * Decreases inventory slots number of "items" in the stack
+	 */
 	public void decrementItemCount() {
 		numItems--;
 		if (slotStack.getChildren().size == 1) {
@@ -97,6 +122,9 @@ public class InventorySlot extends Stack {
 		}
 	}
 	
+	/**
+	 * Increases inventory slots number of "items" in the stack
+	 */
 	public void incrementItemCount() {
 		numItems++;
 		if (slotStack.getChildren().size == 1) {
@@ -104,6 +132,10 @@ public class InventorySlot extends Stack {
 		}
 	}
 	
+	/**
+	 * Gets the number of items in the slot
+	 * @return items size
+	 */
 	public int getNumItems(){
         if( hasChildren() ){
             SnapshotArray<Actor> items = this.getChildren();
@@ -112,6 +144,10 @@ public class InventorySlot extends Stack {
         return 0;
     }
 	
+	/**
+	 * Gets whether the inventory slot has an item in it
+	 * @return boolean of whether an item is present
+	 */
 	public boolean hasItem() {
 		if (hasChildren()) {
 			SnapshotArray<Actor> items = this.getChildren();
@@ -122,14 +158,24 @@ public class InventorySlot extends Stack {
 		return false;
 	}
 	
+	/**
+	 * Checks if the slot accepts the item use type
+	 * @param itemUseType - item use type of the item
+	 * @return if item accepts type
+	 */
 	public boolean doesAcceptItemUseType(int itemUseType) {
 		if (filterItemType == 0) {
 			return true;
 		} else {
+			//bitwise function to decide whether item use type + filter == item use type
 			return ((filterItemType & itemUseType) == itemUseType);
 		}
 	}
 	
+	/**
+	 * Gets the inventory item from the slot
+	 * @return inventory item
+	 */
 	public InventoryItem getTopInventoryItem() {
 		InventoryItem actor = null;
 		if (hasChildren()) {
@@ -141,6 +187,10 @@ public class InventorySlot extends Stack {
 		return actor;
 	}
 	
+	/**
+	 * Gets all the items in the slot
+	 * @return array of actors in slot
+	 */
 	public Array<Actor> getAllInventoryItems() {
 		Array<Actor> items = new Array<Actor>();
 		if (hasItem()) {

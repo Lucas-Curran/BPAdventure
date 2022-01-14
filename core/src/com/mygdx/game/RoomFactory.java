@@ -16,6 +16,9 @@ public class RoomFactory {
 	GameWorld world;
 	Texture texture;
 	
+	/**
+	 * Allows for algorithmically creating perfectly square or rectangular rooms using four box2d bodies
+	 */
 	public RoomFactory() {
 		world = new GameWorld();
 		bodyFactory = BodyFactory.getInstance(world.getInstance());

@@ -54,6 +54,12 @@ public class TextBox implements InputProcessor {
 	private boolean options;
 	private TextButton yesButton, noButton;
 	
+	/**
+	 * Writes and keeps track of NPC dialog 
+	 * @param font - font that is used for the textbox's text
+	 * @param stage - stage that textbox will be added to
+	 * @param color - color of the text
+	 */
 	public TextBox(BitmapFont font, Stage stage, Color color) {
 		this.stage = stage;
 		this.color = color;
@@ -62,10 +68,14 @@ public class TextBox implements InputProcessor {
 			table = new Table();
 			group = new Group();
 
+			// time per character is the time between each character, 
+			//numChars in the number of characters in the current string array index
+			//ctimePerCharacter is incremented by delta (1/60f), and then reset once it reaches the value of time per character
 			timePerCharacter = 0.045f;
 			numChars = 0;
 			ctimePerCharacter = 0f;
 
+			//offsets are constants that work to contain the text inside the textbox png
 			widthOffset = 60;
 			heightOffset = 15;
 
@@ -73,6 +83,8 @@ public class TextBox implements InputProcessor {
 			tex = new TextureRegion(textureAtlas.findRegion("textbox2"));
 			img = new Image(tex);
 
+			//buttons created, configured, and added to table
+			//they are only visible if the current npc has options available
 			yesButton = new TextButton("Yes", Utilities.buttonStyles("default-rect", "default-rect-down"));
 			noButton = new TextButton("No", Utilities.buttonStyles("default-rect", "default-rect-down"));
 
@@ -95,6 +107,7 @@ public class TextBox implements InputProcessor {
 			label.setAlignment(Align.topLeft);
 
 			batch = new SpriteBatch();
+			//animation that plays after textbox is done writing the current string index, uses utilities sprite sheet to frames animation method
 			anim = new Animation<TextureRegion>(.25f, Utilities.spriteSheetToFrames(textAni, 10, 1));
 
 			writing = false;
@@ -137,13 +150,22 @@ public class TextBox implements InputProcessor {
 		}
 	}
 	
+	/**
+	 * Renders the textbox every frame
+	 * @param delta - time between frames
+	 */
 	public void renderTextBox(float delta) {
+		//rendering is called in map, and is called every frame, however the textbox won't appear unless set to visible
 		if (isVisible()) {
+			//a new string is made every frame that is a substring of the original text (at a certain sequence) that is set during the set method
+			//as each frame happens, numChars goes up when ctimePerCharacter reaches timePerCharacter, and then the new substring is created
 			String stringText = originalText[textSequence].substring(0, numChars);
 			label.setColor(color);
 			label.setText(stringText);
 			
+			//if the length of the current text sequence equals the number of characters in the temporary string text, this if statement is true
 			if (originalText[textSequence].length() == numChars) {
+				//writing set to false and options are shown if available to the NPC
 				writing = false;
 				if (options) {
 					
@@ -161,6 +183,8 @@ public class TextBox implements InputProcessor {
 				}
 			}
 
+			//Given that the current length of the sequence is still greater than the number of characters currently
+			//time per character is incremented and number of characters goes up
 			if (originalText[textSequence].length() > numChars) {
 				writing = true;
 				ctimePerCharacter += delta;
@@ -173,6 +197,7 @@ public class TextBox implements InputProcessor {
 			stage.act(delta);
 			stage.draw();
 
+			//if finished writing and there are no options, the animation displaying text being done writing is drawn to the screen
 			if (!writing && !yesButton.isVisible() && !noButton.isVisible()) {
 				elapsedTime += Gdx.graphics.getDeltaTime();
 				batch.begin();
@@ -215,6 +240,11 @@ public class TextBox implements InputProcessor {
 		return table.isVisible();
 	}
 	
+	/**
+	 * Sets the text sequence of the textbox, resets last texts properties
+	 * @param text - string array that displays which text should be displayed in what order
+	 * @param hasOptions - boolean to check whether or not the text box will have a yes and no button
+	 */
 	public void setText(String[] text, boolean hasOptions) {
 		options = false;
 		yesButton.setVisible(false);
@@ -230,6 +260,12 @@ public class TextBox implements InputProcessor {
 		table.setVisible(true);
 	}
 	
+	/**
+	 * Sets the text of the option buttons
+	 * @param options - boolean for options true or false
+	 * @param confirmText - confirm button text
+	 * @param rejectText - reject button text
+	 */
 	public void setOptions(boolean options, String confirmText, String rejectText) {
 		this.options = options;
 		yesButton.setText(confirmText);
@@ -248,6 +284,10 @@ public class TextBox implements InputProcessor {
 		return textSequence;
 	}
 	
+	/**
+	 * Sets what the text string array should send to the textbox to write
+	 * @param textSequence - position where string array should write
+	 */
 	public void setTextSequence(int textSequence) {
 		numChars = 0;
 		this.textSequence = textSequence;
@@ -284,6 +324,7 @@ public class TextBox implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		//yes button clicked set textbox to invisible and open shop
 		if (yesButton.isPressed()) {
 			table.setVisible(false);
 			yesButton.setVisible(false);
@@ -291,8 +332,9 @@ public class TextBox implements InputProcessor {
 			Map.getInstance().getLevels().getOverworld().getShopWindow().setShopVisible(true);
 			Map.getInstance().getAudioManager().stopAll();
 			Map.getInstance().getAudioManager().playShop();
-			return true;
-		} else if (noButton.isPressed()) {
+			return true;			
+		} // no button clicked, set textbox to invisible 
+		else if (noButton.isPressed()) {
 			table.setVisible(false);
 			yesButton.setVisible(false);
 			noButton.setVisible(false);

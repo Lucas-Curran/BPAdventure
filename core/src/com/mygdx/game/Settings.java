@@ -44,8 +44,7 @@ public class Settings implements Screen {
 	int sliderValue; //replace with value from database later
 	
 	/**
-	 * Sets camera and game
-	 * @param game
+	 * Lays out settings screen
 	 */
 	public Settings() {
 		try {
@@ -65,10 +64,7 @@ public class Settings implements Screen {
 			}
 		}
 	}
-	
-	/**
-	 * Creates stage and actors
-	 */
+
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
@@ -130,10 +126,7 @@ public class Settings implements Screen {
 		}
 		
 	}
-	
-	/**
-	 * Runs stage and actors
-	 */
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);

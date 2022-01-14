@@ -79,10 +79,17 @@ public class PlayerHUD extends Window {
 		stage.dispose();		
 	}
 	
+	/**
+	 * Sets hud window to visible
+	 */
 	public void showHUD() {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Checks if the hud window is visible
+	 * @return booleon describing window visibility
+	 */
 	public boolean isShowing() {
 		return this.isVisible();
 	}
@@ -102,18 +109,34 @@ public class PlayerHUD extends Window {
 		}
 	}
 	
+	/**
+	 * Retrieves statusUI instance
+	 * @return statusUI
+	 */
 	public StatusUI getStatusUI() {
 		return statusUI;
 	}
 	
+	/**
+	 * Retrieves inventory instance
+	 * @return inventory
+	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
 	
+	/**
+	 * Retrieves playerHUD stage
+	 * @return stage
+	 */
 	public Stage getStage() {
 		return stage;
 	}
 	
+	/**
+	 * Retrieves playerHUD instance
+	 * @return playerHUD
+	 */
 	public PlayerHUD instance() {
 		return this;
 	}

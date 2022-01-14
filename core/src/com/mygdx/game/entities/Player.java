@@ -41,6 +41,12 @@ public class Player extends EntityHandler {
 	private int defense = 0;
 	private int damage = 1;
 	
+	/**
+	 * Creates the player
+	 * @param x - initial x position of player
+	 * @param y - initial y position of player
+	 * @return player entity
+	 */
 	public Entity createPlayer(float x, float y) {
 		
 		// Create the Entity and all the components that will go in the entity
@@ -81,33 +87,58 @@ public class Player extends EntityHandler {
 		return entity;		
 	}
 	
+	/**
+	 * Gets the current direction the player is facing
+	 * @return player direction
+	 */
 	public int getDirection() {
 		return entity.getComponent(PlayerComponent.class).direction;
 	}
 	
+	/**
+	 * Gets the x position of the player
+	 * @return x position
+	 */
 	public float getX() {
 		return entity.getComponent(B2dBodyComponent.class).body.getPosition().x;
 	}
-	
+		
+	/**
+	 * Gets the y position of the player
+	 * @return y position
+	 */
 	public float getY() {
 		return entity.getComponent(B2dBodyComponent.class).body.getPosition().y;
 	}
 	
+	/**
+	 * Gets player entity
+	 * @return player entity
+	 */
 	public Entity getEntity() {
 		return entity;
 	}
 	
+	/**
+	 * Sets the position of the player body
+	 * @param x - x position
+	 * @param y - y position
+	 */
 	public void setPosition(float x, float y) {
 		entity.getComponent(B2dBodyComponent.class).body.setTransform(new Vector2(x, y), 0);
 		entity.getComponent(B2dBodyComponent.class).body.setLinearVelocity(new Vector2(0, 0));
 		logger.info("Player position set to ("+x+","+y+").");
 	}
 	
+	/**
+	 * Sets the gravity scale of the player body
+	 * @param scale - gravity scale
+	 */
 	public void setGravityScale(float scale) {
         entity.getComponent(B2dBodyComponent.class).body.setGravityScale(scale);
     }
 	/**
-	 * teleports the player and begins the fading animation
+	 * Teleports the player and begins the fading animation
 	 * @param x - x coordinate of the teleport
 	 * @param y - y coordinate of the teleport
 	 * @param level - which level its going to
