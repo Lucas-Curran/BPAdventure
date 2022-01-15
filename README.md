@@ -6,7 +6,11 @@ for the BPA Software Engineering event (2021-2022)
 
 Compilation/Building directions:
 
-	On 
+	Specific IDE building instructions come from: https://libgdx.com/wiki/start/import-and-running
+	Clone BPAdventure from the Github repository page
+	Then import the files as a gradle project
+	Follow your specific IDE's building instructions from the libgdx wiki to set the desktop launcher as the main class
+	The project should be compiled and running!
 
 Features:
 
