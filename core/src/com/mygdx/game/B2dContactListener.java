@@ -505,7 +505,7 @@ public class B2dContactListener implements ContactListener {
 				if (fb.getBody().getUserData() instanceof Entity) {
 					Entity ent = (Entity) fb.getBody().getUserData();
 					if (ent.getComponent(TypeComponent.class).type == TypeComponent.ENEMY) {
-						ent.getComponent(EnemyComponent.class).health -= 1;
+						ent.getComponent(EnemyComponent.class).health -= Map.getInstance().getPlayerHUD().getInventory().getPlayerDamage();
 
 					}
 				}

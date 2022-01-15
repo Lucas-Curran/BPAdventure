@@ -536,7 +536,7 @@ public class Inventory extends Window {
 	  * @return total player damage
 	  */
 	 public int getPlayerDamage() {
-		 int damage = 0;
+		 int damage = 1;
 		 if (leftArmSlot.hasItem()) {
 			 damage += leftArmSlot.getTopInventoryItem().getDamage();
 		 }
