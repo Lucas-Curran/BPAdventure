@@ -423,10 +423,10 @@ public class SqliteManager {
 	 * @param currency - Amount of coins
 	 */
 	public void updateAll(int stage, int health, int currency) {
-		String sql = "UPDATE Progress SET"
+		String sql = "UPDATE Progress SET "
 				+ "Stage = " + stage + ","
 				+ "Health = " + health + ","
-				+ "Currency = " + currency
+				+ "Currency = " + currency + " "
 				+ "WHERE id = 1";
 		try {
 			//Connects to progress table
