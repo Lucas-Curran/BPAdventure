@@ -26,7 +26,7 @@ public class Settings implements Screen {
 	static Logger logger = LogManager.getLogger(Settings.class.getName());
 	
 	Texture settingsBackground;
-	TextButton creditsBtn, returnBtn;
+	TextButton creditsBtn, returnBtn, controlBtn;
 
 	static Slider volumeSlider;
 	Container<Slider> container;
@@ -70,6 +70,8 @@ public class Settings implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		
 		try {
+			
+			table.setFillParent(true);
 			//creates slider and container for the slider
 			volumeSlider = new Slider(0, 100, 1, false, Utilities.sliderStyles());
 			container = new Container<Slider>(volumeSlider);
@@ -88,16 +90,24 @@ public class Settings implements Screen {
 			//creates buttons
 			creditsBtn = new TextButton("Credits", Utilities.buttonStyles("default-rect", "default-rect-down"));
 			returnBtn = new TextButton("Return", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			controlBtn = new TextButton("Controls", Utilities.buttonStyles("default-rect", "default-rect-down"));
+			
 			creditsBtn.getLabel().setAlignment(Align.left);
 			creditsBtn.getLabelCell().padLeft(8);
 			creditsBtn.getLabel().setFontScale(2,2);
 			creditsBtn.setTransform(true);
 			creditsBtn.scaleBy(1);
+			
 			returnBtn.getLabel().setAlignment(Align.left);
 			returnBtn.getLabelCell().padLeft(8);
 			returnBtn.getLabel().setFontScale(2,2);
 			returnBtn.setTransform(true);
 			returnBtn.scaleBy(1);
+			
+			controlBtn.getLabel().setAlignment(Align.left);
+			controlBtn.getLabelCell().padLeft(8);
+			controlBtn.setTransform(true);
+			
 
 			//adds slider and buttons to table
 			table.left().bottom().pad(80);
@@ -106,10 +116,10 @@ public class Settings implements Screen {
 			table.add(container).colspan(2).left().padLeft(25);
 			table.row();
 			table.add(sliderLabel).colspan(2).center().padLeft(100);
+			table.add(controlBtn).width(70);
 			table.row().padTop(80);
 			table.add(returnBtn).width(110);
 			table.add(creditsBtn).padLeft(150).width(110);
-			table.setFillParent(true);
 
 			//		table.debug();
 			//adds table to stage
@@ -155,6 +165,13 @@ public class Settings implements Screen {
 			dispose();
 			logger.info("Return button pressed");
 			Screens.toMenu(Screens.getMenu());
+		}
+		
+		if (controlBtn.isPressed()) {
+			am.playButton();
+			dispose();
+			logger.info("Controls button pressed");
+			Screens.toControls(new ControlsMenu());
 		}
 		
 		// changes volume in database and updates volume of music

@@ -20,17 +20,23 @@ public class Overworld extends LevelFactory implements ApplicationListener {
 
 	@Override
 	public void create() {
-		super.createLevel(15, 9, 1, 100, 10, texture);
+		super.createLevel(15, 9, 1, 20, 10, texture);
 		inOverworld = true;
 
 
-//		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
-
-		db.createDoor(15, 1.5f, 0, 888, BodyFactory.ICE, "DoorToLevel37897", LevelDestination.LVL_10);
-
+		db.createDoor(15, 1.5f, -5, 95, BodyFactory.ICE, "DoorTo2", LevelDestination.LVL_2);
+		
 		NPC npc = new NPC();
 
 		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {"Would you like to take a look at my wares?"}, 13, 1, Utilities.rightTextures.findRegion("popsicle"), true));
+		Map.getInstance().getEntityHandler().getPooledEngine().addEntity(npc.spawnNPC(new String[] {
+				"The overworld is much more peaceful than the dwellings of that cave...", 
+				"They say you have to make it to the end without rest or death if you want to attain the final treasure.", 
+				"The shop keeper over there sells things to upgrade your gear and heal your health.", 
+				"I just figured out recently that you can scroll down to find more goods, I had no idea!",
+				"Consider stopping by once you have a little extra money.",
+				"Once you're ready, press R on the door to enter the cave. Good luck!"}, 17, 1, Utilities.soldierKnight, false));
+		
 		shopWindow = new ShopWindow(Map.getInstance().getEntityHandler().getNPC().getShopWares(), Map.getInstance().getPlayerHUD().getInventory().getItemsToSell(), Map.getInstance().getMoney());
 
 		isCreated = true;

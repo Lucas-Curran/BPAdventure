@@ -40,10 +40,11 @@ public class Utilities {
 	
 	public static TextureRegion tex = new TextureRegion(textureAtlas.findRegion("IceCharacter"));
 	
+	public static TextureAtlas foodAtlas = new TextureAtlas("foodAtlas.txt");	
 	public static TextureAtlas lvl89Atlas = new TextureAtlas("lvl8and9.txt");
 	public static TextureAtlas rightTextures = new TextureAtlas("moreExtraSprites.txt");
 	public static TextureAtlas levelSevenAtlas = new TextureAtlas("moreSprites.txt");
-	public static TextureAtlas levelTwoAtlas = new TextureAtlas("atlas_leveltwo.txt");
+	public static TextureAtlas levelTwoAtlas = new TextureAtlas("level2tex.txt");
 	public static TextureAtlas oneItemAtlas = new TextureAtlas("mostUselessAtlasOfAllTime.txt");
 	
 	public static TextureRegion rockMob = Utilities.levelTwoAtlas.findRegion("RockMobEnemy");

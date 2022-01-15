@@ -95,7 +95,7 @@ public class Credits implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		stage.getViewport().update(width, height);
 
 	}
 
@@ -122,7 +122,6 @@ public class Credits implements Screen {
 		am.stopAll();
 		stage.dispose();
 		cam.dispose();
-
 	}
 
 }

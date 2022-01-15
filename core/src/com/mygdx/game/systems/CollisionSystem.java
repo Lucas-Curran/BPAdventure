@@ -46,7 +46,7 @@ public class CollisionSystem  extends IteratingSystem {
 					case TypeComponent.ENEMY:
 						//do player hit enemy thing
 						
-						hb.setHP(hb.getHP() - (25 - Map.getInstance().getPlayerHUD().getInventory().getPlayerDefense()));
+						//hb.setHP(hb.getHP() - (25 - Map.getInstance().getPlayerHUD().getInventory().getPlayerDefense()));
 					
 						System.out.println("player hit enemy");
 						break;
@@ -62,7 +62,7 @@ public class CollisionSystem  extends IteratingSystem {
 						break;
 					case TypeComponent.BULLET:
 						//do player hit bullet thing
-						hb.setHP(hb.getHP() - (20 - Map.getInstance().getPlayerHUD().getInventory().getPlayerDefense()));
+						//hb.setHP(hb.getHP() - (20 - Map.getInstance().getPlayerHUD().getInventory().getPlayerDefense()));
 						System.out.println("player hit bullet");
 						break;
 					case TypeComponent.OTHER:

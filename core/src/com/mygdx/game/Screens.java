@@ -14,6 +14,7 @@ public class Screens {
 	private static Credits credits;
 	private static MainMenu mMenu;
 	private static Settings settings;
+	private static ControlsMenu controls;
 	
 	/**
 	 * Used for containing instances of screens, and allowing for switching between them statically
@@ -53,6 +54,12 @@ public class Screens {
 		game.setScreen(credits);
 	}
 	
+	public static void toControls(ControlsMenu controls) {
+		Screens.controls = controls;
+		logger.info("Screen set to controls.");
+		game.setScreen(controls);
+	}
+	
 	/**
 	 * Switches screen to map
 	 */
@@ -76,5 +83,9 @@ public class Screens {
 	
 	public static Credits getCredits() {
 		return credits;
+	}
+	
+	public static ControlsMenu getControlMenu() {
+		return controls;
 	}
 }

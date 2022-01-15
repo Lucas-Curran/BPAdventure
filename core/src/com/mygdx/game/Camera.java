@@ -52,6 +52,12 @@ public class Camera implements ApplicationListener {
 		}
 		if (Screens.getGame().getScreen() == Screens.getMenu()) {
 			Screens.getMenu().resize(width, height);
+		} else if (Screens.getGame().getScreen() == Screens.getSettings()) {
+			Screens.getSettings().resize(width, height);
+		} else if (Screens.getGame().getScreen() == Screens.getCredits()) {
+			Screens.getCredits().resize(width, height);
+		} else if (Screens.getGame().getScreen() == Screens.getControlMenu()) {
+			Screens.getControlMenu().resize(width, height);
 		}
 		
 		Map.getInstance().getPlayerHUD().resize(width, height);

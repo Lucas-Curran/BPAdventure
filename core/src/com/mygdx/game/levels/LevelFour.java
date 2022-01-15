@@ -79,7 +79,7 @@ public class LevelFour extends LevelFactory implements ApplicationListener {
 
 
 		//Creates NPC
-		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("BPA Characters/normalMan");
+		TextureRegion normalMan = Utilities.levelTwoAtlas.findRegion("normalMan");
 		TextureRegion tex = Utilities.tex;
 
 		NPC npc = new NPC();

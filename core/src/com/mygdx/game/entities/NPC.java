@@ -97,10 +97,10 @@ public class NPC extends EntityHandler {
 		ShopItem weapon01 =  new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("sword01"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON01), 3);
 		ShopItem weapon02 =  new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("sword02"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON02), 6);		
 		ShopItem weapon03 =  new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("sword03"), ItemAttribute.EQUIPPABLE.getValue(), ItemUseType.WEAPON_ONEHAND.getValue(), ItemTypeID.WEAPON03), 9);
-		ShopItem apple = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.APPLE), 1);
-		ShopItem donut = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.DONUT), 2);
-		ShopItem cake = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.CAKE), 3);
-		ShopItem burger = new ShopItem(new InventoryItem(Utilities.itemsAtlas.findRegion("helmet01"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.BURGER), 4);
+		ShopItem apple = new ShopItem(new InventoryItem(Utilities.foodAtlas.findRegion("apple"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.APPLE), 1);
+		ShopItem donut = new ShopItem(new InventoryItem(Utilities.foodAtlas.findRegion("donut"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.DONUT), 2);
+		ShopItem cake = new ShopItem(new InventoryItem(Utilities.foodAtlas.findRegion("cake"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.CAKE), 3);
+		ShopItem burger = new ShopItem(new InventoryItem(Utilities.foodAtlas.findRegion("burger"), ItemAttribute.CONSUMABLE.getValue(), ItemUseType.ITEM_RESTORE_HEALTH.getValue(), ItemTypeID.BURGER), 4);
 		
 		Label label1 = new Label("Beginner Helmet", Utilities.ACTUAL_UI_SKIN);
 		Label label2 = new Label("Helmet of the Forgotten Adventurer", Utilities.ACTUAL_UI_SKIN);

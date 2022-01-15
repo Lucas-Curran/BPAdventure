@@ -39,8 +39,6 @@ public class PlayerHUD extends Window {
 		super("HUD", new WindowStyle(new BitmapFont(), Color.RED, new Image(background).getDrawable()));
 
 		stage = new Stage();
-		stage.setDebugAll(true);
-		
 		
 		inventory = new Inventory();
 		inventory.setKeepWithinStage(false);

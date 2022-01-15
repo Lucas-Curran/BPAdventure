@@ -191,11 +191,12 @@ public class Enemy extends EntityHandler {
 	 * @return an ArrayList of all the level two enemies
 	 */
 	public void addLevelTwoEnemies() {
-		levelTwoEnemies.add(createEnemy(15, 92, EnemyState.STEERING, 8, 1.3f, rockMob, 1));
-		levelTwoEnemies.add(createEnemy(15, 92, EnemyState.PATROL, 1, 1f, rockMob, 1));
-		levelTwoEnemies.add(createEnemy(25, 93, EnemyState.PATROL, 1, 2f, spikyRockMob, 1));
-		levelTwoEnemies.add(createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f, rockMob, 1));
-		levelTwoEnemies.add(createEnemy(15, 92, EnemyState.PATROL, 1, 1f, rockMob, 3));
+		
+		levelTwoEnemies.add(createEnemy(15, 92, EnemyState.STEERING, 8, 1.3f, Utilities.levelTwoAtlas.findRegion("RockMobEnemy"), 1));
+		levelTwoEnemies.add(createEnemy(15, 92, EnemyState.PATROL, 1, 1f, Utilities.levelTwoAtlas.findRegion("RockMobEnemy"), 1));
+		levelTwoEnemies.add(createEnemy(25, 93, EnemyState.PATROL, 1, 2f, Utilities.levelTwoAtlas.findRegion("SpikyRockEnemy"), 1));
+		levelTwoEnemies.add(createEnemy(25, 95, EnemyState.BOUNCE, 1, 1f, Utilities.levelTwoAtlas.findRegion("RockMobEnemy"), 1));
+		levelTwoEnemies.add(createEnemy(15, 92, EnemyState.PATROL, 1, 1f, Utilities.levelTwoAtlas.findRegion("RockMobEnemy"), 3));
 		logger.info("Level two enemies added.");
 	}
 	
@@ -212,14 +213,14 @@ public class Enemy extends EntityHandler {
 	 * @return an ArrayList of all the level four enemies
 	 */
 	public void addLevelFourEnemies() {	
-		levelFourEnemies.add(createEnemy(12, 258, EnemyState.PATROL, 1, 1f, Utilities.iceMonster, 3));
-		levelFourEnemies.add(createEnemy(0, 266, EnemyState.PATROL, 1, 1.3f, Utilities.iceMonster, 3));
-		levelFourEnemies.add(createEnemy(2, 266, EnemyState.BOUNCE, 1, 1f, Utilities.iceBird, 3));
-		levelFourEnemies.add(createEnemy(19, 275, EnemyState.PATROL, 1, 1f, Utilities.iceMonster, 3));	
-		levelFourEnemies.add(createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, Utilities.iceMonster, 3));
-		levelFourEnemies.add(createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, Utilities.iceBird, 3));
+		levelFourEnemies.add(createEnemy(12, 258, EnemyState.PATROL, 1, 1f, Utilities.otherTexturesAtlas.findRegion("iceMonster"), 3));
+		levelFourEnemies.add(createEnemy(0, 266, EnemyState.PATROL, 1, 1.3f, Utilities.otherTexturesAtlas.findRegion("iceMonster"), 3));
+		levelFourEnemies.add(createEnemy(2, 266, EnemyState.BOUNCE, 1, 1f, Utilities.otherTexturesAtlas.findRegion("iceBird"), 3));
+		levelFourEnemies.add(createEnemy(19, 275, EnemyState.PATROL, 1, 1f, Utilities.otherTexturesAtlas.findRegion("iceMonster"), 3));	
+		levelFourEnemies.add(createEnemy(-14, 287, EnemyState.PATROL, 1, 1f, Utilities.otherTexturesAtlas.findRegion("iceMonster"), 3));
+		levelFourEnemies.add(createEnemy(-16, 288, EnemyState.BOUNCE, 1, 3f, Utilities.otherTexturesAtlas.findRegion("iceBird"), 3));
 		
-		levelFourEnemies.add(createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.iceMonster,false, 5));
+		levelFourEnemies.add(createEnemyShooter(-16f, 287f, 1, 1f, 2, 0, 7, 7, Utilities.otherTexturesAtlas.findRegion("iceMonster"), false, 5));
 		logger.info("Level four enemies added.");
 	}
 	
@@ -229,13 +230,13 @@ public class Enemy extends EntityHandler {
 	 */
 	public void addLevelFiveEnemies() {	
 		
-		levelFiveEnemies.add(createEnemy(-10, 383, EnemyState.BOUNCE, 1, 1.4f, Utilities.flyingEye, 3));
-		levelFiveEnemies.add(createEnemy(-9, 382, EnemyState.PATROL, 1, 1f, Utilities.mummyEnemy, 3)); 
+		levelFiveEnemies.add(createEnemy(-10, 383, EnemyState.BOUNCE, 1, 1.4f, Utilities.otherTexturesAtlas.findRegion("flyingEye"), 3));
+		levelFiveEnemies.add(createEnemy(-9, 382, EnemyState.PATROL, 1, 1f, Utilities.otherTexturesAtlas.findRegion("mummyEnemy"), 3)); 
 		
-		levelFiveEnemies.add(createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye, 1));
-		levelFiveEnemies.add(createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye, 1));
-		levelFiveEnemies.add(createEnemy(40, 382, EnemyState.STEERING, 8, 1.3f, Utilities.flyingEye, 1));
-		levelFiveEnemies.add(createEnemyShooter(42, 382, 1, 2f, -2, 0, 7, 7, Utilities.eyeBoss, false, 5));
+		levelFiveEnemies.add(createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.otherTexturesAtlas.findRegion("flyingEye"), 1));
+		levelFiveEnemies.add(createEnemy(41, 382, EnemyState.STEERING, 8, 1.3f, Utilities.otherTexturesAtlas.findRegion("flyingEye"), 1));
+		levelFiveEnemies.add(createEnemy(40, 382, EnemyState.STEERING, 8, 1.3f, Utilities.otherTexturesAtlas.findRegion("flyingEye"), 1));
+		levelFiveEnemies.add(createEnemyShooter(42, 382, 1, 2f, -2, 0, 7, 7, Utilities.otherTexturesAtlas.findRegion("eyeBoss"), false, 5));
 		logger.info("Level five enemies added.");
 	}
 	
