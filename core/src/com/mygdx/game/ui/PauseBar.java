@@ -1,6 +1,7 @@
 package com.mygdx.game.ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -79,7 +80,19 @@ public class PauseBar {
 			Group tempParent = saveButton.getParent();
 			saveButton.remove();
 			tempParent.addActor(saveButton);
-			//peter help
+			
+			ArrayList<Integer> items = Map.getInstance().getPlayerHUD().getInventory().getAllItemIDs();
+			items.addAll(Map.getInstance().getPlayerHUD().getInventory().getAllEquippedItemIDs());
+			Map.getInstance().getSqliteManager().clearInventory();
+			 Map.getInstance().getPlayerHUD().getInventory().removeAllItemsFromInventory();
+			 for (int item : items) {
+				 Map.getInstance().getPlayerHUD().getInventory().addItemFromDatabase(item);
+			 }
+			 
+			 Map.getInstance().getSqliteManager().updateAll(0, 
+					 Map.getInstance().getPlayerHUD().getStatusUI().getHealthBar().getHP(), 
+					 Map.getInstance().getPlayerHUD().getStatusUI().getMoney().getMoney());
+			
 		} //exit program when quit button is pressed
 		else if (quitButton.isPressed()) {
 			Gdx.app.exit();
