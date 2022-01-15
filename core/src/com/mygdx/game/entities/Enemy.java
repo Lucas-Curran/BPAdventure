@@ -335,6 +335,18 @@ public class Enemy extends EntityHandler {
 	 * @return an ArrayList of all the level ten enemies
 	 */
 	public void addLevelTenEnemies() {	
+		levelTenEnemies.add(createEnemy(7, 882, EnemyState.BOUNCE, 1, 1.4f, Utilities.flyingEye, 3));
+		levelTenEnemies.add(createEnemy(7, 882, EnemyState.PATROL, 1, 1f, Utilities.iceMonster, 3)); 
+		
+		levelTenEnemies.add(createEnemy(20, 883, EnemyState.STEERING, 1, 1.4f, Utilities.jungleDragon, 3));
+		levelTenEnemies.add(createEnemy(20, 882, EnemyState.PATROL, 1, 1f, Utilities.iceMonster, 3)); 
+		levelTenEnemies.add(createEnemy(21, 883, EnemyState.STEERING, 1, 1.4f, Utilities.iceBird, 3));
+
+		
+		levelTenEnemies.add(createEnemy(39, 883, EnemyState.BOUNCE, 8, 1.3f, Utilities.flyingEye, 1));
+		levelTenEnemies.add(createEnemy(41, 882, EnemyState.BOUNCE, 8, 1.3f, Utilities.flyingEye, 1));
+		levelTenEnemies.add(createEnemy(38, 883, EnemyState.STEERING, 8, 1.5f, Utilities.eyeBoss, 1));
+		levelTenEnemies.add(createEnemyShooter(42, 883, 1, 3f, -2, 0, 7, 7, Utilities.popsicle, false, 7));
 		logger.info("Level ten enemies added.");
 	}
 	

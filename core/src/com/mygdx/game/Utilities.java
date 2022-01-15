@@ -73,6 +73,8 @@ public class Utilities {
 	
 	public static TextureRegion keyCard = oneItemAtlas.findRegion("keyCard");
 	
+	public static TextureRegion popsicle = rightTextures.findRegion("popsicle");
+	
 	/**
 	 * Attributions:
 	 * Ice Bird by Bevouliin licensed CC-BY 4.0: https://opengameart.org/content/flappy-bird-sprite-icy-flying-character

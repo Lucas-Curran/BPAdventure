@@ -9,6 +9,11 @@ import com.mygdx.game.BodyFactory;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.levels.Levels.LevelDestination;
 
+/**
+ * Level Ten in the game and acts as the final boss fight
+ * Content includes enemies taken from all levels of the game and a Victory Room at the end
+ *
+ */
 public class LevelTen extends LevelFactory implements ApplicationListener {
 		boolean isCreated;
 
@@ -24,6 +29,10 @@ public class LevelTen extends LevelFactory implements ApplicationListener {
 			this.world = world;
 		}
 		
+		/**
+		 * Creates the level at (15, 900) and sets width and height of level
+		 * Creates door to Victory Level at end of level
+		 */
 		@Override
 		public void create() {
 			super.createLevel(15, 900, 1, 100, 20, texture);

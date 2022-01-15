@@ -93,6 +93,7 @@ public class B2dContactListener implements ContactListener {
 										switch (db.createdLevels.get(i)) {
 
 										case OVERWORLD:
+											parent.removeLevelTen();
 											parent.getLevels().getOverworld().create();
 											logger.info("Overworld created.");
 											break;
