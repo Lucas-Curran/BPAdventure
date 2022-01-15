@@ -4,6 +4,8 @@ BPAdventure is an RPG dungeon crawler involving ten levels in which the user mus
 This project was created with the collaboration of four Java programmers 
 for the BPA Software Engineering event (2021-2022)
 
+If you enjoy our work, consider checking out our prequel, BPArty. 
+
 Compilation/Building directions:
 
 	Specific IDE building instructions come from: https://libgdx.com/wiki/start/import-and-running
