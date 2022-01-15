@@ -5,22 +5,25 @@ This project was created with the collaboration of four Java programmers
 for the BPA Software Engineering event (2021-2022)
 
 Compilation/Building directions:
+
 	On 
 
 Features:
-	RPG Dungeon crawler
-	Enemy system that includes
+
+	 RPG Dungeon crawler
+	 Enemy system that includes
 		-Steering behaviors, pathfinding, and aggro range
 		-Jumpers
 		-Shooters
 		-Bosses
 		-Dashers
 		-Patrolers
-	NPC entities that have ability to talk and shop with
-	Ten levels with varied enemies, NPCs, obstacles, puzzles, and goals
-	Shop keeper sells tiers of gear for helmet, chest, legs, boots, shield, and weapon
-	Inventory with drag/drop capabilities, and equipment section
-	
+		
+	 NPC entities that have ability to talk and shop with
+	 Ten levels with varied enemies, NPCs, obstacles, puzzles, and goals
+	 Shop keeper sells tiers of gear for helmet, chest, legs, boots, shield, and weapon
+	 Inventory with drag/drop capabilities, and equipment section
+	 
          Java programming utilizing the LibGDX framework
          Collision and physics made using Box2D (wrapped by LibGDX)
          Entities managed with Ashley Entity Component System
