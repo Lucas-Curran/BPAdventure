@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -203,6 +204,16 @@ public class MainMenu implements Screen, InputProcessor {
 			 tempParent.addActor(continueButton); 
 			 am.playButton();
 			 am.stopAll();
+			 
+			 //Clears inventory and adds items back
+			 ArrayList<Integer> items = sm.getAllItems();
+			 sm.clearInventory();
+			 Map.getInstance().getPlayerHUD().getInventory().removeAllItemsFromInventory();
+			 for (int item : items) {
+				 Map.getInstance().getPlayerHUD().getInventory().addItemFromDatabase(item);
+			 }
+			 
+			 
 			 logger.info("Continue button on menu pressed");
 			 Screens.toMap();
 			 return true;

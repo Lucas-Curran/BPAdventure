@@ -11,7 +11,7 @@ public class SqliteManager {
 	
 	static Logger logger = LogManager.getLogger(SqliteManager.class.getName());
 	
-	private static final String URL = "jdbc:sqlite::resource:Progress.db";
+	private static final String URL = "jdbc:sqlite:Progress.db";
 	private static Connection conn = null;
 
 	
@@ -139,11 +139,11 @@ public class SqliteManager {
 	 * @param item - Integer value of item
 	 */
 	public void insertItem(int item) {
-		String sql = "INSERT INTO Inventory(Item) Values(?)";
+		String sql = "INSERT INTO Inventory(Item) Values(" + item + ")";
 		try {
 			PreparedStatement input = connect().prepareStatement(sql);
-			input.setInt(1, item);
 			input.executeUpdate();
+			System.out.println("gasdh");
 			logger.debug("Item inserted into SQL table.");
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -459,11 +459,11 @@ public class SqliteManager {
 	        	PreparedStatement pstmt = connect().prepareStatement(sql);
 	            PreparedStatement pstmt2 = connect().prepareStatement(sql2);
 	            PreparedStatement pstmt3 = connect().prepareStatement(sql3);
+	            defaultInfo();
 	            // execute the delete statement
 	            pstmt.executeUpdate();
 	            pstmt2.executeUpdate();
 	            pstmt3.executeUpdate();
-		        defaultInfo();
 	            conn.close();
 	            logger.debug("SQL tables cleared.");
 	            return true;
@@ -478,6 +478,32 @@ public class SqliteManager {
 	            System.out.println(e.getMessage());
 	            return false;
 	        }
+	}
+	
+	public boolean clearInventory() {
+		String sql = "DELETE FROM Inventory";
+		String sql2 = "DELETE FROM sqlite_sequence WHERE name = 'Inventory'";
+		try {
+        	//Creates sql statments to execute
+        	PreparedStatement pstmt = connect().prepareStatement(sql);
+            PreparedStatement pstmt2 = connect().prepareStatement(sql2);
+            // execute the delete statement
+            pstmt.executeUpdate();
+            pstmt2.executeUpdate();
+            conn.close();
+            logger.debug("SQL Inventory table cleared.");
+            return true;
+        } catch (SQLException e) {
+        	logger.error(e.getMessage());
+			try {
+				CrashWriter cw = new CrashWriter(e);
+				cw.writeCrash();
+			} catch (IOException e1) {
+				logger.error(e1.getMessage());
+			}
+            System.out.println(e.getMessage());
+            return false;
+        }
 	}
 	
 }
